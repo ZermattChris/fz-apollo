@@ -23,11 +23,11 @@
 
     <v-content>
       <v-row no-gutters>
-        <v-col cols="12" md="1" lg="2" style="background-color:yellow;"></v-col>
-        <v-col class="pa-md-6 pa-2" cols="12" md="10" lg="8" style="background-color:silver;">
+        <v-col cols="12" md="1" lg="2"></v-col>
+        <v-col class="pa-md-12 pa-6" cols="12" md="10" lg="8" style="border: 1px solid silver;">
           <router-view></router-view>
         </v-col>
-        <v-col cols="12" md="1" lg="2" style="background-color:yellow;"></v-col>
+        <v-col cols="12" md="1" lg="2"></v-col>
       </v-row>
     </v-content>
 
