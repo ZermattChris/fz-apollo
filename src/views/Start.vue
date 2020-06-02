@@ -10,7 +10,7 @@
 
     <v-divider></v-divider>
 
-    <h3>
+    <h3 >
       <v-icon :color="isValidNrPeople ? 'teal' : 'primary'">{{ isValidNrPeople ? stepIconCompleted : stepIcon }}</v-icon>
       Nr of People Flying
     </h3>
@@ -24,6 +24,7 @@
         hide-details
         thumb-label
         style="max-width:350px;"
+        v-on:change="onValueChanged"
       >
         <!-- Int Input: This needs to limit max number and give message when trying to exceed... -->
         <template v-slot:prepend>
@@ -44,7 +45,7 @@
 
 
     <h3>
-      <v-icon color="primary">{{ stepIcon }}</v-icon>
+      <v-icon :color="flightDate ? 'teal' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
       Flight Date
     </h3>
     <div class="controls">
@@ -54,6 +55,7 @@
         :return-value.sync="flightDate"
         persistent
         width="290px"
+        v-on:change="onValueChanged"
       >
         <template v-slot:activator="{ on }">
           <v-text-field
@@ -76,22 +78,28 @@
 
 
     <h3>
-      <v-icon color="primary">{{ stepIcon }}</v-icon>
+      <v-icon :color="flightChosen ? 'teal' : 'primary'">{{ flightList ? stepIconCompleted : stepIcon }}</v-icon>
       Which Flight?
     </h3>
     <div class="controls">
       <v-select
-        style="max-width:550px;"
+        style="max-width:300px;"
+        v-model="flightChosen"
         :items="flightList"
-        prepend-inner-icon="mdi-cloud-search-outline"
+        prepend-icon="mdi-cloud-question"
         solo
-      ></v-select>
+        :disabled="!isValidFlightDate"
+        :hint="isValidFlightDate ? '' : 'Disabled? Please choose a Flight Date first...'"
+        persistent-hint
+        v-on:change="onValueChanged"
+      >
+      </v-select>
     </div>
 
 
 
     <h3>
-      <v-icon color="primary">{{ stepIcon }}</v-icon>
+      <v-icon :color="switchPhotos ? 'teal' : 'primary'">{{ cameraIcon }}</v-icon>
       Photos + Videos (optional)
     </h3>
     <div class="controls">
@@ -104,27 +112,13 @@
     </div>
 
 
-    <div class="text-center mt-12 ml-n5 ml-sm-n8 ml-md-n10">
-      <!-- Continue Btn -->
-      <v-btn 
-        rounded 
-        color="primary" 
-        elevation="4"
-        disabled
-      >
-        Continue
-        <v-icon right>mdi-arrow-right-bold-circle</v-icon>
-      </v-btn>
-    </div>
-
-
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 
-import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline } from '@mdi/js'
+import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline } from '@mdi/js'
 
 export default {
   name: 'Start',
@@ -137,14 +131,18 @@ export default {
       sliderNrPeopleMax: 7, // This needs to come from an initial json API call at load.
       switchPhotos: false,
 
-      stepIcon: mdiArrowRightBoldCircleOutline,
-      stepIconCompleted: mdiCheckCircleOutline,
+      stepIcon:           mdiArrowRightBoldCircleOutline,
+      stepIconCompleted:  mdiCheckCircleOutline,
+      cameraIcon:         mdiCameraPlusOutline,
 
-      flightList: ['Classic High (220.- CHF)', 'Scenic (170.- CHF)', 'Elite (380.- CHF)'],
+      flightList: ['Classic High', 'Scenic', 'Elite'],
+      flightChosen: '',
 
-      flightDate: new Date().toISOString().substr(0, 7),
+      flightDate: '',
       flightMenu: false,
       flightModal: false,
+
+      isPageValid: this.areAllInputsValid
     }
   },
   computed: {
@@ -153,17 +151,42 @@ export default {
         return true
       }
       return false
+    },
+    isValidFlightDate: function () {
+      if (this.flightDate !== '' && this.flightDate !== null) {
+        return true
+      }
+      return false
+    },
+    isValidFlightChosen: function () {
+      if (this.flightDate !== '' && this.flightChosen !== null) {
+        return true
+      }
+      return false
+    },
+    areAllInputsValid: function () {
+      if (this.isValidNrPeople && this.isValidFlightDate && this.isValidFlightChosen) {
+        return true
+      }
+      return false
+    }
+  },
+  methods: {
+    onValueChanged: function () {
+      if (this.areAllInputsValid) {
+        // trigger an event that the Continue button can listen for.
+        //console.log('Would activate the Contine btn here...')
+        this.$emit('form-is-valid', true)
+        return true
+      }
+      this.$emit('form-is-valid', false)
+      return false
     }
   }
 }
 </script>
 
 <style scoped>
-
-/* .page {
-  padding-left: 50px;
-  padding-right: 20px;
-} */
 
 #flightDropMenu {
   max-width: 400px;

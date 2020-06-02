@@ -25,7 +25,26 @@
       <v-row no-gutters>
         <v-col cols="12" md="1" lg="2"></v-col>
         <v-col class="pa-md-12 pa-6" cols="12" md="10" lg="8" >
-          <router-view></router-view>
+
+          <!-- Router hooked up here -->
+          <router-view
+            v-on:form-is-valid="onEnableContinueBtn"
+          ></router-view>
+
+          <div class="text-center mt-12 ml-n5 ml-sm-n8 ml-md-n10">
+            <!-- Continue Btn -->
+            <v-btn 
+              rounded 
+              color="primary" 
+              elevation="4"
+              :disabled="!canContinue"
+            >
+              Continue
+              <v-icon right>mdi-arrow-right-bold-circle</v-icon>
+            </v-btn>
+          </div>
+
+
         </v-col>
         <v-col cols="12" md="1" lg="2"></v-col>
       </v-row>
@@ -51,8 +70,14 @@ export default {
   },
 
   data: () => ({
-    //
+    canContinue: false
   }),
+  methods: {
+    onEnableContinueBtn: function (valid) {
+      //console.log('Enable Btn: ' + valid)
+      this.canContinue = valid
+    }
+  }
 };
 </script>
 
@@ -72,7 +97,8 @@ export default {
 }
 h3 > .v-icon {
   position: relative;
-  margin-top: -5px;
+  margin-top: -7px;
+  margin-right: 3px;
 }
 
 </style>
