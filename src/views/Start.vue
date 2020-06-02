@@ -11,7 +11,7 @@
     <v-divider></v-divider>
 
     <h3>
-      <v-icon color="primary">{{ arrowRight }}</v-icon>
+      <v-icon :color="isValidNrPeople ? 'teal' : 'primary'">{{ isValidNrPeople ? stepIconCompleted : stepIcon }}</v-icon>
       Nr of People Flying
     </h3>
     <div class="controls">
@@ -22,6 +22,7 @@
         :max="sliderNrPeopleMax"
         min="0"
         hide-details
+        thumb-label
         style="max-width:350px;"
       >
         <!-- Int Input: This needs to limit max number and give message when trying to exceed... -->
@@ -43,7 +44,7 @@
 
 
     <h3>
-      <v-icon color="primary">{{ arrowRight }}</v-icon>
+      <v-icon color="primary">{{ stepIcon }}</v-icon>
       Flight Date
     </h3>
     <div class="controls">
@@ -57,9 +58,9 @@
         <template v-slot:activator="{ on }">
           <v-text-field
             v-model="flightDate"
-            label="Picker in dialog"
-            prepend-icon="event"
+            prepend-inner-icon="event"
             readonly
+            outlined
             v-on="on"
             style="width:250px;"
           ></v-text-field>
@@ -75,21 +76,22 @@
 
 
     <h3>
-      <v-icon color="primary">{{ arrowRight }}</v-icon>
+      <v-icon color="primary">{{ stepIcon }}</v-icon>
       Which Flight?
     </h3>
     <div class="controls">
       <v-select
-          :items="flightList"
-          label="Solo field"
-          solo
-        ></v-select>
+        style="max-width:550px;"
+        :items="flightList"
+        prepend-inner-icon="mdi-cloud-search-outline"
+        solo
+      ></v-select>
     </div>
 
 
 
     <h3>
-      <v-icon color="primary">{{ arrowRight }}</v-icon>
+      <v-icon color="primary">{{ stepIcon }}</v-icon>
       Photos + Videos (optional)
     </h3>
     <div class="controls">
@@ -104,7 +106,15 @@
 
     <div class="text-center mt-12 ml-n5 ml-sm-n8 ml-md-n10">
       <!-- Continue Btn -->
-      <v-btn rounded color="primary" dark>Continue</v-btn>
+      <v-btn 
+        rounded 
+        color="primary" 
+        elevation="4"
+        disabled
+      >
+        Continue
+        <v-icon right>mdi-arrow-right-bold-circle</v-icon>
+      </v-btn>
     </div>
 
 
@@ -114,7 +124,7 @@
 <script>
 // @ is an alias to /src
 
-import { mdiArrowRightBoldCircleOutline } from '@mdi/js'
+import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline } from '@mdi/js'
 
 export default {
   name: 'Start',
@@ -127,13 +137,22 @@ export default {
       sliderNrPeopleMax: 7, // This needs to come from an initial json API call at load.
       switchPhotos: false,
 
-      arrowRight: mdiArrowRightBoldCircleOutline,
+      stepIcon: mdiArrowRightBoldCircleOutline,
+      stepIconCompleted: mdiCheckCircleOutline,
 
-      flightList: ['Apollo', 'Rockets', 'Propeller', 'Buzz'],
+      flightList: ['Classic High (220.- CHF)', 'Scenic (170.- CHF)', 'Elite (380.- CHF)'],
 
       flightDate: new Date().toISOString().substr(0, 7),
       flightMenu: false,
       flightModal: false,
+    }
+  },
+  computed: {
+    isValidNrPeople: function () {
+      if (this.sliderNrPeople > 0 && this.sliderNrPeople <= this.sliderNrPeopleMax) {
+        return true
+      }
+      return false
     }
   }
 }
@@ -145,5 +164,9 @@ export default {
   padding-left: 50px;
   padding-right: 20px;
 } */
+
+#flightDropMenu {
+  max-width: 400px;
+}
 
 </style>
