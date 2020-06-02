@@ -52,12 +52,13 @@
     </v-content>
 
     <v-footer
+      class="justify-end pr-2"
       color="primary"
       dark
       app
       padless
     >
-      <span class="white--text">Not sure what to put here, but like the fixed footer</span>
+      <div class="white--text overline">© 2020 by FlyZermatt</div>
     </v-footer>
   </v-app>
 </template>
@@ -101,6 +102,9 @@ h3 > .v-icon {
   position: relative;
   margin-top: -7px;
   margin-right: 3px;
+}
+.v-input__icon {
+  margin-right: 5px !important;
 }
 
 </style>

@@ -59,12 +59,14 @@
       >
         <template v-slot:activator="{ on }">
           <v-text-field
-            v-model="flightDate"
+            v-model="formatISODate"
             prepend-inner-icon="event"
             readonly
             outlined
             v-on="on"
-            style="width:250px;"
+            style="width:300px;"
+            :hint="isValidFlightDate ? '' : 'Click to choose your Flight Date'"
+            persistent-hint
           ></v-text-field>
         </template>
         <v-date-picker 
@@ -92,8 +94,9 @@
         style="max-width:300px;"
         v-model="flightChosen"
         :items="flightList"
-        prepend-icon="mdi-cloud-question"
+        prepend-inner-icon="mdi-cloud-question"
         solo
+        outlined
         :disabled="!isValidFlightDate"
         :hint="isValidFlightDate ? '' : 'Disabled? Please choose a Flight Date first...'"
         persistent-hint
@@ -123,7 +126,7 @@
 
 <script>
 // @ is an alias to /src
-import { format, add } from 'date-fns'
+import { format, add, parseISO } from 'date-fns'
 import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline } from '@mdi/js'
 
 export default {
@@ -153,9 +156,6 @@ export default {
       isPageValid: this.areAllInputsValid
     }
   },
-  mounted: function () {
-    console.log(this.minDate)
-  },
   computed: {
     isValidNrPeople: function () {
       if (this.sliderNrPeople > 0 && this.sliderNrPeople <= this.sliderNrPeopleMax) {
@@ -180,6 +180,12 @@ export default {
         return true
       }
       return false
+    },
+    formatISODate: function () {
+      if (this.flightDate === '') return '' // Guard against trying to parse an empty string as a Date.
+      const myDate = parseISO(this.flightDate)
+      //console.log(myDate)
+      return format(myDate, 'EEEE, MMM Io - yyyy')
     }
   },
   methods: {
@@ -202,5 +208,6 @@ export default {
 #flightDropMenu {
   max-width: 400px;
 }
+
 
 </style>
