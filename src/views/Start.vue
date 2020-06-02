@@ -67,7 +67,13 @@
             style="width:250px;"
           ></v-text-field>
         </template>
-        <v-date-picker v-model="flightDate" scrollable>
+        <v-date-picker 
+          v-model="flightDate" 
+          scrollable
+          show-current
+          :min="flightMinDate"
+          :max="flightMaxDate"
+        >
           <v-spacer></v-spacer>
           <v-btn text color="primary" @click="flightModal = false">Cancel</v-btn>
           <v-btn text color="primary" @click="$refs.dialog.save(flightDate)">OK</v-btn>
@@ -117,7 +123,7 @@
 
 <script>
 // @ is an alias to /src
-
+import { format, add } from 'date-fns'
 import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline } from '@mdi/js'
 
 export default {
@@ -139,11 +145,16 @@ export default {
       flightChosen: '',
 
       flightDate: '',
+      flightMinDate: format( add(Date.now(), {days:2}), 'yyyy-MM-dd'),    // "2021-03-20"    
+      flightMaxDate: format( add(Date.now(), {years:1}), 'yyyy-MM-dd'),
       flightMenu: false,
       flightModal: false,
 
       isPageValid: this.areAllInputsValid
     }
+  },
+  mounted: function () {
+    console.log(this.minDate)
   },
   computed: {
     isValidNrPeople: function () {

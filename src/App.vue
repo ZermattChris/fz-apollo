@@ -4,6 +4,7 @@
       app
       color="primary"
       dark
+      hide-on-scroll
     >
       <div 
         id="logo"
@@ -54,6 +55,7 @@
       color="primary"
       dark
       app
+      padless
     >
       <span class="white--text">Not sure what to put here, but like the fixed footer</span>
     </v-footer>
