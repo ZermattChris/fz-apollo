@@ -28,9 +28,14 @@
         <v-col class="pa-md-12 pa-6" cols="12" md="10" lg="8" >
 
           <!-- Router hooked up here -->
-          <router-view
-            v-on:form-is-valid="onEnableContinueBtn"
-          ></router-view>
+          <transition
+            name="fade"
+            mode="out-in"
+          >
+            <router-view
+              v-on:form-is-valid="onEnableContinueBtn"
+            ></router-view>
+          </transition>
 
           <div class="text-center mt-12 ml-n5 ml-sm-n8 ml-md-n10">
             <!-- Continue Btn -->

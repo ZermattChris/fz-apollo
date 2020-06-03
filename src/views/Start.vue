@@ -17,7 +17,7 @@
     <div class="controls">
       <!-- Nr People Slider - linked via data to the below Int Input -->
       <v-slider
-        v-model="sliderNrPeople"
+        v-model="nrPeople"
         class="align-center"
         :max="sliderNrPeopleMax"
         min="0"
@@ -30,7 +30,7 @@
         <template v-slot:prepend>
           <span class="mr-4" style="padding:0 5px; background-color:rgb(240,240,240); border-bottom:1px gray solid">
             <v-text-field
-              v-model="sliderNrPeople"
+              v-model="nrPeople"
               class="mt-0 pt-0"
               hide-details
               single-line
@@ -127,6 +127,7 @@
 
 <script>
 // @ is an alias to /src
+import { store, mutations } from "@/store/store.js";
 import { format, add, parseISO } from 'date-fns'
 import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud } from '@mdi/js'
 
@@ -137,7 +138,7 @@ export default {
   },
   data () {
     return {
-      sliderNrPeople: 0,
+      //sliderNrPeople: 0,
       sliderNrPeopleMax: 7, // This needs to come from an initial json API call at load.
       switchPhotos: false,
 
@@ -148,9 +149,9 @@ export default {
       cloudIcon:          mdiCloud,
 
       flightList: ['Classic High', 'Scenic', 'Elite'],
-      flightChosen: '',
+      //flightChosen: '',
 
-      flightDate: '',
+      //flightDate: '',
       flightMinDate: format( add(Date.now(), {days:2}), 'yyyy-MM-dd'),    // "2021-03-20"    
       flightMaxDate: format( add(Date.now(), {years:1}), 'yyyy-MM-dd'),
       flightMenu: false,
@@ -160,8 +161,35 @@ export default {
     }
   },
   computed: {
+    // Store Data
+    nrPeople: {
+      get() {
+        return store.nrPeople
+      },
+      set(nr) {
+        return mutations.setNrPeople(nr)
+      }
+    },
+    flightDate: {
+      get() {
+        return store.flightDate
+      },
+      set(dateStr) {
+        return mutations.setFlightDate(dateStr)
+      }
+    },
+    flightChosen: {
+      get() {
+        return store.selectedFlight
+      },
+      set(flightStr) {
+        return mutations.setFlight(flightStr)
+      }
+    },
+
+    // Normal computed values
     isValidNrPeople: function () {
-      if (this.sliderNrPeople > 0 && this.sliderNrPeople <= this.sliderNrPeopleMax) {
+      if (this.nrPeople > 0 && this.nrPeople <= this.sliderNrPeopleMax) {
         return true
       }
       return false
