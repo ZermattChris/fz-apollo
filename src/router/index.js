@@ -15,15 +15,12 @@ Vue.use(VueRouter)
     // }
   },
   {
-    path: '/TimeSlot',
+    path: '/time',
     name: 'TimeSlot',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "TimeSlot" */ '@/views/TimeSlot.vue'),
-    // beforeRouteLeave: (to, from, next) => {
-    //   console.log(this, to, from, next)
-    // }
   }
 ]
 
