@@ -45,7 +45,8 @@
             mode="out-in"
           >
             <router-view
-              v-on:form-is-valid="onEnableContinueBtn"
+              @form-is-valid="onEnableContinueBtn"
+              @data-changed="saveLocalStorageValues"
             ></router-view>
           </transition>
 
@@ -76,12 +77,14 @@
       app
       padless
     >
-      <div class="white--text overline">© 2020 - FlyZermatt</div>
+      <div class="white--text overline">© {{getCurrentYear}} - FlyZermatt</div>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+import { store, mutations } from "@/store/store.js";
+import { format } from 'date-fns'
 import { mdiArrowRightCircle, mdiChevronLeft } from '@mdi/js'
 
 export default {
@@ -90,6 +93,8 @@ export default {
   components: {
     
   },
+
+  // Lifecycle Hooks
   beforeUpdate() {
     // Show/hide the Back Btn.
     if (this.$route.name === 'Start') {
@@ -99,9 +104,13 @@ export default {
       this.onEnableBackBtn(true)
     }
   },
+  mounted() {
+    // Load LocalStorage if available.
+    this.loadLocalStorageValues()
+  },
 
+  // Reactive data
   data: () => ({
-
     iconNextArrow:   mdiArrowRightCircle,
     iconPrevChevron: mdiChevronLeft,
     
@@ -109,6 +118,7 @@ export default {
     canContinue: false
   }),
 
+  // Methods
   methods: {
     onEnableContinueBtn: function (valid) {
       //console.log('Enable Btn: ' + valid)
@@ -116,7 +126,10 @@ export default {
     },
     onContinueBtnClick: function () {
       //console.log('Clicked Enable Btn:')
-      this.$router.push('TimeSlot')
+      this.$router.push({
+        name: 'Time',
+        path: 'time'
+      })
       // disable Continue btn
       this.onEnableContinueBtn(false)
       this.onEnableBackBtn(true)
@@ -130,12 +143,41 @@ export default {
       //console.log('Clicked Back Btn:')
       this.$router.go(-1)
     },
-    // onIsHome: function () {
-    //   //console.log('ON HOME PAGE')
-    //   this.onEnableBackBtn(false)
-    // }
-  }
+    loadLocalStorageValues: function () {
+      //console.log('Read local storage')
+      if (localStorage.nrPeople) {
+        mutations.setNrPeople(localStorage.nrPeople)
+      }
+      if (localStorage.flightDate) {
+        mutations.setFlightDate(localStorage.flightDate)
+      }
+      if (localStorage.selectedFlight) {
+        mutations.setFlight(localStorage.selectedFlight)
+      }
+      if (localStorage.wantsPhotos) {
+        let convertStrToBool = localStorage.wantsPhotos
+        if (convertStrToBool === 'true') {
+           convertStrToBool = true
+        } else {
+          convertStrToBool = false
+        }
+        mutations.setWantsPhotos(convertStrToBool)
+      }
+    },
+    saveLocalStorageValues: function () {
+      //console.log('Wrote to local storage')
+      localStorage.nrPeople = store.nrPeople
+      localStorage.flightDate = store.flightDate
+      localStorage.selectedFlight = store.selectedFlight
+      localStorage.wantsPhotos = store.wantsPhotos
+    }
+  },
 
+  computed: {
+    getCurrentYear: function () {
+      return format(Date.now(), 'yyyy')
+    }
+  }
 };
 
 

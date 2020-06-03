@@ -11,7 +11,7 @@
     <v-divider></v-divider>
 
     <h3 >
-      <v-icon :color="isValidNrPeople ? 'teal' : 'primary'">{{ isValidNrPeople ? stepIconCompleted : stepIcon }}</v-icon>
+      <v-icon :color="isValidNrPeople ? 'success' : 'primary'">{{ isValidNrPeople ? stepIconCompleted : stepIcon }}</v-icon>
       Nr of People Flying
     </h3>
     <div class="controls">
@@ -24,7 +24,7 @@
         hide-details
         thumb-label
         style="max-width:350px;"
-        v-on:change="onValueChanged"
+        @change="onValueChanged"
       >
         <!-- Int Input: This needs to limit max number and give message when trying to exceed... -->
         <template v-slot:prepend>
@@ -45,7 +45,7 @@
 
 
     <h3>
-      <v-icon :color="flightDate ? 'teal' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
+      <v-icon :color="flightDate ? 'success' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
       Flight Date
     </h3>
     <div class="controls">
@@ -55,7 +55,7 @@
         :return-value.sync="flightDate"
         persistent
         width="290px"
-        v-on:change="onValueChanged"
+        @change="onValueChanged"
       >
         <template v-slot:activator="{ on }">
           <v-text-field
@@ -67,6 +67,7 @@
             style="width:300px;"
             :hint="isValidFlightDate ? '' : 'Click to choose your Flight Date'"
             persistent-hint
+            @keydown.enter="flightModal=true"
           ></v-text-field>
         </template>
         <v-date-picker 
@@ -75,7 +76,6 @@
           show-current
           :min="flightMinDate"
           :max="flightMaxDate"
-          @doubleclick="$refs.dialog.save(flightDate)"
         >
           <v-spacer></v-spacer>
           <v-btn text color="primary" @click="flightModal = false">Cancel</v-btn>
@@ -87,7 +87,7 @@
 
 
     <h3>
-      <v-icon :color="flightChosen ? 'teal' : 'primary'">{{ flightList ? stepIconCompleted : stepIcon }}</v-icon>
+      <v-icon :color="flightChosen ? 'success' : 'primary'">{{ flightList ? stepIconCompleted : stepIcon }}</v-icon>
       Which Flight?
     </h3>
     <div class="controls">
@@ -101,7 +101,7 @@
         :disabled="!isValidFlightDate"
         :hint="isValidFlightDate ? '' : 'Please choose a Flight Date first...'"
         persistent-hint
-        v-on:change="onValueChanged"
+        @change="onValueChanged"
       >
       </v-select>
     </div>
@@ -109,7 +109,7 @@
 
 
     <h3>
-      <v-icon :color="switchPhotos ? 'teal' : 'primary'">{{ cameraIcon }}</v-icon>
+      <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
       Photos + Videos (optional)
     </h3>
     <div class="controls">
@@ -119,7 +119,7 @@
         color="success"
         inset 
         :label="`Filmed with GoPros on specially built sticks for some great memories!`"
-        v-on:change="onValueChanged"
+        @change="onValueChanged"
       ></v-switch>
     </div>
 
@@ -162,13 +162,19 @@ export default {
       isPageValid: this.areAllInputsValid
     }
   },
+
+  // Lifecycle Hooks
   created() {
+  },
+  updated() {
     // update the Continue btn if page is valid
     this.onValueChanged()
-    // maybe trigger a custom event to let the Back Btn know
-    // its on the first page of our Booking form flow?
-    //this.$emit('on-home', true)
   },
+  beforeUpdate() {
+    this.$emit('data-changed')  // use this to save changed data to localStorage in App
+  },
+
+
   computed: {
     // Store Data
     nrPeople: {
@@ -233,7 +239,9 @@ export default {
       if (this.flightDate === '') return '' // Guard against trying to parse an empty string as a Date.
       const myDate = parseISO(this.flightDate)
       //console.log(myDate)
-      return format(myDate, 'EEEE, MMM Io - yyyy')
+      const myFormat = format(myDate, 'PPPP') // had some weird format issues here, this works.
+      //console.log(myFormat)
+      return myFormat
     }
   },
   methods: {
