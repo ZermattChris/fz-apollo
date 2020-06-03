@@ -116,6 +116,7 @@
       <!-- Photos and Videos included? -->
       <v-switch 
         v-model="switchPhotos" 
+        color="success"
         inset 
         :label="`Filmed with GoPros on specially built sticks for some great memories!`"
         v-on:change="onValueChanged"
