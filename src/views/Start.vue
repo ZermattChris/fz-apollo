@@ -118,6 +118,7 @@
         v-model="switchPhotos" 
         inset 
         :label="`Filmed with GoPros on specially built sticks for some great memories!`"
+        v-on:change="onValueChanged"
       ></v-switch>
     </div>
 
@@ -159,6 +160,13 @@ export default {
 
       isPageValid: this.areAllInputsValid
     }
+  },
+  created() {
+    // update the Continue btn if page is valid
+    this.onValueChanged()
+    // maybe trigger a custom event to let the Back Btn know
+    // its on the first page of our Booking form flow?
+    //this.$emit('on-home', true)
   },
   computed: {
     // Store Data
