@@ -39,6 +39,7 @@
               color="primary" 
               elevation="4"
               :disabled="!canContinue"
+              @click="onContinueBtnClick"
             >
               Continue
               <v-icon right>mdi-arrow-right-bold-circle</v-icon>
@@ -58,7 +59,7 @@
       app
       padless
     >
-      <div class="white--text overline">© 2020 by FlyZermatt</div>
+      <div class="white--text overline">© 2020 - FlyZermatt</div>
     </v-footer>
   </v-app>
 </template>
@@ -79,6 +80,12 @@ export default {
     onEnableContinueBtn: function (valid) {
       //console.log('Enable Btn: ' + valid)
       this.canContinue = valid
+    },
+    onContinueBtnClick: function () {
+      //console.log('Clicked Enable Btn:')
+      this.$router.push('TimeSlot')
+      // disable Continue btn
+      this.onEnableContinueBtn(false)
     }
   }
 };

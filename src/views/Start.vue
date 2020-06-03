@@ -75,6 +75,7 @@
           show-current
           :min="flightMinDate"
           :max="flightMaxDate"
+          @doubleclick="$refs.dialog.save(flightDate)"
         >
           <v-spacer></v-spacer>
           <v-btn text color="primary" @click="flightModal = false">Cancel</v-btn>
@@ -94,11 +95,11 @@
         style="max-width:300px;"
         v-model="flightChosen"
         :items="flightList"
-        prepend-inner-icon="mdi-cloud-question"
+        :prepend-inner-icon="flightChosen ? cloudIcon : cloudQuestionIcon"
         solo
         outlined
         :disabled="!isValidFlightDate"
-        :hint="isValidFlightDate ? '' : 'Disabled? Please choose a Flight Date first...'"
+        :hint="isValidFlightDate ? '' : 'Please choose a Flight Date first...'"
         persistent-hint
         v-on:change="onValueChanged"
       >
@@ -127,7 +128,7 @@
 <script>
 // @ is an alias to /src
 import { format, add, parseISO } from 'date-fns'
-import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline } from '@mdi/js'
+import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud } from '@mdi/js'
 
 export default {
   name: 'Start',
@@ -143,6 +144,8 @@ export default {
       stepIcon:           mdiArrowRightBoldCircleOutline,
       stepIconCompleted:  mdiCheckCircleOutline,
       cameraIcon:         mdiCameraPlusOutline,
+      cloudQuestionIcon:  mdiCloudQuestion,
+      cloudIcon:          mdiCloud,
 
       flightList: ['Classic High', 'Scenic', 'Elite'],
       flightChosen: '',
