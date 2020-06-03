@@ -140,7 +140,7 @@ export default {
     return {
       //sliderNrPeople: 0,
       sliderNrPeopleMax: 7, // This needs to come from an initial json API call at load.
-      switchPhotos: false,
+      //switchPhotos: false,
 
       stepIcon:           mdiArrowRightBoldCircleOutline,
       stepIconCompleted:  mdiCheckCircleOutline,
@@ -184,6 +184,14 @@ export default {
       },
       set(flightStr) {
         return mutations.setFlight(flightStr)
+      }
+    },
+    switchPhotos: {
+      get() {
+        return store.wantsPhotos
+      },
+      set(photosBool) {
+        return mutations.setWantsPhotos(photosBool)
       }
     },
 
