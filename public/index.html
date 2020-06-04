@@ -8,12 +8,38 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+    <style>
+      .loadingXXX {
+        background-color: rgb(219, 219, 219);
+        display:block;
+        position:absolute;
+        height: 100%;
+        width: 100%;
+        text-align:center;
+      }
+      .loadingXXX>div {
+        width: 100%;
+        height: 100px;
+        margin: 10px;
+        position: relative;
+        top:30%;
+        clear: both;
+        color: rgb(61, 1, 117);
+      }
+    </style>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <div id="app" class="loadingXXX">
+        <div><h3>Loading...</h3></div> 
+        <div>
+          (if this loading screen gets stuck, <br>
+          best to just give us a ring on: <br>
+          <strong>+41 79 643-6808</strong>)
+        </div> 
+    </div>
     <!-- built files will be auto injected -->
   </body>
 </html>
