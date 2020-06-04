@@ -1,25 +1,34 @@
 <template>
-  <v-card class="grey lighten-5" style="max-width:300px;">
+  <v-card 
+    class="scrollerContainer"
+    :class="{ 'focused': focused }"
+    flat
+    outlined
+    :ripple="false"
+  >
     <v-icon
-        large
-        @click="onDown"
-    >
-        {{iconMinus}}
-    </v-icon>
+      size="100%"
+      @click="onDown"
+      @focus="focused = true"
+      @blur="focused = false"
+    >{{iconMinus}}</v-icon>
 
-    <v-input>
-        <v-text-field 
-            v-model="value"
-            style="max-width:50px;"
-        />
-    </v-input>
+    <input 
+      ref="numberInput"
+      class="numberInput"
+      :value="myVal" 
+      @input="onInput($event.target.value)"
+      @focus="focused = true"
+      @blur="focused = false"
+    >
 
     <v-icon
-        large
-        @click="onUp"
-    >
-        {{iconPlus}}
-    </v-icon>
+      size="100%"
+      @click="onUp"
+      @focus="focused = true"
+      @blur="focused = false"
+    >{{iconPlus}}</v-icon>
+
   </v-card>
 </template>
 
@@ -31,28 +40,36 @@ import { mdiPlusCircleOutline, mdiMinusCircleOutline } from '@mdi/js';
 
 export default {
   name: "NumberScroller",
-  components: {
-      
-  },
+
+  props: ['value'], 
+
   data () {
     return {
-      value: 0,
+      myVal: this.value,
+      focused: false,
 
       iconPlus:  mdiPlusCircleOutline,
       iconMinus: mdiMinusCircleOutline,
-
     }
   },
 
-
   methods: {
+    onInput: function (val) {
+      this.myVal = val
+      this.$emit('input', this.myVal)
+      //console.log('Emit Event: ' + this.myVal)
+    },
     onDown: function () {
-      console.log('decrement')
-      this.value--
+      //console.log('decrement ' + inputsVal)
+      this.myVal--
+      this.onInput(this.myVal)
     },
     onUp: function () {
-      console.log('increment')
-      this.value++
+      // console.log('increment')
+      // console.log('Before: ' + this.myVal)
+      this.myVal++
+      this.onInput(this.myVal)
+      // console.log('After: ' + this.myVal)
     }
   }
 }
@@ -60,10 +77,39 @@ export default {
 </script>
 
 <style scoped>
-v-text-field {
-    width:100px;
+
+.scrollerContainer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: stretch;
+  box-sizing: border-box !important;
+  padding: 7px !important;
+  height: 56px;
+  max-width: 200px;
+  border-color: rgba(0, 0, 0, 0.4) !important;
+  background-color: rgb(255, 255, 255) !important;
 }
-v-card {
-    width: 300px !important;
-}
+  .scrollerContainer.focused {
+    border: 2px #6a1b9a solid !important;
+    padding: 6px !important;
+  }
+  .scrollerContainer button {
+    height: 100%;
+  }
+
+  input.numberInput {
+    margin: 0;
+    padding: 0 !important;
+    text-align: center;
+    width: 3em;
+    font-size: 1.5em;
+    font-weight: 600;
+  }
+    input:focus {
+      /* remove the pesky box outline when selected */
+      outline: white auto 0px !important;
+    }
+
+
 </style>

@@ -104,7 +104,7 @@ export default {
       this.onEnableBackBtn(true)
     }
   },
-  mounted() {
+  created() {
     // Load LocalStorage if available.
     this.loadLocalStorageValues()
   },

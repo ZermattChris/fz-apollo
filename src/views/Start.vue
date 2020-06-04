@@ -16,32 +16,10 @@
     </h3>
     <div class="controls">
       <!-- Nr People Slider - linked via data to the below Int Input -->
-      <NumberScroller></NumberScroller>
-      <br/>
-      <!-- <v-slider
+      <NumberScroller
         v-model="nrPeople"
-        class="align-center"
-        :max="sliderNrPeopleMax"
-        min="0"
-        hide-details
-        thumb-label
-        style="max-width:350px;"
-        @change="onValueChanged"
-      >
-        Int Input: This needs to limit max number and give message when trying to exceed...
-        <template v-slot:prepend>
-          <span class="mr-4" style="padding:0 5px; background-color:rgb(240,240,240); border-bottom:1px gray solid">
-            <v-text-field
-              v-model="nrPeople"
-              class="mt-0 pt-0"
-              hide-details
-              single-line
-              type="number"
-              style="width:50px;"
-            ></v-text-field>
-          </span>
-        </template>
-      </v-slider> -->
+      />
+      <br/>
     </div>
 
 
@@ -144,7 +122,7 @@ export default {
   },
   data () {
     return {
-      //sliderNrPeople: 0,
+      sliderNrPeople: 99,
       sliderNrPeopleMax: 7, // This needs to come from an initial json API call at load.
       //switchPhotos: false,
 
