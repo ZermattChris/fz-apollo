@@ -18,8 +18,11 @@
       <!-- Nr People Slider - linked via data to the below Int Input -->
       <NumberScroller
         v-model="nrPeople"
+        min="0"
+        :max="nrPeopleMax"
+        min-message="Minimum number of people is 1"
+        :max-message="getMaxMessage"
       />
-      <br/>
     </div>
 
 
@@ -122,8 +125,8 @@ export default {
   },
   data () {
     return {
-      sliderNrPeople: 99,
-      sliderNrPeopleMax: 7, // This needs to come from an initial json API call at load.
+      //sliderNrPeople: 99,
+      nrPeopleMax: 7, // This needs to come from an initial json API call at load.
       //switchPhotos: false,
 
       stepIcon:           mdiArrowRightBoldCircleOutline,
@@ -146,7 +149,8 @@ export default {
   },
 
   // Lifecycle Hooks
-  created() {
+  mounted() {
+    this.onValueChanged()
   },
   updated() {
     // update the Continue btn if page is valid
@@ -193,8 +197,12 @@ export default {
     },
 
     // Normal computed values
+    getMaxMessage: function () {
+      return "Maximum number of people is: " + this.nrPeopleMax
+    },
+
     isValidNrPeople: function () {
-      if (this.nrPeople > 0 && this.nrPeople <= this.sliderNrPeopleMax) {
+      if (this.nrPeople > 0 && this.nrPeople <= this.nrPeopleMax) {
         return true
       }
       return false
