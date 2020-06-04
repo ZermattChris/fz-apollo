@@ -65,6 +65,7 @@ export default {
   data () {
     return {
       myVal: this.value,
+      prevVal: this.value,
 
       focused: false,
 
@@ -77,14 +78,26 @@ export default {
 
   methods: {
     onInput: function (val) {
-      this.myVal = val
+      // If user's typed in random garbage, needs to be reset to prev Number val.
+      let cleanedVal = parseInt(val)
+      //console.log(Object.is(val, Number.NaN))
+      if (Object.is(cleanedVal, Number.NaN) === true) {
+        console.log('NaN found! Prev Val: ' + this.prevVal)
+        this.myVal = this.prevVal
+        return
+      }
+
+      this.myVal = cleanedVal
+
       // Check that we're in range.
       // Maybe do some sort of animation to show we've hit the end?
       if (this.myVal >= this.max) this.atMaxVal()
       if (this.myVal <= this.min) this.atMinVal()
       if (this.myVal > this.min && this.myVal < this.max) this.scrollerMessage = ''
       //console.log('Emit Event: ' + this.myVal + ' Min: ' + this.min + ' Max: ' + this.max)
-      //this.$forceUpdate()
+      
+      this.prevVal = this.myVal
+
       this.$emit('input', this.myVal)
     },
     atMaxVal: function () {
