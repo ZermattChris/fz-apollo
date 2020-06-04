@@ -32,6 +32,7 @@
       Flight Date
     </h3>
     <div class="controls">
+      <div class="" style="display:inline-block;" @click="flightModal=true">
       <v-dialog
         ref="dialog"
         v-model="flightModal"
@@ -42,12 +43,12 @@
       >
         <template v-slot:activator="{ on }">
           <v-text-field
+            style="width:300px;"
             v-model="formatISODate"
             prepend-inner-icon="event"
             readonly
             outlined
             v-on="on"
-            style="width:300px;"
             :hint="isValidFlightDate ? '' : 'Click to choose your Flight Date'"
             persistent-hint
             @keydown.enter="flightModal=true"
@@ -65,6 +66,7 @@
           <v-btn text color="primary" @click="$refs.dialog.save(flightDate)">OK</v-btn>
         </v-date-picker>
       </v-dialog>
+      </div>
     </div>
 
 
@@ -198,7 +200,7 @@ export default {
 
     // Normal computed values
     getMaxMessage: function () {
-      return "Maximum number of people is: " + this.nrPeopleMax
+      return "Maximum number of people is: nrPeopleMax" + this.nrPeopleMax
     },
 
     isValidNrPeople: function () {
@@ -255,5 +257,8 @@ export default {
   max-width: 400px;
 }
 
+.v-input__slot:hover {
+  cursor: pointer !important;
+}
 
 </style>
