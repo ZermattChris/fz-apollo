@@ -37,7 +37,7 @@
       <!-- TEMP clear data btn -->
       <v-btn
         class="text-capitalize"
-        style="position:absolute; right:-10px;"
+        style="position:absolute; right:10px;"
         text
         @click="onClearData"
       >

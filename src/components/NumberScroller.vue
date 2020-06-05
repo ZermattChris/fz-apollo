@@ -6,7 +6,6 @@
       :class="{ 'focused': focused }"
       flat
       outlined
-      :ripple="false"
     >
       <v-icon
         size="100%"
@@ -82,7 +81,7 @@ export default {
       let cleanedVal = parseInt(val)
       //console.log(Object.is(val, Number.NaN))
       if (Object.is(cleanedVal, Number.NaN) === true) {
-        console.log('NaN found! Prev Val: ' + this.prevVal)
+        //console.log('NaN found! Prev Val: ' + this.prevVal)
         this.myVal = this.prevVal
         return
       }
@@ -103,12 +102,12 @@ export default {
     atMaxVal: function () {
       this.myVal = this.max
       this.scrollerMessage = this.maxMessage
-      console.log('Max msg: ' + this.scrollerMessage)
+      //console.log('Max msg: ' + this.scrollerMessage)
     },
     atMinVal: function () {
       this.myVal = this.min
       this.scrollerMessage = this.minMessage
-      console.log('Min msg: ' + this.scrollerMessage)
+      //console.log('Min msg: ' + this.scrollerMessage)
     },
     onDown: function () {
       //console.log('decrement ' + inputsVal)

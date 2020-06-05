@@ -32,7 +32,6 @@
       Flight Date
     </h3>
     <div class="controls">
-      <div class="" style="display:inline-block;" @click="flightModal=true">
       <v-dialog
         ref="dialog"
         v-model="flightModal"
@@ -45,7 +44,7 @@
           <v-text-field
             style="width:300px;"
             v-model="formatISODate"
-            prepend-inner-icon="event"
+            prepend-icon="event"
             readonly
             outlined
             v-on="on"
@@ -66,7 +65,6 @@
           <v-btn text color="primary" @click="$refs.dialog.save(flightDate)">OK</v-btn>
         </v-date-picker>
       </v-dialog>
-      </div>
     </div>
 
 
@@ -80,7 +78,7 @@
         style="max-width:300px;"
         v-model="flightChosen"
         :items="flightList"
-        :prepend-inner-icon="flightChosen ? cloudIcon : cloudQuestionIcon"
+        :prepend-icon="flightChosen ? cloudIcon : cloudQuestionIcon"
         solo
         outlined
         :disabled="!isValidFlightDate"
