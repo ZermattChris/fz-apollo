@@ -54,9 +54,18 @@ export default {
   name: "NumberScroller",
 
   props: {
-    value: String,
-    min: String,
-    max: String,
+    value: {
+      type: [String, Number],
+      required: true,
+    },
+    min: {
+      type: [String, Number],
+      required: true,
+    },
+    max: {
+      type: [String, Number],
+      required: true,
+    },
     minMessage: String,
     maxMessage: String
   }, 

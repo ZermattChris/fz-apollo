@@ -1,5 +1,10 @@
 <template>
   <v-app>
+
+    <v-overlay 
+      :value="overlay"
+    />
+
     <v-app-bar
       app
       color="primary"
@@ -10,7 +15,7 @@
       <v-btn
         class="text-capitalize"
         :class="canGoBack ? '' : 'd-none'"
-        style="position:absolute; left:-10px;"
+        style="position:absolute; left:-5px;"
         text
         @click="onBackBtnClick"
       >
@@ -37,7 +42,7 @@
       <!-- TEMP clear data btn -->
       <v-btn
         class="text-capitalize"
-        style="position:absolute; right:10px;"
+        style="position:absolute; right:5px;"
         text
         @click="onClearData"
       >
@@ -50,7 +55,7 @@
     <v-content>
       <v-row no-gutters>
         <v-col cols="12" md="1" lg="2"></v-col>
-        <v-col class="pa-md-12 pa-6" cols="12" md="10" lg="8" >
+        <v-col class="pa-5 pa-md-12" cols="12" md="10" lg="8" >
 
           <!-- Router hooked up here -->
           <transition
@@ -120,19 +125,60 @@ export default {
   created() {
     // Load LocalStorage if available.
     this.loadLocalStorageValues()
+    // Load Settings in via Ajax API call.
+    this.loadSettings()
+    // Flag any conflicting data from the above
+    // tow processes -- User's Date + Flights
+    // might no longer be valid.
+
   },
 
   // Reactive data
   data: () => ({
+
+    overlay: false,  // blocks UI until Settings API JSON returns.
+
     iconNextArrow:   mdiArrowRightCircle,
     iconPrevChevron: mdiChevronLeft,
     
     canGoBack:   false,
-    canContinue: false
+    canContinue: false,
+
+    // API endpoints
+    apiHeaders: { "Content-Type": "application/json" },
+    // Initial Settings
+    apiInitSettingsPath: "http://fz-backend.simpleitsolutions.ch/onlinebooking/api/init",
+    apiInitSettings: {},
+
   }),
 
   // Methods
   methods: {
+    loadSettings: function () {
+      let hasLoaded = false
+      setTimeout(() => { if (hasLoaded===false) this.overlay = true }, 300) // Show loading blocker if longer than 200 milliseconds
+      fetch(this.apiInitSettingsPath, this.apiHeaders)
+        .then(async response => {
+          const data = await response.json()
+          // check for error response
+          if (!response.ok) {
+            // get error message from body or default to response statusText
+            const error = (data && data.message) || response.statusText
+            return Promise.reject(error)
+          }
+          this.apiInitSettings = data.total
+          console.log('Init Settings obj: ' + data["max-pilots"])
+          hasLoaded = true
+          this.overlay = false
+        })
+        .catch(error => {
+          hasLoaded = true
+          this.overlay = false
+          this.errorMessage = error
+          console.error("Error loading Form Settings: ", error)
+        })
+    },
+
     onEnableContinueBtn: function (valid) {
       //console.log('Enable Btn: ' + valid)
       this.canContinue = valid

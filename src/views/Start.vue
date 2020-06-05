@@ -123,11 +123,18 @@ export default {
   components: {
     NumberScroller
   },
+
+  props: {
+    maxPeople: String,
+    min: String,
+    max: String,
+    minMessage: String,
+    maxMessage: String
+  }, 
+
   data () {
     return {
-      //sliderNrPeople: 99,
-      nrPeopleMax: 7, // This needs to come from an initial json API call at load.
-      //switchPhotos: false,
+      nrPeopleMax: 7,     // Passed in from initial json API call at load.
 
       stepIcon:           mdiArrowRightBoldCircleOutline,
       stepIconCompleted:  mdiCheckCircleOutline,
