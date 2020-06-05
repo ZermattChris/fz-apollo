@@ -19,7 +19,7 @@
       <NumberScroller
         v-model="nrPeople"
         min="0"
-        :max="nrPeopleMax"
+        :max="getMaxPilots"
         min-message="Min per Booking is 1"
         :max-message="getMaxMessage"
       />
@@ -36,7 +36,7 @@
         ref="dialog"
         v-model="flightModal"
         :return-value.sync="flightDate"
-        persistent
+
         width="290px"
         @change="onValueChanged"
       >
@@ -124,17 +124,11 @@ export default {
     NumberScroller
   },
 
-  props: {
-    maxPeople: String,
-    min: String,
-    max: String,
-    minMessage: String,
-    maxMessage: String
-  }, 
+  props: {}, 
 
   data () {
     return {
-      nrPeopleMax: 7,     // Passed in from initial json API call at load.
+      //nrPeopleMax: store.nrPeopleMax,     // Passed in from initial json API call at load.
 
       stepIcon:           mdiArrowRightBoldCircleOutline,
       stepIconCompleted:  mdiCheckCircleOutline,
@@ -170,6 +164,10 @@ export default {
 
   computed: {
     // Store Data
+    getMaxPilots: function () {
+      return store.nrPeopleMax
+    },
+
     nrPeople: {
       get() {
         return store.nrPeople
@@ -205,11 +203,11 @@ export default {
 
     // Normal computed values
     getMaxMessage: function () {
-      return "Max per Booking is: " + this.nrPeopleMax
+      return "Max per Booking is: " + store.nrPeopleMax
     },
 
     isValidNrPeople: function () {
-      if (this.nrPeople > 0 && this.nrPeople <= this.nrPeopleMax) {
+      if (this.nrPeople > 0 && this.nrPeople <= store.nrPeopleMax) {
         return true
       }
       return false

@@ -136,7 +136,8 @@ export default {
   // Reactive data
   data: () => ({
 
-    overlay: false,  // blocks UI until Settings API JSON returns.
+    overlay: false,     // blocks UI until Settings API JSON returns.
+    overlayDelay: 500,  // Milliseconds before loading block is shown...
 
     iconNextArrow:   mdiArrowRightCircle,
     iconPrevChevron: mdiChevronLeft,
@@ -156,7 +157,7 @@ export default {
   methods: {
     loadSettings: function () {
       let hasLoaded = false
-      setTimeout(() => { if (hasLoaded===false) this.overlay = true }, 300) // Show loading blocker if longer than 200 milliseconds
+      setTimeout(() => { if (hasLoaded===false) this.overlay = true }, this.overlayDelay) // Show loading blocker if longer than 200 milliseconds
       fetch(this.apiInitSettingsPath, this.apiHeaders)
         .then(async response => {
           const data = await response.json()
@@ -166,8 +167,10 @@ export default {
             const error = (data && data.message) || response.statusText
             return Promise.reject(error)
           }
-          this.apiInitSettings = data.total
-          console.log('Init Settings obj: ' + data["max-pilots"])
+          //this.apiInitSettings = data.total
+          //console.log('Init Settings obj: ' + data["max-pilots"])
+          // Load settings into our data Store, for access throughout.
+          mutations.setMaxNrPeople(data["max-pilots"])
           hasLoaded = true
           this.overlay = false
         })

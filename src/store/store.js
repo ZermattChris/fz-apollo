@@ -4,7 +4,10 @@ export const store = Vue.observable({
   nrPeople: 0,
   flightDate: '',
   selectedFlight: '',
-  wantsPhotos: false
+  wantsPhotos: false,
+
+  // Settings
+  nrPeopleMax: 2,
 });
 
 export const mutations = {
@@ -19,5 +22,10 @@ export const mutations = {
   },
   setWantsPhotos(photosBool) {
     store.wantsPhotos = photosBool;
-  }
+  },
+  // Settings
+  setMaxNrPeople(maxInt) {
+    store.nrPeopleMax = maxInt;
+    console.log('Store MaxPilots is: ' + store.nrPeopleMax)
+  },
 };
