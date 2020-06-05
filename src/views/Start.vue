@@ -20,7 +20,7 @@
         v-model="nrPeople"
         min="0"
         :max="nrPeopleMax"
-        min-message="Minimum number of people is 1"
+        min-message="Min per Booking is 1"
         :max-message="getMaxMessage"
       />
     </div>
@@ -200,7 +200,7 @@ export default {
 
     // Normal computed values
     getMaxMessage: function () {
-      return "Maximum number of people is: nrPeopleMax" + this.nrPeopleMax
+      return "Max per Booking is: " + this.nrPeopleMax
     },
 
     isValidNrPeople: function () {
