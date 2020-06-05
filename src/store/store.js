@@ -1,7 +1,7 @@
 import Vue from "vue";
 
 export const store = Vue.observable({
-  nrPeople: -1,
+  nrPeople: 0,
   flightDate: '',
   selectedFlight: '',
   wantsPhotos: false

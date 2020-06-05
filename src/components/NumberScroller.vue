@@ -125,9 +125,17 @@ export default {
   },
 
   // computed: {
-  //   getMessage: {
-  //     return 'hello'
-  //   },
+  //   reactiveVal: function() {
+  //     return this.value
+  //   }
+  // },
+
+  watch: {
+    value: function (val) {
+      this.myVal = val
+      this.prevVal = val
+    },
+  }
 }
 
 </script>

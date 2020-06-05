@@ -10,7 +10,7 @@
       <v-btn
         class="text-capitalize"
         :class="canGoBack ? '' : 'd-none'"
-        style="position:absolute;"
+        style="position:absolute; left:-10px;"
         text
         @click="onBackBtnClick"
       >
@@ -31,6 +31,19 @@
           width="220"
         />
       </div>
+
+
+
+      <!-- TEMP clear data btn -->
+      <v-btn
+        class="text-capitalize"
+        style="position:absolute; right:-10px;"
+        text
+        @click="onClearData"
+      >
+        <v-icon left>{{iconPrevChevron}}</v-icon>
+        Clear
+      </v-btn>
 
     </v-app-bar>
 
@@ -143,6 +156,16 @@ export default {
       //console.log('Clicked Back Btn:')
       this.$router.go(-1)
     },
+
+    // ************************** Storage workers **************************. 
+    onClearData: function () {
+      //console.log('Clear all data:')
+      mutations.setNrPeople(0)
+      mutations.setFlightDate('')
+      mutations.setFlight('')
+      mutations.setWantsPhotos(false)
+    },
+
     loadLocalStorageValues: function () {
       //console.log('Read local storage')
       if (localStorage.nrPeople) {

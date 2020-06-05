@@ -246,9 +246,14 @@ export default {
       }
       this.$emit('form-is-valid', false)
       return false
+    },
+    onDateChnged: function () {
+      // API to fetch latest Flight Options data here.
+      // TODO: JSON API call.
     }
   }
 }
+
 </script>
 
 <style scoped>
