@@ -2,8 +2,17 @@
   <v-app>
 
     <v-overlay 
+      opacity="0.2"
       :value="overlay"
     />
+      <v-progress-circular 
+        v-if="overlay" 
+        class=""
+        style="position:absolute; z-index:500; top:30%; left:50%; margin-top:-32px; margin-left:-32px;"
+        indeterminate 
+        color="primary"
+        size="64">
+      </v-progress-circular>
 
     <v-app-bar
       app
