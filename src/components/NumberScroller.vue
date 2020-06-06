@@ -132,12 +132,6 @@ export default {
     }
   },
 
-  // computed: {
-  //   reactiveVal: function() {
-  //     return this.value
-  //   }
-  // },
-
   watch: {
     value: function (val) {
       this.myVal = val
@@ -165,7 +159,7 @@ export default {
 }
   .tweaker {
     padding: 0 12px 0 0;
-    min-height: 17px;
+    min-height: 18px;
   }
   .scrollerContainer.focused {
     border: 2px #6a1b9a solid !important;

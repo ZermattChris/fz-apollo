@@ -1,7 +1,7 @@
 <template>
-  <div class="page ml-5 ml-sm-8 ml-md-10">
+  <div class="page">
 
-    <h1 class="ml-n5">1. Get Started...</h1>
+    <h1 class="ml-n2">1. Get Started...</h1>
     <p class="">
       Why we ask you for all of this information?
       To help us make sure you get the best possible experience...

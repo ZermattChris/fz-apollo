@@ -64,7 +64,7 @@
     <v-content>
       <v-row no-gutters>
         <v-col cols="12" md="1" lg="2"></v-col>
-        <v-col class="pa-5 pa-md-12" cols="12" md="10" lg="8" >
+        <v-col class="pa-5 pa-sm-8 pa-md-12" cols="12" md="10" lg="8" >
 
           <!-- Router hooked up here -->
           <transition
@@ -77,7 +77,7 @@
             ></router-view>
           </transition>
 
-          <div class="text-center mt-12 ml-n5 ml-sm-n8 ml-md-n10">
+          <div class="text-center mt-12 mb-6">
             <!-- Continue Btn -->
             <v-btn 
               rounded 
@@ -265,6 +265,19 @@ export default {
 </script>
 
 <style>
+
+/* Stop the pull-down to reload screen. */
+html,
+body {
+  overscroll-behavior-y: contain;
+}
+
+
+.page {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
+}
 
 #logo {
   margin: 0 auto;
