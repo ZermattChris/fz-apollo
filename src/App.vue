@@ -74,6 +74,8 @@
             <router-view
               @form-is-valid="onEnableContinueBtn"
               @data-changed="saveLocalStorageValues"
+
+              @flight-date-changed="loadFlightsList"
             ></router-view>
           </transition>
 
@@ -159,6 +161,7 @@ export default {
     // Initial Settings
     apiInitSettingsPath: "https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init",
     apiInitSettings: {},
+    apiFlightsListPath: "https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/",
 
   }),
 
@@ -180,11 +183,36 @@ export default {
           //console.log('Init Settings obj: ' + data["max-pilots"])
           // Load settings into our data Store, for access throughout.
           mutations.setMaxNrPeople(data["max-pilots"])
+          mutations.setBookDaysOffset(data["book-days-from-today"])
+          mutations.setBookMonthsOffset(data["book-future-months"])
+          mutations.setVideoPrice(data["video-cost"])
           hasLoaded = true
           this.overlay = false
         })
         .catch(error => {
           hasLoaded = true
+          this.overlay = false
+          this.errorMessage = error
+          console.error("Error loading Form Settings: ", error)
+        })
+    },
+    loadFlightsList: function (dateStr) {
+      console.log('Use Date for FlightsList API call: ' + dateStr)
+      let path = this.apiFlightsListPath + dateStr
+      console.log('FlightsList API path: ' + path)
+      fetch(path, this.apiHeaders)
+        .then(async response => {
+          const data = await response.json()
+          // check for error response
+          if (!response.ok) {
+            // get error message from body or default to response statusText
+            const error = (data && data.message) || response.statusText
+            return Promise.reject(error)
+          }
+          mutations.setFlightsList(data)
+          this.overlay = false
+        })
+        .catch(error => {
           this.overlay = false
           this.errorMessage = error
           console.error("Error loading Form Settings: ", error)
@@ -244,6 +272,9 @@ export default {
         }
         mutations.setWantsPhotos(convertStrToBool)
       }
+      if (localStorage.flightsList) {
+        mutations.setFlightsList(JSON.parse(localStorage.flightsList))
+      }
     },
     saveLocalStorageValues: function () {
       //console.log('Wrote to local storage')
@@ -251,6 +282,7 @@ export default {
       localStorage.flightDate = store.flightDate
       localStorage.selectedFlight = store.selectedFlight
       localStorage.wantsPhotos = store.wantsPhotos
+      localStorage.flightsList = JSON.stringify(store.flightsList)
     }
   },
 

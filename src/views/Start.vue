@@ -9,104 +9,108 @@
     </p>
 
     <v-divider></v-divider>
+    <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12">
+      
+      <h3>
+        <v-icon :color="isValidNrPeople ? 'success' : 'primary'">{{ isValidNrPeople ? stepIconCompleted : stepIcon }}</v-icon>
+        Nr of People Flying
+      </h3>
+      <div class="controls">
+        <!-- Nr People Slider - linked via data to the below Int Input -->
+        <NumberScroller
+          v-model="nrPeople"
+          min="0"
+          :max="getMaxPilots"
+          min-message="Min per Booking is 1"
+          :max-message="getMaxMessage"
+        />
+      </div>
 
-    <h3 >
-      <v-icon :color="isValidNrPeople ? 'success' : 'primary'">{{ isValidNrPeople ? stepIconCompleted : stepIcon }}</v-icon>
-      Nr of People Flying
-    </h3>
-    <div class="controls">
-      <!-- Nr People Slider - linked via data to the below Int Input -->
-      <NumberScroller
-        v-model="nrPeople"
-        min="0"
-        :max="getMaxPilots"
-        min-message="Min per Booking is 1"
-        :max-message="getMaxMessage"
-      />
-    </div>
 
 
+      <h3>
+        <v-icon :color="flightDate ? 'success' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
+        Flight Date
+      </h3>
+      <div class="controls">
+        <v-dialog
+          ref="dialog"
+          v-model="flightModal"
+          :return-value.sync="flightDate"
 
-    <h3>
-      <v-icon :color="flightDate ? 'success' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
-      Flight Date
-    </h3>
-    <div class="controls">
-      <v-dialog
-        ref="dialog"
-        v-model="flightModal"
-        :return-value.sync="flightDate"
-
-        width="290px"
-        @change="onValueChanged"
-      >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            style="width:300px;"
-            v-model="formatISODate"
-            prepend-icon="event"
-            readonly
-            outlined
-            v-on="on"
-            :hint="isValidFlightDate ? '' : 'Click to choose your Flight Date'"
-            persistent-hint
-            @keydown.enter="flightModal=true"
-          ></v-text-field>
-        </template>
-        <v-date-picker 
-          v-model="flightDate" 
-          scrollable
-          show-current
-          :min="flightMinDate"
-          :max="flightMaxDate"
+          width="290px"
+          @change="onValueChanged"
         >
-          <v-spacer></v-spacer>
-          <v-btn text color="primary" @click="flightModal = false">Cancel</v-btn>
-          <v-btn text color="primary" @click="$refs.dialog.save(flightDate)">OK</v-btn>
-        </v-date-picker>
-      </v-dialog>
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              style="width:300px;"
+              v-model="formatISODate"
+              prepend-icon="event"
+              readonly
+              outlined
+              v-on="on"
+              :hint="isValidFlightDate ? '' : 'Click to choose your Flight Date'"
+              persistent-hint
+              @keydown.enter="flightModal=true"
+            ></v-text-field>
+          </template>
+          <v-date-picker 
+            v-model="flightDate" 
+            scrollable
+            show-current
+            :min="flightMinDate"
+            :max="flightMaxDate"
+          >
+            <v-spacer></v-spacer>
+            <v-btn text color="primary" @click="flightModal = false">Cancel</v-btn>
+            <v-btn text color="primary" @click="$refs.dialog.save(flightDate)">OK</v-btn>
+          </v-date-picker>
+        </v-dialog>
+      </div>
+
+
+
+      <h3>
+        <v-icon :color="flightChosen ? 'success' : 'primary'">{{ formattedFlightsList ? stepIconCompleted : stepIcon }}</v-icon>
+        Which Flight?
+      </h3>
+      <div class="controls">
+        <v-select
+          style="max-width:300px;"
+          v-model="flightChosen"
+          :items="formattedFlightsList"
+          item-text="name"
+          item-value="id"
+          :prepend-icon="flightChosen ? cloudIcon : cloudQuestionIcon"
+          solo
+          outlined
+          :disabled="!isValidFlightDate"
+          :hint="isValidFlightDate ? '' : 'Please choose a Flight Date first...'"
+          persistent-hint
+          @change="onValueChanged"
+        >
+        </v-select>
+      </div>
+
+
+
+      <h3>
+        <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
+        Photos + Videos (optional)
+      </h3>
+      <div class="controls">
+        <!-- Photos and Videos included? -->
+        <v-switch 
+          v-model="switchPhotos" 
+          color="success"
+          inset 
+          :label="`Filmed with GoPros on specially built sticks for some great memories!`"
+          @change="onValueChanged"
+        ></v-switch>
+      </div>
+
+
     </div>
-
-
-
-    <h3>
-      <v-icon :color="flightChosen ? 'success' : 'primary'">{{ flightList ? stepIconCompleted : stepIcon }}</v-icon>
-      Which Flight?
-    </h3>
-    <div class="controls">
-      <v-select
-        style="max-width:300px;"
-        v-model="flightChosen"
-        :items="flightList"
-        :prepend-icon="flightChosen ? cloudIcon : cloudQuestionIcon"
-        solo
-        outlined
-        :disabled="!isValidFlightDate"
-        :hint="isValidFlightDate ? '' : 'Please choose a Flight Date first...'"
-        persistent-hint
-        @change="onValueChanged"
-      >
-      </v-select>
-    </div>
-
-
-
-    <h3>
-      <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
-      Photos + Videos (optional)
-    </h3>
-    <div class="controls">
-      <!-- Photos and Videos included? -->
-      <v-switch 
-        v-model="switchPhotos" 
-        color="success"
-        inset 
-        :label="`Filmed with GoPros on specially built sticks for some great memories!`"
-        @change="onValueChanged"
-      ></v-switch>
-    </div>
-
-
   </div>
 </template>
 
@@ -136,10 +140,8 @@ export default {
       cloudQuestionIcon:  mdiCloudQuestion,
       cloudIcon:          mdiCloud,
 
-      flightList: ['Classic High', 'Scenic', 'Elite'],
-      //flightChosen: '',
-
-      //flightDate: '',
+      formattedFlightsList: [],
+      
       flightMinDate: format( add(Date.now(), {days:2}), 'yyyy-MM-dd'),    // "2021-03-20"    
       flightMaxDate: format( add(Date.now(), {years:1}), 'yyyy-MM-dd'),
       flightMenu: false,
@@ -150,6 +152,10 @@ export default {
   },
 
   // Lifecycle Hooks
+  beforeMount() {
+    // Need to build the Flights Menu list.
+    this.formattedFlightsList = this.buildFlightList(this.flightsListModelObj)
+  },
   mounted() {
     this.onValueChanged()
   },
@@ -160,6 +166,7 @@ export default {
   beforeUpdate() {
     this.$emit('data-changed')  // use this to save changed data to localStorage in App
   },
+
 
 
   computed: {
@@ -181,6 +188,17 @@ export default {
         return store.flightDate
       },
       set(dateStr) {
+        // check if date has changed.
+        if (dateStr === this.flightDate) {
+          // console.log('Date didnt change, not setting')
+          return
+        }
+        // Trigger custom event that the main App can listen for,
+        // that pulls down updated FlightsList from API and clears
+        // the Which Flight menu if there's data that's out of sync.
+        this.$emit('flight-date-changed', dateStr)
+        //this.onDateChnged() // hmmm... probably need to do this after the FlightsList loads from API
+
         return mutations.setFlightDate(dateStr)
       }
     },
@@ -202,6 +220,10 @@ export default {
     },
 
     // Normal computed values
+    flightsListModelObj: function () {
+      return store.flightsList
+    },
+
     getMaxMessage: function () {
       return "Max per Booking is: " + store.nrPeopleMax
     },
@@ -250,11 +272,31 @@ export default {
       this.$emit('form-is-valid', false)
       return false
     },
-    onDateChnged: function () {
-      // API to fetch latest Flight Options data here.
-      // TODO: JSON API call.
+    buildFlightList: function (obj) {
+      console.log('build flight list for drop menu')
+      let newFlightsList = []
+      for (let [key, value] of Object.entries(obj)) {
+        //console.log(`${key}: ${value}`);
+        const listItem = {id:`${key}`, name:`${value}`}
+        // item-text="name"
+        // item-value="id"
+        newFlightsList.push(listItem)
+      }
+      return newFlightsList
+    },
+    onRule_whichFlight: function () {
+      console.log('Date has changed, run rules to check that "Which Flight?" is still valid. (if not, then set to empty)')
     }
-  }
+  },
+
+  watch: {
+    flightsListModelObj: function (newObj) {
+      // When this computed property (source data is: store.flightsList)
+      // and generate a new drop menu for Which Flight?
+      this.formattedFlightsList = this.buildFlightList(newObj)
+    },
+  },
+
 }
 
 </script>
