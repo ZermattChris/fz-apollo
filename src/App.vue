@@ -148,7 +148,7 @@ export default {
     // API endpoints
     apiHeaders: { "Content-Type": "application/json" },
     // Initial Settings
-    apiInitSettingsPath: "http://fz-backend.simpleitsolutions.ch/onlinebooking/api/init",
+    apiInitSettingsPath: "https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init",
     apiInitSettings: {},
 
   }),

@@ -7,7 +7,7 @@ export const store = Vue.observable({
   wantsPhotos: false,
 
   // Settings
-  nrPeopleMax: 2,
+  nrPeopleMax: 5,   // default.
 });
 
 export const mutations = {
