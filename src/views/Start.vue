@@ -11,6 +11,9 @@
     <v-divider></v-divider>
     <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12">
       
+
+
+      <!-- ***************** Nr People ******************** -->
       <h3>
         <v-icon :color="isValidNrPeople ? 'success' : 'primary'">{{ isValidNrPeople ? stepIconCompleted : stepIcon }}</v-icon>
         Nr of People Flying
@@ -18,6 +21,7 @@
       <div class="controls">
         <!-- Nr People Slider - linked via data to the below Int Input -->
         <NumberScroller
+          ref="numberScroller"
           v-model="nrPeople"
           min="0"
           :max="getMaxPilots"
@@ -29,6 +33,7 @@
 
 
 
+      <!-- ***************** Flight Date ******************** -->
       <h3>
         <v-icon :color="flightDate ? 'success' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
         Flight Date
@@ -71,6 +76,7 @@
 
 
 
+      <!-- ***************** Which Flight? ******************** -->
       <h3>
         <v-icon :color="flightChosen ? 'success' : 'primary'">{{ formattedFlightsList ? stepIconCompleted : stepIcon }}</v-icon>
         Which Flight?
@@ -95,6 +101,7 @@
 
 
 
+      <!-- ***************** Photos + Videos ******************** -->
       <h3>
         <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
         Photos + Videos (optional)
@@ -113,48 +120,48 @@
 
 
 
-
-<div class="text-center">
-    <v-dialog
-      v-model="bigGroupDialog"
-      width="400"
-    >
-      <v-card>
-        <v-card-title
-          class="primary"
-          primary-title
+      <!-- ***************** Popup Dialog for trying to exceed max number of people ******************** -->
+      <div class="text-center" id="Big-Group-Dialog">
+        <v-dialog
+          v-model="bigGroupDialog"
+          width="400"
         >
-        <div class="white--text">
-          Booking a Big Group
-        </div>
-          
-        </v-card-title>
+          <v-card>
+            <v-card-title
+              class="primary"
+              primary-title
+            >
+            <div class="white--text disable-select">
+              Booking a Big Group
+            </div>
+              
+            </v-card-title>
 
-        <v-card-text class="pt-6">
-          If your group contains more than {{getMaxPilots}} people...
-          <br><br>
-          ...you can either do 2 or more seperate Bookings here, 
-          splitting your group amongst available times, or send
-          us a <strong>Booking Message</strong> (later in this booking process) or
-          just give us a ring at: Tel +41 79 643-6808
-        </v-card-text>
+            <v-card-text class="pt-6">
+              If your group contains more than {{getMaxPilots}} people...
+              <br><br>
+              ...you can either do 2 or more seperate Bookings here, 
+              splitting your group amongst available times, or send
+              us a <strong>Booking Message</strong> (later in this booking process) or
+              just give us a ring at: Tel +41 79 643-6808
+            </v-card-text>
 
-        <v-divider></v-divider>
+            <v-divider></v-divider>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-            @click="bigGroupDialog = false"
-            
-          >
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                ref="closeBigGroupDialog"
+                color="primary"
+                text
+                @click="bigGroupDialog = false"
+              >
+                Close
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </div>
 
     </div>
 
@@ -203,14 +210,22 @@ export default {
     this.formattedFlightsList = this.buildFlightList(this.flightsListModelObj)
   },
   mounted() {
-    this.onValueChanged()
-  },
-  updated() {
-    // update the Continue btn if page is valid
+    // Set focus to '+' button of NumberScroller compoennt.
+    setTimeout(() => {
+      //onsole.log(this.$refs.numberScroller.$el.querySelector('#increment'))
+      // only set the focus if Nr People is Zero.
+      if (this.nrPeople == 0) {
+        this.$refs.numberScroller.$el.querySelector('#increment').focus()
+      }
+    })
     this.onValueChanged()
   },
   beforeUpdate() {
     this.$emit('data-changed')  // use this to save changed data to localStorage in App
+  },
+  updated() {
+    // update the Continue btn if page is valid
+    this.onValueChanged()
   },
 
 
@@ -354,7 +369,17 @@ export default {
       // and generate a new drop menu for Which Flight?
       this.formattedFlightsList = this.buildFlightList(newObj)
     },
+    bigGroupDialog: function (val) {
+      // set focus to Close button when the dialog is displayed.
+      if (val === true) {
+        setTimeout(() => {
+          this.$refs.closeBigGroupDialog.$el.focus()
+        })
+      }
+    },
   },
+
+
 
 }
 

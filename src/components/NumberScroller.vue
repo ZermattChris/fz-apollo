@@ -8,6 +8,7 @@
       outlined
     >
       <v-icon
+        id="decrement"
         size="100%"
         @click="onDown"
         @focus="focused = true"
@@ -18,12 +19,14 @@
         ref="numberInput"
         class="numberInput"
         :value="myVal" 
+        readonly
         @input="onInput($event.target.value)"
         @focus="focused = true"
         @blur="focused = false"
       >
 
       <v-icon
+        id="increment"
         size="100%"
         @click="onUp"
         @focus="focused = true"
@@ -106,7 +109,7 @@ export default {
       
       this.prevVal = this.myVal
 
-      //this.$emit('input', this.myVal)
+      this.$emit('input', this.myVal) // This is the return of v-model 2-way binding.
     },
     atMaxVal: function () {
       this.myVal = this.max
@@ -118,6 +121,7 @@ export default {
       this.myVal = this.min
       this.scrollerMessage = this.minMessage
       //console.log('Min msg: ' + this.scrollerMessage)
+      this.$emit('at-min-value', this.myVal)
     },
     onDown: function () {
       //console.log('decrement ' + inputsVal)
