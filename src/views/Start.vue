@@ -1,6 +1,9 @@
 <template>
   <div class="page" id="step-start" ref="stepStart">
 
+    <PageHeader></PageHeader>
+
+<!-- 
     <h1 class="ml-n2 disable-select">1. Get Started...</h1>
     <p>
       Why we ask you for all of this information?
@@ -8,7 +11,7 @@
       To make sure that we provide the highest levels of safety...
     </p>
 
-    <v-divider></v-divider>
+    <v-divider></v-divider> -->
     <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12">
       
 
@@ -177,13 +180,15 @@ import { store, mutations } from "@/store/store.js";
 import { format, add, parseISO } from 'date-fns'
 import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud } from '@mdi/js'
 
+import PageHeader from '@/components/PageHeader.vue'
 import NumberScroller from "@/components/NumberScroller.vue";
 const VueScrollTo = require('vue-scrollto');
 
 export default {
   name: 'Start',
   components: {
-    NumberScroller
+    NumberScroller,
+    PageHeader
   },
 
   props: {}, 
