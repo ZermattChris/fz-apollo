@@ -139,7 +139,7 @@
               
             </v-card-title>
 
-            <v-card-text class="pt-6">
+            <v-card-text class="pt-6 black--text">
               If your group contains more than {{getMaxPilots}} people...
               <br><br>
               ...you can either do 2 or more seperate Bookings here, 
