@@ -197,9 +197,9 @@ export default {
         })
     },
     loadFlightsList: function (dateStr) {
-      console.log('Use Date for FlightsList API call: ' + dateStr)
+      //console.log('Use Date for FlightsList API call: ' + dateStr)
       let path = this.apiFlightsListPath + dateStr
-      console.log('FlightsList API path: ' + path)
+      //console.log('FlightsList API path: ' + path)
       fetch(path, this.apiHeaders)
         .then(async response => {
           const data = await response.json()

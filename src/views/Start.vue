@@ -1,7 +1,7 @@
 <template>
-  <div class="page" id="step-start">
+  <div class="page" id="step-start" ref="stepStart">
 
-    <h1 class="ml-n2">1. Get Started...</h1>
+    <h1 class="ml-n2 disable-select">1. Get Started...</h1>
     <p>
       Why we ask you for all of this information?
       To help us make sure you get the best possible experience...
@@ -14,7 +14,7 @@
 
 
       <!-- ***************** Nr People ******************** -->
-      <h3>
+      <h3 class="disable-select">
         <v-icon :color="isValidNrPeople ? 'success' : 'primary'">{{ isValidNrPeople ? stepIconCompleted : stepIcon }}</v-icon>
         Nr of People Flying
       </h3>
@@ -34,7 +34,7 @@
 
 
       <!-- ***************** Flight Date ******************** -->
-      <h3>
+      <h3 class="disable-select">
         <v-icon :color="flightDate ? 'success' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
         Flight Date
       </h3>
@@ -77,12 +77,13 @@
 
 
       <!-- ***************** Which Flight? ******************** -->
-      <h3>
+      <h3 class="disable-select">
         <v-icon :color="flightChosen ? 'success' : 'primary'">{{ formattedFlightsList ? stepIconCompleted : stepIcon }}</v-icon>
         Which Flight?
       </h3>
       <div class="controls">
         <v-select
+         class="disable-select"
           style="max-width:300px;"
           v-model="flightChosen"
           :items="formattedFlightsList"
@@ -109,6 +110,7 @@
       <div class="controls">
         <!-- Photos and Videos included? -->
         <v-switch 
+          id="photosSwitch"
           v-model="switchPhotos" 
           color="success"
           inset 
@@ -176,6 +178,7 @@ import { format, add, parseISO } from 'date-fns'
 import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud } from '@mdi/js'
 
 import NumberScroller from "@/components/NumberScroller.vue";
+const VueScrollTo = require('vue-scrollto');
 
 export default {
   name: 'Start',
@@ -344,7 +347,7 @@ export default {
       return false
     },
     buildFlightList: function (obj) {
-      console.log('build flight list for drop menu')
+      //console.log('build flight list for drop menu')
       let newFlightsList = []
       for (let [key, value] of Object.entries(obj)) {
         //console.log(`${key}: ${value}`);
@@ -368,6 +371,15 @@ export default {
       // When this computed property (source data is: store.flightsList)
       // and generate a new drop menu for Which Flight?
       this.formattedFlightsList = this.buildFlightList(newObj)
+    },
+    flightDate: function (prev, old) {
+      // Scroll page down when changed.
+      if (prev != old) {
+        console.log('scroll bottom')
+        //const scrollBottom = document.height() - window.height() - window.scrollTop()
+        //this.$refs.stepStart.scrollBottom
+        VueScrollTo.scrollTo('#photosSwitch', 800)
+      }
     },
     bigGroupDialog: function (val) {
       // set focus to Close button when the dialog is displayed.
