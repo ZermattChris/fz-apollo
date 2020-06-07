@@ -1,14 +1,13 @@
 module.exports = {
-  "transpileDependencies": [
-    "vuetify"
-  ],
-  chainWebpack: config => {
+  transpileDependencies: ["vuetify"],
+  chainWebpack: (config) => {
     config.module
       .rule("i18n")
       .resourceQuery(/blockType=i18n/)
-      .type('javascript/auto')
+      .type("javascript/auto")
       .use("i18n")
-        .loader("@kazupon/vue-i18n-loader")
-        .end();
-  }
-}
+      .loader("@kazupon/vue-i18n-loader")
+      .end();
+  },
+  transformIgnorePatterns: ["/node_modules/(?!lib-to-transform|other-lib)"],
+};
