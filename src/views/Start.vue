@@ -1,17 +1,12 @@
 <template>
   <div class="page" id="step-start" ref="stepStart">
 
-    <PageHeader></PageHeader>
-
-<!-- 
-    <h1 class="ml-n2 disable-select">1. Get Started...</h1>
-    <p>
+    <PageHeader title="1. Get Started...">
       Why we ask you for all of this information?
       To help us make sure you get the best possible experience...
-      To make sure that we provide the highest levels of safety...
-    </p>
+      To make sure that we provide the highest levels of safety..
+    </PageHeader>
 
-    <v-divider></v-divider> -->
     <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12">
       
 
@@ -181,7 +176,7 @@ import { format, add, parseISO } from 'date-fns'
 import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud } from '@mdi/js'
 
 import PageHeader from '@/components/PageHeader.vue'
-import NumberScroller from "@/components/NumberScroller.vue";
+import NumberScroller from "@/components/NumberScroller.vue"
 const VueScrollTo = require('vue-scrollto');
 
 export default {
@@ -380,7 +375,7 @@ export default {
     flightDate: function (prev, old) {
       // Scroll page down when changed.
       if (prev != old) {
-        console.log('scroll bottom')
+        //console.log('scroll bottom')
         //const scrollBottom = document.height() - window.height() - window.scrollTop()
         //this.$refs.stepStart.scrollBottom
         VueScrollTo.scrollTo('#photosSwitch', 800)
