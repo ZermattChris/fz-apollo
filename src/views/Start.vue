@@ -1,8 +1,8 @@
 <template>
-  <div class="page">
+  <div class="page" id="step-start">
 
     <h1 class="ml-n2">1. Get Started...</h1>
-    <p class="">
+    <p>
       Why we ask you for all of this information?
       To help us make sure you get the best possible experience...
       To make sure that we provide the highest levels of safety...
@@ -23,6 +23,7 @@
           :max="getMaxPilots"
           min-message="Min per Booking is 1"
           :max-message="getMaxMessage"
+          @at-max-value="showBigGroupWarning"
         />
       </div>
 
@@ -110,7 +111,54 @@
       </div>
 
 
+
+
+
+<div class="text-center">
+    <v-dialog
+      v-model="bigGroupDialog"
+      width="400"
+    >
+      <v-card>
+        <v-card-title
+          class="primary"
+          primary-title
+        >
+        <div class="white--text">
+          Booking a Big Group
+        </div>
+          
+        </v-card-title>
+
+        <v-card-text class="pt-6">
+          If your group contains more than {{getMaxPilots}} people...
+          <br><br>
+          ...you can either do 2 or more seperate Bookings here, 
+          splitting your group amongst available times, or send
+          us a <strong>Booking Message</strong> (later in this booking process) or
+          just give us a ring at: Tel +41 79 643-6808
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="bigGroupDialog = false"
+            
+          >
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
+
     </div>
+
+    
   </div>
 </template>
 
@@ -132,8 +180,6 @@ export default {
 
   data () {
     return {
-      //nrPeopleMax: store.nrPeopleMax,     // Passed in from initial json API call at load.
-
       stepIcon:           mdiArrowRightBoldCircleOutline,
       stepIconCompleted:  mdiCheckCircleOutline,
       cameraIcon:         mdiCameraPlusOutline,
@@ -142,10 +188,10 @@ export default {
 
       formattedFlightsList: [],
       
-      flightMinDate: format( add(Date.now(), {days:2}), 'yyyy-MM-dd'),    // "2021-03-20"    
-      flightMaxDate: format( add(Date.now(), {years:1}), 'yyyy-MM-dd'),
       flightMenu: false,
       flightModal: false,
+
+      bigGroupDialog: false,
 
       isPageValid: this.areAllInputsValid
     }
@@ -220,6 +266,16 @@ export default {
     },
 
     // Normal computed values
+    flightMinDate: function () {
+      const offsetDays = store.bookDaysOffset
+      return format( add(Date.now(), {days:offsetDays}), 'yyyy-MM-dd')
+    },
+    flightMaxDate: function () {
+      const offsetMonths = store.bookMonthsOffset
+      return format( add(Date.now(), {months:offsetMonths}), 'yyyy-MM-dd')
+    },
+
+
     flightsListModelObj: function () {
       return store.flightsList
     },
@@ -286,6 +342,9 @@ export default {
     },
     onRule_whichFlight: function () {
       console.log('Date has changed, run rules to check that "Which Flight?" is still valid. (if not, then set to empty)')
+    },
+    showBigGroupWarning: function () {
+      this.bigGroupDialog = true
     }
   },
 

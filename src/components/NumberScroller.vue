@@ -106,12 +106,13 @@ export default {
       
       this.prevVal = this.myVal
 
-      this.$emit('input', this.myVal)
+      //this.$emit('input', this.myVal)
     },
     atMaxVal: function () {
       this.myVal = this.max
       this.scrollerMessage = this.maxMessage
       //console.log('Max msg: ' + this.scrollerMessage)
+      this.$emit('at-max-value', this.myVal)
     },
     atMinVal: function () {
       this.myVal = this.min
