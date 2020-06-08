@@ -19,7 +19,7 @@
       />
       <TimeLister/>
       <TimeLister
-        class="d-none d-sm-inline-block"
+        class="d-none d-md-inline-block"
         dense
       />
     </div>
@@ -56,6 +56,6 @@
 }
 .vSpacerForAbsolute {
   width: 100%;
-  height: 424px;
+  height: 480px;
 }
 </style>
