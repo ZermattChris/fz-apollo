@@ -15,14 +15,14 @@
     TimeLister displaying, just with css. Kool. -->
     <div id="steps-controls">
       <ul id="v-for-object"> 
-        <li v-for="(val, date) in dates" :key="date">
+        <li v-for="(val, myDate) in dates" :key="myDate">
             <TimeLister 
               class="d-none d-md-inline-block"
               dense
-              date="date"
+              :date="myDate"
             />
-            <!-- Check for match to selected User's date and if yes, make it the default.  -->
-            {{val}}
+            <!-- Check for match to selected User's date and if yes, make it the default, set CSS...  -->
+            
         </li>
       </ul>
     </div>

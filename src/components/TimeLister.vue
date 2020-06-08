@@ -7,7 +7,10 @@
     :dense="isDense"
   >
 
-    <div>Header :: Date</div>
+    <div class="TLHeader">
+      <h3>{{titleDate.abbreviation}}</h3>
+      <div>{{titleDate.fullDate}}</div>
+    </div>
 
     <v-list-item-group 
       v-model="model" 
@@ -45,6 +48,8 @@
 </template>
 
 <script>
+  import { parseISO, format } from 'date-fns'
+
   export default {
     name: "TimeLister",
 
@@ -53,6 +58,10 @@
         type: [Boolean, String],
         required: false,
         default: false,
+      },
+      date: {
+        type: String,
+        required: true,
       },
     }, 
 
@@ -74,6 +83,29 @@
       }
     },
 
+    computed: {
+      titleDate: function () {
+        // replace with an API call when its live.
+        console.log(this.date)
+        const myDate = parseISO(this.date)
+        //console.log(myDate)
+        const dayAbrvStr = format(myDate, 'ccc')
+        const fullDateStr = format(myDate, 'PPP')
+        return {abbreviation: dayAbrvStr, fullDate: fullDateStr}
+      },
+    },
+
+    methods: {
+      xxxxx: function () {
+        
+      }
+    },
+
+    mounted() {
+      //console.log(this.dates)
+    },
+
+
   }
 
 </script>
@@ -88,5 +120,9 @@
     margin-right: 10px !important;
     position: relative;
     top: -30px;
+  }
+
+  .TLHeader h3 {
+    font-size: 1.6em;
   }
 </style>
