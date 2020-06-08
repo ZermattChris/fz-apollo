@@ -36,6 +36,16 @@
         <v-icon :color="flightDate ? 'success' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
         Flight Date
       </h3>
+      <!-- DEBUG MSG TEMP -->
+      <v-chip
+        color="warning"
+        text-color="white">
+        <v-avatar left>
+        <v-icon>mdi-bug</v-icon>
+      </v-avatar>
+        DEBUG: You need to choose <strong>June 18th, 2020</strong> to get next step to display properly
+      </v-chip>
+      
       <div class="controls">
         <v-dialog
           ref="dialog"
