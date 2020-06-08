@@ -67,17 +67,17 @@
         <v-col class="pa-5 pa-sm-8 pa-md-12" cols="12" md="10" lg="8" >
 
           <!-- Router hooked up here -->
-          <transition
+          <!-- <transition
             name="fade"
             mode="out-in"
-          >
+          > -->
             <router-view
               @form-is-valid="onEnableContinueBtn"
               @data-changed="saveLocalStorageValues"
 
               @flight-date-changed="loadFlightsList"
             ></router-view>
-          </transition>
+          <!-- </transition> -->
 
           <div class="text-center mt-12 mb-6">
             <!-- Continue Btn -->

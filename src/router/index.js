@@ -27,7 +27,16 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  // this pushes to the top of the next page when changing routes.
+  // Using async as it gives the page time to draw itself (header, etc)
+  scrollBehavior() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ x: 0, y: 0 })
+      }, 0)
+    })
+  }
 })
 
 
