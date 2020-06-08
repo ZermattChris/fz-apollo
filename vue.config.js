@@ -8,6 +8,5 @@ module.exports = {
       .use("i18n")
       .loader("@kazupon/vue-i18n-loader")
       .end();
-  },
-  transformIgnorePatterns: ["/node_modules/(?!lib-to-transform|other-lib)"],
+  }
 };

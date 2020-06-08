@@ -17,7 +17,7 @@
 
       <input 
         ref="numberInput"
-        class="numberInput"
+        class="nrInput"
         :value="myVal" 
         readonly
         @input="onInput($event.target.value)"
@@ -174,7 +174,7 @@ export default {
     height: 100%;
   }
 
-  input.numberInput {
+  input.nrInput {
     margin: 0;
     padding: 0 !important;
     text-align: center;
