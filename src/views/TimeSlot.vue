@@ -202,7 +202,7 @@
 
     computed: {
       dates: function () {
-        // replace with an API call when its live.
+        // replace with an API call when its live...
         return jsonDates
       },
       userFlightDate: function () {
