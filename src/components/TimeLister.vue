@@ -1,23 +1,28 @@
 <template>
-    
+
   <v-list
     class="timeListerBox mx-auto"
+    :class="{ 'selectedBorder': selected }"
     max-width="320"
     min-width="290"
     elevation="2"
-    
+    tile
     :dense="isDense"
   >
 
     <div 
-      class="TLHeader primary white--text"
+      class="TLHeader"
+      :class="{ 'white--text grey darken-2': !isDense, 'black--text grey lighten-1': isDense }"
     >
-      <h3>{{titleDate.abbreviation}}</h3>
+      <h3
+      :class="{ 'whiteTextShadow': isDense, 'darkTextShadow': !isDense }">
+        {{titleDate.abbreviation}}
+      </h3>
       <div>{{titleDate.fullDate}}</div>
     </div>
 
     <v-list-item-group 
-      v-model="selected"
+      v-model="selectedSlot"
       color="indigo"
       active-class="success--text text--darken-2"
     >
@@ -46,9 +51,8 @@
 
       
     </v-list-item-group>
-
+Selected: {{selected}}
   </v-list>
-
 
 </template>
 
@@ -63,6 +67,10 @@
         type: [Boolean, String],
         required: false,
         default: false,
+      },
+      selected: {
+        type: Boolean,
+        default: false
       },
       date: {
         type: String,
@@ -79,7 +87,7 @@
         isDense: this.dense,
         tmpIcon: 'mdi-wifi',
         items: this.timesArray,
-        selected: -1,
+        selectedSlot: -1,
       }
     },
 
@@ -104,6 +112,7 @@
 
     mounted() {
       //console.log(this.dates)
+      
     },
 
 
@@ -123,14 +132,27 @@
     top: -30px;
   }
 
+  .darkTextShadow {
+    text-shadow: 0px 0px 2px black, 0px 0px 1px black;
+  }
+  .whiteTextShadow {
+    text-shadow: 0px 0px 2px rgb(255, 255, 255), 0px 0px 1px rgb(255, 255, 255);
+  }
 
   .TLHeader h3 {
     font-size: 1.6em;
   }
+  /* .TLHeader div {
+    text-shadow: 0px 0px 2px black, 0px 0px 1px black;
+  } */
   .listItem {
     /* padding-bottom: 1px; */
     border-bottom: 1px solid rgb(218, 218, 218);
   }
 
+/* .v-application .grey.lighten-5 {
+    border-radius: 4px;
+    border: 4px solid lime !important;
+} */
 
 </style>

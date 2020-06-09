@@ -1,7 +1,11 @@
 <template>
   <div>
 
-    <h1 class="ml-n2 disable-select">{{title}}</h1>
+    <h1 
+      class="ml-n2 disable-select"
+      v-html="title"
+    >
+    </h1>
     <p>
         <slot>Default Page Header text...</slot>
     </p>
@@ -24,5 +28,6 @@
 </script>
 
 <style scoped>
+
 
 </style>

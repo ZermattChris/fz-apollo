@@ -1,9 +1,9 @@
 <template>
   <div class="timeSlot">
     
-    <PageHeader title="2. Choose a Flight Time...">
-      The time of day can make a big difference to what type of 
-      flight you get &mdash; there are many variables, including
+    <PageHeader :title="timeListerHeaderStr">
+      The time of day can make a big difference to the kind of 
+      flight your Group of <span class="hilite-text">{{usersGroupSize}}</span> receive &mdash; there are many variables, including
       which flight, time of year, confidence and your fitness level.
 
       <br><br>
@@ -20,6 +20,7 @@
           <!-- Check for match to selected User's date and if yes, make it the default, set CSS...  -->
           <TimeLister 
             v-if="myDate === userFlightDate"
+            selected
             :date="myDate"
             :timesArray="val"
           />
@@ -55,6 +56,14 @@
       TimeLister,
     },
 
+    data () {
+      return {
+        // We already have the User's chosen Date from first Step (store.flightDate)
+        // Probably want to localStorage cache this.
+        userTimeSlot: -1,      
+      }
+    },
+
     computed: {
       dates: function () {
         // replace with an API call when its live.
@@ -62,6 +71,17 @@
       },
       userFlightDate: function () {
         return store.flightDate
+      },
+      usersGroupSize: function () {
+        return store.nrPeople
+      },
+      timeListerHeaderStr: function () {
+        // console.log(this.capitaliseFirstLetter('whoop'))
+        // return "2. Flight Time for: " + this.capitaliseFirstLetter(store.selectedFlight)
+        // Need to return the matching Flight Description from store.flightsList object.store.
+        const userFlightKey = store.selectedFlight
+        const flightDesc = store.flightsList[userFlightKey]
+        return "2. Flight Time for: <span class='hilite-text'>" + flightDesc + "</span>"
       }
     },
 
@@ -90,4 +110,6 @@
   width: 100%;
   height: 530px;
 }
+
+
 </style>

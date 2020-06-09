@@ -298,6 +298,12 @@ export default {
 
 <style>
 
+/* My custom CSS variable */
+:root {
+  --fzselected-color: 255, 187, 0;
+}
+
+
 /* Stop the pull-down to reload screen. */
 html,
 body {
@@ -309,6 +315,12 @@ body {
    -khtml-user-select: none; /* Konqueror HTML */
    -moz-user-select: none; /* Firefox */
    -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+.hilite-text {
+  padding: 0 4px;
+  background-color: rgba(var(--fzselected-color), 0.3);
+  border-radius: 6px;
 }
 
 .page {
@@ -337,5 +349,12 @@ h3 > .v-icon {
 .v-input__icon {
   margin-right: 5px !important;
 }
+
+.selectedBorder {
+  border-style: solid !important;
+  border-width: 4px !important;
+  border-color: rgba(var(--fzselected-color), 0.3) !important;
+  border-radius: 4px !important;
+} 
 
 </style>
