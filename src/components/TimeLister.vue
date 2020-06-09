@@ -2,9 +2,7 @@
 
   <v-list
     class="timeListerBox mx-auto"
-    :class="{ 'selectedBorder': selected }"
-    max-width="320"
-    min-width="290"
+    :class="{ 'selectedBorder': selected, 'boxDisplaySize': !isDense }"
     elevation="2"
     tile
     :dense="isDense"
@@ -164,6 +162,9 @@ Selected: {{selected}}
       border-width: 4px !important;
       border-color: rgba(var(--fzselected-color), 0.3) !important;
     } 
+    .boxDisplaySize {
+      min-width: 330px;
+    }
 
   .v-list--dense {
     margin-left: 10px !important;

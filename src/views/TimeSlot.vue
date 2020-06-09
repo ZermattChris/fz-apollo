@@ -27,16 +27,16 @@
           <TimeLister 
             v-if="myDate === userFlightDate"
             selected
-            :date="myDate"
+            :date="setUserDate(myDate)"
             :timesArray="val"
           />
-          <TimeLister 
+          <!-- <TimeLister 
             v-else
             class="d-none d-md-inline-block"
             dense
             :date="myDate"
             :timesArray="val"
-          />
+          /> -->
       </div>
     </div>
 
@@ -64,9 +64,10 @@
 
     data () {
       return {
-        // We already have the User's chosen Date from first Step (store.flightDate)
-        // Probably want to localStorage cache this.
-        userTimeSlot: -1,      
+        // Holds the ISO date string '2020-06-18' for the chosen Date.
+        // Need to update in the localStorage as well when changed.
+        // Initially will be set to the date the User chose in Step 1
+        userTimeSlot: '',      
       }
     },
 
@@ -92,8 +93,10 @@
     },
 
     methods: {
-      xxxxx: function () {
-        
+      setUserDate: function (dateStr) {
+        //console.log(dateStr)
+        this.userTimeSlot = dateStr
+        return dateStr
       }
     },
 
