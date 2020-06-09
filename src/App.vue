@@ -350,11 +350,5 @@ h3 > .v-icon {
   margin-right: 5px !important;
 }
 
-.selectedBorder {
-  border-style: solid !important;
-  border-width: 4px !important;
-  border-color: rgba(var(--fzselected-color), 0.3) !important;
-  border-radius: 4px !important;
-} 
 
 </style>

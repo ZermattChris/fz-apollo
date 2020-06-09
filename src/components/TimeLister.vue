@@ -123,8 +123,17 @@ Selected: {{selected}}
 <style scoped>
   .timeListerBox {
     display: inline-block;
-    /* background-color: rgb(244, 240, 255); */
+    /* this needs to match the Selected Border width below. */
+    border-style: solid !important;
+    border-width: 4px !important;
+    border-color: white !important;
   }
+    .selectedBorder {
+      border-style: solid !important;
+      border-width: 4px !important;
+      border-color: rgba(var(--fzselected-color), 0.3) !important;
+    } 
+
   .v-list--dense {
     margin-left: 10px !important;
     margin-right: 10px !important;
@@ -150,9 +159,5 @@ Selected: {{selected}}
     border-bottom: 1px solid rgb(218, 218, 218);
   }
 
-/* .v-application .grey.lighten-5 {
-    border-radius: 4px;
-    border: 4px solid lime !important;
-} */
 
 </style>

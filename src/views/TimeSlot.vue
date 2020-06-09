@@ -3,12 +3,17 @@
     
     <PageHeader :title="timeListerHeaderStr">
       The time of day can make a big difference to the kind of 
-      flight your Group of <span class="hilite-text">{{usersGroupSize}}</span> receive &mdash; there are many variables, including
+      flight your Group of <span class="hilite-text">{{usersGroupSize}}</span> receives &mdash; there are many variables, including
       which flight, time of year, confidence and your fitness level.
 
       <br><br>
 
-      Check our Guidelines for details: <a href="#TODO">Flight Guidelines</a>
+      If you'd like to change your Group Size or Flight Date: 
+      <strong class="hilite-text py-1 px-2"><router-link to="/"><span class="text-no-wrap">1. Get Started</span></router-link></strong>
+      (or hit the <span class="text-no-wrap">'&lt; Back'</span> button above)
+      <br><br>
+
+      Learn more about which flight time to choose: <a href="#TODO"><span class="text-no-wrap">Flight Guidelines</span></a>
     </PageHeader>
 
     <!-- Fantastic how it was possible to create the visuals for multi-column
@@ -81,7 +86,7 @@
         // Need to return the matching Flight Description from store.flightsList object.store.
         const userFlightKey = store.selectedFlight
         const flightDesc = store.flightsList[userFlightKey]
-        return "2. Flight Time for: <span class='hilite-text'>" + flightDesc + "</span>"
+        return "2. Flight Time for: <span class='hilite-text text-no-wrap'>" + flightDesc + "</span>"
       }
     },
 
@@ -108,7 +113,7 @@
 }
 .vSpacerForAbsolute {
   width: 100%;
-  height: 530px;
+  height: 570px;
 }
 
 
