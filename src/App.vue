@@ -301,6 +301,7 @@ export default {
 /* My custom CSS variable */
 :root {
   --fzselected-color: 255, 187, 0;
+  --fz-link-hilite-color: var(--v-primary-base);
 }
 
 
@@ -321,6 +322,11 @@ body {
   padding: 0 4px;
   background-color: rgba(var(--fzselected-color), 0.3);
   border-radius: 6px;
+}
+.hilite-link {
+  padding: 2px 4px !important;
+  background-color: rgba(170, 170, 170, 0.1) !important;
+  border-radius: 6px !important;
 }
 
 .page {

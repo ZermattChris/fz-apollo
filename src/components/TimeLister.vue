@@ -36,7 +36,9 @@
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title v-text="item.time + ' X Places Available'"></v-list-item-title>
+          <v-list-item-title>
+            <span class="time" v-html="formatTime(item.time)"></span>
+          </v-list-item-title>
         </v-list-item-content>
 
         <v-list-item-action>
@@ -105,9 +107,27 @@ Selected: {{selected}}
     },
 
     methods: {
-      xxxxx: function () {
-        
-      }
+      formatTime: function (timeStr) {
+        // format into nice html for display.
+        const htmlSnippet = "<span class='hour'>" + this.getHours(timeStr) + "</span><span class='minute'>:" + this.getMins(timeStr) + "</span>"
+        return htmlSnippet
+      },
+      getHours: function (timeStr) {
+        // split timeStr on the colon ':' or throw error.
+        let items = timeStr.split(':')
+        if (items.length !== 2) {
+          throw new Error('Time String data (timeSlots array) must be in the format of "10:45". Was passed:' + timeStr)
+        }
+        return items[0]
+      },
+      getMins: function (timeStr) {
+        // split timeStr on the colon ':' or throw error.
+        let items = timeStr.split(':')
+        if (items.length !== 2) {
+          throw new Error('Time String data (timeSlots array) must be in the format of "10:45". Was passed:' + timeStr)
+        }
+        return items[1]
+      },
     },
 
     mounted() {
@@ -158,6 +178,24 @@ Selected: {{selected}}
     /* padding-bottom: 1px; */
     border-bottom: 1px solid rgb(218, 218, 218);
   }
+
+  /* Format pesky Time label */
+  .time {
+    font-size: larger;
+    position: relative;
+    top: 0.15em;
+    left: -10px;
+  }
+    span>>>.hour {
+      font-size: larger;
+      font-weight: bolder;
+    }
+    span>>>.minute {
+      font-size: smaller;
+      position: relative;
+      top: -0.24em;
+      left: 0.1em;
+    }
 
 
 </style>

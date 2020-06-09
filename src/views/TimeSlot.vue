@@ -2,18 +2,19 @@
   <div class="timeSlot">
     
     <PageHeader :title="timeListerHeaderStr">
-      The time of day can make a big difference to the kind of 
-      flight your Group of <span class="hilite-text">{{usersGroupSize}}</span> receives &mdash; there are many variables, including
-      which flight, time of year, confidence and your fitness level.
+      [TODO:awkward] The time of day can affect how your flight is for your Group of 
+      <span class="hilite-text">{{usersGroupSize}}</span> 
+      &mdash; there are many variables, including
+      which flight, time of year, weather, confidence and your fitness level.
 
       <br><br>
-
+      How to choose the right time for you: <a href="#TODO"><span class="text-no-wrap">Flight Guidelines</span></a>
+      
+      <br><br>
       If you'd like to change your Group Size or Flight Date: 
-      <strong class="hilite-text py-1 px-2"><router-link to="/"><span class="text-no-wrap">1. Get Started</span></router-link></strong>
+      <strong class="hilite-link"><router-link to="/"><span class="text-no-wrap">1. Get Started</span></router-link></strong>
       (or hit the <span class="text-no-wrap">'&lt; Back'</span> button above)
-      <br><br>
-
-      Learn more about which flight time to choose: <a href="#TODO"><span class="text-no-wrap">Flight Guidelines</span></a>
+      
     </PageHeader>
 
     <!-- Fantastic how it was possible to create the visuals for multi-column
