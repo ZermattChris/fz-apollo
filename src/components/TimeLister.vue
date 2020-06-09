@@ -170,7 +170,6 @@ Selected: {{selected}}
     margin-left: 10px !important;
     margin-right: 10px !important;
     position: relative;
-    top: -30px;
   }
 
   .darkTextShadow {

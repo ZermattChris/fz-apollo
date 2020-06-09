@@ -17,32 +17,78 @@
       
     </PageHeader>
 
+
+  <!-- <v-sheet
+    class="mx-auto"
+    elevation="0"
+  >
+    <v-slide-group
+      v-model="model"
+      class="pa-4"
+      prev-icon="mdi-minus"
+      next-icon="mdi-plus"
+      show-arrows
+      center-active
+    >
+      <v-slide-item
+        v-for="n in 3"
+        :key="n"
+        v-slot:default="{ active, toggle }"
+      >
+        <v-card
+          :color="active ? 'primary' : 'grey lighten-1'"
+          class="mx-1"
+          width="312"
+          height="585"
+          @click="toggle"
+        >
+          <v-row
+            class="fill-height"
+            align="center"
+            justify="center"
+          >
+            <v-scale-transition>
+              <v-icon
+                v-if="active"
+                color="white"
+                size="48"
+                v-text="'mdi-close-circle-outline'"
+              ></v-icon>
+            </v-scale-transition>
+          </v-row>
+        </v-card>
+      </v-slide-item>
+    </v-slide-group>
+  </v-sheet> -->
+
+
+
+
     <!-- Fantastic how it was possible to create the visuals for multi-column
     TimeLister displaying, just with css. Kool. -->
-    <!-- <div id="v-for-object" class="steps-controls">  -->
-      <!-- <div 
+    <div id="v-for-object" class="steps-controls">
+      <div 
         class="d-inline-block"
-        v-for="(val, myDate) in dates" :key="myDate"> -->
+        v-for="(val, myDate) in dates" :key="myDate">
           <!-- Check for match to selected User's date and if yes, make it the default, set CSS...  -->
-          <!-- <TimeLister 
-            v-if="myDate === userFlightDate"
+          <!-- <TimeLister
+            v-if="myDate.date === userFlightDate"
             selected
-            :date="setUserDate(myDate)"
-            :timesArray="val" -->
-          <!-- /> -->
-          <!-- <TimeLister 
-            v-else
+            date="setUserDate('2020-06-18')"
+            :timesArray="val.slots"
+          /> -->
+          <TimeLister
             class="d-none d-md-inline-block"
             dense
-            :date="myDate"
-            :timesArray="val"
-          /> -->
-      <!-- </div> -->
-    <!-- </div> -->
+            date="2020-06-19"
+            :timesArray="val.slots"
+          />
+      </div>
+    </div>
 
 
 
-  <v-sheet
+  <!-- <v-sheet
     id="v-for-object"
     class="steps-controls"
     elevation="0"
@@ -63,8 +109,8 @@
           height="auto"
           width="auto"
           @click="toggle"
-        >
-        <v-row
+        > -->
+        <!-- <v-row
             class="fill-height"
             align="center"
             justify="center"
@@ -84,9 +130,9 @@
           />
           {{myDate.date}}
           </v-row>
-        </v-card>
-
-        <!-- <v-card
+        </v-card> -->
+<!-- 
+        <v-card
           :color="active ? 'primary' : 'grey lighten-1'"
           class="ma-4"
           height="200"
@@ -105,12 +151,6 @@
                 v-text="'mdi-close-circle-outline'"
               ></v-icon>
 
-          <TimeLister
-            v-if="myDate === userFlightDate"
-            selected
-            :date="setUserDate(myDate)"
-            :timesArray="val"
-          />
           <TimeLister 
             v-else
             class="d-none d-md-inline-block"
@@ -119,12 +159,13 @@
             :timesArray="val"
           />
           </v-row>
-        </v-card> -->
+        </v-card>
 
 
       </v-slide-item>
-    </v-slide-group>
-  </v-sheet>
+    </v-slide-group> -->
+  <!-- </v-sheet> -->
+
 
     <!-- This is required as I've position:absolute'd the steps-controls container,
     otherwise the Continue button would jump up. -->
@@ -145,7 +186,7 @@
   
     components: {
       PageHeader,
-      TimeLister,
+      TimeLister
     },
 
     data () {
@@ -153,7 +194,9 @@
         // Holds the ISO date string '2020-06-18' for the chosen Date.
         // Need to update in the localStorage as well when changed.
         // Initially will be set to the date the User chose in Step 1
-        userTimeSlot: '',      
+        userTimeSlot: '',   
+        
+        model: null,
       }
     },
 
@@ -200,12 +243,44 @@
   left:0; right: 0;
   text-align: center;
   margin: 0 auto;
-  /* background-color: rgb(194, 194, 194); */
+  background-color: yellow;
 }
 .vSpacerForAbsolute {
   width: 100%;
   height: 570px;
 }
+
+
+
+/* Trying to build a virtual date scroller */
+/* .v-sheet {
+  background-color: yellow;
+}
+
+div>>>.v-sheet {
+  position: relative;
+  padding: 0;
+}
+  div>>>.v-slide-group__next {
+    position: absolute;
+    right: -22px; top: 0; bottom: 0;
+    width: 52px;
+    min-width: 32px;
+    outline: 1px maroon solid;
+  } */
+
+
+/* .v-sheet {
+  position: absolute;
+  left:0; right: 0;
+  height: 560px;
+  background-color: yellow;
+}
+  .v-slide-group {
+    position: relative;
+    left:0; right: 0;
+    padding: 0 !important;
+  } */
 
 
 </style>
