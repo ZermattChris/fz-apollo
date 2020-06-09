@@ -38,6 +38,12 @@
         <v-list-item-content>
           <v-list-item-title>
             <span class="time" v-html="formatTime(item.time)"></span>
+            <v-chip
+              class="availability" 
+              v-html="formatAvail(item.avail)"
+              outlined
+            ></v-chip>
+            <span class="description">Available</span>
           </v-list-item-title>
         </v-list-item-content>
 
@@ -107,27 +113,32 @@ Selected: {{selected}}
     },
 
     methods: {
+      formatAvail: function (nrAvail) {
+        // format into nice html for display.
+        //const nrAvailhtmlSnippet = "<span class='hour'>" + this.getHours() + "</span><span class='minute'>:" + this.getMins() + "</span>"
+        return nrAvail
+      },
       formatTime: function (timeStr) {
         // format into nice html for display.
         const htmlSnippet = "<span class='hour'>" + this.getHours(timeStr) + "</span><span class='minute'>:" + this.getMins(timeStr) + "</span>"
         return htmlSnippet
       },
-      getHours: function (timeStr) {
-        // split timeStr on the colon ':' or throw error.
-        let items = timeStr.split(':')
-        if (items.length !== 2) {
-          throw new Error('Time String data (timeSlots array) must be in the format of "10:45". Was passed:' + timeStr)
-        }
-        return items[0]
-      },
-      getMins: function (timeStr) {
-        // split timeStr on the colon ':' or throw error.
-        let items = timeStr.split(':')
-        if (items.length !== 2) {
-          throw new Error('Time String data (timeSlots array) must be in the format of "10:45". Was passed:' + timeStr)
-        }
-        return items[1]
-      },
+        getHours: function (timeStr) {
+          // split timeStr on the colon ':' or throw error.
+          let items = timeStr.split(':')
+          if (items.length !== 2) {
+            throw new Error('Time String data (timeSlots array) must be in the format of "10:45". Was passed:' + timeStr)
+          }
+          return items[0]
+        },
+        getMins: function (timeStr) {
+          // split timeStr on the colon ':' or throw error.
+          let items = timeStr.split(':')
+          if (items.length !== 2) {
+            throw new Error('Time String data (timeSlots array) must be in the format of "10:45". Was passed:' + timeStr)
+          }
+          return items[1]
+        },
     },
 
     mounted() {
@@ -175,16 +186,16 @@ Selected: {{selected}}
     text-shadow: 0px 0px 2px black, 0px 0px 1px black;
   } */
   .listItem {
-    /* padding-bottom: 1px; */
+    padding-top: 0.15em;
     border-bottom: 1px solid rgb(218, 218, 218);
   }
 
   /* Format pesky Time label */
   .time {
     font-size: larger;
-    position: relative;
-    top: 0.15em;
-    left: -10px;
+    position: absolute;
+    top: 0.8em;
+    left: 50px;
   }
     span>>>.hour {
       font-size: larger;
@@ -196,6 +207,17 @@ Selected: {{selected}}
       top: -0.24em;
       left: 0.1em;
     }
+
+  .v-chip.v-chip--outlined {
+    border-width: 3px;
+    font-size: larger;
+    font-weight: bolder;
+    margin-left: 2em;
+  }
+
+  .description {
+    padding-left: 0.5em;
+  }
 
 
 </style>
