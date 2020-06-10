@@ -66,7 +66,7 @@ Selected: {{selected}}
   import { parseISO, format } from 'date-fns'
 
   export default {
-    name: "TimeLister",
+    name: "TimeList",
 
     props: {
       dense: {
