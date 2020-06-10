@@ -233,7 +233,7 @@
 }
   .vSpacerForAbsolute {
     width: 100%;
-    height: 570px;
+    height: 590px;
   }
 
 TimeListGroup {

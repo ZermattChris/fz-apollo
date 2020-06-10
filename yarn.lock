@@ -4556,6 +4556,11 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
   integrity sha512-WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==
 
+gsap@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/gsap/-/gsap-3.3.1.tgz#f11b926c2c1891501209d78a00df48452a2681c8"
+  integrity sha512-jTR6bZKCkB9toO/8Mq2FWIMKjoOgOWjGAeO9SJHTGk0UnGn3C7ViN9QeNzY7Za1QmQ6NWG+ud6MB4e4L23qWMg==
+
 gzip-size@^5.0.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/gzip-size/-/gzip-size-5.1.1.tgz#cb9bee692f87c0612b232840a873904e4c135274"
@@ -5924,6 +5929,11 @@ mkdirp@~1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
+
+mobile-device-detect@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/mobile-device-detect/-/mobile-device-detect-0.3.3.tgz#6880f54c2e838d8dccbfc0d962d01a348db5faad"
+  integrity sha512-JOrQ2mwcBnEz/6hyvP/aXI8R03DnlwlQey7cukE6kCy9RLQbzchN5yMocEXuOw4NXdCsU6k7mEAolHwLxgPYwQ==
 
 move-concurrently@^1.0.1:
   version "1.0.1"

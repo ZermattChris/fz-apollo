@@ -13,6 +13,7 @@
     "date-fns": "^2.14.0",
     "gasp": "^0.0.2",
     "gsap": "^3.3.1",
+    "mobile-device-detect": "^0.3.3",
     "vue": "^2.6.11",
     "vue-i18n": "^8.18.1",
     "vue-router": "^3.2.0",

@@ -29,7 +29,9 @@
         </v-col>
       </v-row>
 
-      {{ swipeDirection }}
+      {{msg}}
+      <br>
+      Swipe Direction: {{ swipeDirection }}
 
 
       <v-btn
@@ -68,7 +70,7 @@
 </template>
 
 <script>
-  // import { gsap } from "gsap";
+  import { isMobile } from 'mobile-device-detect'
   import TimeListX from '@/components/TimeListX.vue'
 
   export default {
@@ -91,6 +93,7 @@
     data () {
       return {
         swipeDirection: 'None',
+        msg: isMobile ? 'Mobile device: Hide scroll buttons, enable Swipe.' : 'Desktop: Show scroll buttons. ',
 
         // This correlates to the datesObject's date "id"
         tempDatesList: [1000, 1001, 1002]
