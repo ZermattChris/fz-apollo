@@ -3,7 +3,7 @@
     
     <PageHeader :title="timeListerHeaderStr">
       [TODO:awkward] The time of day can affect how your flight is for your 
-      <span class="hilite-text">Group of {{usersGroupSize}}</span> 
+      <span class="hilite-text text-no-wrap">Group of {{usersGroupSize}}</span> 
       &mdash; there are many variables, including
       which flight, time of year, weather, confidence and your fitness level.
 
@@ -22,7 +22,7 @@
     dynamic 'TimeLister' components. -->
     <div class="steps-controls">
       <TimeListGroup 
-      
+
       />
     </div>
 

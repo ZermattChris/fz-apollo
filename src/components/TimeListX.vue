@@ -2,6 +2,7 @@
 
   <v-sheet 
     class="myDummy d-flex align-center justify-center"
+    
   >
     Dummy <slot></slot>
   </v-sheet>
@@ -32,5 +33,6 @@
     height:585px;
     background-color: rgb(238, 220, 240);
     outline: 1px solid lime;
+    border-radius: 0;
   }
 </style>

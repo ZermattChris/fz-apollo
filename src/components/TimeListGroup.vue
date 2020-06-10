@@ -16,13 +16,11 @@
 
           cols="12"
           md="4"
-          transition="slide-x-transition"
         >
-
-            <TimeListX>
-                {{n}}
-            </TimeListX>
-
+        
+          <TimeListX>
+              {{n}}
+          </TimeListX>
 
         </v-col>
       </v-row>
@@ -62,7 +60,7 @@
 </template>
 
 <script>
-
+  // import { gsap } from "gsap";
   import TimeListX from '@/components/TimeListX.vue'
 
   export default {
@@ -112,20 +110,29 @@
 
         // grab the 'direction' date's id (one up or one down)
         let id = null
+        let animSpeed = 50
         if (direction < 0) {
           // Prev
           id = this.tempDatesList[0] -1
-          // zap last array item...
-          this.tempDatesList.pop()
           // Add a new one to start of array
           this.tempDatesList.unshift(id)
+          // My fake animation solution. Simple, good enough!
+          setTimeout( () => {
+            // zap last array item...
+            this.tempDatesList.pop()
+            }, animSpeed
+          );
         } else if (direction > 0) {
           // Next
           id = this.tempDatesList[this.tempDatesList.length-1] +1
-          // zap first array item...
-          this.tempDatesList.shift()
           // Add a new one to end of array
           this.tempDatesList.push(id)
+          // My fake animation solution. Simple, good enough!
+          setTimeout( () => {
+              // zap first array item...
+              this.tempDatesList.shift()
+            }, animSpeed
+          );
         }
         //console.log("Date id: " + id)
         //console.log(this.tempDatesList)
@@ -151,5 +158,7 @@
     padding: 0;
     outline: 1px solid blueviolet;
   }
+
+
 
 </style>
