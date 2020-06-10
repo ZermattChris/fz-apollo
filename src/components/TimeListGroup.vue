@@ -143,6 +143,7 @@
   margin: 0 auto;
   flex-wrap: nowrap;
   justify-content: center;
+  overflow: hidden;
   outline: 1px solid black;
  }
   .myCol {
