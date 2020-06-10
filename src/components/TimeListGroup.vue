@@ -16,6 +16,10 @@
 
           cols="12"
           md="4"
+          v-touch="{
+            left: () => swipe('Left'),
+            right: () => swipe('Right')
+          }"
         >
         
           <TimeListX>
@@ -25,15 +29,18 @@
         </v-col>
       </v-row>
 
+      {{ swipeDirection }}
+
 
       <v-btn
         color="primary"
         dark
         small
         absolute
-        bottom
+        top
         left
         fab
+        style="top:10px;"
         @click="onPrevDay"
       >
         <v-icon>mdi-minus</v-icon>
@@ -44,9 +51,10 @@
         dark
         small
         absolute
-        bottom
+        top
         right
         fab
+        style="top:10px;"
         @click="onNextDay"
       >
       <v-icon>mdi-plus</v-icon>
@@ -82,6 +90,8 @@
 
     data () {
       return {
+        swipeDirection: 'None',
+
         // This correlates to the datesObject's date "id"
         tempDatesList: [1000, 1001, 1002]
 
@@ -93,12 +103,20 @@
 
 
     methods: {
+      swipe (direction) {
+        this.swipeDirection = direction
+        if (direction === 'Right') {
+          this.onPrevDay()
+        } else if (direction === 'Left') {
+          this.onNextDay()
+        }
+      },
       onPrevDay: function () {
-        console.log("Load Previous day into TimeListGroup")
+        //console.log("Load Previous day into TimeListGroup")
         this.fetchADay(-1)
       },
       onNextDay: function () {
-        console.log("Load Next day into TimeListGroup")
+        //console.log("Load Next day into TimeListGroup")
         this.fetchADay(1)
       },
 
@@ -151,12 +169,12 @@
   flex-wrap: nowrap;
   justify-content: center;
   overflow: hidden;
-  outline: 1px solid black;
+  /* outline: 1px solid black; */
  }
   .myCol {
     margin: 0 auto;
     padding: 0;
-    outline: 1px solid blueviolet;
+    /* outline: 1px solid blueviolet; */
   }
 
 

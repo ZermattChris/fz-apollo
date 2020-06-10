@@ -229,7 +229,7 @@
   left:0; right: 0;
   text-align: center;
   margin: 0 auto;
-  background-color: yellow;
+  /* background-color: yellow; */
 }
   .vSpacerForAbsolute {
     width: 100%;
