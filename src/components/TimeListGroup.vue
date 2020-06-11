@@ -19,8 +19,7 @@
           v-touch="{
             left: () => swipe('Left'),
             right: () => swipe('Right')
-          }"
-        >
+          }">
         
           <TimeListX>
               {{n}}
@@ -29,37 +28,69 @@
         </v-col>
       </v-row>
 
-      {{msg}}
+      <!-- {{msg}}
       <br>
-      Swipe Direction: {{ swipeDirection }}
+      Swipe Direction: {{ swipeDirection }} -->
 
 
-      <v-btn
-        color="primary"
-        dark
-        small
+      <!-- <v-btn v-if="mobile"
+        color="transparent"
+        class="scrollIcons bumpLeftMobile"
         absolute
         top
         left
         fab
-        style="top:10px;"
+        elevation="0"
         @click="onPrevDay"
       >
-        <v-icon>mdi-minus</v-icon>
+        <v-icon>mdi-chevron-left</v-icon>
+      </v-btn> -->
+
+      <v-icon
+        v-if="mobile"
+         class="scrollIcons bumpLeftMobile"
+      >mdi-chevron-left</v-icon>
+
+      <v-btn v-if="!mobile"
+        color="white" 
+        class="scrollIcons"
+        absolute
+        top
+        left
+        fab
+        @click="onPrevDay"
+      >
+        <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
 
-      <v-btn
-        color="primary"
-        dark
-        small
+      <v-icon
+        v-if="mobile"
+         class="scrollIcons bumpRightMobile"
+      >mdi-chevron-right</v-icon>
+
+      <!-- <v-btn v-if="mobile"
+        color="transparent"
+        class="scrollIcons bumpRightMobile"
         absolute
         top
         right
         fab
-        style="top:10px;"
+        elevation="0"
         @click="onNextDay"
       >
-      <v-icon>mdi-plus</v-icon>
+      <v-icon>mdi-chevron-right</v-icon>
+    </v-btn> -->
+    
+      <v-btn v-if="!mobile"
+        color="white"
+        class="scrollIcons"
+        absolute
+        top
+        right
+        fab
+        @click="onNextDay"
+      >
+      <v-icon>mdi-chevron-right</v-icon>
     </v-btn>
     
 
@@ -93,6 +124,7 @@
     data () {
       return {
         swipeDirection: 'None',
+        mobile: isMobile,
         msg: isMobile ? 'Mobile device: Hide scroll buttons, enable Swipe.' : 'Desktop: Show scroll buttons. ',
 
         // This correlates to the datesObject's date "id"
@@ -104,6 +136,13 @@
       }
     },
 
+
+    computed: {
+      // dates: function () {
+      //   // replace with an API call when its live...
+      //   return jsonDates
+      // },
+    },
 
     methods: {
       swipe (direction) {
@@ -180,6 +219,11 @@
     /* outline: 1px solid blueviolet; */
   }
 
-
+.scrollIcons { 
+  top: 50% !important; 
+  margin-top: -30px !important;  
+}
+  .bumpLeftMobile {position:absolute; left:1px;}
+  .bumpRightMobile {position:absolute; right:1px;}
 
 </style>
