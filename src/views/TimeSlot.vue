@@ -162,7 +162,6 @@
 
 <script>
   import { store } from "@/store/store.js";
-  import jsonDates from "@/store/timeListerDates.json";
   import PageHeader from '@/components/PageHeader.vue'
   import TimeListGroup from '@/components/TimeListGroup.vue'
 
@@ -187,10 +186,10 @@
     },
 
     computed: {
-      dates: function () {
-        // replace with an API call when its live...
-        return jsonDates
-      },
+      // dates: function () {
+      //   // replace with an API call when its live...
+      //   return jsonDates
+      // },
       userFlightDate: function () {
         return store.flightDate
       },

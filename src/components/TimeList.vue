@@ -2,10 +2,10 @@
 
   <v-list
     class="timeListerBox mx-auto"
-    :class="{ 'selectedBorder': selected, 'boxDisplaySize': !isDense }"
+    :class="{ 'selectedBorder': matchesUserDate, 'boxDisplaySize': !isDense }"
     elevation="2"
     tile
-    :dense="isDense"
+    :dense="!matchesUserDate"
   >
 
     <div 
@@ -25,8 +25,8 @@
       active-class="success--text text--darken-2"
     >
       <v-list-item
-        v-for="(item, i) in items"
-        :key="i"
+        v-for="(slotObj, key) in items"
+        :key="key"
         class="listItem"
       >
         <v-list-item-icon>
@@ -35,10 +35,10 @@
 
         <v-list-item-content>
           <v-list-item-title>
-            <span class="time" v-html="formatTime(item.time)"></span>
+            <span class="time" v-html="formatTime(slotObj)"></span>
             <v-chip
               class="availability" 
-              v-html="formatAvail(item.avail)"
+              v-html="formatAvail(slotObj)"
               outlined
             ></v-chip>
             <span class="description">Available</span>
@@ -57,7 +57,7 @@
 
       
     </v-list-item-group>
-Selected: {{selected}}
+Selected: {{matchesUserDate}}
   </v-list>
 
 </template>
@@ -74,9 +74,9 @@ Selected: {{selected}}
         required: false,
         default: false,
       },
-      selected: {
-        type: Boolean,
-        default: false
+      usersDate: {
+        type: String,
+        default: ''
       },
       date: {
         type: String,
@@ -98,6 +98,11 @@ Selected: {{selected}}
     },
 
     computed: {
+      matchesUserDate: function () {
+        //console.log(this.usersDate, this.date)
+        if (this.usersDate === this.date) return true
+        return false
+      },
       titleDate: function () {
         // replace with an API call when its live.
         //console.log(this.date)
@@ -107,18 +112,22 @@ Selected: {{selected}}
         const fullDateStr = format(myDate, 'PPP')
         return {abbreviation: dayAbrvStr, fullDate: fullDateStr}
       },
+      // returnTimeKey: function (slotObj) {
+      //    return this.formatTime(Object.keys(slotObj)[0])
+      // }
       
     },
 
     methods: {
-      formatAvail: function (nrAvail) {
-        // format into nice html for display.
-        //const nrAvailhtmlSnippet = "<span class='hour'>" + this.getHours() + "</span><span class='minute'>:" + this.getMins() + "</span>"
-        return nrAvail
+      formatAvail: function (slotObj) {
+        // Just grab the Observer object's value and return it.
+        const availStr = Object.values(slotObj)[0]
+        return availStr
       },
-      formatTime: function (timeStr) {
+      formatTime: function (slotObj) {
         // format into nice html for display.
-        const htmlSnippet = "<span class='hour'>" + this.getHours(timeStr) + "</span><span class='minute'>:" + this.getMins(timeStr) + "</span>"
+        const timeKey = Object.keys(slotObj)[0]
+        const htmlSnippet = "<span class='hour'>" + this.getHours(timeKey) + "</span><span class='minute'>:" + this.getMins(timeKey) + "</span>"
         return htmlSnippet
       },
         getHours: function (timeStr) {

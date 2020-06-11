@@ -244,6 +244,11 @@ export default {
 
 
   computed: {
+
+    forWatchingBothFlightDateAndFlightType() {
+      return `${this.flightDate}|${this.flightChosen}`;
+    },
+
     // Store Data
     getMaxPilots: function () {
       return store.nrPeopleMax
@@ -281,6 +286,12 @@ export default {
         return store.selectedFlight
       },
       set(flightStr) {
+
+        // If flightStr has changed User's choice of flights,
+        // then we need to go preload the TimeListerDates for 
+        // the next step (2. Flight Time for:)
+        // if (store.selectedFlight !== flightStr) this.$emit('preload-timelister-dates')
+
         return mutations.setFlight(flightStr)
       }
     },
@@ -368,15 +379,24 @@ export default {
       }
       return newFlightsList
     },
-    onRule_whichFlight: function () {
-      console.log('Date has changed, run rules to check that "Which Flight?" is still valid. (if not, then set to empty)')
-    },
+    // onRule_whichFlight: function () {
+    //   console.log('Date has changed, run rules to check that "Which Flight?" is still valid. (if not, then set to empty)')
+    // },
     showBigGroupWarning: function () {
       this.bigGroupDialog = true
     }
   },
 
   watch: {
+    forWatchingBothFlightDateAndFlightType() {
+      // const [oldPropertyA, oldProvertyB] = oldVal.split('|');
+      // const [newPropertyA, newProvertyB] = newVal.split('|');
+      //console.log('Both Flight Date and Type changed. PropA: ' + oldPropertyA + '!=' + newPropertyA + ' -- PropB: ' + oldProvertyB + '!=' + newProvertyB)
+      
+      // Only fire if the Which Flight? isn't empty.
+      if (this.flightChosen === '') return
+      this.$emit('preload-timelister-dates')
+    },
     flightsListModelObj: function (newObj) {
       // When this computed property (source data is: store.flightsList)
       // and generate a new drop menu for Which Flight?

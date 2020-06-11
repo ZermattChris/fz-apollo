@@ -8,5 +8,8 @@ module.exports = {
       .use("i18n")
       .loader("@kazupon/vue-i18n-loader")
       .end();
-  }
+  },
+  configureWebpack: {
+    devtool: "source-map",
+  },
 };

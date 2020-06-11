@@ -7,12 +7,14 @@ export const store = Vue.observable({
   selectedFlight: '',
   wantsPhotos: false,
 
-  // Settings
+  // Settings - API call result
   nrPeopleMax: 5,
-  flightsList: {},
+  flightsList: {},    
   bookDaysOffset: 2,
   bookMonthsOffset: 12,
   videoPrice: 40.00,
+
+  timeListDates: null
 });
 
 export const mutations = {
@@ -36,18 +38,18 @@ export const mutations = {
   },
   setFlightsList(flightsObj) {
     store.flightsList = flightsObj;
-    //console.log('Store FlightsList is: ' + flightsObj)
   },
   setBookDaysOffset(daysInt) {
     store.bookDaysOffset = daysInt;
-    //console.log('Store MaxPilots is: ' + store.bookDaysOffset)
   },
   setBookMonthsOffset(monthsInt) {
     store.bookMonthsOffset = monthsInt;
-    //console.log('Store MaxPilots is: ' + store.bookMonthsOffset)
   },
   setVideoPrice(price) {
     store.videoPrice = price;
-    //console.log('Store MaxPilots is: ' + store.videoPrice)
+  }, 
+  setTimeListDates(obj) {
+    store.timeListDates = obj;
+    //console.log(store.timeListDates)
   },
 };

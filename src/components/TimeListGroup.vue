@@ -10,41 +10,37 @@
       <v-row class="myRow">
         <v-col
           class="myCol"
+          style="background-color:yellow; border:1px maroon solid;"
 
-          v-for="n in tempDatesList"
-          :key="n"
+          v-for="(timeSlots, key) in daysVisibleList"
+          :key="key"
 
-          cols="12"
-          md="4"
+
           v-touch="{
             left: () => swipe('Left'),
             right: () => swipe('Right')
           }">
-        
-          <TimeListX>
-              {{n}}
-          </TimeListX>
+          
+          <!-- {{key}}
+          <br>
+          {{timeSlots}} -->
+
+          <br>
+
+          <TimeList
+            :date="convertEpocSecsToISODateStr(key)"
+            :timesArray="timeSlots"
+            :usersDate="userSelectedDate"
+          ></TimeList>
 
         </v-col>
       </v-row>
 
-      <!-- {{msg}}
+
+
+      {{msg}}
       <br>
-      Swipe Direction: {{ swipeDirection }} -->
-
-
-      <!-- <v-btn v-if="mobile"
-        color="transparent"
-        class="scrollIcons bumpLeftMobile"
-        absolute
-        top
-        left
-        fab
-        elevation="0"
-        @click="onPrevDay"
-      >
-        <v-icon>mdi-chevron-left</v-icon>
-      </v-btn> -->
+      Swipe Direction: {{ swipeDirection }}
 
       <v-icon
         v-if="mobile"
@@ -68,19 +64,6 @@
          class="scrollIcons bumpRightMobile"
       >mdi-chevron-right</v-icon>
 
-      <!-- <v-btn v-if="mobile"
-        color="transparent"
-        class="scrollIcons bumpRightMobile"
-        absolute
-        top
-        right
-        fab
-        elevation="0"
-        @click="onNextDay"
-      >
-      <v-icon>mdi-chevron-right</v-icon>
-    </v-btn> -->
-    
       <v-btn v-if="!mobile"
         color="white"
         class="scrollIcons"
@@ -102,23 +85,18 @@
 
 <script>
   import { isMobile } from 'mobile-device-detect'
-  import TimeListX from '@/components/TimeListX.vue'
+  import TimeList from '@/components/TimeList.vue'
+  import { store } from "@/store/store.js";
+  import {format, fromUnixTime, getUnixTime} from 'date-fns'
 
   export default {
     name: "TimeListGroup",
 
     components: {
-      TimeListX
+      TimeList
     },
     props: {
-      // currentDate: {
-      //   type: String,
-      //   required: true,
-      // },
-      // datesObject:  {
-      //   type: [Object, Array],
-      //   required: true,
-      // },
+      
     }, 
 
     data () {
@@ -127,24 +105,57 @@
         mobile: isMobile,
         msg: isMobile ? 'Mobile device: Hide scroll buttons, enable Swipe.' : 'Desktop: Show scroll buttons. ',
 
-        // This correlates to the datesObject's date "id"
-        tempDatesList: [1000, 1001, 1002]
-
-
-        // currDate: this.currentDate,
-        // datesObj: this.datesObject,
+        userSelectedDate: store.flightDate,
+        daysVisibleList: {}
       }
     },
 
 
+    mounted() {
+      // Load the 3x Visible days from timeListDates array from API
+      this.loadVisibleDays()
+
+    },
+
     computed: {
-      // dates: function () {
-      //   // replace with an API call when its live...
-      //   return jsonDates
-      // },
     },
 
     methods: {
+      loadVisibleDays: function () {
+
+
+        //console.log(store.timeListDates)
+        // We need to pull out the 3x matching Dates from this preload list,
+        // that are used for the actual display.
+        const timeListDates = JSON.parse(JSON.stringify(store.timeListDates))   // unwrap Observer obj.
+        //console.log(timeListDates)
+
+        //console.log(getUnixTime(new Date('2020-06-19')))
+        let oneDaysSeconds = 86400
+        let currDayKey = getUnixTime(new Date(this.userSelectedDate))
+        let prevDayKey = currDayKey - oneDaysSeconds
+        let nextDayKey = currDayKey + oneDaysSeconds
+        //console.log(currDateKey)
+        // let currDateTimeslotsObj = timeListDates[currDayKey]
+        // console.log("Curr Date Timeslots: " + currDateTimeslotsObj)
+
+        // Make daysVisibleList of 3x dates, with User's selected date in the middle.
+        this.daysVisibleList[prevDayKey] = timeListDates[prevDayKey]
+        this.daysVisibleList[currDayKey] = timeListDates[currDayKey]
+        this.daysVisibleList[nextDayKey] = timeListDates[nextDayKey]
+        // .push( '"' + currDateKey + '":' + ' [' + currDateTimeslotsObj + ']')
+        console.log(this.daysVisibleList)
+      },
+
+      convertEpocSecsToISODateStr: function (epocSecs) {
+        // As we're storing the date as a JSON key, convert
+        // it before passing it into the TimeList date prop.
+        //console.log(epocSecs)
+        let thisDate = fromUnixTime(epocSecs)
+        let ISODateStr = format(thisDate, 'Y-MM-dd')
+        console.log("ISODateStr: " + ISODateStr)
+        return ISODateStr
+      },
       swipe (direction) {
         this.swipeDirection = direction
         if (direction === 'Right') {
@@ -215,7 +226,7 @@
  }
   .myCol {
     margin: 0 auto;
-    padding: 0;
+    padding: 2px;
     /* outline: 1px solid blueviolet; */
   }
 

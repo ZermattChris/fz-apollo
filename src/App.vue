@@ -75,7 +75,8 @@
               @form-is-valid="onEnableContinueBtn"
               @data-changed="saveLocalStorageValues"
 
-              @flight-date-changed="loadFlightsList"
+              @flight-date-changed="loadFlightsListAPI"
+              @preload-timelister-dates="loadTimeListerDatesAPI"
             ></router-view>
           <!-- </transition> -->
 
@@ -116,6 +117,9 @@ import { store, mutations } from "@/store/store.js";
 import { format } from 'date-fns'
 import { mdiArrowRightCircle, mdiChevronLeft } from '@mdi/js'
 
+// temp til Tommy gets this API working.
+import timeListerDates_TEMPJSONFILE from "@/store/timeListerDatesx.json";
+
 export default {
   name: 'App',
 
@@ -137,7 +141,7 @@ export default {
     // Load LocalStorage if available.
     this.loadLocalStorageValues()
     // Load Settings in via Ajax API call.
-    this.loadSettings()
+    this.loadSettingsAPI()
     // Flag any conflicting data from the above
     // tow processes -- User's Date + Flights
     // might no longer be valid.
@@ -167,7 +171,7 @@ export default {
 
   // Methods
   methods: {
-    loadSettings: function () {
+    loadSettingsAPI: function () {
       let hasLoaded = false
       setTimeout(() => { if (hasLoaded===false) this.overlay = true }, this.overlayDelay) // Show loading blocker if longer than 200 milliseconds
       fetch(this.apiInitSettingsPath, this.apiHeaders)
@@ -196,7 +200,7 @@ export default {
           console.error("Error loading Form Settings: ", error)
         })
     },
-    loadFlightsList: function (dateStr) {
+    loadFlightsListAPI: function (dateStr) {
       //console.log('Use Date for FlightsList API call: ' + dateStr)
       let path = this.apiFlightsListPath + dateStr
       //console.log('FlightsList API path: ' + path)
@@ -217,6 +221,15 @@ export default {
           this.errorMessage = error
           console.error("Error loading Form Settings: ", error)
         })
+    },
+    loadTimeListerDatesAPI: function () {
+      // This is called when either the Flight Date or Which Flight? are changed
+      // (but only if Which Flight? isn't empty).
+      //console.log("Load TimeLister dates.")
+      let fetchedFlightsListObj = timeListerDates_TEMPJSONFILE
+      //console.log(fetchedFlightsListObj)
+      mutations.setTimeListDates(fetchedFlightsListObj)
+      
     },
 
     onEnableContinueBtn: function (valid) {
