@@ -124,36 +124,6 @@
     mounted() {
       // Load the 3x Visible days from timeListDates array from API
       this.loadVisibleDays()
-
-      // if (store.timeListDates === null) {
-
-      //   console.warn('TEMP DEBUG: Loading local data into TimeListGroup.vue -> mounted()')
-
-      //   let fetchedFlightsListObj = timeListerDates_TEMPJSONFILE
-      //   console.log(fetchedFlightsListObj)
-      //   mutations.setTimeListDates(fetchedFlightsListObj)
-
-        // fetch('/timeListerDatesx.json', { "Content-Type": "application/json" })
-        //   .then(async response => {
-        //     const data = await response.json()
-        //     // check for error response
-        //     if (!response.ok) {
-        //       // get error message from body or default to response statusText
-        //       const error = (data && data.message) || response.statusText
-        //       return Promise.reject(error)
-        //     }
-        //     mutations.setTimeListDates(data)
-        //     this.daysVisibleList = {} // Set to empty object!!!
-        //     this.loadVisibleDays()
-        //   })
-        //   .catch(error => {
-        //     console.error("Error JSON data timeLister: ", error)
-        //   })
-        // return
-      // } 
-      
-      // this.loadVisibleDays()
-      
     },
 
     computed: {
@@ -218,33 +188,51 @@
         // --- At moment just return a dummy date, that increments the 'id' ---
 
         // grab the 'direction' date's id (one up or one down)
-        let id = null
+        let myKey = null
         let animSpeed = 50
+        let oneEpochDaySecs = 86400
+        console.log(myKey, animSpeed) // stop linter
+
         if (direction < 0) {
           // Prev
-          id = this.tempDatesList[0] -1
-          // Add a new one to start of array
-          this.tempDatesList.unshift(id)
-          // My fake animation solution. Simple, good enough!
+
+          // grab first visible list key (Epoch date in secs)
+          myKey = Object.keys(this.daysVisibleList)[0]
+          console.log('FirstKey: ', myKey)
+
+          let targetKey = myKey - oneEpochDaySecs
+          this.$set( this.daysVisibleList, targetKey, store.timeListDates[targetKey] )
           setTimeout( () => {
             // zap last array item...
-            this.tempDatesList.pop()
+            let len = Object.keys(this.daysVisibleList).length - 1
+            console.log( len )
+            myKey = Object.keys(this.daysVisibleList)[len]
+            this.$delete(this.daysVisibleList, myKey)
             }, animSpeed
           );
+
         } else if (direction > 0) {
           // Next
-          id = this.tempDatesList[this.tempDatesList.length-1] +1
-          // Add a new one to end of array
-          this.tempDatesList.push(id)
-          // My fake animation solution. Simple, good enough!
+
+          // grab last visible list key (Epoch date in secs)
+          let len = Object.keys(this.daysVisibleList).length
+          myKey = Object.keys(this.daysVisibleList)[len -1]
+          //console.log('LastKey: ', myKey) 
+
+          let targetKey = (oneEpochDaySecs*1) + (myKey*1)
+          console.log('Next DayKey: ', targetKey) 
+          this.$set( this.daysVisibleList, targetKey, store.timeListDates[targetKey] )
+
           setTimeout( () => {
-              // zap first array item...
-              this.tempDatesList.shift()
+            // zap last array item...
+            myKey = Object.keys(this.daysVisibleList)[0]
+            this.$delete(this.daysVisibleList, myKey)
             }, animSpeed
           );
+
         }
         //console.log("Date id: " + id)
-        //console.log(this.tempDatesList)
+        //console.log(this.daysVisibleList)
 
 
       },
