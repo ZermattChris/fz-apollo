@@ -12,7 +12,7 @@
           class="myCol"
           style="background-color:yellow; border:1px maroon solid;"
 
-          v-for="(timeSlots, key) in daysVisibleList"
+          v-for="(timeListerObj, key) in daysVisibleList"
           :key="key"
 
 
@@ -21,15 +21,15 @@
             right: () => swipe('Right')
           }">
           
-          <!-- {{key}}
-          <br>
-          {{timeSlots}} -->
+          {{key}}
+          <!-- <br>
+          {{timeListerObj}} -->
 
           <br>
 
           <TimeList
             :date="convertEpocSecsToISODateStr(key)"
-            :timesArray="timeSlots"
+            :timesArray="Object.values(timeListerObj)"
             :usersDate="userSelectedDate"
           ></TimeList>
 
@@ -38,9 +38,9 @@
 
 
 
-      {{msg}}
+      <!-- {{msg}}
       <br>
-      Swipe Direction: {{ swipeDirection }}
+      Swipe Direction: {{ swipeDirection }} -->
 
       <v-icon
         v-if="mobile"
@@ -89,6 +89,9 @@
   import { store } from "@/store/store.js";
   import {format, fromUnixTime, getUnixTime} from 'date-fns'
 
+  // temp til Tommy gets this API working.
+  // import timeListerDates_TEMPJSONFILE from "@/store/timeListerDatesx.json";
+
   export default {
     name: "TimeListGroup",
 
@@ -111,10 +114,46 @@
     },
 
 
+    created() {
+      // Check if the list of corresponding flights has been loaded,
+      // and if not, fire off the event to get them from the App.vue object.
+      
+
+    },
+
     mounted() {
       // Load the 3x Visible days from timeListDates array from API
       this.loadVisibleDays()
 
+      // if (store.timeListDates === null) {
+
+      //   console.warn('TEMP DEBUG: Loading local data into TimeListGroup.vue -> mounted()')
+
+      //   let fetchedFlightsListObj = timeListerDates_TEMPJSONFILE
+      //   console.log(fetchedFlightsListObj)
+      //   mutations.setTimeListDates(fetchedFlightsListObj)
+
+        // fetch('/timeListerDatesx.json', { "Content-Type": "application/json" })
+        //   .then(async response => {
+        //     const data = await response.json()
+        //     // check for error response
+        //     if (!response.ok) {
+        //       // get error message from body or default to response statusText
+        //       const error = (data && data.message) || response.statusText
+        //       return Promise.reject(error)
+        //     }
+        //     mutations.setTimeListDates(data)
+        //     this.daysVisibleList = {} // Set to empty object!!!
+        //     this.loadVisibleDays()
+        //   })
+        //   .catch(error => {
+        //     console.error("Error JSON data timeLister: ", error)
+        //   })
+        // return
+      // } 
+      
+      // this.loadVisibleDays()
+      
     },
 
     computed: {
@@ -122,29 +161,28 @@
 
     methods: {
       loadVisibleDays: function () {
-
-
-        //console.log(store.timeListDates)
         // We need to pull out the 3x matching Dates from this preload list,
         // that are used for the actual display.
-        const timeListDates = JSON.parse(JSON.stringify(store.timeListDates))   // unwrap Observer obj.
-        //console.log(timeListDates)
-
+        // if (this.daysVisibleList === null) return
+     
         //console.log(getUnixTime(new Date('2020-06-19')))
         let oneDaysSeconds = 86400
         let currDayKey = getUnixTime(new Date(this.userSelectedDate))
         let prevDayKey = currDayKey - oneDaysSeconds
         let nextDayKey = currDayKey + oneDaysSeconds
-        //console.log(currDateKey)
+        console.log(currDayKey, prevDayKey, nextDayKey)
         // let currDateTimeslotsObj = timeListDates[currDayKey]
         // console.log("Curr Date Timeslots: " + currDateTimeslotsObj)
 
-        // Make daysVisibleList of 3x dates, with User's selected date in the middle.
-        this.daysVisibleList[prevDayKey] = timeListDates[prevDayKey]
-        this.daysVisibleList[currDayKey] = timeListDates[currDayKey]
-        this.daysVisibleList[nextDayKey] = timeListDates[nextDayKey]
-        // .push( '"' + currDateKey + '":' + ' [' + currDateTimeslotsObj + ']')
-        console.log(this.daysVisibleList)
+        // God, f**king js objects, how ugly!
+        // Okay, found the corresponding docs in Vue. Need to use the Vue $set and $delete
+        // to overcome mucking around with Observable Vue objects. (I hope!)
+        this.$set( this.daysVisibleList, prevDayKey, store.timeListDates[prevDayKey] )
+        this.$set( this.daysVisibleList, currDayKey, store.timeListDates[prevDayKey] )
+        this.$set( this.daysVisibleList, nextDayKey, store.timeListDates[prevDayKey] )
+        
+        console.log("=======")
+
       },
 
       convertEpocSecsToISODateStr: function (epocSecs) {
@@ -153,7 +191,7 @@
         //console.log(epocSecs)
         let thisDate = fromUnixTime(epocSecs)
         let ISODateStr = format(thisDate, 'Y-MM-dd')
-        console.log("ISODateStr: " + ISODateStr)
+        //console.log("ISODateStr: " + ISODateStr)
         return ISODateStr
       },
       swipe (direction) {

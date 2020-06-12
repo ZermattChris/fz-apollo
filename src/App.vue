@@ -225,7 +225,7 @@ export default {
     loadTimeListerDatesAPI: function () {
       // This is called when either the Flight Date or Which Flight? are changed
       // (but only if Which Flight? isn't empty).
-      //console.log("Load TimeLister dates.")
+      console.warn('TEMP DEBUG: Loading local data into App.vue -> loadTimeListerDatesAPI()')
       let fetchedFlightsListObj = timeListerDates_TEMPJSONFILE
       //console.log(fetchedFlightsListObj)
       mutations.setTimeListDates(fetchedFlightsListObj)
