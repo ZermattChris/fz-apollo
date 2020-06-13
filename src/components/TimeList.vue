@@ -161,6 +161,7 @@ Selected: {{matchesUserDate}}
 <style scoped>
   .timeListerBox {
     display: inline-block;
+    min-height: 390px;
     /* this needs to match the Selected Border width below. */
     border-style: solid !important;
     border-width: 4px !important;

@@ -21,7 +21,9 @@
     custom component 'TimeListGroup' which displays a number of 
     dynamic 'TimeLister' components. -->
     <div class="steps-controls">
-      <TimeListGroup/>
+      <TimeListGroup
+        v-on="$listeners"
+      />
     </div>
 
     <!-- This is required as I've position:absolute'd the steps-controls container,

@@ -14,14 +14,12 @@ Vue.mixin({
       //console.log('capitaliseFirstLetter of: ' + str)
       return str.charAt(0).toUpperCase() + str.slice(1)
     }, 
-    // tunnelEmit(event, ...payload) {
-    //   let vm = this
-    //   while (vm && !vm.$listeners[event]) {
-    //     vm = vm.$parent
-    //   }
-    //   if (!vm) return console.error(`no target listener for event "${event}"`)
-    //   vm.$emit(event, ...payload)
-    // }
+    isObjEmpty: function (obj) {
+      //console.log('Object empty test: ', Object.keys(obj).length)
+      if (obj == null) return true
+      if (Object.keys(obj).length > 0) return false
+      return true
+    }
   }
 })
 

@@ -225,10 +225,12 @@ export default {
     loadTimeListerDatesAPI: function () {
       // This is called when either the Flight Date or Which Flight? are changed
       // (but only if Which Flight? isn't empty).
-      console.warn('TEMP DEBUG: Loading local data into App.vue -> loadTimeListerDatesAPI()')
-      let fetchedFlightsListObj = timeListerDates_TEMPJSONFILE
       //console.log(fetchedFlightsListObj)
-      mutations.setTimeListDates(fetchedFlightsListObj)
+        console.warn('TEMP DEBUG: Loading local data into App.vue -> loadTimeListerDatesAPI()')
+        let fetchedFlightsListObj = timeListerDates_TEMPJSONFILE
+        mutations.setTimeListDates(fetchedFlightsListObj)
+      // Need to do proper API call here, return true once data has loaded
+      // so calling component can update its display (TimeListGroup...)
       
     },
 
@@ -237,11 +239,18 @@ export default {
       this.canContinue = valid
     },
     onContinueBtnClick: function () {
-      //console.log('Clicked Enable Btn:')
+      //console.log('Clicked Continue Btn:')
+
+      //------------- Leaving Step 1 logic here -------------
+      if (this.isObjEmpty(store.timeListDates)) {
+        console.log('Clicked Continue from Step 1, timeListDates is empty, load data...')
+        this.loadTimeListerDatesAPI()
+      }
       this.$router.push({
         name: 'Time',
         path: 'time'
       })
+      // END: ----------- Leaving Step 1 logic --------------
       // disable Continue btn
       this.onEnableContinueBtn(false)
       this.onEnableBackBtn(true)

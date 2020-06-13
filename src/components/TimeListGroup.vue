@@ -123,7 +123,31 @@
 
     mounted() {
       // Load the 3x Visible days from timeListDates array from API
-      this.loadVisibleDays()
+      if (this.isObjEmpty(store.timeListDates)) {
+        console.log('Keep it simple for now, just go back to Step 1. Probably need to learn and refactor for Vuex.')
+        // If there is a valid User selected nrPeople + selectedFlight, then
+        // we can just load the missing dateslist from the API., otherwise
+        // send back to step #1.
+        if (store.nrPeople == 0 || store.selectedFlight == '') {
+          // go back to step 1 for User Inputs.
+          console.log('Back to Step 1')
+          return
+        } else {
+          // console.log('Load dayslist from API here.')
+          //   console.log('-> BEFORE the load call has completed')
+          // this.$emit('preload-timelister-dates', { done: () => {
+          //   console.log('-> After the load call has completed')
+          // }})
+          // This is wrong! nextTick() is for next round of DOM updates,
+          // not some sort of majik aync call... Keep looking...
+          //this.$nextTick(() => {
+          // will run after $emit is done
+          //})
+        }
+      } else {
+        //console.log('Object is not empty', store.timeListDates)
+        this.loadVisibleDays()
+      }
     },
 
     computed: {
@@ -182,25 +206,35 @@
       },
 
       fetchADay: function (direction) {
+
+        if (this.isObjEmpty(this.daysVisibleList)) {
+          console.error("Ooops! No Days loaded, can't scroll to [" + direction + "] Day.")
+          return
+        }
+
         // Will be an API call at some point, to load another day
         // (or possibly a chunk of days to cache, so not thrashing the connection?)
-
-        // --- At moment just return a dummy date, that increments the 'id' ---
 
         // grab the 'direction' date's id (one up or one down)
         let myKey = null
         let animSpeed = 50
         let oneEpochDaySecs = 86400
-        console.log(myKey, animSpeed) // stop linter
+        //console.log(myKey, animSpeed) // stop linter
 
         if (direction < 0) {
           // Prev
 
           // grab first visible list key (Epoch date in secs)
           myKey = Object.keys(this.daysVisibleList)[0]
-          console.log('FirstKey: ', myKey)
+          //console.log('FirstKey: ', myKey)
 
           let targetKey = myKey - oneEpochDaySecs
+          // Let's do a check to see if this key exists before trying to add it 
+          // and getting a "Cannot convert undefined or null to object"
+          if (this.isObjEmpty(store.timeListDates[targetKey])) {
+            console.error("Ooops! At start of loaded days - can't continue...")
+            return
+          }
           this.$set( this.daysVisibleList, targetKey, store.timeListDates[targetKey] )
           setTimeout( () => {
             // zap last array item...
@@ -220,11 +254,17 @@
           //console.log('LastKey: ', myKey) 
 
           let targetKey = (oneEpochDaySecs*1) + (myKey*1)
-          console.log('Next DayKey: ', targetKey) 
+          //console.log('Next DayKey: ', targetKey) 
+          // Let's do a check to see if this key exists before trying to add it 
+          // and getting a "Cannot convert undefined or null to object"
+          if (this.isObjEmpty(store.timeListDates[targetKey])) {
+            console.error("Ooops! At end of loaded days - can't continue...")
+            return
+          }
           this.$set( this.daysVisibleList, targetKey, store.timeListDates[targetKey] )
 
           setTimeout( () => {
-            // zap last array item...
+            // zap first array item...
             myKey = Object.keys(this.daysVisibleList)[0]
             this.$delete(this.daysVisibleList, myKey)
             }, animSpeed
