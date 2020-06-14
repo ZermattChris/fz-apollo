@@ -27,7 +27,9 @@
       <v-list-item
         v-for="(slotObj, key) in items"
         :key="key"
+        :ripple="false"
         class="listItem"
+        @click="onClickedRow(key+1)"
       >
         <v-list-item-icon>
           <v-icon v-text="tmpIcon"></v-icon>
@@ -119,6 +121,13 @@ Selected: {{matchesUserDate}}
     },
 
     methods: {
+
+      onClickedRow: function (ev, chosenSlot) {
+        this.selectedSlot = chosenSlot
+        // User selected a Row or the Switch, fire event for parent
+        console.log("Selected a Row.", ev)
+      },
+
       formatAvail: function (slotObj) {
         // Just grab the Observer object's value and return it.
         const availStr = Object.values(slotObj)[0]
@@ -161,7 +170,6 @@ Selected: {{matchesUserDate}}
 <style scoped>
   .timeListerBox {
     display: inline-block;
-    min-height: 390px;
     /* this needs to match the Selected Border width below. */
     border-style: solid !important;
     border-width: 4px !important;

@@ -10,7 +10,7 @@
       <v-row class="myRow">
         <v-col
           class="myCol"
-          style="background-color:yellow; border:1px maroon solid;"
+          style="background-color:yellow; border:1px maroon solid; min-height: 610px !important;"
 
           v-for="(timeListerObj, key) in daysVisibleList"
           :key="key"
@@ -288,6 +288,8 @@
   flex-wrap: nowrap;
   justify-content: center;
   overflow: hidden;
+  /* this is temp -- adjust when final layout of TimeList elements is completed. */
+  
   /* outline: 1px solid black; */
  }
   .myCol {
