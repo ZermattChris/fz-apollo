@@ -47,7 +47,6 @@
       </div>
 
 
-
       <!-- TEMP clear data btn -->
       <v-btn
         class="text-capitalize"
@@ -107,6 +106,8 @@
       app
       padless
     >
+      <div v-show="error" class="yellow--text overline" style="margin-right:20px;">ERROR: Loading init(): {{error}}</div>
+      <div class="white--text overline" style="margin-right:20px;">Loading init(): {{isBusy}}</div>
       <div class="white--text overline">© {{getCurrentYear}} - FlyZermatt</div>
     </v-footer>
   </v-app>
@@ -114,7 +115,7 @@
 
 <script>
 // old store code. Move to vuex (hopefully!)
-import { store, mutations } from "@/store/store.js";
+// import { store, mutations } from "@/store/store.js";
 
 import { format } from 'date-fns'
 import { mdiArrowRightCircle, mdiChevronLeft } from '@mdi/js'
@@ -130,11 +131,13 @@ export default {
   // Lifecycle Hooks
   async mounted() {
     // wish me luck! First vuex + Axios attempt to async load properly.
+    // WORKS!!! Koolio (waiting for first face slap back...)
     this.isBusy = true;
     try {
       await this.$store.dispatch('init')
     } catch (ex) {
-      this.error = "Failed to init() data";
+      //console.log('My error', ex)
+      this.error = "Failed to init() data" + ex;
     } finally {
       this.isBusy = false;
     }
@@ -154,7 +157,7 @@ export default {
     // Load LocalStorage if available.
     this.loadLocalStorageValues()
     // Load Settings in via Ajax API call.
-    this.loadSettingsAPI()
+    //this.loadSettingsAPI()
     // Flag any conflicting data from the above
     // tow processes -- User's Date + Flights
     // might no longer be valid.
@@ -178,72 +181,90 @@ export default {
     // API endpoints
     apiHeaders: { "Content-Type": "application/json" },
     // Initial Settings
-    apiInitSettingsPath: "https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init",
-    apiInitSettings: {},
+    //apiInitSettingsPath: "https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init",
+    //apiInitSettings: {},
     apiFlightsListPath: "https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/",
 
   }),
 
   // Methods
   methods: {
-    loadSettingsAPI: function () {
-      let hasLoaded = false
-      setTimeout(() => { if (hasLoaded===false) this.overlay = true }, this.overlayDelay) // Show loading blocker if longer than 200 milliseconds
-      fetch(this.apiInitSettingsPath, this.apiHeaders)
-        .then(async response => {
-          const data = await response.json()
-          // check for error response
-          if (!response.ok) {
-            // get error message from body or default to response statusText
-            const error = (data && data.message) || response.statusText
-            return Promise.reject(error)
-          }
-          //this.apiInitSettings = data.total
-          //console.log('Init Settings obj: ' + data["max-pilots"])
-          // Load settings into our data Store, for access throughout.
-          mutations.setMaxNrPeople(data["max-pilots"])
-          mutations.setBookDaysOffset(data["book-days-from-today"])
-          mutations.setBookMonthsOffset(data["book-future-months"])
-          mutations.setVideoPrice(data["video-cost"])
-          hasLoaded = true
-          this.overlay = false
-        })
-        .catch(error => {
-          hasLoaded = true
-          this.overlay = false
-          this.errorMessage = error
-          console.error("Error loading Form Settings: ", error)
-        })
-    },
-    loadFlightsListAPI: function (dateStr) {
+    // loadSettingsAPI: function () {
+    //   let hasLoaded = false
+    //   setTimeout(() => { if (hasLoaded===false) this.overlay = true }, this.overlayDelay) // Show loading blocker if longer than 200 milliseconds
+    //   fetch(this.apiInitSettingsPath, this.apiHeaders)
+    //     .then(async response => {
+    //       const data = await response.json()
+    //       // check for error response
+    //       if (!response.ok) {
+    //         // get error message from body or default to response statusText
+    //         const error = (data && data.message) || response.statusText
+    //         return Promise.reject(error)
+    //       }
+    //       //this.apiInitSettings = data.total
+    //       //console.log('Init Settings obj: ' + data["max-pilots"])
+    //       // Load settings into our data Store, for access throughout.
+    //       mutations.setMaxNrPeople(data["max-pilots"])
+    //       mutations.setBookDaysOffset(data["book-days-from-today"])
+    //       mutations.setBookMonthsOffset(data["book-future-months"])
+    //       mutations.setVideoPrice(data["video-cost"])
+    //       hasLoaded = true
+    //       this.overlay = false
+    //     })
+    //     .catch(error => {
+    //       hasLoaded = true
+    //       this.overlay = false
+    //       this.errorMessage = error
+    //       console.error("Error loading Form Settings: ", error)
+    //     })
+    // },
+    async loadFlightsListAPI (dateStr) {
+      this.isBusy = true;
+      try {
+        await this.$store.dispatch('flightOptions', dateStr)
+      } catch (ex) {
+        //console.log('My error', ex)
+        this.error = "Failed to init() data" + ex;
+      } finally {
+        this.isBusy = false;
+      }
+
+
+
       //console.log('Use Date for FlightsList API call: ' + dateStr)
-      let path = this.apiFlightsListPath + dateStr
+      //let path = this.apiFlightsListPath + dateStr
+
+      // New VueX + Axios.
+
+
       //console.log('FlightsList API path: ' + path)
-      fetch(path, this.apiHeaders)
-        .then(async response => {
-          const data = await response.json()
-          // check for error response
-          if (!response.ok) {
-            // get error message from body or default to response statusText
-            const error = (data && data.message) || response.statusText
-            return Promise.reject(error)
-          }
-          mutations.setFlightsList(data)
-          this.overlay = false
-        })
-        .catch(error => {
-          this.overlay = false
-          this.errorMessage = error
-          console.error("Error loading Form Settings: ", error)
-        })
+      // fetch(path, this.apiHeaders)
+      //   .then(async response => {
+      //     const data = await response.json()
+      //     // check for error response
+      //     if (!response.ok) {
+      //       // get error message from body or default to response statusText
+      //       const error = (data && data.message) || response.statusText
+      //       return Promise.reject(error)
+      //     }
+      //     this.$store.setFlightsList(data)
+      //     this.overlay = false
+      //   })
+      //   .catch(error => {
+      //     this.overlay = false
+      //     this.errorMessage = error
+      //     console.error("Error loading Form Settings: ", error)
+      //   })
     },
     loadTimeListerDatesAPI: function () {
       // This is called when either the Flight Date or Which Flight? are changed
       // (but only if Which Flight? isn't empty).
       //console.log(fetchedFlightsListObj)
-        console.warn('TEMP DEBUG: Loading local data into App.vue -> loadTimeListerDatesAPI()')
-        let fetchedFlightsListObj = {}
-        mutations.setTimeListDates(fetchedFlightsListObj)
+
+        // console.warn('TEMP DEBUG: Loading local data into App.vue -> loadTimeListerDatesAPI()')
+        // let fetchedFlightsListObj = {}
+        // mutations.setTimeListDates(fetchedFlightsListObj)
+
       // Need to do proper API call here, return true once data has loaded
       // so calling component can update its display (TimeListGroup...)
       
@@ -257,7 +278,7 @@ export default {
       //console.log('Clicked Continue Btn:')
 
       //------------- Leaving Step 1 logic here -------------
-      if (this.isObjEmpty(store.timeListDates)) {
+      if (this.isObjEmpty(this.$store.timeListDates)) {
         console.log('Clicked Continue from Step 1, timeListDates is empty, load data...')
         this.loadTimeListerDatesAPI()
       }
@@ -281,24 +302,25 @@ export default {
     },
 
     // ************************** Storage workers **************************. 
+    // Hopfully move all this to the VueX store stuff...
     onClearData: function () {
       //console.log('Clear all data:')
-      mutations.setNrPeople(0)
-      mutations.setFlightDate('')
-      mutations.setFlight('')
-      mutations.setWantsPhotos(false)
+      this.$store.setNrPeople(0)
+      this.$store.setFlightDate('')
+      this.$store.setFlight('')
+      this.$store.setWantsPhotos(false)
     },
 
     loadLocalStorageValues: function () {
       //console.log('Read local storage')
       if (localStorage.nrPeople) {
-        mutations.setNrPeople(localStorage.nrPeople)
+        this.$store.setNrPeople = localStorage.nrPeople
       }
       if (localStorage.flightDate) {
-        mutations.setFlightDate(localStorage.flightDate)
+        this.$store.setFlightDate = localStorage.flightDate
       }
       if (localStorage.selectedFlight) {
-        mutations.setFlight(localStorage.selectedFlight)
+        this.$store.setFlight = localStorage.selectedFlight
       }
       if (localStorage.wantsPhotos) {
         let convertStrToBool = localStorage.wantsPhotos
@@ -307,19 +329,19 @@ export default {
         } else {
           convertStrToBool = false
         }
-        mutations.setWantsPhotos(convertStrToBool)
+        this.$store.setWantsPhotos = convertStrToBool
       }
       if (localStorage.flightsList) {
-        mutations.setFlightsList(JSON.parse(localStorage.flightsList))
+        //this.$store.setFlightsList = JSON.parse(localStorage.flightsList)
       }
     },
     saveLocalStorageValues: function () {
       //console.log('Wrote to local storage')
-      localStorage.nrPeople = store.nrPeople
-      localStorage.flightDate = store.flightDate
-      localStorage.selectedFlight = store.selectedFlight
-      localStorage.wantsPhotos = store.wantsPhotos
-      localStorage.flightsList = JSON.stringify(store.flightsList)
+      localStorage.nrPeople = this.$store.nrPeople
+      localStorage.flightDate = this.$store.flightDate
+      localStorage.selectedFlight = this.$store.selectedFlight
+      localStorage.wantsPhotos = this.$store.wantsPhotos
+      localStorage.flightsList = JSON.stringify(this.$store.flightsList)
     }
   },
 
