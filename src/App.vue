@@ -114,8 +114,6 @@
 </template>
 
 <script>
-// old store code. Move to vuex (hopefully!)
-// import { store, mutations } from "@/store/store.js";
 
 import { format } from 'date-fns'
 import { mdiArrowRightCircle, mdiChevronLeft } from '@mdi/js'
@@ -130,8 +128,7 @@ export default {
 
   // Lifecycle Hooks
   async mounted() {
-    // wish me luck! First vuex + Axios attempt to async load properly.
-    // WORKS!!! Koolio (waiting for first face slap back...)
+    // Whoop!!! VueX works a charme *and* I mostly get it!
     this.isBusy = true;
     try {
       await this.$store.dispatch('init')
@@ -178,13 +175,6 @@ export default {
     canGoBack:   false,
     canContinue: false,
 
-    // API endpoints
-    //apiHeaders: { "Content-Type": "application/json" },
-    // Initial Settings
-    //apiInitSettingsPath: "https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init",
-    //apiInitSettings: {},
-    //apiFlightsListPath: "https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/",
-
   }),
 
   // Methods
@@ -202,7 +192,8 @@ export default {
       }
 
     },
-    loadTimeListerDatesAPI: function () {
+    async loadTimeListerDatesAPI () {
+         
       // This is called when either the Flight Date or Which Flight? are changed
       // (but only if Which Flight? isn't empty).
       //console.log(fetchedFlightsListObj)
@@ -224,9 +215,9 @@ export default {
       //console.log('Clicked Continue Btn:')
 
       //------------- Leaving Step 1 logic here -------------
-      if (this.isObjEmpty(this.$store.timeListDates)) {
+      if (this.isObjEmpty(this.$store.state.timeListDates)) {
         console.log('Clicked Continue from Step 1, timeListDates is empty, load data...')
-        this.loadTimeListerDatesAPI()
+        this.$store.dispatch('timeListDates')
       }
       this.$router.push({
         name: 'Time',
@@ -251,22 +242,22 @@ export default {
     // Hopfully move all this to the VueX store stuff...
     onClearData: function () {
       //console.log('Clear all data:')
-      this.$store.setNrPeople(0)
-      this.$store.setFlightDate('')
-      this.$store.setFlight('')
-      this.$store.setWantsPhotos(false)
+      this.$store.dispatch('setNrPeople', 0)
+      this.$store.dispatch('setFlightDate', '')
+      this.$store.dispatch('setFlight', '')
+      this.$store.dispatch('setWantsPhotos', false)
     },
 
     loadLocalStorageValues: function () {
       //console.log('Read local storage')
       if (localStorage.nrPeople) {
-        this.$store.setNrPeople = localStorage.nrPeople
+        this.$store.dispatch('setNrPeople', localStorage.nrPeople)
       }
       if (localStorage.flightDate) {
-        this.$store.setFlightDate = localStorage.flightDate
+        this.$store.dispatch('setFlightDate', localStorage.flightDate)
       }
       if (localStorage.selectedFlight) {
-        this.$store.setFlight = localStorage.selectedFlight
+        this.$store.dispatch('setFlight', localStorage.selectedFlight)
       }
       if (localStorage.wantsPhotos) {
         let convertStrToBool = localStorage.wantsPhotos
@@ -275,19 +266,19 @@ export default {
         } else {
           convertStrToBool = false
         }
-        this.$store.setWantsPhotos = convertStrToBool
+        this.$store.dispatch('setWantsPhotos', convertStrToBool)
       }
-      if (localStorage.flightsList) {
-        //this.$store.setFlightsList = JSON.parse(localStorage.flightsList)
+      if (localStorage._flightsList) {
+        this.$store.dispatch('setFlightsList', JSON.parse(localStorage._flightsList))
       }
     },
     saveLocalStorageValues: function () {
       //console.log('Wrote to local storage')
-      localStorage.nrPeople = this.$store.nrPeople
-      localStorage.flightDate = this.$store.flightDate
-      localStorage.selectedFlight = this.$store.selectedFlight
-      localStorage.wantsPhotos = this.$store.wantsPhotos
-      localStorage.flightsList = JSON.stringify(this.$store.flightsList)
+      localStorage.nrPeople = this.$store.state.nrPeople
+      localStorage.flightDate = this.$store.state.flightDate
+      localStorage.selectedFlight = this.$store.state.selectedFlight
+      localStorage.wantsPhotos = this.$store.state.wantsPhotos
+      localStorage._flightsList = JSON.stringify(this.$store.state._flightsList)
     }
   },
 

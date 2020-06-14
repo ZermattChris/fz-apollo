@@ -123,7 +123,6 @@
     mounted() {
       // Load the 3x Visible days from timeListDates array from API
       if (this.isObjEmpty(store.timeListDates)) {
-        console.log('Keep it simple for now, just go back to Step 1. Probably need to learn and refactor for Vuex.')
         // If there is a valid User selected nrPeople + selectedFlight, then
         // we can just load the missing dateslist from the API., otherwise
         // send back to step #1.
@@ -131,17 +130,6 @@
           // go back to step 1 for User Inputs.
           console.log('Back to Step 1')
           return
-        } else {
-          // console.log('Load dayslist from API here.')
-          //   console.log('-> BEFORE the load call has completed')
-          // this.$emit('preload-timelister-dates', { done: () => {
-          //   console.log('-> After the load call has completed')
-          // }})
-          // This is wrong! nextTick() is for next round of DOM updates,
-          // not some sort of majik aync call... Keep looking...
-          //this.$nextTick(() => {
-          // will run after $emit is done
-          //})
         }
       } else {
         //console.log('Object is not empty', store.timeListDates)

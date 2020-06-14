@@ -13,17 +13,26 @@ export default new Vuex.Store({
     wantsPhotos: false,
 
     // Settings - API call result
+    // Using an Underscore to help make it clear that this isn't User Input.
     _maxPilots: -1,
     _bookDaysOffset: -1,
     _bookMonthsOffset: -1,
     _videoPrice: -1,
     _flightsList: null,
-
-    timeListDates: null,
+    // EasyJet style of choosing a Date's Timeslot.
+    _timeList_loading: false,
+    _timeListDates: null, // List of dates obj with time slots
   },
 
   mutations: {
     // APIs
+    TIMELIST_LOADING(state, isLoading) {
+      state._timeList_loading = isLoading;
+    },
+    TIMELIST_DATES(state, obj) {
+      state._timeListDates = obj;
+    },
+
     MAX_PILOTS(state, nr) {
       state._maxPilots = nr;
     },
@@ -37,7 +46,7 @@ export default new Vuex.Store({
       state._videoPrice = price;
     },
 
-    // User inputs
+    // User inputs, Local Storage Cached
     CHOSEN_NR_PEOPLE(state, nr) {
       state.nrPeople = nr;
     },
@@ -52,7 +61,7 @@ export default new Vuex.Store({
     },
 
     // Local Storage Cached
-    FLIGHTS_LIST: (state, obj) => {
+    FLIGHTS_LIST(state, obj) {
       //console.log("Flight Options for ", obj);
       state._flightsList = obj;
     },
@@ -60,41 +69,57 @@ export default new Vuex.Store({
 
   actions: {
     // API CALLS.
-    async init(state) {
+    async timeListDates(context) {
+      context.commit("TIMELIST_LOADING", true);
+
+      // Figure out the starting date (keep in mind that we only need
+      // to load from Today()+_bookDaysOffset)
+
+      // Return if the date is not set/valid.
+      const flDate = context.state.flightDate;
+      console.log(flDate);
+
+      var result = await axios.get("http://localhost:3000/flightsdates/");
+      let data = result.data;
+      context.commit("TIMELIST_DATES", data);
+    },
+
+    async init(context) {
       var result = await axios.get("http://localhost:3000/init");
       let data = result.data;
       //console.log(data);
       // Note to future self:
       // the preceeding + converts from String to Number before mutatiing.
-      state.commit("MAX_PILOTS", +data["max-pilots"]);
-      state.commit("BOOK_DAYS_OFFSET", +data["book-days-from-today"]);
-      state.commit("BOOK_MONTS_OFFSET", +data["book-future-months"]);
-      state.commit("VIDEO_PRICE", +data["video-cost"]);
+      context.commit("MAX_PILOTS", +data["max-pilots"]);
+      context.commit("BOOK_DAYS_OFFSET", +data["book-days-from-today"]);
+      context.commit("BOOK_MONTS_OFFSET", +data["book-future-months"]);
+      context.commit("VIDEO_PRICE", +data["video-cost"]);
     },
-    async flightOptions(state, dateStr) {
+    async flightOptions(context, dateStr) {
       var result = await axios.get(
-        "https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/" + dateStr
+        "https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/" +
+          dateStr
       );
       let data = result.data;
-      state.commit("FLIGHTS_LIST", data);
+      context.commit("FLIGHTS_LIST", data);
     },
 
     // USER INPUTS.
-    setNrPeople(state, nr) {
-      state.commit("CHOSEN_NR_PEOPLE", +nr);
+    setNrPeople(context, nr) {
+      context.commit("CHOSEN_NR_PEOPLE", +nr);
     },
-    setFlightDate(state, dateStr) {
-      state.commit("CHOSEN_DATE", dateStr);
+    setFlightDate(context, dateStr) {
+      context.commit("CHOSEN_DATE", dateStr);
     },
-    setFlight(state, flightNameStr) {
-      state.commit("CHOSEN_FLIGHT", flightNameStr);
+    setFlight(context, flightNameStr) {
+      context.commit("CHOSEN_FLIGHT", flightNameStr);
     },
-    setWantsPhotos(state, picsBool) {
-      state.commit("CHOSEN_PHOTOS", picsBool);
+    setWantsPhotos(context, picsBool) {
+      context.commit("CHOSEN_PHOTOS", picsBool);
     },
 
-    setFlightsList(state, flightsListObj) {
-      state.commit("FLIGHTS_LIST", flightsListObj);
+    setFlightsList(context, flightsListObj) {
+      context.commit("FLIGHTS_LIST", flightsListObj);
     },
   },
 });

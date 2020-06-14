@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import { store } from "@/store/store.js";
+  // import { store } from "@/store/store.js";
   import PageHeader from '@/components/PageHeader.vue'
   import TimeListGroup from '@/components/TimeListGroup.vue'
 
@@ -64,17 +64,17 @@
       //   return jsonDates
       // },
       userFlightDate: function () {
-        return store.flightDate
+        return this.$store.state.flightDate
       },
       usersGroupSize: function () {
-        return store.nrPeople
+        return this.$store.state.nrPeople
       },
       timeListerHeaderStr: function () {
         // console.log(this.capitaliseFirstLetter('whoop'))
         // return "2. Flight Time for: " + this.capitaliseFirstLetter(store.selectedFlight)
         // Need to return the matching Flight Description from store.flightsList object.store.
-        const userFlightKey = store.selectedFlight
-        const flightDesc = store.flightsList[userFlightKey]
+        const userFlightKey = this.$store.state.selectedFlight
+        const flightDesc = this.$store.state._flightsList[userFlightKey]
         return "2. Flight Time for: <span class='hilite-text text-no-wrap'>" + flightDesc + "</span>"
       }
     },
