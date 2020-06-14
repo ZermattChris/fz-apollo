@@ -117,8 +117,6 @@ import { store, mutations } from "@/store/store.js";
 import { format } from 'date-fns'
 import { mdiArrowRightCircle, mdiChevronLeft } from '@mdi/js'
 
-// temp til Tommy gets this API working.
-import timeListerDates_TEMPJSONFILE from "@/store/timeListerDatesx.json";
 
 export default {
   name: 'App',
@@ -227,7 +225,7 @@ export default {
       // (but only if Which Flight? isn't empty).
       //console.log(fetchedFlightsListObj)
         console.warn('TEMP DEBUG: Loading local data into App.vue -> loadTimeListerDatesAPI()')
-        let fetchedFlightsListObj = timeListerDates_TEMPJSONFILE
+        let fetchedFlightsListObj = {}
         mutations.setTimeListDates(fetchedFlightsListObj)
       // Need to do proper API call here, return true once data has loaded
       // so calling component can update its display (TimeListGroup...)
