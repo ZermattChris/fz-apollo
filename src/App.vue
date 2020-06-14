@@ -113,7 +113,9 @@
 </template>
 
 <script>
+// old store code. Move to vuex (hopefully!)
 import { store, mutations } from "@/store/store.js";
+
 import { format } from 'date-fns'
 import { mdiArrowRightCircle, mdiChevronLeft } from '@mdi/js'
 
@@ -126,6 +128,19 @@ export default {
   },
 
   // Lifecycle Hooks
+  async mounted() {
+    // wish me luck! First vuex + Axios attempt to async load properly.
+    this.isBusy = true;
+    try {
+      await this.$store.dispatch('init')
+    } catch (ex) {
+      this.error = "Failed to init() data";
+    } finally {
+      this.isBusy = false;
+    }
+  },
+
+
   beforeUpdate() {
     // Show/hide the Back Btn.
     if (this.$route.name === 'Start') {
@@ -148,6 +163,8 @@ export default {
 
   // Reactive data
   data: () => ({
+    isBusy: false,  // temp for vuex axios.
+    error: '',      // temp for vuex axios.
 
     overlay: false,     // blocks UI until Settings API JSON returns.
     overlayDelay: 500,  // Milliseconds before loading block is shown...
