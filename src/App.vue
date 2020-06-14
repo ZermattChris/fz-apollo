@@ -106,8 +106,8 @@
       app
       padless
     >
-      <div v-show="error" class="yellow--text overline" style="margin-right:20px;">ERROR: Loading init(): {{error}}</div>
-      <div class="white--text overline" style="margin-right:20px;">Loading init(): {{isBusy}}</div>
+      <div v-show="API_error" class="yellow--text overline" style="margin-right:20px;">API Load ERROR: {{API_error}}</div>
+      <div class="white--text overline" style="margin-right:20px;">Loading: {{isBusy}}</div>
       <div class="white--text overline">© {{getCurrentYear}} - FlyZermatt</div>
     </v-footer>
   </v-app>
@@ -137,7 +137,7 @@ export default {
       await this.$store.dispatch('init')
     } catch (ex) {
       //console.log('My error', ex)
-      this.error = "Failed to init() data" + ex;
+      this.API_error = "Failed to init() data" + ex;
     } finally {
       this.isBusy = false;
     }
@@ -167,7 +167,7 @@ export default {
   // Reactive data
   data: () => ({
     isBusy: false,  // temp for vuex axios.
-    error: '',      // temp for vuex axios.
+    API_error: '',      // temp for vuex axios.
 
     overlay: false,     // blocks UI until Settings API JSON returns.
     overlayDelay: 500,  // Milliseconds before loading block is shown...
@@ -179,82 +179,28 @@ export default {
     canContinue: false,
 
     // API endpoints
-    apiHeaders: { "Content-Type": "application/json" },
+    //apiHeaders: { "Content-Type": "application/json" },
     // Initial Settings
     //apiInitSettingsPath: "https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init",
     //apiInitSettings: {},
-    apiFlightsListPath: "https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/",
+    //apiFlightsListPath: "https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/",
 
   }),
 
   // Methods
   methods: {
-    // loadSettingsAPI: function () {
-    //   let hasLoaded = false
-    //   setTimeout(() => { if (hasLoaded===false) this.overlay = true }, this.overlayDelay) // Show loading blocker if longer than 200 milliseconds
-    //   fetch(this.apiInitSettingsPath, this.apiHeaders)
-    //     .then(async response => {
-    //       const data = await response.json()
-    //       // check for error response
-    //       if (!response.ok) {
-    //         // get error message from body or default to response statusText
-    //         const error = (data && data.message) || response.statusText
-    //         return Promise.reject(error)
-    //       }
-    //       //this.apiInitSettings = data.total
-    //       //console.log('Init Settings obj: ' + data["max-pilots"])
-    //       // Load settings into our data Store, for access throughout.
-    //       mutations.setMaxNrPeople(data["max-pilots"])
-    //       mutations.setBookDaysOffset(data["book-days-from-today"])
-    //       mutations.setBookMonthsOffset(data["book-future-months"])
-    //       mutations.setVideoPrice(data["video-cost"])
-    //       hasLoaded = true
-    //       this.overlay = false
-    //     })
-    //     .catch(error => {
-    //       hasLoaded = true
-    //       this.overlay = false
-    //       this.errorMessage = error
-    //       console.error("Error loading Form Settings: ", error)
-    //     })
-    // },
+    
     async loadFlightsListAPI (dateStr) {
       this.isBusy = true;
       try {
         await this.$store.dispatch('flightOptions', dateStr)
       } catch (ex) {
         //console.log('My error', ex)
-        this.error = "Failed to init() data" + ex;
+        this.API_error = "Failed to FlightList() data" + ex;
       } finally {
         this.isBusy = false;
       }
 
-
-
-      //console.log('Use Date for FlightsList API call: ' + dateStr)
-      //let path = this.apiFlightsListPath + dateStr
-
-      // New VueX + Axios.
-
-
-      //console.log('FlightsList API path: ' + path)
-      // fetch(path, this.apiHeaders)
-      //   .then(async response => {
-      //     const data = await response.json()
-      //     // check for error response
-      //     if (!response.ok) {
-      //       // get error message from body or default to response statusText
-      //       const error = (data && data.message) || response.statusText
-      //       return Promise.reject(error)
-      //     }
-      //     this.$store.setFlightsList(data)
-      //     this.overlay = false
-      //   })
-      //   .catch(error => {
-      //     this.overlay = false
-      //     this.errorMessage = error
-      //     console.error("Error loading Form Settings: ", error)
-      //   })
     },
     loadTimeListerDatesAPI: function () {
       // This is called when either the Flight Date or Which Flight? are changed
