@@ -97,6 +97,12 @@ export default new Vuex.Store({
       //console.log(flDate);
 
       var result = await axios.get("http://localhost:3000/flightsdates/");
+      // this is going to fail on LIVE Build version, as there's no live 
+      // API call ready on Tommy's server yet.
+
+      // Need to do some sort of .then() and load some test data for the moment
+
+
       let data = result.data;
       context.commit("TIMELIST_DATES", data);
       context.commit("TIMELIST_LOADING", false);   // Loading UI OFF
@@ -105,7 +111,7 @@ export default new Vuex.Store({
     // ******************** API: init App ********************
     async init(context) {
       // var result = await axios.get("http://localhost:3000/init");   // local JSON server for dev.
-      var result = await axios.get("http://fz-backend.simpleitsolutions.ch/onlinebooking/api/init");  // Live API
+      var result = await axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init");  // Live API
       let data = result.data;
       // Note to future self:
       // the preceeding + converts from String to Number before mutatiing.
