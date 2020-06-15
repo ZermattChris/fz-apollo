@@ -87,7 +87,9 @@
 
       <!-- ***************** Which Flight? ******************** -->
       <h3 class="disable-select">
-        <v-icon :color="flightChosen ? 'success' : 'primary'">{{ formattedFlightsList ? stepIconCompleted : stepIcon }}</v-icon>
+        <v-icon  
+          :color="flightChosen ? 'success' : 'primary'">{{ formattedFlightsList ? stepIconCompleted : stepIcon }}
+        </v-icon>
         Which Flight?
       </h3>
       <div class="controls">
@@ -99,6 +101,7 @@
           item-text="name"
           item-value="id"
           :prepend-icon="flightChosen ? cloudIcon : cloudQuestionIcon"
+          :loading="flightOptionsLoaded"
           solo
           outlined
           :disabled="!isValidFlightDate"
@@ -246,6 +249,10 @@ export default {
 
   computed: {
 
+    flightOptionsLoaded: function () {
+      return this.$store.state._flightsList_loading
+    },
+
     forWatchingBothFlightDateAndFlightType() {
       return `${this.flightDate}|${this.flightChosen}`;
     },
@@ -330,7 +337,7 @@ export default {
       return false
     },
     isValidFlightChosen: function () {
-      if (this.flightDate !== '' && this.flightChosen !== null) {
+      if (this.flightDate !== '' && this.flightChosen !== '') {
         return true
       }
       return false

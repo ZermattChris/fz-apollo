@@ -110,6 +110,9 @@
       <div class="white--text overline" style="margin-right:20px;">Loading: {{isBusy}}</div>
       <div class="white--text overline">© {{getCurrentYear}} - FlyZermatt</div>
     </v-footer>
+
+  <v-overlay :value="isAppStillLoading" />
+
   </v-app>
 </template>
 
@@ -285,6 +288,9 @@ export default {
   computed: {
     getCurrentYear: function () {
       return format(Date.now(), 'yyyy')
+    },
+    isAppStillLoading: function () {
+      return this.$store.state._app_loading
     }
   }
 };
