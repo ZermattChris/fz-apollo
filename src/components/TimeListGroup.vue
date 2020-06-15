@@ -73,11 +73,13 @@
         fab
         @click="onNextDay"
       >
-      <v-icon>mdi-chevron-right</v-icon>
-    </v-btn>
+        <v-icon>mdi-chevron-right</v-icon>
+      </v-btn>
     
-
+      <v-overlay :value="isLoading" absolute />
     </v-container>
+
+
 
   </v-item-group>
 
@@ -86,7 +88,7 @@
 <script>
   import { isMobile } from 'mobile-device-detect'
   import TimeList from '@/components/TimeList.vue'
-  import { store } from "@/store/store.js";
+  // import { store } from "@/store/store.js";
   import {format, fromUnixTime, getUnixTime} from 'date-fns'
 
   // temp til Tommy gets this API working.
@@ -107,37 +109,55 @@
         mobile: isMobile,
         msg: isMobile ? 'Mobile device: Hide scroll buttons, enable Swipe.' : 'Desktop: Show scroll buttons. ',
 
-        userSelectedDate: store.flightDate,
+        userSelectedDate: this.$store.state.flightDate,
         daysVisibleList: {}
       }
     },
 
 
     created() {
-      // Check if the list of corresponding flights has been loaded,
-      // and if not, fire off the event to get them from the App.vue object.
-      
 
     },
 
-    mounted() {
-      // Load the 3x Visible days from timeListDates array from API
-      if (this.isObjEmpty(store.timeListDates)) {
+    async mounted() {
+
+      if (this.$store.state._timeListDates === null) {
+        console.log('TimeListDates (slots) object is not loaded in TimeListGroup.')
         // If there is a valid User selected nrPeople + selectedFlight, then
         // we can just load the missing dateslist from the API., otherwise
         // send back to step #1.
-        if (store.nrPeople == 0 || store.selectedFlight == '') {
+        if (this.$store.state.nrPeople == 0 || this.$store.state.selectedFlight == '') {
           // go back to step 1 for User Inputs.
-          console.log('Back to Step 1')
+          console.log('NrPeople and/or SelectedFlight are empty. Go back to Step 1')
           return
+        } else {
+          console.log('Should load the timeListDates in TimeListGroup created hook')
+          this.$store.dispatch('timeListDates')
+
+          try {
+            await this.$store.dispatch('timeListDates')
+          } catch (ex) {
+            console.error('My error', ex)
+          } finally {
+            console.log('Awaited timeListDates load', this.$store.state._timeListDates)
+            this.loadVisibleDays()
+          }
+
+
         }
       } else {
-        //console.log('Object is not empty', store.timeListDates)
+        // Need to wait for the above call to finish before loading on a null obj.
+        // Load the 3x Visible days from timeListDates array from API
+        console.log('timeListDates loaded already', this.$store.state._timeListDates)
         this.loadVisibleDays()
       }
+
     },
 
     computed: {
+      isLoading: function () {
+        return this.$store.state._timeList_loading
+      },
     },
 
     methods: {
@@ -155,15 +175,12 @@
         // let currDateTimeslotsObj = timeListDates[currDayKey]
         // console.log("Curr Date Timeslots: " + currDateTimeslotsObj)
 
-        // God, f**king js objects, how ugly!
         // Okay, found the corresponding docs in Vue. Need to use the Vue $set and $delete
         // to overcome mucking around with Observable Vue objects. (I hope!)
-        this.$set( this.daysVisibleList, prevDayKey, store.timeListDates[prevDayKey] )
-        this.$set( this.daysVisibleList, currDayKey, store.timeListDates[prevDayKey] )
-        this.$set( this.daysVisibleList, nextDayKey, store.timeListDates[prevDayKey] )
+        this.$set( this.daysVisibleList, prevDayKey, this.$store.state._timeListDates[prevDayKey] )
+        this.$set( this.daysVisibleList, currDayKey, this.$store.state._timeListDates[prevDayKey] )
+        this.$set( this.daysVisibleList, nextDayKey, this.$store.state._timeListDates[prevDayKey] )
         
-        console.log("=======")
-
       },
 
       convertEpocSecsToISODateStr: function (epocSecs) {
@@ -218,11 +235,11 @@
           let targetKey = myKey - oneEpochDaySecs
           // Let's do a check to see if this key exists before trying to add it 
           // and getting a "Cannot convert undefined or null to object"
-          if (this.isObjEmpty(store.timeListDates[targetKey])) {
+          if (this.isObjEmpty(this.$store.state.timeListDates[targetKey])) {
             console.error("Ooops! At start of loaded days - can't continue...")
             return
           }
-          this.$set( this.daysVisibleList, targetKey, store.timeListDates[targetKey] )
+          this.$set( this.daysVisibleList, targetKey, this.$store.state.timeListDates[targetKey] )
           setTimeout( () => {
             // zap last array item...
             let len = Object.keys(this.daysVisibleList).length - 1
@@ -244,11 +261,11 @@
           //console.log('Next DayKey: ', targetKey) 
           // Let's do a check to see if this key exists before trying to add it 
           // and getting a "Cannot convert undefined or null to object"
-          if (this.isObjEmpty(store.timeListDates[targetKey])) {
+          if (this.isObjEmpty(this.$store.state.timeListDates[targetKey])) {
             console.error("Ooops! At end of loaded days - can't continue...")
             return
           }
-          this.$set( this.daysVisibleList, targetKey, store.timeListDates[targetKey] )
+          this.$set( this.daysVisibleList, targetKey, this.$store.state.timeListDates[targetKey] )
 
           setTimeout( () => {
             // zap first array item...

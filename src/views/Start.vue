@@ -395,9 +395,10 @@ export default {
       // const [newPropertyA, newProvertyB] = newVal.split('|');
       //console.log('Both Flight Date and Type changed. PropA: ' + oldPropertyA + '!=' + newPropertyA + ' -- PropB: ' + oldProvertyB + '!=' + newProvertyB)
       
+      // LOAD VueX - grab timesListDates from API.
       // Only fire if the Which Flight? isn't empty.
       if (this.flightChosen === '') return
-      this.$emit('preload-timelister-dates')
+      this.$store.dispatch('timeListDates')
     },
     flightsWatch: function (newObj) {
       // When this computed property (source data is: this.$store.flightsList)

@@ -25,11 +25,10 @@ export default new Vuex.Store({
     // EasyJet style of choosing a Date's Timeslot.
     _timeListDates: null, // List of dates obj with time slots
 
-
     // Loading values. Use to update UI to show various components are loading...
     _app_loading: true,          // defaults to true, as initial loading state of app.
     _flightsList_loading: false,
-    _timeList_loading: false,
+    _timeList_loading: true,
 
   },
 
@@ -94,8 +93,8 @@ export default new Vuex.Store({
       // to load from Today()+_bookDaysOffset)
 
       // Return if the date is not set/valid.
-      const flDate = context.state.flightDate;
-      console.log(flDate);
+      //const flDate = context.state.flightDate;
+      //console.log(flDate);
 
       var result = await axios.get("http://localhost:3000/flightsdates/");
       let data = result.data;
@@ -118,11 +117,17 @@ export default new Vuex.Store({
 
     },
     // ******************** API: Flight Options ********************
-    async flightOptions(context, dateStr) {
+    async flightOptions(context) {
       context.commit("FLIGHTSLIST_LOADING", true);
-      var result = await axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/" + dateStr);
+
+      // Return if the date is not set/valid.
+      const flDate = context.state.flightDate;
+      console.log("Loading Flight Options for drop menu Step 1.", flDate);
+
+      var result = await axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/" + flDate);
       let data = result.data;
       context.commit("FLIGHTS_LIST", data);
+
       context.commit("FLIGHTSLIST_LOADING", false);   // Loading UI OFF
     },
 

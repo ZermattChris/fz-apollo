@@ -73,9 +73,6 @@
             <router-view
               @form-is-valid="onEnableContinueBtn"
               @data-changed="saveLocalStorageValues"
-
-              @flight-date-changed="loadFlightsListAPI"
-              @preload-timelister-dates="loadTimeListerDatesAPI"
             ></router-view>
           <!-- </transition> -->
 
@@ -106,8 +103,6 @@
       app
       padless
     >
-      <div v-show="API_error" class="yellow--text overline" style="margin-right:20px;">API Load ERROR: {{API_error}}</div>
-      <div class="white--text overline" style="margin-right:20px;">Loading: {{isBusy}}</div>
       <div class="white--text overline">© {{getCurrentYear}} - FlyZermatt</div>
     </v-footer>
 
@@ -131,15 +126,10 @@ export default {
 
   // Lifecycle Hooks
   async mounted() {
-    // Whoop!!! VueX works a charme *and* I mostly get it!
-    this.isBusy = true;
-    try {
+      try {
       await this.$store.dispatch('init')
     } catch (ex) {
-      //console.log('My error', ex)
-      this.API_error = "Failed to init() data" + ex;
-    } finally {
-      this.isBusy = false;
+      console.error('My error', ex)
     }
   },
 
@@ -166,9 +156,6 @@ export default {
 
   // Reactive data
   data: () => ({
-    isBusy: false,  // temp for vuex axios.
-    API_error: '',      // temp for vuex axios.
-
     overlay: false,     // blocks UI until Settings API JSON returns.
     overlayDelay: 500,  // Milliseconds before loading block is shown...
 
@@ -183,32 +170,13 @@ export default {
   // Methods
   methods: {
     
-    async loadFlightsListAPI (dateStr) {
-      this.isBusy = true;
-      try {
-        await this.$store.dispatch('flightOptions', dateStr)
-      } catch (ex) {
-        //console.log('My error', ex)
-        this.API_error = "Failed to FlightList() data" + ex;
-      } finally {
-        this.isBusy = false;
-      }
-
-    },
-    async loadTimeListerDatesAPI () {
-         
-      // This is called when either the Flight Date or Which Flight? are changed
-      // (but only if Which Flight? isn't empty).
-      //console.log(fetchedFlightsListObj)
-
-        // console.warn('TEMP DEBUG: Loading local data into App.vue -> loadTimeListerDatesAPI()')
-        // let fetchedFlightsListObj = {}
-        // mutations.setTimeListDates(fetchedFlightsListObj)
-
-      // Need to do proper API call here, return true once data has loaded
-      // so calling component can update its display (TimeListGroup...)
-      
-    },
+    // async loadFlightsListAPI () {
+    //   try {
+    //     await this.$store.dispatch('flightOptions')
+    //   } catch (ex) {
+    //     console.error('My error', ex)
+    //   }
+    // },
 
     onEnableContinueBtn: function (valid) {
       //console.log('Enable Btn: ' + valid)
@@ -219,7 +187,7 @@ export default {
 
       //------------- Leaving Step 1 logic here -------------
       if (this.isObjEmpty(this.$store.state.timeListDates)) {
-        console.log('Clicked Continue from Step 1, timeListDates is empty, load data...')
+        console.log('Clicked Continue from Step 1.')
         this.$store.dispatch('timeListDates')
       }
       this.$router.push({
@@ -242,15 +210,19 @@ export default {
     },
 
     // ************************** Storage workers **************************. 
-    // Hopfully move all this to the VueX store stuff...
+    // All moved to VueX. TODO: Make new vuex actions that:
+    // - saveLocalData
+    // - loadLocalData
+    // - clearLocalData
     onClearData: function () {
       //console.log('Clear all data:')
       this.$store.dispatch('setNrPeople', 0)
       this.$store.dispatch('setFlightDate', '')
       this.$store.dispatch('setFlight', '')
       this.$store.dispatch('setWantsPhotos', false)
+      this.saveLocalStorageValues()
     },
-
+    // Move local storage calls to VueX too me thinks... TODO.
     loadLocalStorageValues: function () {
       //console.log('Read local storage')
       if (localStorage.nrPeople) {
