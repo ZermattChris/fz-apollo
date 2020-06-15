@@ -144,6 +144,21 @@
           text-align: center;
           color: rgb(80, 80, 80);
           font-family: sans-serif;"><div id=animLoader class=bubblingG><span id=bubblingG_1></span> <span id=bubblingG_2></span> <span id=bubblingG_3></span></div><p style=margin-bottom:15px;><strong>LOADING...</strong></p><p>Internet too slow?<br>Just give us a ring at:<br><br><strong>+41 27 967-2100</strong></p></div><script>// Temp global inti() ajax load storage. 
-            // Is copied into the Vuex store and then deleted, once the app
-            // is bootstrapped.
-            var _initData = true     // stored as global in window object.</script></div><link rel=preload href=https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css as=style onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css></noscript><link rel=preload href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" as=style onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"></noscript><script src=/js/chunk-vendors.a549cd4d.js></script><script src=/js/app.1d909cad.js></script></body></html>
+          // Is copied into the Vuex store and then deleted, once the app
+          // is bootstrapped.
+          var _initData = null     // stored as global in window object.
+          console.log('before load init()', _initData)
+
+            var worker = new Worker("preload.js");
+              worker.onmessage = function (event) {
+                try {
+                  _initData = JSON.parse(event.data)
+                } catch (error) {
+                  console.error(error);
+                  _initData = null
+                }
+                //alert("Worker said: " + event.data);
+                console.log('AFTER load init()', _initData)
+              };
+
+              worker.postMessage("Hello");</script></div><link rel=preload href=https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css as=style onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css></noscript><link rel=preload href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" as=style onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"></noscript><script src=/js/chunk-vendors.a549cd4d.js></script><script src=/js/app.1d909cad.js></script></body></html>
