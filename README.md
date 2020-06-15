@@ -26,7 +26,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## JSON local server 
 Run this in a separate console window to let us test/mock JSON API calls.
-~/Projects/apollo/src/store$ json-server --watch db.js
+json-server --watch ~/Projects/apollo/src/store/db.js
 
 
 ## API endpoints

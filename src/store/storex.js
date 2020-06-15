@@ -6,6 +6,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+
+    _DEV: true,
+
     // User inputs.
     nrPeople: 0,
     flightDate: "",
@@ -20,15 +23,29 @@ export default new Vuex.Store({
     _videoPrice: -1,
     _flightsList: null,
     // EasyJet style of choosing a Date's Timeslot.
-    _timeList_loading: false,
     _timeListDates: null, // List of dates obj with time slots
+
+
+    // Loading values. Use to update UI to show various components are loading...
+    _init_loading: true,          // defaults to true, as initial loading state of app.
+    _flightsList_loading: false,
+    _timeList_loading: false,
+
   },
 
   mutations: {
-    // APIs
+    // UI Loading...
+    INIT_LOADING(state, isLoading) {
+      state._init_loading = isLoading;
+    },
+    FLIGHTSLIST_LOADING(state, isLoading) {
+      state._flightsList_loading = isLoading;
+    },
     TIMELIST_LOADING(state, isLoading) {
       state._timeList_loading = isLoading;
     },
+
+    // APIs
     TIMELIST_DATES(state, obj) {
       state._timeListDates = obj;
     },
@@ -79,7 +96,7 @@ export default new Vuex.Store({
       const flDate = context.state.flightDate;
       console.log(flDate);
 
-      var result = await axios.get("http://localhost:3000/flightsdates/");
+      var result = await axios.get("http://localhost:3000/flightsdates/xxx");
       let data = result.data;
       context.commit("TIMELIST_DATES", data);
     },
