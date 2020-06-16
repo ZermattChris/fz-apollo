@@ -220,6 +220,7 @@ export default {
       this.$store.dispatch('setFlightDate', '')
       this.$store.dispatch('setFlight', '')
       this.$store.dispatch('setWantsPhotos', false)
+      // this.$store.dispatch('setFlightsList', null)
       this.saveLocalStorageValues()
     },
     // Move local storage calls to VueX too me thinks... TODO.
@@ -243,9 +244,9 @@ export default {
         }
         this.$store.dispatch('setWantsPhotos', convertStrToBool)
       }
-      if (localStorage._flightsList) {
-        this.$store.dispatch('setFlightsList', JSON.parse(localStorage._flightsList))
-      }
+      // if (localStorage._flightsList) {
+      //   this.$store.dispatch('setFlightsList', JSON.parse(localStorage._flightsList))
+      // }
     },
     saveLocalStorageValues: function () {
       //console.log('Wrote to local storage')
@@ -253,7 +254,7 @@ export default {
       localStorage.flightDate = this.$store.state.flightDate
       localStorage.selectedFlight = this.$store.state.selectedFlight
       localStorage.wantsPhotos = this.$store.state.wantsPhotos
-      localStorage._flightsList = JSON.stringify(this.$store.state._flightsList)
+      // localStorage._flightsList = JSON.stringify(this.$store.state._flightsList)
     }
   },
 

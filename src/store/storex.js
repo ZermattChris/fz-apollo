@@ -89,52 +89,57 @@ export default new Vuex.Store({
     async timeListDates(context) {
       context.commit("TIMELIST_LOADING", true); // Loading UI ON
 
-      // Figure out the starting date (keep in mind that we only need
+      // TODO: Figure out the starting date (keep in mind that we only need
       // to load from Today()+_bookDaysOffset)
 
       // Return if the date is not set/valid.
       //const flDate = context.state.flightDate;
       //console.log(flDate);
 
-      var result = await axios.get("http://localhost:3000/flightsdates/");
-      // this is going to fail on LIVE Build version, as there's no live 
-      // API call ready on Tommy's server yet.
-
-      // Need to do some sort of .then() and load some test data for the moment
-
-
-      let data = result.data;
-      context.commit("TIMELIST_DATES", data);
-      context.commit("TIMELIST_LOADING", false);   // Loading UI OFF
+      axios.get("http://localhost:3000/flightsdates/")
+        .then(response => {
+          let data = response.data;
+          context.commit("TIMELIST_DATES", data);
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        .finally(() => context.commit("TIMELIST_LOADING", false))
     },
 
     // ******************** API: init App ********************
     async init(context) {
       // var result = await axios.get("http://localhost:3000/init");   // local JSON server for dev.
-      var result = await axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init");  // Live API
-      let data = result.data;
-      // Note to future self:
-      // the preceeding + converts from String to Number before mutatiing.
-      context.commit("MAX_PILOTS", +data["max-pilots"]);
-      context.commit("BOOK_DAYS_OFFSET", +data["book-days-from-today"]);
-      context.commit("BOOK_MONTS_OFFSET", +data["book-future-months"]);
-      context.commit("VIDEO_PRICE", +data["video-cost"]);
-      context.commit("APP_LOADING", false);   // Loading UI OFF (starts off ON)
-
+      axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init")
+        .then(response => {
+          let data = response.data;
+          // Note to future self:
+          // the preceeding + converts from String to Number before mutatiing.
+          context.commit("MAX_PILOTS", +data["max-pilots"]);
+          context.commit("BOOK_DAYS_OFFSET", +data["book-days-from-today"]);
+          context.commit("BOOK_MONTS_OFFSET", +data["book-future-months"]);
+          context.commit("VIDEO_PRICE", +data["video-cost"]);
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        .finally(() => context.commit("APP_LOADING", false)) // Loading UI OFF (starts off ON)
     },
     // ******************** API: Flight Options ********************
     async flightOptions(context) {
       context.commit("FLIGHTSLIST_LOADING", true);
-
       // Return if the date is not set/valid.
       const flDate = context.state.flightDate;
-      console.log("Loading Flight Options for drop menu Step 1.", flDate);
-
-      var result = await axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/" + flDate);
-      let data = result.data;
-      context.commit("FLIGHTS_LIST", data);
-
-      context.commit("FLIGHTSLIST_LOADING", false);   // Loading UI OFF
+      //console.log("Loading Flight Options for drop menu Step 1 ->", flDate);
+      axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/" + flDate)
+        .then(response => {
+          let data = response.data;
+          context.commit("FLIGHTS_LIST", data);
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        .finally(() => context.commit("FLIGHTSLIST_LOADING", false))
     },
 
     // USER INPUTS.

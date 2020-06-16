@@ -88,7 +88,7 @@
       <!-- ***************** Which Flight? ******************** -->
       <h3 class="disable-select">
         <v-icon  
-          :color="flightChosen ? 'success' : 'primary'">{{ formattedFlightsList ? stepIconCompleted : stepIcon }}
+          :color="flightChosen ? 'success' : 'primary'">{{ flightOptionsDropMenuList ? stepIconCompleted : stepIcon }}
         </v-icon>
         Which Flight?
       </h3>
@@ -97,7 +97,7 @@
          class="disable-select"
           style="max-width:300px;"
           v-model="flightChosen"
-          :items="formattedFlightsList"
+          :items="flightOptionsDropMenuList"
           item-text="name"
           item-value="id"
           :prepend-icon="flightChosen ? cloudIcon : cloudQuestionIcon"
@@ -210,7 +210,7 @@ export default {
       cloudQuestionIcon:  mdiCloudQuestion,
       cloudIcon:          mdiCloud,
 
-      formattedFlightsList: [],
+      flightOptionsDropMenuList: [],
       
       flightMenu: false,
       flightModal: false,
@@ -224,7 +224,8 @@ export default {
   // Lifecycle Hooks
   beforeMount() {
     // Need to build the Flights Menu list.
-    this.formattedFlightsList = this.buildFlightList(this.flightsWatch)
+    // move this to mounted?
+    this.flightOptionsDropMenuList = this.buildFlightList(this.flightsWatch)
   },
   mounted() {
     // Set focus to '+' button of NumberScroller compoennt.
@@ -283,8 +284,10 @@ export default {
         // Trigger custom event that the main App can listen for,
         // that pulls down updated FlightsList from API and clears
         // the Which Flight menu if there's data that's out of sync.
-        this.$emit('flight-date-changed', dateStr)
-        return this.$store.dispatch('setFlightDate', dateStr)
+        //this.$emit('flight-date-changed', dateStr)
+        console.log('Think need to load flightOptions list here. flightDate, set()')
+        this.$store.dispatch('setFlightDate', dateStr)
+        this.$store.dispatch('flightOptions')
       }
     },
     flightChosen: {
@@ -292,7 +295,7 @@ export default {
         return this.$store.state.selectedFlight
       },
       set(flightStr) {
-        console.log('Set chosen flight', flightStr)
+        //console.log('Set chosen flight', flightStr)
         return this.$store.dispatch('setFlight', flightStr)
       }
     },
@@ -403,7 +406,7 @@ export default {
     flightsWatch: function (newObj) {
       // When this computed property (source data is: this.$store.flightsList)
       // and generate a new drop menu for Which Flight?
-      this.formattedFlightsList = this.buildFlightList(newObj)
+      this.flightOptionsDropMenuList = this.buildFlightList(newObj)
     },
     flightDate: function (prev, old) {
       // Scroll page down when changed.
