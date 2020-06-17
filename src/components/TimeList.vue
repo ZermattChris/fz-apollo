@@ -1,6 +1,6 @@
 <template>
 
-  <v-list
+  <div
     class="timeListerBox mx-auto"
     :class="{ 'selectedBorder': matchesUserDate, 'boxDisplaySize': !isDense }"
     elevation="2"
@@ -29,7 +29,7 @@
         :key="key"
         :ripple="false"
         class="listItem"
-        @click="onClickedRow(key+1)"
+        @click="onClickedRow(key)"
       >
         <v-list-item-icon>
           <v-icon v-text="tmpIcon"></v-icon>
@@ -60,7 +60,7 @@
       
     </v-list-item-group>
 Selected: {{matchesUserDate}}
-  </v-list>
+  </div>
 
 </template>
 
@@ -176,14 +176,16 @@ Selected: {{matchesUserDate}}
     border-style: solid !important;
     border-width: 4px !important;
     border-color: white !important;
+    background-color: rgb(248, 239, 255);
   }
     .selectedBorder {
+      padding: 0;
       border-style: solid !important;
       border-width: 4px !important;
       border-color: rgba(var(--fzselected-color), 0.3) !important;
     } 
     .boxDisplaySize {
-      min-width: 330px;
+      
     }
 
   .v-list--dense {

@@ -5,38 +5,23 @@
     timesArray=""
   ></TimeList> -->
 
-  <v-item-group mandatory>
-    <v-container class="pa-0">
-      <v-row class="myRow">
-        <v-col
-          class="myCol"
-          style="background-color:yellow; border:1px maroon solid; min-height: 610px !important;"
+  <div class="time-container-row">
+    <div
+      class="myCol"
+      v-for="(timeListerObj, key, index) in daysVisibleList"
+      :class="{'tl-1': index === 0, 'tl-2': index === 1, 'tl-3': index === 2 }"
+      :key="key"
+      v-touch="{
+        left: () => swipe('Left'),
+        right: () => swipe('Right')
+      }">
+      <TimeList
+        :date="key"
+        :timesObj="timeListerObj"
+        :usersDate="userSelectedDate"
+      ></TimeList>
 
-          v-for="(timeListerObj, key) in daysVisibleList"
-          :key="key"
-
-
-          v-touch="{
-            left: () => swipe('Left'),
-            right: () => swipe('Right')
-          }">
-          
-          {{key}}
-          <!-- <br>
-          {{timeListerObj}} -->
-
-          <br>
-
-          <TimeList
-            :date="key"
-            :timesObj="timeListerObj"
-            :usersDate="userSelectedDate"
-          ></TimeList>
-
-        </v-col>
-      </v-row>
-
-
+    </div>
 
       <!-- {{msg}}
       <br>
@@ -77,11 +62,8 @@
       </v-btn>
     
       <v-overlay :value="isLoading" absolute />
-    </v-container>
 
-
-
-  </v-item-group>
+  </div>
 
 </template>
 
@@ -123,7 +105,7 @@
       await this.$store.dispatch('timeListDates')
       //console.log('after load', this.$store.state._timeListDates)
       this.loadVisibleDays()
-
+      
     },
 
     computed: {
@@ -141,10 +123,6 @@
         const prevDayKey = format( add(usersDate, { days: -1 }), 'Y-MM-dd' )
         const currDayKey = format(usersDate, 'Y-MM-dd')
         const nextDayKey = format( add(usersDate, { days: 1 }), 'Y-MM-dd' )
-
-        // this.daysVisibleList.push({prevDayKey : this.$store.state._timeListDates[prevDayKey]})
-        // this.daysVisibleList.push({currDayKey : this.$store.state._timeListDates[currDayKey]})
-        // this.daysVisibleList.push({nextDayKey : this.$store.state._timeListDates[nextDayKey]})
 
         // Okay, found the corresponding docs in Vue. Need to use the Vue $set and $delete
         // to overcome mucking around with Observable Vue objects. (I hope!)
@@ -247,9 +225,7 @@
 
 
         }
-        //console.log("Date id: " + id)
-
-
+        
       },
     },
   }
@@ -258,18 +234,21 @@
 
 <style scoped>
  
- .myRow {
-  margin: 0 auto;
-  flex-wrap: nowrap;
-  justify-content: center;
-  overflow: hidden;
-  /* this is temp -- adjust when final layout of TimeList elements is completed. */
-  
-  /* outline: 1px solid black; */
+ .time-container-row {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center !important;
+    overflow: hidden;
  }
   .myCol {
-    margin: 0 auto;
-    padding: 2px;
+    padding-top: 4px;
+    padding-left: 0;
+    padding-right: 0;
+    width: 312px;
+    background-color: rgb(207, 236, 233);
+    /* flex-basis: 0;
+    flex-grow: 1; */
     /* outline: 1px solid blueviolet; */
   }
 

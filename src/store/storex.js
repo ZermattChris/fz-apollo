@@ -10,6 +10,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
 
+    // Set to false for Release code.
     _DEV: true,
 
     // User inputs.
@@ -99,14 +100,16 @@ export default new Vuex.Store({
       //const flDate = context.state.flightDate;
       //console.log(flDate);
 
-      return axios.get("http://localhost:3000/flightsdatesX/")
+      return axios.get("http://localhost:3000/flightsdates/")
         .then(response => {
           let data = response.data;
           context.commit("TIMELIST_DATES", data)
         })
         .catch(error => {
           console.log(error)
-          context.commit("TIMELIST_DATES", tmp)
+          if (context.state._DEV) {
+            context.commit("TIMELIST_DATES", tmp)
+          }
         })
         .finally(() => context.commit("TIMELIST_LOADING", false))
     },
