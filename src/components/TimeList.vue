@@ -25,7 +25,7 @@
       active-class="success--text text--darken-2"
     >
       <v-list-item
-        v-for="(slotObj, key) in items"
+        v-for="(nrAvail, key) in items"
         :key="key"
         :ripple="false"
         class="listItem"
@@ -37,10 +37,10 @@
 
         <v-list-item-content>
           <v-list-item-title>
-            <span class="time" v-html="formatTime(slotObj)"></span>
+            <span class="time" v-html="formatTime(key)"></span>
             <v-chip
               class="availability" 
-              v-html="formatAvail(slotObj)"
+              v-html="formatAvail(nrAvail)"
               outlined
             ></v-chip>
             <span class="description">Available</span>
@@ -84,9 +84,9 @@ Selected: {{matchesUserDate}}
         type: String,
         required: true,
       },
-      timesArray: {
+      timesObj: {
         type: [Array, Object],
-        required: false,
+        required: true,
       },
     }, 
 
@@ -94,7 +94,7 @@ Selected: {{matchesUserDate}}
       return {
         isDense: this.dense,
         tmpIcon: 'mdi-wifi',
-        items: this.timesArray,
+        items: this.timesObj,
         selectedSlot: -1,
       }
     },
@@ -130,16 +130,18 @@ Selected: {{matchesUserDate}}
 
       formatAvail: function (slotObj) {
         // Just grab the Observer object's value and return it.
-        const availStr = Object.values(slotObj)[0]
-        return availStr
+        //const availStr = slotObj[key]
+        return slotObj
       },
-      formatTime: function (slotObj) {
+      formatTime: function (key) {
+          //console.log("key, slotObj", key, slotObj)
         // format into nice html for display.
-        const timeKey = Object.keys(slotObj)[0]
-        const htmlSnippet = "<span class='hour'>" + this.getHours(timeKey) + "</span><span class='minute'>:" + this.getMins(timeKey) + "</span>"
+        // const timeKey = slotObj[key]
+        const htmlSnippet = "<span class='hour'>" + this.getHours(key) + "</span><span class='minute'>:" + this.getMins(key) + "</span>"
         return htmlSnippet
       },
         getHours: function (timeStr) {
+          //console.log("timeStr", timeStr)
           // split timeStr on the colon ':' or throw error.
           let items = timeStr.split(':')
           if (items.length !== 2) {

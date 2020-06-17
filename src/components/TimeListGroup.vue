@@ -29,7 +29,7 @@
 
           <TimeList
             :date="key"
-            :timesArray="Object.values(timeListerObj)"
+            :timesObj="timeListerObj"
             :usersDate="userSelectedDate"
           ></TimeList>
 
@@ -142,13 +142,17 @@
         const currDayKey = format(usersDate, 'Y-MM-dd')
         const nextDayKey = format( add(usersDate, { days: 1 }), 'Y-MM-dd' )
 
+        // this.daysVisibleList.push({prevDayKey : this.$store.state._timeListDates[prevDayKey]})
+        // this.daysVisibleList.push({currDayKey : this.$store.state._timeListDates[currDayKey]})
+        // this.daysVisibleList.push({nextDayKey : this.$store.state._timeListDates[nextDayKey]})
+
         // Okay, found the corresponding docs in Vue. Need to use the Vue $set and $delete
         // to overcome mucking around with Observable Vue objects. (I hope!)
-        this.$set( this.daysVisibleList, prevDayKey, this.$store.state._timeListDates[prevDayKey] )
+        this.$set( this.daysVisibleList, prevDayKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDayKey])))
         // console.log('Got first date')
-        this.$set( this.daysVisibleList, currDayKey, this.$store.state._timeListDates[prevDayKey] )
+        this.$set( this.daysVisibleList, currDayKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDayKey])))
         // console.log('Got 2nd date')
-        this.$set( this.daysVisibleList, nextDayKey, this.$store.state._timeListDates[prevDayKey] )
+        this.$set( this.daysVisibleList, nextDayKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDayKey])))
         // console.log('Got 3rd date')
       },
 
@@ -188,9 +192,6 @@
 
         // grab the 'direction' date's id (one up or one down)
         let myKey = null
-        let animSpeed = 50
-        let oneEpochDaySecs = 86400
-        //console.log(myKey, animSpeed) // stop linter
 
         if (direction < 0) {
           // Prev
@@ -200,7 +201,8 @@
           console.log('FirstKey: ', myKey)
 
           const prevDay = this.getDayOffset(myKey, -1)
-          console.log('PrevDay to load: ', prevDay)
+          const lastDay = this.getDayOffset(myKey, +1)
+          //console.log('PrevDay to load: ', prevDay)
 
           // Let's do a check to see if this key exists before trying to add it 
           // and getting a "Cannot convert undefined or null to object"
@@ -208,42 +210,41 @@
             console.error("Ooops! At start of loaded days - can't continue...")
             return
           }
-        console.log(this.$store.state._timeListDates[prevDay])
-          this.$set( this.daysVisibleList, prevDay, this.$store.state._timeListDates[prevDay] )
-          //this.daysVisibleList[prevDay] = this.$store.state._timeListDates[prevDay]
 
-          // zap last array item...
-          let len = Object.keys(this.daysVisibleList).length -1
-          //console.log( len )
-          myKey = Object.keys(this.daysVisibleList)[len]
-          this.$delete(this.daysVisibleList, myKey)
-        console.log(this.daysVisibleList)
-         
+          let tmpObj = {}
+          this.$set( tmpObj, prevDay, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDay])))
+          this.$set( tmpObj, myKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[myKey])))
+          this.$set( tmpObj, lastDay, JSON.parse(JSON.stringify(this.$store.state._timeListDates[lastDay])))
+          //console.log(tmpObj)
+          this.daysVisibleList = tmpObj
+
 
         } else if (direction > 0) {
           // Next
 
-          // grab last visible list key (Epoch date in secs)
-          let len = Object.keys(this.daysVisibleList).length
-          myKey = Object.keys(this.daysVisibleList)[len -1]
-          //console.log('LastKey: ', myKey) 
+          // grab first visible list key '2020-06-18'
+          const len = Object.keys(this.daysVisibleList).length -1
+          myKey = Object.keys(this.daysVisibleList)[len]
+          console.log('LastKey: ', myKey)
 
-          let targetKey = (oneEpochDaySecs*1) + (myKey*1)
-          //console.log('Next DayKey: ', targetKey) 
+          const nextDay = this.getDayOffset(myKey, +1)
+          const firstDay = this.getDayOffset(myKey, -1)
+          //console.log('nextDay to load: ', nextDay)
+
           // Let's do a check to see if this key exists before trying to add it 
           // and getting a "Cannot convert undefined or null to object"
-          if (this.isObjEmpty(this.$store.state.timeListDates[targetKey])) {
-            console.error("Ooops! At end of loaded days - can't continue...")
+          if (this.isObjEmpty(this.$store.state._timeListDates[nextDay])) {
+            console.error("Ooops! At END of loaded days - can't continue...")
             return
           }
-          this.$set( this.daysVisibleList, targetKey, this.$store.state.timeListDates[targetKey] )
 
-          setTimeout( () => {
-            // zap first array item...
-            myKey = Object.keys(this.daysVisibleList)[0]
-            this.$delete(this.daysVisibleList, myKey)
-            }, animSpeed
-          );
+          let tmpObj = {}
+          this.$set( tmpObj, firstDay, JSON.parse(JSON.stringify(this.$store.state._timeListDates[firstDay])))
+          this.$set( tmpObj, myKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[myKey])))
+          this.$set( tmpObj, nextDay, JSON.parse(JSON.stringify(this.$store.state._timeListDates[nextDay])))
+          //console.log(tmpObj)
+          this.daysVisibleList = tmpObj
+
 
         }
         //console.log("Date id: " + id)
