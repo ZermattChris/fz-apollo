@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from "axios";
+import axios from "axios"
+
+// Dev only - remove once API is up.
+import tmp from "./temp.json"
 
 Vue.use(Vuex)
 
@@ -96,13 +99,14 @@ export default new Vuex.Store({
       //const flDate = context.state.flightDate;
       //console.log(flDate);
 
-      return axios.get("http://localhost:3000/flightsdates/")
+      return axios.get("http://localhost:3000/flightsdatesX/")
         .then(response => {
           let data = response.data;
-          context.commit("TIMELIST_DATES", data);
+          context.commit("TIMELIST_DATES", data)
         })
         .catch(error => {
           console.log(error)
+          context.commit("TIMELIST_DATES", tmp)
         })
         .finally(() => context.commit("TIMELIST_LOADING", false))
     },
