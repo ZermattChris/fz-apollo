@@ -86,7 +86,7 @@ Selected: {{matchesUserDate}}
       },
       timesArray: {
         type: [Array, Object],
-        required: true,
+        required: false,
       },
     }, 
 

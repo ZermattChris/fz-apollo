@@ -53,8 +53,18 @@
         //userTimeSlot: '',   
         
         //model: null,
+
+        //flightsListIsStillLoading: this.$store.state._flightsList_loading
       }
     },
+
+    created() {
+      // console.log('*** Check that both the _flightsList and _timeListDates are loaded ***')
+      // console.log('    This is required when a user opens this page directly, meaning APIs have not been called yet.')
+      this.$store.dispatch('flightOptions')
+      // this.$store.dispatch('timeListDates')
+    },
+
 
     computed: {
       // dates: function () {
@@ -68,10 +78,14 @@
         return this.$store.state.nrPeople
       },
       timeListerHeaderStr: function () {
+        if (this.isObjEmpty(this.$store.state._flightsList)) return
+        //console.log('Calling timeListerHeaderStr: ', this.flightsListIsStillLoading)
+        
         // console.log(this.capitaliseFirstLetter('whoop'))
         // return "2. Flight Time for: " + this.capitaliseFirstLetter(store.selectedFlight)
         // Need to return the matching Flight Description from store.flightsList object.store.
         const userFlightKey = this.$store.state.selectedFlight
+        //console.log('userFlightKey in list?: ', this.$store.state._flightsList)
         const flightDesc = this.$store.state._flightsList[userFlightKey]
         return "2. Flight Time for: <span class='hilite-text text-no-wrap'>" + flightDesc + "</span>"
       }
@@ -84,11 +98,6 @@
         return dateStr
       }
     },
-
-    mounted() {
-      //console.log(this.dates)
-    },
-
   }
 
 </script>

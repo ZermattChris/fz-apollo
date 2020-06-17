@@ -3,15 +3,31 @@ var dateUtils = require('date-fns')
 
 function generateFlightsDates() {
 
+  //console.log('targetDate: ', targetDate)
   const nrDaysToGen = 30;
-  let oneDaySeconds = 86400;
+  //let oneDaySeconds = 86400;
 
-  let startDate = dateUtils.add(Date.now(), { days: 2 }); // today +2 days.
-  let currDayKey = dateUtils.getUnixTime(new Date(startDate));
+  // Date stamp incorrect. Need to return +2 days from now(), but with 
+  // 00:00:00 (midnight), not when this function was generated!
+  
+
+  let dateObj = dateUtils.add(Date.now(), { days: 2 }); // today +2 days.
+  // let currDayKey = dateUtils.getUnixTime(new Date(startDate));
+
+
+  // const dateBits = this.userSelectedDate.split('-')
+  // console.log(dateBits)
+  // if (dateBits.length !== 3) console.error('User Date invalid format. TimeListGroup method -> loadVisibleDays()', this.userSelectedDate)
+  // const yearBit = dateBits[0]
+  // const monthBit = dateBits[1] - 1
+  // const dayBit = dateBits[2]
 
   let flightsdates = [];
 
   for (let id = 0; id < nrDaysToGen; id++) {
+
+    dateObj = dateUtils.add(dateObj, { days: 1 })
+    let currDayKey = dateUtils.format(dateObj, 'Y-MM-dd')
 
     let timesList = [
       "08:30",
@@ -38,7 +54,7 @@ function generateFlightsDates() {
     });
 
     // Increment our Epoch based date Key +1 Day's worth of seconds.
-    currDayKey += oneDaySeconds;
+    //currDayKey += oneDaySeconds;
   }
   return flightsdates;
 }

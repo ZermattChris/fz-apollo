@@ -96,7 +96,7 @@ export default new Vuex.Store({
       //const flDate = context.state.flightDate;
       //console.log(flDate);
 
-      axios.get("http://localhost:3000/flightsdates/")
+      return axios.get("http://localhost:3000/flightsdates/")
         .then(response => {
           let data = response.data;
           context.commit("TIMELIST_DATES", data);
@@ -110,7 +110,7 @@ export default new Vuex.Store({
     // ******************** API: init App ********************
     async init(context) {
       // var result = await axios.get("http://localhost:3000/init");   // local JSON server for dev.
-      axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init")
+      return axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init")
         .then(response => {
           let data = response.data;
           // Note to future self:
@@ -132,7 +132,7 @@ export default new Vuex.Store({
       if (flDate === '') return
       context.commit("FLIGHTSLIST_LOADING", true);
       //console.log("Loading Flight Options for drop menu Step 1 ->", flDate);
-      axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/" + flDate)
+      return axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/" + flDate)
         .then(response => {
           let data = response.data;
           context.commit("FLIGHTS_LIST", data);

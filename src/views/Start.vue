@@ -226,8 +226,7 @@ export default {
     // Need to build the Flights Menu list.
     // move this to mounted?
     //this.flightOptionsDropMenuList = this.buildFlightList(this.flightsWatch)
-        this.$store.dispatch('flightOptions')
-        //this.buildFlightList()
+    this.$store.dispatch('flightOptions')
   },
   mounted() {
     // Set focus to '+' button of NumberScroller compoennt.
