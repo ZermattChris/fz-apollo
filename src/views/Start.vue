@@ -210,7 +210,7 @@ export default {
       cloudQuestionIcon:  mdiCloudQuestion,
       cloudIcon:          mdiCloud,
 
-      flightOptionsDropMenuList: [],
+      flightOptionsDropMenuList: this.buildFlightList(),
       
       flightMenu: false,
       flightModal: false,
@@ -225,7 +225,9 @@ export default {
   beforeMount() {
     // Need to build the Flights Menu list.
     // move this to mounted?
-    this.flightOptionsDropMenuList = this.buildFlightList(this.flightsWatch)
+    //this.flightOptionsDropMenuList = this.buildFlightList(this.flightsWatch)
+        this.$store.dispatch('flightOptions')
+        //this.buildFlightList()
   },
   mounted() {
     // Set focus to '+' button of NumberScroller compoennt.
@@ -288,6 +290,7 @@ export default {
         console.log('Think need to load flightOptions list here. flightDate, set()')
         this.$store.dispatch('setFlightDate', dateStr)
         this.$store.dispatch('flightOptions')
+        this.buildFlightList()
       }
     },
     flightChosen: {
@@ -320,6 +323,7 @@ export default {
 
 
     flightsWatch: function () {
+      console.log('flightsWatch triggered.')
       return this.$store.state._flightsList
     },
 
@@ -371,9 +375,10 @@ export default {
       this.$emit('form-is-valid', false)
       return false
     },
-    buildFlightList: function (obj) {
+    buildFlightList: function () {
+      const obj = this.$store.state._flightsList
+      console.log('build flight list for drop menu', obj)
       if (this.isObjEmpty(obj)) return
-      //console.log('build flight list for drop menu', obj)
       let newFlightsList = []
       for (let [key, value] of Object.entries(obj)) {
         //console.log(`${key}: ${value}`);
@@ -403,10 +408,10 @@ export default {
       if (this.flightChosen === '') return
       this.$store.dispatch('timeListDates')
     },
-    flightsWatch: function (newObj) {
+    flightsWatch: function () {
       // When this computed property (source data is: this.$store.flightsList)
       // and generate a new drop menu for Which Flight?
-      this.flightOptionsDropMenuList = this.buildFlightList(newObj)
+      this.flightOptionsDropMenuList = this.buildFlightList()
     },
     flightDate: function (prev, old) {
       // Scroll page down when changed.

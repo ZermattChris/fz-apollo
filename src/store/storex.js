@@ -127,9 +127,10 @@ export default new Vuex.Store({
     },
     // ******************** API: Flight Options ********************
     async flightOptions(context) {
-      context.commit("FLIGHTSLIST_LOADING", true);
       // Return if the date is not set/valid.
       const flDate = context.state.flightDate;
+      if (flDate === '') return
+      context.commit("FLIGHTSLIST_LOADING", true);
       //console.log("Loading Flight Options for drop menu Step 1 ->", flDate);
       axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/" + flDate)
         .then(response => {
