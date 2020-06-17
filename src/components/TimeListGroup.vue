@@ -22,8 +22,8 @@
           }">
           
           {{key}}
-          <br>
-          {{timeListerObj}}
+          <!-- <br>
+          {{timeListerObj}} -->
 
           <br>
 
@@ -89,7 +89,7 @@
   import { isMobile } from 'mobile-device-detect'
   import TimeList from '@/components/TimeList.vue'
   
-  import {format, add } from 'date-fns'
+  import {format, add, parseISO } from 'date-fns'
 
 
   export default {
@@ -169,6 +169,13 @@
         this.fetchADay(1)
       },
 
+      // origDateStr: '2020-06-18'
+      // offset: -1 (previous 1x day)
+      getDayOffset: function (origDateStr, offset) {
+        //console.log("Load Next day into TimeListGroup")
+        return format(add(parseISO(origDateStr), { days: offset }), 'Y-MM-dd')
+      },
+
       fetchADay: function (direction) {
 
         if (this.isObjEmpty(this.daysVisibleList)) {
@@ -188,26 +195,30 @@
         if (direction < 0) {
           // Prev
 
-          // grab first visible list key (Epoch date in secs)
+          // grab first visible list key '2020-06-18'
           myKey = Object.keys(this.daysVisibleList)[0]
-          //console.log('FirstKey: ', myKey)
+          console.log('FirstKey: ', myKey)
 
-          let targetKey = myKey - oneEpochDaySecs
+          const prevDay = this.getDayOffset(myKey, -1)
+          console.log('PrevDay to load: ', prevDay)
+
           // Let's do a check to see if this key exists before trying to add it 
           // and getting a "Cannot convert undefined or null to object"
-          if (this.isObjEmpty(this.$store.state.timeListDates[targetKey])) {
+          if (this.isObjEmpty(this.$store.state._timeListDates[prevDay])) {
             console.error("Ooops! At start of loaded days - can't continue...")
             return
           }
-          this.$set( this.daysVisibleList, targetKey, this.$store.state.timeListDates[targetKey] )
-          setTimeout( () => {
-            // zap last array item...
-            let len = Object.keys(this.daysVisibleList).length - 1
-            console.log( len )
-            myKey = Object.keys(this.daysVisibleList)[len]
-            this.$delete(this.daysVisibleList, myKey)
-            }, animSpeed
-          );
+        console.log(this.$store.state._timeListDates[prevDay])
+          this.$set( this.daysVisibleList, prevDay, this.$store.state._timeListDates[prevDay] )
+          //this.daysVisibleList[prevDay] = this.$store.state._timeListDates[prevDay]
+
+          // zap last array item...
+          let len = Object.keys(this.daysVisibleList).length -1
+          //console.log( len )
+          myKey = Object.keys(this.daysVisibleList)[len]
+          this.$delete(this.daysVisibleList, myKey)
+        console.log(this.daysVisibleList)
+         
 
         } else if (direction > 0) {
           // Next
@@ -236,7 +247,6 @@
 
         }
         //console.log("Date id: " + id)
-        //console.log(this.daysVisibleList)
 
 
       },

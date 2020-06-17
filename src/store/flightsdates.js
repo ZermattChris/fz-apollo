@@ -39,14 +39,12 @@ function generateFlightsDates() {
       "17:00",
       "19:00"
     ];
-    let timeslots = [];
+    let timeslots = {};
     
     // Loop and build this day's timeslots.
     timesList.forEach(function(time) {
       let slotAvail = faker.random.number({ min: 0, max: 7 });
-      timeslots.push({ 
-        [time]: slotAvail 
-      });
+      timeslots[time] = slotAvail
     });
     
     flightsdates[currDayKey] = timeslots;
