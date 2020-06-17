@@ -22,7 +22,7 @@ function generateFlightsDates() {
   // const monthBit = dateBits[1] - 1
   // const dayBit = dateBits[2]
 
-  let flightsdates = [];
+  let flightsdates = {};
 
   for (let id = 0; id < nrDaysToGen; id++) {
 
@@ -49,9 +49,7 @@ function generateFlightsDates() {
       });
     });
     
-    flightsdates.push({
-      [currDayKey]: timeslots
-    });
+    flightsdates[currDayKey] = timeslots;
 
     // Increment our Epoch based date Key +1 Day's worth of seconds.
     //currDayKey += oneDaySeconds;
