@@ -60,7 +60,7 @@
 
     </v-app-bar>
 
-    <v-content>
+    <v-main>
       <v-row no-gutters>
         <v-col cols="12" md="1" lg="2"></v-col>
         <v-col class="pa-5 pa-sm-8 pa-md-12" cols="12" md="10" lg="8" >
@@ -94,7 +94,7 @@
         </v-col>
         <v-col cols="12" md="1" lg="2"></v-col>
       </v-row>
-    </v-content>
+    </v-main>
 
     <v-footer
       class="justify-end pr-2"

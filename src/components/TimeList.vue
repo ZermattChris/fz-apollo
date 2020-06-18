@@ -2,19 +2,27 @@
 
   <div
     class="timeListerBox mx-auto elevation-2 rounded"
-    :class="{ 'selectedBorder': matchesUserDate, 'boxDisplaySize': !isDense }"
-    :dense="!matchesUserDate"
   >
 
     <div 
-      class="TLHeader"
-      :class="{ 'white--text grey darken-2': !isDense, 'black--text grey lighten-1': isDense }"
+      class="TLHeader white--text grey darken-2"
     >
-      <h3
-      :class="{ 'whiteTextShadow': isDense, 'darkTextShadow': !isDense }">
+      <h3>
         {{titleDate.abbreviation}}
       </h3>
       <div>{{titleDate.fullDate}}</div>
+
+      <v-avatar 
+        class="usersDateIcon"
+        color="warning" 
+        size="36"
+        style="position:absolute; top:-10px; right:-10px; "
+      >
+        <v-icon 
+          dark
+        >mdi-calendar-check</v-icon>
+      </v-avatar>
+
     </div>
 
     <v-list-item-group 
@@ -48,7 +56,6 @@
         <v-list-item-action>
           <v-switch 
             inset 
-            :dense="isDense"
             color="success"
           ></v-switch>
         </v-list-item-action>
@@ -69,11 +76,6 @@ Selected: {{matchesUserDate}}
     name: "TimeList",
 
     props: {
-      dense: {
-        type: [Boolean, String],
-        required: false,
-        default: false,
-      },
       usersDate: {
         type: String,
         default: ''
@@ -90,7 +92,6 @@ Selected: {{matchesUserDate}}
 
     data () {
       return {
-        isDense: this.dense,
         tmpIcon: 'mdi-wifi',
         items: this.timesObj,
         selectedSlot: -1,
@@ -199,9 +200,16 @@ Selected: {{matchesUserDate}}
     text-shadow: 0px 0px 2px rgb(255, 255, 255), 0px 0px 1px rgb(255, 255, 255);
   }
 
-  .TLHeader h3 {
-    font-size: 1.6em;
+  .TLHeader {
+    position: relative;
   }
+    .TLHeader h3 {
+      font-size: 1.6em;
+      position: relative;
+    }
+    .tl-1 .usersDateIcon, .tl-3 .usersDateIcon {
+      display: none;
+    }
   /* .TLHeader div {
     text-shadow: 0px 0px 2px black, 0px 0px 1px black;
   } */

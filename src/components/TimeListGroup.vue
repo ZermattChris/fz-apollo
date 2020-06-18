@@ -239,7 +239,6 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: center !important;
-    overflow: hidden;
  }
   .myCol {
     padding-top: 4px;
