@@ -9,7 +9,7 @@
     <div
       class="myCol"
       v-for="(timeListerObj, key, index) in daysVisibleList"
-      :class="{'tl-1': index === 0, 'tl-2': index === 1, 'tl-3': index === 2 }"
+      :class="{'tl-1 hidden-md-and-down': index === 0, 'tl-2 mx-md-6 mx-lg-12': index === 1, 'tl-3 hidden-sm-and-down': index === 2 }"
       :key="key"
       v-touch="{
         left: () => swipe('Left'),
@@ -245,12 +245,20 @@
     padding-top: 4px;
     padding-left: 0;
     padding-right: 0;
-    width: 312px;
-    background-color: rgb(207, 236, 233);
-    /* flex-basis: 0;
-    flex-grow: 1; */
-    /* outline: 1px solid blueviolet; */
+    width: 314px;
+    /* background-color: rgb(207, 236, 233); */
   }
+    /* .tl-1, .tl-3 {
+      
+    }
+    .tl-2 {
+      margin-left: 5px !important;
+      margin-right: 5px !important;
+    } */
+
+
+
+
 
 .scrollIcons { 
   top: 50% !important; 
