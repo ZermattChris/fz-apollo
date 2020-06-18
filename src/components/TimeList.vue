@@ -1,10 +1,8 @@
 <template>
 
   <div
-    class="timeListerBox mx-auto"
+    class="timeListerBox mx-auto elevation-2 rounded"
     :class="{ 'selectedBorder': matchesUserDate, 'boxDisplaySize': !isDense }"
-    elevation="2"
-    tile
     :dense="!matchesUserDate"
   >
 
@@ -174,16 +172,16 @@ Selected: {{matchesUserDate}}
     display: inline-block;
     /* this needs to match the Selected Border width below. */
     border-style: solid !important;
-    border-width: 4px !important;
-    border-color: white !important;
-    background-color: rgb(248, 239, 255);
+    border-width: 1px !important;
+    border-color: rgb(211, 211, 211) !important;
+    /* background-color: rgb(248, 239, 255); */
   }
-    .selectedBorder {
+    /* .selectedBorder {
       padding: 0;
       border-style: solid !important;
       border-width: 4px !important;
       border-color: rgba(var(--fzselected-color), 0.3) !important;
-    } 
+    }  */
     .boxDisplaySize {
       
     }
