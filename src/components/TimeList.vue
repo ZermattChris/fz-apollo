@@ -12,16 +12,26 @@
       </h3>
       <div>{{titleDate.fullDate}}</div>
 
-      <v-avatar 
-        class="usersDateIcon"
-        color="warning" 
-        size="36"
-        style="position:absolute; top:-10px; right:-10px; "
+      <v-tooltip 
+        top
+        open-on-click
       >
-        <v-icon 
-          dark
-        >mdi-calendar-check</v-icon>
-      </v-avatar>
+        <template v-slot:activator="{ on, attrs }">
+          <v-avatar 
+            v-if="matchesUserDate"
+            color="success" 
+            size="36"
+            style="position:absolute; top:-10px; right:-10px; "
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon 
+              dark
+            >mdi-calendar-check</v-icon>
+          </v-avatar>
+        </template>
+        <span>Your selected Date from Step 1.</span>
+      </v-tooltip>
 
     </div>
 
@@ -207,9 +217,9 @@ Selected: {{matchesUserDate}}
       font-size: 1.6em;
       position: relative;
     }
-    .tl-1 .usersDateIcon, .tl-3 .usersDateIcon {
+    /* .usersDateIcon {
       display: none;
-    }
+    } */
   /* .TLHeader div {
     text-shadow: 0px 0px 2px black, 0px 0px 1px black;
   } */

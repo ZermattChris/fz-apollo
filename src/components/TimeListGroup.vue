@@ -176,7 +176,7 @@
 
           // grab first visible list key '2020-06-18'
           myKey = Object.keys(this.daysVisibleList)[0]
-          console.log('FirstKey: ', myKey)
+          //console.log('FirstKey: ', myKey)
 
           const prevDay = this.getDayOffset(myKey, -1)
           const lastDay = this.getDayOffset(myKey, +1)
@@ -203,7 +203,7 @@
           // grab first visible list key '2020-06-18'
           const len = Object.keys(this.daysVisibleList).length -1
           myKey = Object.keys(this.daysVisibleList)[len]
-          console.log('LastKey: ', myKey)
+          //console.log('LastKey: ', myKey)
 
           const nextDay = this.getDayOffset(myKey, +1)
           const firstDay = this.getDayOffset(myKey, -1)
