@@ -5,110 +5,52 @@
     timesArray=""
   ></TimeList> -->
 
-  <div
-    class="time-container-row"
-  >
-    <div
-      class="myCol"
-      v-for="(timeListerObj, key, index) in daysVisibleList"
-      :class="{'tl-1 hidden-md-and-down': index === 0, 'tl-2 mx-md-6 mx-lg-12': index === 1, 'tl-3 hidden-sm-and-down': index === 2 }"
-      :key="key"
-      v-touch="{
-        left: () => swipe('Left'),
-        right: () => swipe('Right')
-      }">
-      <TimeList
-        :date="key"
-        :timesObj="timeListerObj"
-        :usersDate="userSelectedDate"
-      ></TimeList>
-
-    </div>
-
-      <!-- {{msg}}
-      <br>
-      Swipe Direction: {{ swipeDirection }} -->
-
-      <!-- <v-icon
-        v-if="mobile"
-         class="scrollIcons bumpLeftMobile"
-      >mdi-chevron-left</v-icon> -->
-
-      <v-btn
-        color="white" 
-        class="scrollIcons"
-        absolute
-        top
-        left
-        :x-small="mobile"
-        fab
-        @click="onPrevDay"
-      >
-        <v-icon>mdi-chevron-left</v-icon>
-      </v-btn>
-
-      <!-- <v-icon
-        v-if="mobile"
-         class="scrollIcons bumpRightMobile"
-      >mdi-chevron-right</v-icon> -->
-
-      <v-btn
-        color="white"
-        class="scrollIcons"
-        absolute
-        top
-        right
-        :x-small="mobile"
-        fab
-        @click="onNextDay"
-      >
-        <v-icon>mdi-chevron-right</v-icon>
-      </v-btn>
+  <div class="time-container-row">
     
-      <v-overlay :value="isLoading" absolute />
+      <div
+        class="myCol"
+        v-for="(timeListerObj, key, index) in daysVisibleList"
+        :class="{'tl-1 hidden-md-and-down': index === 0, 'tl-2 mx-md-6 mx-lg-12': index === 1, 'tl-3 hidden-sm-and-down': index === 2 }"
+        :key="key"
+        v-touch="{
+          left: () => swipe('Left'),
+          right: () => swipe('Right')
+        }">
+        <TimeList
+          :date="key"
+          :timesObj="timeListerObj"
+          :usersDate="userSelectedDate"
+        ></TimeList>
 
+      </div>
 
-    <v-sheet
-      class="mx-auto"
-      elevation="8"
-      max-width="800"
+    <v-btn
+      color="white" 
+      class="scrollIcons"
+      absolute
+      top
+      left
+      :x-small="mobile"
+      fab
+      @click="onPrevDay"
     >
-      <v-slide-group
-        v-model="model"
-        class="pa-4"
-        center-active
-        show-arrows
-      >
-        <v-slide-item
-          v-for="n in 15"
-          :key="n"
-          v-slot:default="{ active, toggle }"
-        >
-          <v-card
-            :color="active ? 'primary' : 'grey lighten-1'"
-            class="ma-4"
-            height="200"
-            width="100"
-            @click="toggle"
-          >
-            <v-row
-              class="fill-height"
-              align="center"
-              justify="center"
-            >
-              <v-scale-transition>
-                <v-icon
-                  v-if="active"
-                  color="white"
-                  size="48"
-                  v-text="'mdi-close-circle-outline'"
-                ></v-icon>
-              </v-scale-transition>
-            </v-row>
-          </v-card>
-        </v-slide-item>
-      </v-slide-group>
-    </v-sheet>
+      <v-icon>mdi-chevron-left</v-icon>
+    </v-btn>
+
+    <v-btn
+      color="white"
+      class="scrollIcons"
+      absolute
+      top
+      right
+      :x-small="mobile"
+      fab
+      @click="onNextDay"
+    >
+      <v-icon>mdi-chevron-right</v-icon>
+    </v-btn>
+  
+    <v-overlay :value="isLoading" absolute />
 
 
   </div>
@@ -294,26 +236,10 @@
     padding-top: 4px;
     padding-left: 0;
     padding-right: 0;
-    width: 314px;
+    /* width: 314px; */
     /* background-color: rgb(207, 236, 233); */
   }
     
-    
-  /* See if we can get this group transition to work finally */
-
-.slide-enter {
-  transform: translateX(314px);
-  opacity: 0;
-}
-
-.slide-enter-active {
-  transition: all 0.2s ease;
-}
-
-.slide-move {
-  transition: transform 0.8s ease-in;
-}
-
 
 
 
