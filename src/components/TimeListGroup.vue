@@ -27,34 +27,36 @@
       <br>
       Swipe Direction: {{ swipeDirection }} -->
 
-      <v-icon
+      <!-- <v-icon
         v-if="mobile"
          class="scrollIcons bumpLeftMobile"
-      >mdi-chevron-left</v-icon>
+      >mdi-chevron-left</v-icon> -->
 
-      <v-btn v-if="!mobile"
+      <v-btn
         color="white" 
         class="scrollIcons"
         absolute
         top
         left
+        :x-small="mobile"
         fab
         @click="onPrevDay"
       >
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
 
-      <v-icon
+      <!-- <v-icon
         v-if="mobile"
          class="scrollIcons bumpRightMobile"
-      >mdi-chevron-right</v-icon>
+      >mdi-chevron-right</v-icon> -->
 
-      <v-btn v-if="!mobile"
+      <v-btn
         color="white"
         class="scrollIcons"
         absolute
         top
         right
+        :x-small="mobile"
         fab
         @click="onNextDay"
       >
@@ -261,7 +263,8 @@
 
 .scrollIcons { 
   top: 50% !important; 
-  margin-top: -30px !important;  
+  margin-top: -30px !important;
+  z-index: 2;
 }
   .bumpLeftMobile {position:absolute; left:1px;}
   .bumpRightMobile {position:absolute; right:1px;}

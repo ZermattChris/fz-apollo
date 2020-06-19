@@ -191,7 +191,7 @@ import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOut
 
 import PageHeader from '@/components/PageHeader.vue'
 import NumberScroller from "@/components/NumberScroller.vue"
-const VueScrollTo = require('vue-scrollto');
+//const VueScrollTo = require('vue-scrollto');
 
 export default {
   name: 'Start',
@@ -418,7 +418,7 @@ export default {
         //console.log('scroll bottom')
         //const scrollBottom = document.height() - window.height() - window.scrollTop()
         //this.$refs.stepStart.scrollBottom
-        VueScrollTo.scrollTo('#photosSwitch', 800)
+        //VueScrollTo.scrollTo('#photosSwitch', 800)
       }
     },
     bigGroupDialog: function (val) {

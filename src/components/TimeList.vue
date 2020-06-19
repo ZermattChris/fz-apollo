@@ -45,6 +45,7 @@
         :key="key"
         :ripple="false"
         class="listItem"
+        dense
         @click="onClickedRow(key)"
       >
         <v-list-item-icon>
