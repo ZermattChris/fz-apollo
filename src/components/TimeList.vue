@@ -18,10 +18,10 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-avatar 
+            id="usersDateAvatar"
             v-if="matchesUserDate"
             color="success" 
             size="36"
-            style="position:absolute; top:50%; right:-10px; margin-top:-18px;"
             v-bind="attrs"
             v-on="on"
           >
@@ -258,5 +258,13 @@ Selected: {{matchesUserDate}}
     padding-left: 0.5em;
   }
 
+
+#usersDateAvatar {
+  position: absolute; 
+  top: 50%; 
+  right: -6px; 
+  margin-top: -18px;
+  z-index: 100;
+}
 
 </style>

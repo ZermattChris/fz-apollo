@@ -5,52 +5,58 @@
     timesArray=""
   ></TimeList> -->
 
-  <div class="time-container-row">
-    
-      <div
-        class="myCol"
-        v-for="(timeListerObj, key, index) in daysVisibleList"
-        :class="{'tl-1 hidden-md-and-down': index === 0, 'tl-2 mx-md-6 mx-lg-12': index === 1, 'tl-3 hidden-sm-and-down': index === 2 }"
-        :key="key"
-        v-touch="{
-          left: () => swipe('Left'),
-          right: () => swipe('Right')
-        }">
-        <TimeList
-          :date="key"
-          :timesObj="timeListerObj"
-          :usersDate="userSelectedDate"
-        ></TimeList>
+  <!-- :class="{'tl-1 hidden-md-and-down': index === 0, 'tl-2 mx-md-6 mx-lg-12': index === 1, 'tl-3 hidden-sm-and-down': index === 2, 'tl-4 hidden-sm-and-down': index === 3 }" -->
 
-      </div>
+<div class="time-container-row" style="outline:1px solid maroon;">
 
-    <v-btn
-      color="white" 
-      class="scrollIcons"
-      absolute
-      top
-      left
-      :x-small="mobile"
-      fab
-      @click="onPrevDay"
-    >
-      <v-icon>mdi-chevron-left</v-icon>
-    </v-btn>
+  <div id="animateBox">
 
-    <v-btn
-      color="white"
-      class="scrollIcons"
-      absolute
-      top
-      right
-      :x-small="mobile"
-      fab
-      @click="onNextDay"
-    >
-      <v-icon>mdi-chevron-right</v-icon>
-    </v-btn>
-  
-    <v-overlay :value="isLoading" absolute />
+    <div
+      class="myCol"
+      v-for="(timeListerObj, key) in daysVisibleList"
+      
+      :key="key"
+      v-touch="{
+        left: () => swipe('Left'),
+        right: () => swipe('Right')
+      }">
+      <TimeList
+        :date="key"
+        :timesObj="timeListerObj"
+        :usersDate="userSelectedDate"
+      ></TimeList>
+
+    </div>
+  </div>
+
+
+  <v-btn
+    color="white" 
+    class="scrollIcons"
+    absolute
+    top
+    left
+    :x-small="mobile"
+    fab
+    @click="onPrevDay"
+  >
+    <v-icon>mdi-chevron-left</v-icon>
+  </v-btn>
+
+  <v-btn
+    color="white"
+    class="scrollIcons"
+    absolute
+    top
+    right
+    :x-small="mobile"
+    fab
+    @click="onNextDay"
+  >
+    <v-icon>mdi-chevron-right</v-icon>
+  </v-btn>
+
+  <v-overlay :value="isLoading" absolute />
 
 
   </div>
@@ -60,6 +66,7 @@
 <script>
   import { isMobile } from 'mobile-device-detect'
   import TimeList from '@/components/TimeList.vue'
+  import anime from "animejs";
   
   import {format, add, parseISO } from 'date-fns'
 
@@ -84,6 +91,8 @@
         daysVisibleList: {},
 
         model: null,
+
+        nrDatesLoaded: 3
       }
     },
 
@@ -111,18 +120,28 @@
 
         if (this.$store.state._timeListDates === null) return  // wait for the API to finish loading...
 
+
         const usersDate = new Date(this.userSelectedDate)
-        const prevDayKey = format( add(usersDate, { days: -1 }), 'Y-MM-dd' )
-        const currDayKey = format(usersDate, 'Y-MM-dd')
-        const nextDayKey = format( add(usersDate, { days: 1 }), 'Y-MM-dd' )
+        const dateOffset = Math.floor(this.nrDatesLoaded / 2)
+        //console.log('dateOffset', dateOffset)
+        let loopDate = format( add(usersDate, { days: -dateOffset }), 'Y-MM-dd' )
+
+        for (let x = 0; x < this.nrDatesLoaded; x++) { 
+          this.$set( this.daysVisibleList, loopDate, this.$store.state._timeListDates[loopDate] )
+          loopDate = format( add(parseISO(loopDate), { days: 1 }), 'Y-MM-dd' )
+        }
+
+
+        // const currDayKey = format(usersDate, 'Y-MM-dd')
+        // const nextDayKey = format( add(usersDate, { days: 1 }), 'Y-MM-dd' )
 
         // Okay, found the corresponding docs in Vue. Need to use the Vue $set and $delete
         // to overcome mucking around with Observable Vue objects. (I hope!)
-        this.$set( this.daysVisibleList, prevDayKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDayKey])))
+        // this.$set( this.daysVisibleList, prevDayKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDayKey])))
         // console.log('Got first date')
-        this.$set( this.daysVisibleList, currDayKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDayKey])))
+        // this.$set( this.daysVisibleList, currDayKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDayKey])))
         // console.log('Got 2nd date')
-        this.$set( this.daysVisibleList, nextDayKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDayKey])))
+        // this.$set( this.daysVisibleList, nextDayKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDayKey])))
         // console.log('Got 3rd date')
       },
 
@@ -192,13 +211,14 @@
         } else if (direction > 0) {
           // Next
 
+
           // grab first visible list key '2020-06-18'
           const len = Object.keys(this.daysVisibleList).length -1
           myKey = Object.keys(this.daysVisibleList)[len]
           //console.log('LastKey: ', myKey)
 
           const nextDay = this.getDayOffset(myKey, +1)
-          const firstDay = this.getDayOffset(myKey, -1)
+          //const firstDay = this.getDayOffset(myKey, -1)
           //console.log('nextDay to load: ', nextDay)
 
           // Let's do a check to see if this key exists before trying to add it 
@@ -208,13 +228,69 @@
             return
           }
 
-          let tmpObj = {}
-          this.$set( tmpObj, firstDay, JSON.parse(JSON.stringify(this.$store.state._timeListDates[firstDay])))
-          this.$set( tmpObj, myKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[myKey])))
-          this.$set( tmpObj, nextDay, JSON.parse(JSON.stringify(this.$store.state._timeListDates[nextDay])))
+          // let tmpObj = {}
+          // this.$set( tmpObj, firstDay, JSON.parse(JSON.stringify(this.$store.state._timeListDates[firstDay])))
+          // this.$set( tmpObj, myKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[myKey])))
+          // this.$set( this.daysVisibleList, nextDay, JSON.parse(JSON.stringify(this.$store.state._timeListDates[nextDay])))
           //console.log(tmpObj)
-          this.daysVisibleList = tmpObj
+          // this.daysVisibleList = tmpObj
 
+          let myThis = this
+          const firstIndex = Object.keys(myThis.daysVisibleList)[0]
+          console.log('firstIndex', firstIndex)
+          let targetDate = add( parseISO(firstIndex), { days: myThis.nrDatesLoaded } )
+          let newDateIndex = format( targetDate, 'Y-MM-dd' )
+          myThis.$set( myThis.daysVisibleList, newDateIndex, myThis.$store.state._timeListDates[newDateIndex] )
+          
+          this.$nextTick(function () {
+            anime({
+              targets: '.myCol',
+              duration: 1200,
+              translateX: -292,
+              complete: function() {
+                // const len = Object.keys(myThis.daysVisibleList).length -1
+                // const lastIndex = Object.keys(myThis.daysVisibleList)[len]
+                myThis.$delete( myThis.daysVisibleList, firstIndex )
+                anime({
+                  targets: '.myCol',
+                  duration: 0,
+                  translateX: 0,
+                })
+              }
+            })
+          })
+
+       
+
+          // anime({
+          //   targets: '.myCol',
+          //   duration: 1200,
+          //   translateX: -282,
+          //   complete: function() {
+          //     const firstIndex = Object.keys(myThis.daysVisibleList)[0]
+          //     console.log('firstIndex', firstIndex)
+          //     myThis.$delete( myThis.daysVisibleList, firstIndex )
+
+          //     let targetDate = add( parseISO(firstIndex), { days: myThis.nrDatesLoaded } )
+          //     console.log('targetDate', targetDate)
+          //     let newDateIndex = format( targetDate, 'Y-MM-dd' )
+          //     console.log('newDateIndex', newDateIndex)
+          //     myThis.$set( myThis.daysVisibleList, newDateIndex, myThis.$store.state._timeListDates[newDateIndex] )
+          //   }
+          // })
+          
+
+            // begin: function() {
+            //   // console.log('myThis', myThis)
+            //   // console.log(anim)
+            // },
+            // complete: function() {
+            //   // console.log(anim)
+            // }
+
+
+              // myThis.$set( myThis.daysVisibleList, nextDay, JSON.parse(JSON.stringify(myThis.$store.state._timeListDates[nextDay])))
+              //myThis.$delete( myThis.daysVisibleList, firstDay )
 
         }
         
@@ -232,16 +308,30 @@
     flex-wrap: nowrap;
     justify-content: center !important;
  }
-  .myCol {
-    padding-top: 4px;
-    padding-left: 0;
-    padding-right: 0;
-    /* width: 314px; */
-    /* background-color: rgb(207, 236, 233); */
+
+  #animateBox {
+    position: relative;
+    width: 875px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: nowrap;
+    outline: 4px lime solid;
+    /* justify-content: center !important; */
+    /* overflow: hidden; */
   }
+  
+    .myCol {
+      position: relative;
+      padding: 0 4px;
+      /* width: 314px; */
+      /* background-color: rgb(207, 236, 233); */
+    }
+
     
 
-
+/* .slide-list-move {
+  transition: transform 0.3s;
+} */
 
 .scrollIcons { 
   top: 50% !important; 
