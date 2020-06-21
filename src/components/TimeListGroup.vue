@@ -90,9 +90,11 @@
         userSelectedDate: this.$store.state.flightDate,
         daysVisibleList: {},
 
-        model: null,
+        // model: null,
 
-        nrDatesLoaded: 3
+        nrDatesLoaded: 3,
+        isAnimating: false,
+        animateMillisecs: 900
       }
     },
 
@@ -120,7 +122,6 @@
 
         if (this.$store.state._timeListDates === null) return  // wait for the API to finish loading...
 
-
         const usersDate = new Date(this.userSelectedDate)
         const dateOffset = Math.floor(this.nrDatesLoaded / 2)
         //console.log('dateOffset', dateOffset)
@@ -131,18 +132,6 @@
           loopDate = format( add(parseISO(loopDate), { days: 1 }), 'Y-MM-dd' )
         }
 
-
-        // const currDayKey = format(usersDate, 'Y-MM-dd')
-        // const nextDayKey = format( add(usersDate, { days: 1 }), 'Y-MM-dd' )
-
-        // Okay, found the corresponding docs in Vue. Need to use the Vue $set and $delete
-        // to overcome mucking around with Observable Vue objects. (I hope!)
-        // this.$set( this.daysVisibleList, prevDayKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDayKey])))
-        // console.log('Got first date')
-        // this.$set( this.daysVisibleList, currDayKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDayKey])))
-        // console.log('Got 2nd date')
-        // this.$set( this.daysVisibleList, nextDayKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDayKey])))
-        // console.log('Got 3rd date')
       },
 
       swipe (direction) {
@@ -171,10 +160,14 @@
 
       fetchADay: function (direction) {
 
+        if (this.isAnimating === true) return
+
         if (this.isObjEmpty(this.daysVisibleList)) {
           console.error("Ooops! No Days loaded, can't scroll to [" + direction + "] Day.")
           return
         }
+
+        this.isAnimating = true
 
         // Will be an API call at some point, to load another day
         // (or possibly a chunk of days to cache, so not thrashing the connection?)
@@ -191,22 +184,98 @@
 
           const prevDay = this.getDayOffset(myKey, -1)
           const lastDay = this.getDayOffset(myKey, +1)
-          //console.log('PrevDay to load: ', prevDay)
+          //console.log('PrevDay', prevDay, 'firstVisDay', myKey, 'lastDay', lastDay)
+
+
+          const len = Object.keys(this.daysVisibleList).length -1
+          const dayToDelete = Object.keys(this.daysVisibleList)[len]
 
           // Let's do a check to see if this key exists before trying to add it 
           // and getting a "Cannot convert undefined or null to object"
           if (this.isObjEmpty(this.$store.state._timeListDates[prevDay])) {
-            console.error("Ooops! At start of loaded days - can't continue...")
+            console.log("Ooops! At start of loaded days - can't continue...")
+            this.isAnimating = false
             return
           }
 
-          let tmpObj = {}
-          this.$set( tmpObj, prevDay, JSON.parse(JSON.stringify(this.$store.state._timeListDates[prevDay])))
-          this.$set( tmpObj, myKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[myKey])))
-          this.$set( tmpObj, lastDay, JSON.parse(JSON.stringify(this.$store.state._timeListDates[lastDay])))
-          //console.log(tmpObj)
-          this.daysVisibleList = tmpObj
 
+          // ---------------- ANIMATION PREV DAY --------------------
+          let myThis = this
+          this.daysVisibleList = {}   // clear list, as we need to add in specific order.
+          // Add the day that will scroll into visibility, but translateX -292 before 
+          // staring animation, so it scrolls smoothly into place.
+          this.$set( this.daysVisibleList, prevDay, this.$store.state._timeListDates[prevDay] )
+          this.$set( this.daysVisibleList, myKey, this.$store.state._timeListDates[myKey] )
+          this.$set( this.daysVisibleList, lastDay, this.$store.state._timeListDates[lastDay] )
+          this.$set( this.daysVisibleList, dayToDelete, this.$store.state._timeListDates[dayToDelete] )
+          
+          // Took a combo of $nextTick() and setTimeout() to get all to sync properly!. Works!!!
+
+          this.$nextTick(() => {
+            const moveTheseElsLeft = document.getElementsByClassName('myCol')
+            for (var i=0, myLen=moveTheseElsLeft.length|0; i<myLen; i=i+1|0) {
+              //moveTheseElsLeft[i].classList.add('shiftLeftForAnim')
+              moveTheseElsLeft[i].style.transform = 'translateX(-292px)'
+              console.log(moveTheseElsLeft[i])
+            }
+
+            setTimeout(() => { 
+              anime({
+                targets: '.myCol',
+                duration: myThis.animateMillisecs,
+                translateX: 0,
+                easing: 'linear',
+                complete: function() {
+                  myThis.isAnimating = false
+                }
+              })
+            }, 1)
+            
+          })
+          
+          // .then(() => {
+          //   anime({
+          //     targets: '.myCol',
+          //     duration: myThis.animateMillisecs,
+          //     translateX: 292,
+          //     easing: 'linear',
+          //     complete: function() {
+          //       // const len = Object.keys(myThis.daysVisibleList).length -1
+          //       // const lastIndex = Object.keys(myThis.daysVisibleList)[len]
+          //       myThis.$delete( myThis.daysVisibleList, dayToDelete )
+          //       anime({
+          //         targets: '.myCol',
+          //         duration: 0,
+          //         translateX: 0,
+          //       })
+          //       myThis.isAnimating = false
+          //     }
+          //   })
+          // })
+
+//console.log('elDayToShow', elDayToShow)
+          //elDayToShow.style.translateX = '-292'
+
+          // this.$nextTick(function () {
+          //   anime({
+          //     targets: '.myCol',
+          //     duration: myThis.animateMillisecs,
+          //     translateX: 292,
+          //     easing: 'linear',
+          //     complete: function() {
+          //       // const len = Object.keys(myThis.daysVisibleList).length -1
+          //       // const lastIndex = Object.keys(myThis.daysVisibleList)[len]
+          //       myThis.$delete( myThis.daysVisibleList, dayToDelete )
+          //       anime({
+          //         targets: '.myCol',
+          //         duration: 0,
+          //         translateX: 0,
+          //       })
+          //       myThis.isAnimating = false
+          //     }
+          //   })
+          // })
+          // ---------------- ANIMATION PREV DAY -------------------- 
 
         } else if (direction > 0) {
           // Next
@@ -224,20 +293,15 @@
           // Let's do a check to see if this key exists before trying to add it 
           // and getting a "Cannot convert undefined or null to object"
           if (this.isObjEmpty(this.$store.state._timeListDates[nextDay])) {
-            console.error("Ooops! At END of loaded days - can't continue...")
+            console.log("Ooops! At END of loaded days - can't continue...")
+            this.isAnimating = false
             return
           }
 
-          // let tmpObj = {}
-          // this.$set( tmpObj, firstDay, JSON.parse(JSON.stringify(this.$store.state._timeListDates[firstDay])))
-          // this.$set( tmpObj, myKey, JSON.parse(JSON.stringify(this.$store.state._timeListDates[myKey])))
-          // this.$set( this.daysVisibleList, nextDay, JSON.parse(JSON.stringify(this.$store.state._timeListDates[nextDay])))
-          //console.log(tmpObj)
-          // this.daysVisibleList = tmpObj
-
+          // ---------------- ANIMATION NEXT DAY --------------------
           let myThis = this
           const firstIndex = Object.keys(myThis.daysVisibleList)[0]
-          console.log('firstIndex', firstIndex)
+          //console.log('firstIndex', firstIndex)
           let targetDate = add( parseISO(firstIndex), { days: myThis.nrDatesLoaded } )
           let newDateIndex = format( targetDate, 'Y-MM-dd' )
           myThis.$set( myThis.daysVisibleList, newDateIndex, myThis.$store.state._timeListDates[newDateIndex] )
@@ -245,8 +309,9 @@
           this.$nextTick(function () {
             anime({
               targets: '.myCol',
-              duration: 1200,
+              duration: myThis.animateMillisecs,
               translateX: -292,
+              easing: 'linear',
               complete: function() {
                 // const len = Object.keys(myThis.daysVisibleList).length -1
                 // const lastIndex = Object.keys(myThis.daysVisibleList)[len]
@@ -256,41 +321,12 @@
                   duration: 0,
                   translateX: 0,
                 })
+                myThis.isAnimating = false
               }
             })
           })
+          // ---------------- ANIMATION NEXT DAY -------------------- 
 
-       
-
-          // anime({
-          //   targets: '.myCol',
-          //   duration: 1200,
-          //   translateX: -282,
-          //   complete: function() {
-          //     const firstIndex = Object.keys(myThis.daysVisibleList)[0]
-          //     console.log('firstIndex', firstIndex)
-          //     myThis.$delete( myThis.daysVisibleList, firstIndex )
-
-          //     let targetDate = add( parseISO(firstIndex), { days: myThis.nrDatesLoaded } )
-          //     console.log('targetDate', targetDate)
-          //     let newDateIndex = format( targetDate, 'Y-MM-dd' )
-          //     console.log('newDateIndex', newDateIndex)
-          //     myThis.$set( myThis.daysVisibleList, newDateIndex, myThis.$store.state._timeListDates[newDateIndex] )
-          //   }
-          // })
-          
-
-            // begin: function() {
-            //   // console.log('myThis', myThis)
-            //   // console.log(anim)
-            // },
-            // complete: function() {
-            //   // console.log(anim)
-            // }
-
-
-              // myThis.$set( myThis.daysVisibleList, nextDay, JSON.parse(JSON.stringify(myThis.$store.state._timeListDates[nextDay])))
-              //myThis.$delete( myThis.daysVisibleList, firstDay )
 
         }
         
@@ -326,13 +362,11 @@
       /* width: 314px; */
       /* background-color: rgb(207, 236, 233); */
     }
+    .shiftLeftForAnim {
+      transform: translateX(-292px);
+    }
 
     
-
-/* .slide-list-move {
-  transition: transform 0.3s;
-} */
-
 .scrollIcons { 
   top: 50% !important; 
   margin-top: -30px !important;
