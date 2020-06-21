@@ -94,7 +94,7 @@
 
         nrDatesLoaded: 3,
         isAnimating: false,
-        animateMillisecs: 900
+        animateMillisecs: 100
       }
     },
 
@@ -216,7 +216,7 @@
             for (var i=0, myLen=moveTheseElsLeft.length|0; i<myLen; i=i+1|0) {
               //moveTheseElsLeft[i].classList.add('shiftLeftForAnim')
               moveTheseElsLeft[i].style.transform = 'translateX(-292px)'
-              console.log(moveTheseElsLeft[i])
+              //console.log(moveTheseElsLeft[i])
             }
 
             setTimeout(() => { 
@@ -226,57 +226,15 @@
                 translateX: 0,
                 easing: 'linear',
                 complete: function() {
+                  myThis.$delete( myThis.daysVisibleList, dayToDelete )
                   myThis.isAnimating = false
                 }
               })
             }, 1)
             
           })
+          // ---------------- ANIMATION PREV DAY --------------------
           
-          // .then(() => {
-          //   anime({
-          //     targets: '.myCol',
-          //     duration: myThis.animateMillisecs,
-          //     translateX: 292,
-          //     easing: 'linear',
-          //     complete: function() {
-          //       // const len = Object.keys(myThis.daysVisibleList).length -1
-          //       // const lastIndex = Object.keys(myThis.daysVisibleList)[len]
-          //       myThis.$delete( myThis.daysVisibleList, dayToDelete )
-          //       anime({
-          //         targets: '.myCol',
-          //         duration: 0,
-          //         translateX: 0,
-          //       })
-          //       myThis.isAnimating = false
-          //     }
-          //   })
-          // })
-
-//console.log('elDayToShow', elDayToShow)
-          //elDayToShow.style.translateX = '-292'
-
-          // this.$nextTick(function () {
-          //   anime({
-          //     targets: '.myCol',
-          //     duration: myThis.animateMillisecs,
-          //     translateX: 292,
-          //     easing: 'linear',
-          //     complete: function() {
-          //       // const len = Object.keys(myThis.daysVisibleList).length -1
-          //       // const lastIndex = Object.keys(myThis.daysVisibleList)[len]
-          //       myThis.$delete( myThis.daysVisibleList, dayToDelete )
-          //       anime({
-          //         targets: '.myCol',
-          //         duration: 0,
-          //         translateX: 0,
-          //       })
-          //       myThis.isAnimating = false
-          //     }
-          //   })
-          // })
-          // ---------------- ANIMATION PREV DAY -------------------- 
-
         } else if (direction > 0) {
           // Next
 
@@ -351,9 +309,9 @@
     margin: 0 auto;
     display: flex;
     flex-wrap: nowrap;
-    outline: 4px lime solid;
+    /* outline: 4px lime solid; */
     /* justify-content: center !important; */
-    /* overflow: hidden; */
+    overflow: hidden;
   }
   
     .myCol {
@@ -362,9 +320,9 @@
       /* width: 314px; */
       /* background-color: rgb(207, 236, 233); */
     }
-    .shiftLeftForAnim {
+    /* .shiftLeftForAnim {
       transform: translateX(-292px);
-    }
+    } */
 
     
 .scrollIcons { 
