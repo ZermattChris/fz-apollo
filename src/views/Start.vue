@@ -286,7 +286,7 @@ export default {
         // that pulls down updated FlightsList from API and clears
         // the Which Flight menu if there's data that's out of sync.
         //this.$emit('flight-date-changed', dateStr)
-        console.log('Think need to load flightOptions list here. flightDate, set()')
+        //console.log('Think need to load flightOptions list here. flightDate, set()')
         this.$store.dispatch('setFlightDate', dateStr)
         this.$store.dispatch('flightOptions')
         this.buildFlightList()
@@ -322,7 +322,7 @@ export default {
 
 
     flightsWatch: function () {
-      console.log('flightsWatch triggered.')
+      //console.log('flightsWatch triggered.')
       return this.$store.state._flightsList
     },
 
@@ -376,7 +376,7 @@ export default {
     },
     buildFlightList: function () {
       const obj = this.$store.state._flightsList
-      console.log('build flight list for drop menu', obj)
+      //console.log('build flight list for drop menu', obj)
       if (this.isObjEmpty(obj)) return
       let newFlightsList = []
       for (let [key, value] of Object.entries(obj)) {
