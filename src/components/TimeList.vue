@@ -51,10 +51,14 @@
         :ripple="false"
         class="listItem"
         dense
+        :disabled="notEnoughAvailability(nrAvail)"
         @click="onSelectRow(nrAvail, label, key)"
       >
         <v-list-item-icon>
-          <v-icon v-text="tmpIcon"></v-icon>
+          <v-icon 
+            v-text="getClockIcon(nrAvail, key)"
+            :color="getSelectedColour(nrAvail, key)"
+          ></v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
@@ -62,6 +66,8 @@
             <span class="time" v-html="formatTime(label)"></span>
             <v-chip
               class="availability" 
+              :class="{'grey--text text--lighten-2' : notEnoughAvailability(nrAvail)}"
+              :color="getSelectedColour(nrAvail, key)"
               v-html="formatAvail(nrAvail)"
               outlined
             ></v-chip>
@@ -71,7 +77,7 @@
 
         <v-list-item-action>
           <v-switch 
-            :input-value="isSelected(key)"
+            :input-value="wasSelected(key)"
             inset 
             color="success"
           ></v-switch>
@@ -81,7 +87,7 @@
 
       
     </v-list-item-group>
-Selected: {{matchesUserDate}}
+<!-- Selected: {{matchesUserDate}} -->
   </div>
 
 </template>
@@ -109,7 +115,9 @@ Selected: {{matchesUserDate}}
 
     data () {
       return {
-        tmpIcon: 'mdi-wifi',
+        clockIcon: 'mdi-clock',
+        clockIconOutline: 'mdi-clock-outline',
+        clockIconSelected: 'mdi-clock-check',
         items: this.timesObj,
         selectedSlot: -1,
       }
@@ -136,7 +144,23 @@ Selected: {{matchesUserDate}}
 
     methods: {
 
-      isSelected: function (key) {
+      getSelectedColour: function (nrAvail, key) {
+        if (this.notEnoughAvailability(nrAvail)) return 'silver'
+        if (key === this.selectedSlot) return 'success darken-2'
+        return ''
+      },
+      getClockIcon: function (nrAvail, key) {
+        if (this.notEnoughAvailability(nrAvail)) return this.clockIconOutline
+        if (key === this.selectedSlot) return this.clockIconSelected
+        return this.clockIcon
+      },
+
+      notEnoughAvailability: function (nrAvail) {
+        if ( nrAvail < this.$store.state.nrPeople) return true
+        return false
+      },
+
+      wasSelected: function (key) {
         // Also set to false if this TL isn't currently selected.
         if (!this.matchesUserDate) {
           this.selectedSlot = -1
@@ -216,9 +240,9 @@ Selected: {{matchesUserDate}}
       border-width: 4px !important;
       border-color: rgba(var(--fzselected-color), 0.3) !important;
     }  */
-    .boxDisplaySize {
+    /* .boxDisplaySize {
       
-    }
+    } */
 
   .v-list--dense {
     margin-left: 10px !important;
@@ -241,7 +265,10 @@ Selected: {{matchesUserDate}}
       position: relative;
     }
     .selectedTitleColour {
-      color: rgba(var(--fzselected-color), 1.0)
+      color: rgba(var(--fzselected-color), 1.0);
+    }
+    .selectedChip {
+      border-color: rgba(var(--fzselected-color), 1.0);
     }
 
   .listItem {
