@@ -122,6 +122,8 @@
       onUpdated: function (chosenDate, chosenSlot, timeLabel) {
         // chosenSlot is zero based.
         console.log('chosenDate', chosenDate, 'chosenSlot', chosenSlot, 'timeLabel', timeLabel)
+        this.$store.state.flightDate = chosenDate
+        this.userSelectedDate = chosenDate
       },
 
       loadVisibleDays: function () {

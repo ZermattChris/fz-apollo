@@ -7,10 +7,15 @@
     <div 
       class="TLHeader white--text grey darken-2"
     >
-      <h3 :class="'selectedTitleColour' : matchesUserDate">
+      <h3 
+        :class="{'selectedTitleColour' : matchesUserDate}">
         {{titleDate.abbreviation}}
       </h3>
-      <div>{{titleDate.fullDate}}</div>
+      <div
+        :class="{'selectedTitleColour' : matchesUserDate}"
+      >
+        {{titleDate.fullDate}}
+      </div>
 
       <v-tooltip 
         top
@@ -132,6 +137,11 @@ Selected: {{matchesUserDate}}
     methods: {
 
       isSelected: function (key) {
+        // Also set to false if this TL isn't currently selected.
+        if (!this.matchesUserDate) {
+          this.selectedSlot = -1
+          return false
+        }
         // Need to figure out if this Select is part of the selected row or not.
         //console.log('key', key)
         if (key !== this.selectedSlot) {
@@ -230,12 +240,10 @@ Selected: {{matchesUserDate}}
       font-size: 1.6em;
       position: relative;
     }
-    /* .usersDateIcon {
-      display: none;
-    } */
-  /* .TLHeader div {
-    text-shadow: 0px 0px 2px black, 0px 0px 1px black;
-  } */
+    .selectedTitleColour {
+      color: rgba(var(--fzselected-color), 1.0)
+    }
+
   .listItem {
     padding-top: 0.15em;
     border-bottom: 1px solid rgb(218, 218, 218);
