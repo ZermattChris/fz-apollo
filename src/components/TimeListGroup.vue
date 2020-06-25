@@ -24,6 +24,7 @@
         :date="key"
         :timesObj="timeListerObj"
         :usersDate="userSelectedDate"
+        @row-selected="onUpdated"
       ></TimeList>
 
     </div>
@@ -118,6 +119,11 @@
     },
 
     methods: {
+      onUpdated: function (chosenDate, chosenSlot, timeLabel) {
+        // chosenSlot is zero based.
+        console.log('chosenDate', chosenDate, 'chosenSlot', chosenSlot, 'timeLabel', timeLabel)
+      },
+
       loadVisibleDays: function () {
 
         if (this.$store.state._timeListDates === null) return  // wait for the API to finish loading...

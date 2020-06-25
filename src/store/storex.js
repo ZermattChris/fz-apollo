@@ -18,6 +18,7 @@ export default new Vuex.Store({
     flightDate: "",
     selectedFlight: "",
     wantsPhotos: false,
+    timeSlot: 0,
 
     // Settings - API call result
     // Using an Underscore to help make it clear that this isn't User Input.

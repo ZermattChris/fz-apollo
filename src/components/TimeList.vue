@@ -7,7 +7,7 @@
     <div 
       class="TLHeader white--text grey darken-2"
     >
-      <h3>
+      <h3 :class="'selectedTitleColour' : matchesUserDate">
         {{titleDate.abbreviation}}
       </h3>
       <div>{{titleDate.fullDate}}</div>
@@ -41,12 +41,12 @@
       active-class="success--text text--darken-2"
     >
       <v-list-item
-        v-for="(nrAvail, key) in items"
+        v-for="(nrAvail, label, key) in items"
         :key="key"
         :ripple="false"
         class="listItem"
         dense
-        @click="onClickedRow(key)"
+        @click="onSelectRow(nrAvail, label, key)"
       >
         <v-list-item-icon>
           <v-icon v-text="tmpIcon"></v-icon>
@@ -54,7 +54,7 @@
 
         <v-list-item-content>
           <v-list-item-title>
-            <span class="time" v-html="formatTime(key)"></span>
+            <span class="time" v-html="formatTime(label)"></span>
             <v-chip
               class="availability" 
               v-html="formatAvail(nrAvail)"
@@ -66,6 +66,7 @@
 
         <v-list-item-action>
           <v-switch 
+            :input-value="isSelected(key)"
             inset 
             color="success"
           ></v-switch>
@@ -110,6 +111,7 @@ Selected: {{matchesUserDate}}
     },
 
     computed: {
+
       matchesUserDate: function () {
         //console.log(this.usersDate, this.date)
         if (this.usersDate === this.date) return true
@@ -124,18 +126,28 @@ Selected: {{matchesUserDate}}
         const fullDateStr = format(myDate, 'PPP')
         return {abbreviation: dayAbrvStr, fullDate: fullDateStr}
       },
-      // returnTimeKey: function (slotObj) {
-      //    return this.formatTime(Object.keys(slotObj)[0])
-      // }
       
     },
 
     methods: {
 
-      onClickedRow: function (ev, chosenSlot) {
+      isSelected: function (key) {
+        // Need to figure out if this Select is part of the selected row or not.
+        //console.log('key', key)
+        if (key !== this.selectedSlot) {
+          return false
+        }
+        return true
+      },
+
+      onSelectRow: function (nrAvail, timeLabel, chosenSlot ) {
         this.selectedSlot = chosenSlot
         // User selected a Row or the Switch, fire event for parent
-        console.log("Selected a Row.", ev)
+        //console.log("Selected a Row. NrAvail:", nrAvail, 'timeLabel', timeLabel, 'chosenSlot', chosenSlot)
+        this.$emit('row-selected', this.date, this.selectedSlot, timeLabel )
+      },
+      onUnselectRows: function () {
+        this.selectedSlot = -1
       },
 
       formatAvail: function (slotObj) {
