@@ -287,10 +287,10 @@
   .listItem {
     padding-top: 0.15em;
     border-bottom: 1px solid rgb(218, 218, 218);
-    background-color: rgba(226, 210, 233, 0.25);
+    background-color: white !important;
   }
   .listItemDisabled {
-    background-color: white !important;
+    background-color: rgba(226, 210, 233, 0.25) !important;
   }
 
   /* Gives us a bit more left/right space */

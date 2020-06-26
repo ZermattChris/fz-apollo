@@ -18,7 +18,7 @@
         :timesObj="timeListerObj"
         :usersDate="userSelectedDate"
         :selected="userSelectedSlot"
-        @row-selected="onUpdated"
+        @row-selected="clickedRow"
       ></TimeList>
 
     </div>
@@ -137,13 +137,13 @@
     },
 
     methods: {
-      onUpdated: function (chosenDate, chosenSlot, chosenSlotLabel) {
+      clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
         // chosenSlot is zero based.
         //console.log('chosenDate', chosenDate, 'chosenSlot', chosenSlot, 'timeLabel', timeLabel)
         this.slotLabel = chosenSlotLabel
-        this.$store.state.timeSlot = chosenSlot
+        // this.$store.state.timeSlot = chosenSlot
         this.userSelectedSlot = chosenSlot
-        this.$store.state.flightDate = chosenDate
+        // this.$store.state.flightDate = chosenDate
         this.userSelectedDate = chosenDate
       },
 
@@ -259,7 +259,7 @@
                   myThis.isAnimating = false
                 }
               })
-            }, 1)
+            }, 0)
             
           })
           // ---------------- ANIMATION PREV DAY --------------------
