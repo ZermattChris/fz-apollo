@@ -48,7 +48,7 @@
 
 
       <!-- TEMP clear data btn -->
-      <v-btn
+      <v-btn v-if="_isDEV"
         class="text-capitalize"
         style="position:absolute; right:5px;"
         text
@@ -124,8 +124,8 @@ export default {
   },
 
   // Lifecycle Hooks
-  async mounted() {
-      try {
+  async mounted () {
+    try {
       await this.$store.dispatch('init')
     } catch (ex) {
       console.error('My error', ex)
@@ -133,7 +133,7 @@ export default {
   },
 
 
-  beforeUpdate() {
+  beforeUpdate () {
     // Show/hide the Back Btn.
     if (this.$route.name === 'Start') {
       //console.log('ON HOME PAGE')
@@ -142,16 +142,14 @@ export default {
       this.onEnableBackBtn(true)
     }
   },
-  // created() {
-  //   // Load LocalStorage if available.
-  //   // this.loadLocalStorageValues()
-  //   // Load Settings in via Ajax API call.
-  //   //this.loadSettingsAPI()
-  //   // Flag any conflicting data from the above
-  //   // tow processes -- User's Date + Flights
-  //   // might no longer be valid.
-
-  // },
+  beforeCreate () {
+    // Need to run some checks looking for stale data.
+    // It's possible that a User fills out everything, with a specific
+    // chosen date, then returns later and tries to continue with a
+    // date that is no longer valid. 
+    // Give some sort of popup message and clear the date - timeslot data.
+    console.log("TODO: App Load -> Need to run some checks looking for stale localStorage data.")
+  },
 
   // Reactive data
   data: () => ({
@@ -169,14 +167,6 @@ export default {
   // Methods
   methods: {
     
-    // async loadFlightsListAPI () {
-    //   try {
-    //     await this.$store.dispatch('flightOptions')
-    //   } catch (ex) {
-    //     console.error('My error', ex)
-    //   }
-    // },
-
     onEnableContinueBtn: function (valid) {
       //console.log('Enable Btn: ' + valid)
       this.canContinue = valid
@@ -221,46 +211,12 @@ export default {
       // this.$store.dispatch('setFlightsList', null)
       // this.saveLocalStorageValues()
     },
-    // Move local storage calls to VueX too me thinks... TODO.
-    // loadLocalStorageValues: function () {
-      //console.log('Read local storage')
-      // if (localStorage.nrPeople) {
-      //   this.$store.dispatch('setNrPeople', localStorage.nrPeople)
-      // }
-      // if (localStorage.flightDate) {
-      //   this.$store.dispatch('setFlightDate', localStorage.flightDate)
-      // }
-      // if (localStorage.selectedFlight) {
-      //   this.$store.dispatch('setFlight', localStorage.selectedFlight)
-      // }
-      // if (localStorage.wantsPhotos) {
-      //   let convertStrToBool = localStorage.wantsPhotos
-      //   if (convertStrToBool === 'true') {
-      //      convertStrToBool = true
-      //   } else {
-      //     convertStrToBool = false
-      //   }
-      //   this.$store.dispatch('setWantsPhotos', convertStrToBool)
-      // }
-      // if (localStorage.selectedTimeslot) {
-      //   this.$store.dispatch('setTimeSlot', localStorage.selectedTimeslot)
-      // }
-      // if (localStorage._flightsList) {
-      //   this.$store.dispatch('setFlightsList', JSON.parse(localStorage._flightsList))
-      // }
-    // },
-    // saveLocalStorageValues: function () {
-      //console.log('Wrote to local storage')
-      // localStorage.nrPeople = this.$store.state.nrPeople
-      // localStorage.flightDate = this.$store.state.flightDate
-      // localStorage.selectedFlight = this.$store.state.selectedFlight
-      // localStorage.wantsPhotos = this.$store.state.wantsPhotos
-      // localStorage.selectedTimeslot = this.$store.state.timeSlot
-      // localStorage._flightsList = JSON.stringify(this.$store.state._flightsList)
-    // }
   },
 
   computed: {
+    _isDEV: function () {
+      return this.$store.state._DEV
+    },
     getCurrentYear: function () {
       return format(Date.now(), 'yyyy')
     },

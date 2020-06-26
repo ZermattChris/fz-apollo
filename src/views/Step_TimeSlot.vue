@@ -9,17 +9,9 @@
 
       <br><br>
       How to choose the right time for you: <a href="#TODO"><span class="text-no-wrap">Flight Guidelines</span></a>
-      
-      <!-- <br><br>
-      If you'd like to change your Group Size or Flight Date: 
-      <strong class="hilite-link"><router-link to="/"><span class="text-no-wrap">1. Get Started</span></router-link></strong>
-      (or hit the <span class="text-no-wrap">'&lt; Back'</span> button above) -->
-      
+            
     </PageHeader>
 
-    <!-- I'm pushing all of the settings and functionality into this
-    custom component 'TimeListGroup' which displays a number of 
-    dynamic 'TimeLister' components. -->
     <div class="steps-controls">
       <TimeListGroup/>
     </div>
@@ -38,7 +30,7 @@
 
 
   export default {
-    name: "TimeSlot",
+    name: "Step_TimeSlot",
   
     components: {
       PageHeader,
@@ -47,14 +39,7 @@
 
     data () {
       return {
-        // Holds the ISO date string '2020-06-18' for the chosen Date.
-        // Need to update in the localStorage as well when changed.
-        // Initially will be set to the date the User chose in Step 1
-        //userTimeSlot: '',   
         
-        //model: null,
-
-        //flightsListIsStillLoading: this.$store.state._flightsList_loading
       }
     },
 
@@ -79,10 +64,6 @@
       },
       timeListerHeaderStr: function () {
         if (this.isObjEmpty(this.$store.state._flightsList)) return
-        //console.log('Calling timeListerHeaderStr: ', this.flightsListIsStillLoading)
-        
-        // console.log(this.capitaliseFirstLetter('whoop'))
-        // return "2. Flight Time for: " + this.capitaliseFirstLetter(store.selectedFlight)
         // Need to return the matching Flight Description from store.flightsList object.store.
         const userFlightKey = this.$store.state.selectedFlight
         //console.log('userFlightKey in list?: ', this.$store.state._flightsList)
@@ -108,7 +89,6 @@
   left:0; right: 0;
   text-align: center;
   margin: 0 auto;
-  /* background-color: yellow; */
 }
   .vSpacerForAbsolute {
     width: 100%;
@@ -118,36 +98,5 @@
 TimeListGroup {
   background-color: pink;
 }
-
-/* Trying to build a virtual date scroller */
-/* .v-sheet {
-  background-color: yellow;
-}
-
-div>>>.v-sheet {
-  position: relative;
-  padding: 0;
-}
-  div>>>.v-slide-group__next {
-    position: absolute;
-    right: -22px; top: 0; bottom: 0;
-    width: 52px;
-    min-width: 32px;
-    outline: 1px maroon solid;
-  } */
-
-
-/* .v-sheet {
-  position: absolute;
-  left:0; right: 0;
-  height: 560px;
-  background-color: yellow;
-}
-  .v-slide-group {
-    position: relative;
-    left:0; right: 0;
-    padding: 0 !important;
-  } */
-
 
 </style>

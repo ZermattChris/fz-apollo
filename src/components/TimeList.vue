@@ -50,6 +50,7 @@
         :key="key"
         :ripple="false"
         class="listItem"
+        :class="{'listItemDisabled' : notEnoughAvailability(nrAvail)}"
         dense
         :disabled="notEnoughAvailability(nrAvail)"
         @click="onSelectRow(nrAvail, label, key)"
@@ -58,7 +59,7 @@
           <v-icon 
             class="clockIcon"
             v-text="getClockIcon(nrAvail, key)"
-            :color="getSelectedColour(nrAvail, key)"
+            :color="getClockColour(nrAvail, key)"
             size="28"
           ></v-icon>
         </v-list-item-icon>
@@ -122,7 +123,7 @@
 
     data () {
       return {
-        clockIcon: 'mdi-clock',
+        clockIcon: 'mdi-clock-outline',
         clockIconOutline: 'mdi-minus-circle-outline',
         clockIconSelected: 'mdi-clock-check',
         items: this.timesObj,
@@ -153,6 +154,11 @@
 
       getSelectedColour: function (nrAvail, key) {
         if (this.notEnoughAvailability(nrAvail)) return 'silver'
+        if (key === this.selectedSlot) return 'success darken-2'
+        return ''
+      },
+      getClockColour: function (nrAvail, key) {
+        if (this.notEnoughAvailability(nrAvail)) return 'grey lighten-1'
         if (key === this.selectedSlot) return 'success darken-2'
         return ''
       },
@@ -281,6 +287,10 @@
   .listItem {
     padding-top: 0.15em;
     border-bottom: 1px solid rgb(218, 218, 218);
+    background-color: rgba(226, 210, 233, 0.25);
+  }
+  .listItemDisabled {
+    background-color: white !important;
   }
 
   /* Gives us a bit more left/right space */
