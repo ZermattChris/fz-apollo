@@ -231,7 +231,7 @@ export default {
   mounted() {
     // Set focus to '+' button of NumberScroller compoennt.
     setTimeout(() => {
-      //onsole.log(this.$refs.numberScroller.$el.querySelector('#increment'))
+      //console.log(this.$refs.numberScroller.$el.querySelector('#increment'))
       // only set the focus if Nr People is Zero.
       if (this.nrPeople == 0) {
         this.$refs.numberScroller.$el.querySelector('#increment').focus()
@@ -239,9 +239,9 @@ export default {
     })
     this.onValueChanged()
   },
-  beforeUpdate() {
-    this.$emit('data-changed')  // use this to save changed data to localStorage in App
-  },
+  // beforeUpdate() {
+  //   this.$emit('data-changed')  // use this to save changed data to localStorage in App
+  // },
   updated() {
     // update the Continue btn if page is valid
     this.onValueChanged()

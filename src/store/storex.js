@@ -14,11 +14,12 @@ export default new Vuex.Store({
     _DEV: true,
 
     // User inputs.
-    nrPeople: 0,
-    flightDate: "",
-    selectedFlight: "",
-    wantsPhotos: false,
-    timeSlot: 0,
+    // Cached in browser's localStorage.
+    nrPeople:      +localStorage.nrPeople || 0,
+    flightDate:     localStorage.flightDate || "",
+    selectedFlight: localStorage.selectedFlight || "",
+    wantsPhotos:    localStorage.wantsPhotos ? JSON.parse(localStorage.wantsPhotos) : false,  // convert to bool if not undefined.
+    timeSlot:      +localStorage.selectedTimeslot || 0,
 
     // Settings - API call result
     // Using an Underscore to help make it clear that this isn't User Input.
@@ -79,6 +80,9 @@ export default new Vuex.Store({
     },
     CHOSEN_PHOTOS(state, photosBool) {
       state.wantsPhotos = photosBool;
+    },
+    CHOSEN_TIMESLOT(state, slotInt) {
+      state.timeSlot = slotInt;
     },
 
     // Local Storage Cached
@@ -151,22 +155,32 @@ export default new Vuex.Store({
         .finally(() => context.commit("FLIGHTSLIST_LOADING", false))
     },
 
-    // USER INPUTS.
-    setNrPeople(context, nr) {
-      context.commit("CHOSEN_NR_PEOPLE", +nr);
-    },
-    setFlightDate(context, dateStr) {
-      context.commit("CHOSEN_DATE", dateStr);
-    },
-    setFlight(context, flightNameStr) {
-      context.commit("CHOSEN_FLIGHT", flightNameStr);
-    },
-    setWantsPhotos(context, picsBool) {
-      context.commit("CHOSEN_PHOTOS", picsBool);
-    },
 
     setFlightsList(context, flightsListObj) {
       context.commit("FLIGHTS_LIST", flightsListObj);
     },
+
+    // --- USER INPUTS ---
+    setNrPeople(context, nr) {
+      context.commit("CHOSEN_NR_PEOPLE", +nr);
+      localStorage.nrPeople = nr
+    },
+    setFlightDate(context, dateStr) {
+      context.commit("CHOSEN_DATE", dateStr);
+      localStorage.flightDate = dateStr
+    },
+    setFlight(context, flightNameStr) {
+      context.commit("CHOSEN_FLIGHT", flightNameStr);
+      localStorage.selectedFlight = flightNameStr
+    },
+    setWantsPhotos(context, picsBool) {
+      context.commit("CHOSEN_PHOTOS", picsBool);
+      localStorage.wantsPhotos = picsBool
+    },
+    setTimeSlot(context, slotInt) {
+      context.commit("CHOSEN_TIMESLOT", slotInt);
+      localStorage.selectedTimeslot = slotInt
+    },
+
   },
 });

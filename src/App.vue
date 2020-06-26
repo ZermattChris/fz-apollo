@@ -72,7 +72,6 @@
           > -->
             <router-view
               @form-is-valid="onEnableContinueBtn"
-              @data-changed="saveLocalStorageValues"
             ></router-view>
           <!-- </transition> -->
 
@@ -143,16 +142,16 @@ export default {
       this.onEnableBackBtn(true)
     }
   },
-  created() {
-    // Load LocalStorage if available.
-    this.loadLocalStorageValues()
-    // Load Settings in via Ajax API call.
-    //this.loadSettingsAPI()
-    // Flag any conflicting data from the above
-    // tow processes -- User's Date + Flights
-    // might no longer be valid.
+  // created() {
+  //   // Load LocalStorage if available.
+  //   // this.loadLocalStorageValues()
+  //   // Load Settings in via Ajax API call.
+  //   //this.loadSettingsAPI()
+  //   // Flag any conflicting data from the above
+  //   // tow processes -- User's Date + Flights
+  //   // might no longer be valid.
 
-  },
+  // },
 
   // Reactive data
   data: () => ({
@@ -210,52 +209,55 @@ export default {
     },
 
     // ************************** Storage workers **************************. 
-    // All moved to VueX. TODO: Make new vuex actions that:
-    // - saveLocalData
-    // - loadLocalData
-    // - clearLocalData
+    // This is just a _DEV function for quick testing
     onClearData: function () {
+      if (this.$store.state._DEV !== true) return
       //console.log('Clear all data:')
       this.$store.dispatch('setNrPeople', 0)
       this.$store.dispatch('setFlightDate', '')
       this.$store.dispatch('setFlight', '')
       this.$store.dispatch('setWantsPhotos', false)
+      this.$store.dispatch('setTimeSlot', 0)
       // this.$store.dispatch('setFlightsList', null)
-      this.saveLocalStorageValues()
+      // this.saveLocalStorageValues()
     },
     // Move local storage calls to VueX too me thinks... TODO.
-    loadLocalStorageValues: function () {
+    // loadLocalStorageValues: function () {
       //console.log('Read local storage')
-      if (localStorage.nrPeople) {
-        this.$store.dispatch('setNrPeople', localStorage.nrPeople)
-      }
-      if (localStorage.flightDate) {
-        this.$store.dispatch('setFlightDate', localStorage.flightDate)
-      }
-      if (localStorage.selectedFlight) {
-        this.$store.dispatch('setFlight', localStorage.selectedFlight)
-      }
-      if (localStorage.wantsPhotos) {
-        let convertStrToBool = localStorage.wantsPhotos
-        if (convertStrToBool === 'true') {
-           convertStrToBool = true
-        } else {
-          convertStrToBool = false
-        }
-        this.$store.dispatch('setWantsPhotos', convertStrToBool)
-      }
+      // if (localStorage.nrPeople) {
+      //   this.$store.dispatch('setNrPeople', localStorage.nrPeople)
+      // }
+      // if (localStorage.flightDate) {
+      //   this.$store.dispatch('setFlightDate', localStorage.flightDate)
+      // }
+      // if (localStorage.selectedFlight) {
+      //   this.$store.dispatch('setFlight', localStorage.selectedFlight)
+      // }
+      // if (localStorage.wantsPhotos) {
+      //   let convertStrToBool = localStorage.wantsPhotos
+      //   if (convertStrToBool === 'true') {
+      //      convertStrToBool = true
+      //   } else {
+      //     convertStrToBool = false
+      //   }
+      //   this.$store.dispatch('setWantsPhotos', convertStrToBool)
+      // }
+      // if (localStorage.selectedTimeslot) {
+      //   this.$store.dispatch('setTimeSlot', localStorage.selectedTimeslot)
+      // }
       // if (localStorage._flightsList) {
       //   this.$store.dispatch('setFlightsList', JSON.parse(localStorage._flightsList))
       // }
-    },
-    saveLocalStorageValues: function () {
+    // },
+    // saveLocalStorageValues: function () {
       //console.log('Wrote to local storage')
-      localStorage.nrPeople = this.$store.state.nrPeople
-      localStorage.flightDate = this.$store.state.flightDate
-      localStorage.selectedFlight = this.$store.state.selectedFlight
-      localStorage.wantsPhotos = this.$store.state.wantsPhotos
+      // localStorage.nrPeople = this.$store.state.nrPeople
+      // localStorage.flightDate = this.$store.state.flightDate
+      // localStorage.selectedFlight = this.$store.state.selectedFlight
+      // localStorage.wantsPhotos = this.$store.state.wantsPhotos
+      // localStorage.selectedTimeslot = this.$store.state.timeSlot
       // localStorage._flightsList = JSON.stringify(this.$store.state._flightsList)
-    }
+    // }
   },
 
   computed: {

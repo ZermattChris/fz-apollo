@@ -1,13 +1,6 @@
 <template>
 
-  <!-- <TimeList
-    date="2020-06-18"
-    timesArray=""
-  ></TimeList> -->
-
-  <!-- :class="{'tl-1 hidden-md-and-down': index === 0, 'tl-2 mx-md-6 mx-lg-12': index === 1, 'tl-3 hidden-sm-and-down': index === 2, 'tl-4 hidden-sm-and-down': index === 3 }" -->
-
-<div class="time-container-row" style="outline:1px solid maroon;">
+<div class="time-container-row">
 
   <div id="animateBox">
 
@@ -89,6 +82,8 @@
         msg: isMobile ? 'Mobile device: Hide scroll buttons, enable Swipe.' : 'Desktop: Show scroll buttons. ',
 
         userSelectedDate: this.$store.state.flightDate,
+        userSelectedSlot: this.$store.state.timeSlot,
+
         daysVisibleList: {},
 
         // model: null,
@@ -119,9 +114,11 @@
     },
 
     methods: {
-      onUpdated: function (chosenDate) {
+      onUpdated: function (chosenDate, chosenSlot) {
         // chosenSlot is zero based.
         //console.log('chosenDate', chosenDate, 'chosenSlot', chosenSlot, 'timeLabel', timeLabel)
+        this.$store.state.timeSlot = chosenSlot
+        this.userSelectedSlot = chosenSlot
         this.$store.state.flightDate = chosenDate
         this.userSelectedDate = chosenDate
       },
