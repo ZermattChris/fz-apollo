@@ -17,6 +17,7 @@
         :date="key"
         :timesObj="timeListerObj"
         :usersDate="userSelectedDate"
+        :selected="userSelectedSlot"
         @row-selected="onUpdated"
       ></TimeList>
 
@@ -81,8 +82,9 @@
         mobile: isMobile,
         msg: isMobile ? 'Mobile device: Hide scroll buttons, enable Swipe.' : 'Desktop: Show scroll buttons. ',
 
-        userSelectedDate: this.$store.state.flightDate,
-        userSelectedSlot: this.$store.state.timeSlot,
+        //userSelectedDate: this.$store.state.flightDate,
+        // userSelectedSlot: this.$store.state.timeSlot,
+        slotLabel: '',
 
         daysVisibleList: {},
 
@@ -108,15 +110,37 @@
     },
 
     computed: {
+      userSelectedSlot: {
+        get() {
+          return this.$store.state.timeSlot
+        },
+        set(int) {
+          // Pass along the slot's label as a sanity check for booking time.
+          //console.log('slotLabel', this.slotLabel)
+          const payload = {'slot':int, 'label':this.slotLabel}
+          return this.$store.dispatch('setTimeSlot', payload)
+        }
+      },
+
+      userSelectedDate: {
+        get() {
+          return this.$store.state.flightDate
+        },
+        set(dateStr) {
+          return this.$store.dispatch('setFlightDate', dateStr)
+        }
+      },
+      
       isLoading: function () {
         return this.$store.state._timeList_loading
       },
     },
 
     methods: {
-      onUpdated: function (chosenDate, chosenSlot) {
+      onUpdated: function (chosenDate, chosenSlot, chosenSlotLabel) {
         // chosenSlot is zero based.
         //console.log('chosenDate', chosenDate, 'chosenSlot', chosenSlot, 'timeLabel', timeLabel)
+        this.slotLabel = chosenSlotLabel
         this.$store.state.timeSlot = chosenSlot
         this.userSelectedSlot = chosenSlot
         this.$store.state.flightDate = chosenDate

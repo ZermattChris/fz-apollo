@@ -56,8 +56,10 @@
       >
         <v-list-item-icon>
           <v-icon 
+            class="clockIcon"
             v-text="getClockIcon(nrAvail, key)"
             :color="getSelectedColour(nrAvail, key)"
+            size="28"
           ></v-icon>
         </v-list-item-icon>
 
@@ -111,15 +113,20 @@
         type: [Array, Object],
         required: true,
       },
+      selected: {
+        type: [Number],
+        required: false,
+        default: -1
+      },
     }, 
 
     data () {
       return {
         clockIcon: 'mdi-clock',
-        clockIconOutline: 'mdi-clock-outline',
+        clockIconOutline: 'mdi-minus-circle-outline',
         clockIconSelected: 'mdi-clock-check',
         items: this.timesObj,
-        selectedSlot: -1,
+        selectedSlot: this.selected,
       }
     },
 
@@ -276,11 +283,22 @@
     border-bottom: 1px solid rgb(218, 218, 218);
   }
 
+  /* Gives us a bit more left/right space */
+  .v-list-item {
+    padding: 0 14px;
+  }
+
+    .clockIcon {
+      position: relative;
+      left: -5px;
+      top: 2px;
+    }
+
   /* Format pesky Time label */
   .time {
-    font-size: larger;
+    font-size: 1.25em;
     position: absolute;
-    top: 0.8em;
+    top: 1.1em;
     left: 50px;
   }
     span>>>.hour {
