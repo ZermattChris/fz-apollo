@@ -17,7 +17,7 @@
         {{titleDate.fullDate}}
       </div>
 
-      <v-tooltip 
+      <!-- <v-tooltip 
         top
         open-on-click
       >
@@ -36,7 +36,7 @@
           </v-avatar>
         </template>
         <span>Your selected Date from Step 1.</span>
-      </v-tooltip>
+      </v-tooltip> -->
 
     </div>
 

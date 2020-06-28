@@ -37,7 +37,19 @@ export default new Vuex.Store({
     _flightsList_loading: false,
     _timeList_loading: true,
 
-  },
+    // Nav Button controller
+    // Holds the Router name and t/f for each Page's validity.
+    _navList: {
+      'Start': false,
+      'Time': false,
+      'Info': false,
+      'Next': false,
+      'Pay': false,
+      'Thanks': false,
+    },
+    _currentStep: 'Start'  // Where we currently are in the Form Steps
+
+  },   // END STATE
 
   mutations: {
     // UI Loading...
@@ -92,7 +104,18 @@ export default new Vuex.Store({
       //console.log("Flight Options for ", obj);
       state._flightsList = obj;
     },
-  },
+
+    // Navigation 
+    NAV_LIST(state, payload) {
+      //console.log("Mutating NAV_LIST", payload);
+      state._navList[Object.keys(payload)[0]] = Object.values(payload)[0]
+    },
+    CURRENT_STEP(state, stepName) {
+      state._currentStep = stepName
+    },
+
+
+  },  // END MUTATIONS
 
   actions: {
     // API CALLS.
@@ -186,5 +209,25 @@ export default new Vuex.Store({
       localStorage.selectedTimeslotLabel = payload.label
     },
 
-  },
+    // Nav Action.
+    setNavList(context, payload) {
+      //console.log('NAV_LIST', payload)
+      context.commit("NAV_LIST", payload);
+    },
+    setCurrentStep(context, stepName) {
+      //console.log('NAV_LIST', payload)
+      context.commit("CURRENT_STEP", stepName);
+    },
+
+  },  // END ACTIONS
+  
+  // getters: {
+  //   _navList(state) {
+  //     return state._navList
+  //   }
+  // },   // END GETTERS
+  // getters: {
+  //   _navList: state => () => state._navList
+  // },
+
 });

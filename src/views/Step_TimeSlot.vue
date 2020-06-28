@@ -44,10 +44,11 @@
     },
 
     created() {
-      // console.log('*** Check that both the _flightsList and _timeListDates are loaded ***')
-      // console.log('    This is required when a user opens this page directly, meaning APIs have not been called yet.')
+
+
+      
       this.$store.dispatch('flightOptions')
-      // this.$store.dispatch('timeListDates')
+      this.$store.dispatch('timeListDates')
     },
 
 
@@ -92,7 +93,7 @@
 }
   .vSpacerForAbsolute {
     width: 100%;
-    height: 590px;
+    height: 500px;
   }
 
 TimeListGroup {

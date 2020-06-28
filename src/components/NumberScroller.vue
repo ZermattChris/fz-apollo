@@ -110,6 +110,7 @@ export default {
       this.prevVal = this.myVal
 
       this.$emit('input', this.myVal) // This is the return of v-model 2-way binding.
+      //this.$emit('change', this.myVal) // Standard 'change' event.
     },
     atMaxVal: function () {
       this.myVal = this.max

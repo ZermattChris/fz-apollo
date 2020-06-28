@@ -66,29 +66,16 @@
         <v-col class="pa-5 pa-sm-8 pa-md-12" cols="12" md="10" lg="8" >
 
           <!-- Router hooked up here -->
-          <!-- <transition
-            name="fade"
-            mode="out-in"
-          > -->
-            <router-view
-              @form-is-valid="onEnableContinueBtn"
-            ></router-view>
-          <!-- </transition> -->
+          <router-view
+
+          />
 
           <div class="text-center mt-12 mb-6">
             <!-- Continue Btn -->
-            <v-btn 
-              rounded 
-              color="primary" 
-              elevation="4"
-              :disabled="!canContinue"
-              @click="onContinueBtnClick"
-            >
-              Continue
-              <v-icon right>{{iconNextArrow}}</v-icon>
-            </v-btn>
+            <NavButton
+              ref="ContinueBtn"
+            />
           </div>
-
 
         </v-col>
         <v-col cols="12" md="1" lg="2"></v-col>
@@ -111,20 +98,25 @@
 </template>
 
 <script>
+import NavButton from '@/components/NavButton.vue'
 
 import { format } from 'date-fns'
-import { mdiArrowRightCircle, mdiChevronLeft } from '@mdi/js'
+import { mdiChevronLeft } from '@mdi/js'
 
 
 export default {
   name: 'App',
 
   components: {
-    
+    NavButton,
   },
 
   // Lifecycle Hooks
   async mounted () {
+
+    //console.log('this.$refs.ContinueBtn', this.$refs.ContinueBtn)
+    this.$refs.ContinueBtn.update()
+
     try {
       await this.$store.dispatch('init')
     } catch (ex) {
@@ -134,6 +126,7 @@ export default {
 
 
   beforeUpdate () {
+
     // Show/hide the Back Btn.
     if (this.$route.name === 'Start') {
       //console.log('ON HOME PAGE')
@@ -143,6 +136,7 @@ export default {
     }
   },
   beforeCreate () {
+
     // Need to run some checks looking for stale data.
     // It's possible that a User fills out everything, with a specific
     // chosen date, then returns later and tries to continue with a
@@ -151,41 +145,43 @@ export default {
     console.log("TODO: App Load -> Need to run some checks looking for stale localStorage data.")
   },
 
+
+
   // Reactive data
   data: () => ({
     overlay: false,     // blocks UI until Settings API JSON returns.
     overlayDelay: 500,  // Milliseconds before loading block is shown...
 
-    iconNextArrow:   mdiArrowRightCircle,
     iconPrevChevron: mdiChevronLeft,
     
     canGoBack:   false,
-    canContinue: false,
+    // canContinue: false,
 
   }),
 
   // Methods
   methods: {
     
-    onEnableContinueBtn: function (valid) {
-      //console.log('Enable Btn: ' + valid)
-      this.canContinue = valid
-    },
+    // onEnableContinueBtn: function (valid) {
+    //   //console.log('Enable Btn: ' + valid)
+    //   this.canContinue = valid
+    // },
     onContinueBtnClick: function () {
       //console.log('Clicked Continue Btn:')
 
       //------------- Leaving Step 1 logic here -------------
       if (this.isObjEmpty(this.$store.state.timeListDates)) {
-        console.log('Clicked Continue from Step 1.')
-        this.$store.dispatch('timeListDates')
+        //console.log('Clicked Continue from Step 1.')
+        this.$store.dispatch('timeListDates') // load TimeListGroup's data from API.
       }
       this.$router.push({
-        name: 'Time',
-        path: 'time'
+        //name: 'Time',
+        path: 'time',
+        //component: () => import(/* webpackChunkName: "TimeSlot" */ '@/views/Step_TimeSlot.vue'),
       })
       // END: ----------- Leaving Step 1 logic --------------
       // disable Continue btn
-      this.onEnableContinueBtn(false)
+      //this.onEnableContinueBtn(false)
       this.onEnableBackBtn(true)
     },
 
@@ -214,6 +210,7 @@ export default {
   },
 
   computed: {
+
     _isDEV: function () {
       return this.$store.state._DEV
     },

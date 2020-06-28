@@ -54,7 +54,6 @@
           :return-value.sync="flightDate"
 
           width="290px"
-          @change="onValueChanged"
         >
           <template v-slot:activator="{ on }">
             <v-text-field
@@ -107,7 +106,6 @@
           :disabled="!isValidFlightDate"
           :hint="isValidFlightDate ? '' : 'Please choose a Flight Date first...'"
           persistent-hint
-          @change="onValueChanged"
         >
         </v-select>
       </div>
@@ -127,7 +125,6 @@
           color="success"
           inset 
           :label="`Filmed with GoPros on specially built sticks for some great memories!`"
-          @change="onValueChanged"
         ></v-switch>
       </div>
 
@@ -237,11 +234,8 @@ export default {
         this.$refs.numberScroller.$el.querySelector('#increment').focus()
       }
     })
-    this.onValueChanged()
+    //this.onValueChanged()
   },
-  // beforeUpdate() {
-  //   this.$emit('data-changed')  // use this to save changed data to localStorage in App
-  // },
   updated() {
     // update the Continue btn if page is valid
     this.onValueChanged()
@@ -364,16 +358,23 @@ export default {
     }
   },
   methods: {
+    
+    // move this to updating a VueX state list, that the Continue button
+    // can react to on its own.
     onValueChanged: function () {
       if (this.areAllInputsValid) {
         // trigger an event that the Continue button can listen for.
         //console.log('Would activate the Contine btn here...')
-        this.$emit('form-is-valid', true)
-        return true
+        // this.$emit('form-is-valid', true, )
+        const payload = {'Start': true}
+        this.$store.dispatch('setNavList', payload)
+        return
       }
-      this.$emit('form-is-valid', false)
-      return false
+      // this.$emit('form-is-valid', false)
+      const payload = {'Start': false}
+      this.$store.dispatch('setNavList', payload)
     },
+
     buildFlightList: function () {
       const obj = this.$store.state._flightsList
       //console.log('build flight list for drop menu', obj)
@@ -405,6 +406,7 @@ export default {
       // LOAD VueX - grab timesListDates from API.
       // Only fire if the Which Flight? isn't empty.
       if (this.flightChosen === '') return
+      console.log('Flight Date + Flight Type chnged. Preload TLGroup')
       this.$store.dispatch('timeListDates')
     },
     flightsWatch: function () {
