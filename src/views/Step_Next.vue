@@ -1,5 +1,5 @@
 <template>
-  <div class="stepInfo">
+  <div class="stepPay">
     
     <PageHeader title="4. Next Steps">
       General information you should know about before finalizing your booking...

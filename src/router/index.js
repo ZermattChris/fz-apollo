@@ -29,16 +29,16 @@ const routes = [
     name: 'Next',
     component: () => import(/* webpackChunkName: "Next" */ '@/views/Step_Next.vue'),
   },
-  // {
-  //   path: '/pay',
-  //   name: 'Pay',
-  //   component: () => import(/* webpackChunkName: "Pay" */ '@/views/Step_Pay.vue'),
-  // },
-  // {
-  //   path: '/thanks',
-  //   name: 'Thanks',
-  //   component: () => import(/* webpackChunkName: "Thanks" */ '@/views/Step_Thanks.vue'),
-  // }
+  {
+    path: '/pay',
+    name: 'Pay',
+    component: () => import(/* webpackChunkName: "Pay" */ '@/views/Step_Pay.vue'),
+  },
+  {
+    path: '/thanks',
+    name: 'Thanks',
+    component: () => import(/* webpackChunkName: "Thanks" */ '@/views/Step_Thanks.vue'),
+  }
 ]
 
 const router = new VueRouter({

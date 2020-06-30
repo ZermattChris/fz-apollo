@@ -1,10 +1,8 @@
 <template>
-  <div class="stepInfo">
+  <div class="stepThanks">
     
-    <PageHeader :title="timeListerHeaderStr">
-      [rough idea for text here] Explain why we need all of this info – safer flights, easier for us 
-      to give the best possible experience and to ease the scheduling process on our end...
-      <br><br>
+    <PageHeader title="6. Thank you!">
+      Thanks for making a booking with FlyZermatt...
       
     </PageHeader>
 
@@ -15,7 +13,7 @@
   import PageHeader from '@/components/PageHeader.vue'
 
   export default {
-    name: "Step_Info",
+    name: "Step_Thanks",
   
     components: {
       PageHeader
@@ -41,12 +39,7 @@
       usersGroupSize: function () {
         return this.$store.state.nrPeople
       },
-      timeListerHeaderStr: function () {
-        if (this.$store.state.nrPeople === 1) {
-          return "3. Your Details"
-        }
-        return "3. Group Details"
-      }
+      
     },
 
     methods: {
