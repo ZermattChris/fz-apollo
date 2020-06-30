@@ -44,19 +44,11 @@
     },
 
     created() {
-
-
-      
       this.$store.dispatch('flightOptions')
       this.$store.dispatch('timeListDates')
     },
-
-
+    
     computed: {
-      // dates: function () {
-      //   // replace with an API call when its live...
-      //   return jsonDates
-      // },
       userFlightDate: function () {
         return this.$store.state.flightDate
       },
@@ -75,7 +67,7 @@
 
     methods: {
       setUserDate: function (dateStr) {
-        //console.log(dateStr)
+        console.log(dateStr)
         this.userTimeSlot = dateStr
         return dateStr
       }

@@ -113,10 +113,6 @@ export default {
 
   // Lifecycle Hooks
   async mounted () {
-
-    //console.log('this.$refs.ContinueBtn', this.$refs.ContinueBtn)
-    this.$refs.ContinueBtn.update()
-
     try {
       await this.$store.dispatch('init')
     } catch (ex) {
@@ -137,15 +133,25 @@ export default {
   },
   beforeCreate () {
 
-    // Need to run some checks looking for stale data.
-    // It's possible that a User fills out everything, with a specific
-    // chosen date, then returns later and tries to continue with a
-    // date that is no longer valid. 
-    // Give some sort of popup message and clear the date - timeslot data.
-    console.log("TODO: App Load -> Need to run some checks looking for stale localStorage data.")
+    /** TODO: Need to run some checks looking for stale data.
+              It's possible that a User fills out everything, with a specific
+              chosen date, then returns later and tries to continue with a
+              date that is no longer valid. 
+              Give some sort of popup message and clear the date - timeslot data.
+              console.log("TODO: App Load -> Need to run some checks looking for stale localStorage data.")
+              Need to check to see if each step is valid and mark it 'false' in _navList if not.
+              Go back to the first Step that has clean data, and let the user know that there
+              was old/stale data that needs to be reinput.
+    */
+    console.log('beforeCreate on App.vue')
   },
 
-
+  updated () {
+    //console.log('this.$refs.ContinueBtn', this.$refs.ContinueBtn)
+    // This needs to be called on updated() to allow the Step_Start to figure out
+    // if the Step is valid and update the _navList in beforeUpdate().
+    this.$refs.ContinueBtn.update()
+  },
 
   // Reactive data
   data: () => ({
@@ -162,29 +168,6 @@ export default {
   // Methods
   methods: {
     
-    // onEnableContinueBtn: function (valid) {
-    //   //console.log('Enable Btn: ' + valid)
-    //   this.canContinue = valid
-    // },
-    onContinueBtnClick: function () {
-      //console.log('Clicked Continue Btn:')
-
-      //------------- Leaving Step 1 logic here -------------
-      if (this.isObjEmpty(this.$store.state.timeListDates)) {
-        //console.log('Clicked Continue from Step 1.')
-        this.$store.dispatch('timeListDates') // load TimeListGroup's data from API.
-      }
-      this.$router.push({
-        //name: 'Time',
-        path: 'time',
-        //component: () => import(/* webpackChunkName: "TimeSlot" */ '@/views/Step_TimeSlot.vue'),
-      })
-      // END: ----------- Leaving Step 1 logic --------------
-      // disable Continue btn
-      //this.onEnableContinueBtn(false)
-      this.onEnableBackBtn(true)
-    },
-
     onEnableBackBtn: function (show) {
       //console.log('Enable Btn: ' + valid)
       this.canGoBack = show
@@ -204,8 +187,8 @@ export default {
       this.$store.dispatch('setFlight', '')
       this.$store.dispatch('setWantsPhotos', false)
       this.$store.dispatch('setTimeSlot', 0)
-      // this.$store.dispatch('setFlightsList', null)
-      // this.saveLocalStorageValues()
+      this.$store.dispatch('clearNavList')
+      this.$store.dispatch('setCurrentStep', '')
     },
   },
 

@@ -36,49 +36,66 @@
     created () {
       this.$store.watch(
         (state)=>{
-          //console.log('_navList.Start:', state._navList.Start)
+          // What to watch in store.
+          //console.log('Watched -> state._navList', state._navList)
           return state._navList
         },
         ()=>{
+          // How to react to the watch
+          console.log('Reacted to watched -> state._navList')
           this.update()
-          // const currPage = this.$route.name
-          // const key = Object.keys(_navList)[0]
-          // const val = Object.values(_navList)[0]
-          // //console.log('key', key, 'val', val);
-          // // current page is valid, activate CONTINUE button.
-          // if (currPage === key) {
-          //   this.isDisabled = !val
-          // }
         },
         {
+          // React to changes in the watched Object in store.
           deep:true
         }
       );
+      // this.$store.watch(
+      //   function (state) {
+      //     console.log('state._currentStep', state._currentStep)
+      //     return state._currentStep;
+      //   },
+      //   function () {
+      //     //do something on data change
+      //     this.update()
+      //   },
+      //   {
+      //       deep: true //add this if u need to watch object properties change etc.
+      //   }
+      // )
     },
 
+    // computed: {
+    //   ...mapGetters({
+    //     currentRouteStep: '_currentStep'
+    //   })
+    // },
+
+    watch: {
+      '$store.state._currentStep': function() {
+        //console.log(this.$store.state._currentStep)
+        this.update()
+      }
+    },
 
     methods: {
-      
+      // ! Issues here. route.name resolves to null ??
       // call to force the Continue button to enable/disable 
       // according to the validity flag stored in _navList
       update: function () {
-        console.log('Updating CONTINUE Btn')
         const currPage = this.$route.name
-        const navList = this.$store.state._navList
-        const key = Object.keys(navList)[0]
-        const val = Object.values(navList)[0]
-        //console.log('key', key, 'val', val);
-        // current page is valid, activate CONTINUE button.
-        if (currPage === key) {
-          this.isDisabled = !val
-        }
+        //console.log('Updating CONTINUE Btn for: ', currPage)
+        const val = this.$store.state._navList[currPage]
+        console.log('currPage', currPage, 'val', val)
+        this.isDisabled = !val
       },
 
-
+      // Where to go when the CONTINUE button is clicked.
+      // This seems to be working properly.
       navigate: function () {
 
         const currStep = this.$store.state._currentStep
-        console.log('Navigating the CONTINUE Btn')
+        //console.log('Navigating the CONTINUE Btn')
 
         switch (currStep) {
           case 'Start': 
@@ -109,7 +126,7 @@
         }
 
         const targetStep = this.$store.state._currentStep
-        console.log('Nav to:', targetStep)
+        //console.log('Nav to:', targetStep)
 
         this.$router.push({
           path: targetStep

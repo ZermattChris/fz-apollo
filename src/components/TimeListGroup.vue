@@ -145,6 +145,10 @@
         this.userSelectedSlot = chosenSlot
         // this.$store.state.flightDate = chosenDate
         this.userSelectedDate = chosenDate
+        // Set 'Time' to true in the store _navList
+        const payload = {'Time': true}
+        this.$store.dispatch('setNavListItem', payload)
+
       },
 
       loadVisibleDays: function () {

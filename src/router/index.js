@@ -10,10 +10,6 @@ const routes = [
     path: '/',
     name: 'Start',
     component: Step_Start,
-    // beforeEnter: (to, from, next) => {
-    //   console.log(this, to, from, next)
-    //   next()
-    // }
   },
   {
     path: '/time',
@@ -22,7 +18,27 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "TimeSlot" */ '@/views/Step_TimeSlot.vue'),
-  }
+  },
+  {
+    path: '/info',
+    name: 'Info',
+    component: () => import(/* webpackChunkName: "Info" */ '@/views/Step_Info.vue'),
+  },
+  {
+    path: '/next',
+    name: 'Next',
+    component: () => import(/* webpackChunkName: "Next" */ '@/views/Step_Next.vue'),
+  },
+  // {
+  //   path: '/pay',
+  //   name: 'Pay',
+  //   component: () => import(/* webpackChunkName: "Pay" */ '@/views/Step_Pay.vue'),
+  // },
+  // {
+  //   path: '/thanks',
+  //   name: 'Thanks',
+  //   component: () => import(/* webpackChunkName: "Thanks" */ '@/views/Step_Thanks.vue'),
+  // }
 ]
 
 const router = new VueRouter({

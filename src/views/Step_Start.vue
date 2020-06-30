@@ -214,7 +214,7 @@ export default {
 
       bigGroupDialog: false,
 
-      isPageValid: this.areAllInputsValid
+      isPageValid: this.$store.getters.step_startValid
     }
   },
 
@@ -236,7 +236,7 @@ export default {
     })
     //this.onValueChanged()
   },
-  updated() {
+  beforeUpdate() {
     // update the Continue btn if page is valid
     this.onValueChanged()
   },
@@ -342,12 +342,12 @@ export default {
       }
       return false
     },
-    areAllInputsValid: function () {
-      if (this.isValidNrPeople && this.isValidFlightDate && this.isValidFlightChosen) {
-        return true
-      }
-      return false
-    },
+    // areAllInputsValid: function () {
+    //   if (this.isValidNrPeople && this.isValidFlightDate && this.isValidFlightChosen) {
+    //     return true
+    //   }
+    //   return false
+    // },
     formatISODate: function () {
       if (this.flightDate === '') return '' // Guard against trying to parse an empty string as a Date.
       const myDate = parseISO(this.flightDate)
@@ -362,17 +362,17 @@ export default {
     // move this to updating a VueX state list, that the Continue button
     // can react to on its own.
     onValueChanged: function () {
-      if (this.areAllInputsValid) {
-        // trigger an event that the Continue button can listen for.
-        //console.log('Would activate the Contine btn here...')
-        // this.$emit('form-is-valid', true, )
+      // if (this.areAllInputsValid) {
+      if (this.$store.getters.step_startValid) {
+        //console.log('onValueChanged -> areAllInputsValid()')
         const payload = {'Start': true}
-        this.$store.dispatch('setNavList', payload)
+        this.$store.dispatch('setNavListItem', payload)
         return
       }
       // this.$emit('form-is-valid', false)
+      //console.log('onValueChanged -> inputs NOT VALID. Start = false')
       const payload = {'Start': false}
-      this.$store.dispatch('setNavList', payload)
+      this.$store.dispatch('setNavListItem', payload)
     },
 
     buildFlightList: function () {
@@ -406,8 +406,9 @@ export default {
       // LOAD VueX - grab timesListDates from API.
       // Only fire if the Which Flight? isn't empty.
       if (this.flightChosen === '') return
-      console.log('Flight Date + Flight Type chnged. Preload TLGroup')
+      //console.log('Flight Date + Flight Type chnged. Preload TLGroup')
       this.$store.dispatch('timeListDates')
+      this.onValueChanged()
     },
     flightsWatch: function () {
       // When this computed property (source data is: this.$store.flightsList)

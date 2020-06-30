@@ -7,6 +7,15 @@ import tmp from "./temp.json"
 
 Vue.use(Vuex)
 
+const rawNavList = {
+  'Start': false,
+  'Time': false,
+  'Info': true,
+  'Next': true,
+  'Pay': true,
+  'Thanks': true
+}
+
 export default new Vuex.Store({
   state: {
 
@@ -39,15 +48,10 @@ export default new Vuex.Store({
 
     // Nav Button controller
     // Holds the Router name and t/f for each Page's validity.
-    _navList: {
-      'Start': false,
-      'Time': false,
-      'Info': false,
-      'Next': false,
-      'Pay': false,
-      'Thanks': false,
-    },
-    _currentStep: 'Start'  // Where we currently are in the Form Steps
+    _navList: localStorage._navList ? JSON.parse(localStorage._navList) : rawNavList,
+
+      // Where we currently are in the Form Steps
+    _currentStep: localStorage._currentStep || "",  
 
   },   // END STATE
 
@@ -106,11 +110,16 @@ export default new Vuex.Store({
     },
 
     // Navigation 
+    CLEAR_NAV_LIST(state) {
+      //console.log("Mutating CLEAR_NAV_LIST", payload);
+      state._navList = rawNavList
+    },
     NAV_LIST(state, payload) {
       //console.log("Mutating NAV_LIST", payload);
       state._navList[Object.keys(payload)[0]] = Object.values(payload)[0]
     },
     CURRENT_STEP(state, stepName) {
+      //console.log("Mutating CURRENT_STEP", stepName);
       state._currentStep = stepName
     },
 
@@ -210,24 +219,40 @@ export default new Vuex.Store({
     },
 
     // Nav Action.
-    setNavList(context, payload) {
+    clearNavList(context) {
+      //console.log('NAV_LIST', payload)
+      context.commit("CLEAR_NAV_LIST");
+      localStorage._navList = JSON.stringify(context.state._navList)
+    },
+    setNavListItem(context, payload) {
       //console.log('NAV_LIST', payload)
       context.commit("NAV_LIST", payload);
+      localStorage._navList = JSON.stringify(context.state._navList)
     },
     setCurrentStep(context, stepName) {
       //console.log('NAV_LIST', payload)
       context.commit("CURRENT_STEP", stepName);
+      localStorage._currentStep = stepName
     },
 
   },  // END ACTIONS
   
-  // getters: {
-  //   _navList(state) {
-  //     return state._navList
-  //   }
-  // },   // END GETTERS
-  // getters: {
-  //   _navList: state => () => state._navList
-  // },
+  getters: {
+
+    step_startValid: state => {
+      const isValid = state.nrPeople && state.flightDate !== '' && state.selectedFlight !== ''
+      //console.log('step_startValid? :', isValid)
+      return isValid
+    },
+
+    step_timeValid: (state, getters) => {
+      const isValid = state.timeSlot > -1 && state.timeSlotLabel !== '' && getters.step_startValid
+      //console.log('step_timeValid? :', isValid)
+      return isValid
+    }
+
+
+  }  // END GETTERS
+  
 
 });
