@@ -109,20 +109,20 @@
           case 'Info': 
             console.log('Leaving Info')
             this.$store.dispatch('setCurrentStep', 'Next')
-            break;
+            break
           case 'Next': 
             console.log('Leaving Next')
             this.$store.dispatch('setCurrentStep', 'Pay')
-            break;
+            break
           case 'Pay': 
             console.log('Leaving Pay')
             this.$store.dispatch('setCurrentStep', 'Thanks')
-            break;
+            break
           case 'Thanks': 
             console.log('Leaving Thanks. Where next?? (homepage??)')
             this.$store.dispatch('setCurrentStep', 'Completed')
-            break;
-
+            window.location = 'http://www.flyzermatt.com'
+            return
         }
 
         const targetStep = this.$store.state._currentStep

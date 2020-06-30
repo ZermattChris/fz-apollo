@@ -203,7 +203,13 @@ export default {
     isAppStillLoading: function () {
       return this.$store.state._app_loading
     }
-  }
+  },
+  
+  watch: {
+    '$route' (to) {
+      document.title = to.meta.title || 'Secure Booking at FlyZermatt Paragliding'
+    }
+  },
 };
 
 

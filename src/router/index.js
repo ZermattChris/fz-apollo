@@ -10,6 +10,7 @@ const routes = [
     path: '/',
     name: 'Start',
     component: Step_Start,
+    meta: { title: 'Book your Flight! Get Started' },
   },
   {
     path: '/time',
@@ -18,26 +19,31 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "TimeSlot" */ '@/views/Step_TimeSlot.vue'),
+    meta: { title: 'Choose the Time to fly' },
   },
   {
     path: '/info',
     name: 'Info',
     component: () => import(/* webpackChunkName: "Info" */ '@/views/Step_Info.vue'),
+    meta: { title: 'Contact Details & Passenger infos' },
   },
   {
     path: '/next',
     name: 'Next',
     component: () => import(/* webpackChunkName: "Next" */ '@/views/Step_Next.vue'),
+    meta: { title: 'What to do Next...' },
   },
   {
     path: '/pay',
     name: 'Pay',
     component: () => import(/* webpackChunkName: "Pay" */ '@/views/Step_Pay.vue'),
+    meta: { title: 'Payment Gateway' },
   },
   {
     path: '/thanks',
     name: 'Thanks',
     component: () => import(/* webpackChunkName: "Thanks" */ '@/views/Step_Thanks.vue'),
+    meta: { title: 'Thanks for booking with FlyZermatt!' },
   }
 ]
 
@@ -56,6 +62,7 @@ const router = new VueRouter({
   }
 })
 
+// Global Navigation Guards.
 router.afterEach((to) => {
   console.log('Global -> afterEach() in router', to.name)
   store.dispatch('setCurrentStep', to.name)
