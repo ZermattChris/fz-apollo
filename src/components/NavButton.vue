@@ -2,7 +2,7 @@
 
     <v-btn 
       rounded 
-      color="primary" 
+      color="white" 
       elevation="4"
       :disabled="isDisabled"
       @click="navigate"
@@ -140,3 +140,9 @@
 
 
 </script>
+
+<style scoped>
+  .theme--dark.v-btn {
+    color: black;
+  }
+</style>>
