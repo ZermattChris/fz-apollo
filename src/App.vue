@@ -84,7 +84,7 @@
 
     <v-footer
       class="justify-end"
-      style="min-height:70px;"
+      style="min-height:60px;"
       color="primary"
       dark
       app
@@ -93,8 +93,9 @@
       <!-- Continue Btn -->
       <div
         class="d-flex"
-        style="position:absolute; width:100%; height:100%; top:15px;"
+        style="position:absolute; width:100%; height:100%; top:10px;"
       >
+        <!-- Continue Btn -->
         <NavButton
           class="mx-auto"
           ref="ContinueBtn"
@@ -110,7 +111,7 @@
         style="max-width:140px; line-height:1.2em; text-align:right;"
         class="hidden-sm-and-up white--text overline mr-2"
       >
-        © {{getCurrentYear}} - FlyZermatt
+        © {{getCurrentYear}} FlyZermatt
       </div>
     </v-footer>
 

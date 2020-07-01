@@ -17,7 +17,7 @@
     </div>
 
     <!-- This is required as I've position:absolute'd the steps-controls container,
-    otherwise the Continue button would jump up. -->
+    otherwise any contents after the TLG would jump up. -->
     <div class="vSpacerForAbsolute"></div>
 
   </div>
