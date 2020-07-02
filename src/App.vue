@@ -93,7 +93,7 @@
       <!-- Continue Btn -->
       <div
         class="d-flex"
-        style="position:absolute; width:100%; height:100%; top:10px;"
+        style="position:absolute; width:100%; height:100%; top:12px;"
       >
         <!-- Continue Btn -->
         <NavButton
