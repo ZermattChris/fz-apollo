@@ -12,13 +12,32 @@
     cols="12"
     sm="5"
   >
-    <v-text-field label="Contact's First &amp; Last Name" dense></v-text-field>
+    <v-text-field 
+      label="Phone" 
+      :rules="[rules.required, rules.phone]" 
+      hide-details="auto"
+      outlined
+      dense
+      type="tel"
+      name="tel"
+      placeholder="(+Country Code) (Phone Number)"
+      hint="Example: +1 203 456-7890"
+      persistent-hint
+    />
   </v-col>
   <v-col
     cols="12"
     sm="5"
   >
-    <v-text-field label="Contact's Email" dense></v-text-field>
+    <v-text-field 
+      label="Email" 
+      :rules="[rules.required, rules.email]"
+      hide-details="auto"
+      outlined
+      dense
+      type="email"
+      name="email"
+    />
   </v-col>
 </v-row>
 
@@ -29,6 +48,7 @@
       <v-expansion-panel
         v-for="(item, i) in usersGroupSize"
         :key="i"
+        disabled
       >
         <v-expansion-panel-header>Passenger {{i+1}}</v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -54,7 +74,18 @@
     data () {
       return {
         mobile: isMobile,
-        
+        rules: {
+          required: value => !!value || 'Required.',
+          counter: value => value.length <= 20 || 'Max 20 characters',
+          email: value => {
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return pattern.test(value) || 'Invalid e-mail...'
+          },
+          phone: value => {
+            const pattern = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+            return pattern.test(value) || 'Invalid Number...'
+          },
+        }
       }
     },
 
@@ -85,7 +116,7 @@
         //console.log(dateStr)
         this.userTimeSlot = dateStr
         return dateStr
-      }
+      },
     },
   }
 
