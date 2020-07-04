@@ -7,16 +7,27 @@
       <br>
     </PageHeader>
 
-
-
+<v-row>
+  <v-col
+    cols="12"
+    sm="5"
+  >
+    <v-text-field label="Contact's First &amp; Last Name" dense></v-text-field>
+  </v-col>
+  <v-col
+    cols="12"
+    sm="5"
+  >
+    <v-text-field label="Contact's Email" dense></v-text-field>
+  </v-col>
+</v-row>
 
     <v-expansion-panels
-      popout
       focusable
-      inset
+      :inset="!mobile"
     >
       <v-expansion-panel
-        v-for="(item,i) in 5"
+        v-for="(item, i) in usersGroupSize"
         :key="i"
       >
         <v-expansion-panel-header>Passenger {{i+1}}</v-expansion-panel-header>
@@ -31,6 +42,7 @@
 
 <script>
   import PageHeader from '@/components/PageHeader.vue'
+  import { isMobile } from 'mobile-device-detect'
 
   export default {
     name: "Step_Info",
@@ -41,6 +53,7 @@
 
     data () {
       return {
+        mobile: isMobile,
         
       }
     },
