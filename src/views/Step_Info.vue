@@ -13,6 +13,7 @@
     <v-expansion-panels
       popout
       focusable
+      inset
     >
       <v-expansion-panel
         v-for="(item,i) in 5"
