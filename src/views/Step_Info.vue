@@ -7,39 +7,46 @@
       <br>
     </PageHeader>
 
-<v-row>
-  <v-col
-    cols="12"
-    sm="5"
-  >
-    <v-text-field 
-      label="Phone" 
-      :rules="[rules.required, rules.phone]" 
-      hide-details="auto"
-      outlined
-      dense
-      type="tel"
-      name="tel"
-      placeholder="(+Country Code) (Phone Number)"
-      hint="Example: +1 203 456-7890"
-      persistent-hint
-    />
-  </v-col>
-  <v-col
-    cols="12"
-    sm="5"
-  >
-    <v-text-field 
-      label="Email" 
-      :rules="[rules.required, rules.email]"
-      hide-details="auto"
-      outlined
-      dense
-      type="email"
-      name="email"
-    />
-  </v-col>
-</v-row>
+    <div class="mb-3 px-2 blue-grey lighten-5 rounded">Group Contact Infos:
+    <v-row>
+      <v-col
+        cols="12"
+        sm="6"
+        class="pt-2 pb-0"
+      >
+        <v-text-field 
+          label="Phone"
+          background-color="white"
+          :rules="[rules.required, rules.phone]" 
+          hide-details="auto"
+          outlined
+          dense
+          type="tel"
+          name="tel"
+          placeholder="(+Country Code) (Phone Number)"
+          hint="Example: +1 203 456-7890"
+          persistent-hint
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        class="pt-2 pb-0 pt-xs-1 mb-6"
+      >
+        <v-text-field 
+          label="Email"
+          background-color="white"
+          :rules="[rules.required, rules.email]"
+          hide-details="auto"
+          outlined
+          dense
+          type="email"
+          name="email"
+          placeholder="mail@you.com"
+        />
+      </v-col>
+    </v-row>
+    </div>
 
     <v-expansion-panels
       focusable
@@ -123,12 +130,12 @@
 </script>
 
 <style scoped>
-.steps-controls {
-  position: absolute;
-  left:0; right: 0;
-  text-align: center;
-  margin: 0 auto;
-}
+  .steps-controls {
+    position: absolute;
+    left:0; right: 0;
+    text-align: center;
+    margin: 0 auto;
+  }
 
 
 </style>
