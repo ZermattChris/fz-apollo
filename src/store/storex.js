@@ -10,10 +10,10 @@ Vue.use(Vuex)
 const rawNavList = {
   'Start': false,
   'Time': false,
-  'Info': true,
-  'Next': true,
-  'Pay': true,
-  'Thanks': true
+  'Info': false,
+  'Next': false,
+  'Pay': false,
+  'Thanks': false
 }
 
 export default new Vuex.Store({
@@ -28,8 +28,13 @@ export default new Vuex.Store({
     flightDate:     localStorage.flightDate || "",
     selectedFlight: localStorage.selectedFlight || "",
     wantsPhotos:    localStorage.wantsPhotos ? JSON.parse(localStorage.wantsPhotos) : false,  // convert to bool if not undefined.
+    
     timeSlot:      +localStorage.selectedTimeslot || -1,
-    timeSlotLabel: localStorage.selectedTimeslotLabel || "",
+    timeSlotLabel:  localStorage.selectedTimeslotLabel || "",
+
+    contactPhone:   localStorage.contactPhone || "",
+    contactEmail:   localStorage.contactEmail || "",
+
 
     // Settings - API call result
     // Using an Underscore to help make it clear that this isn't User Input.
@@ -98,10 +103,20 @@ export default new Vuex.Store({
     CHOSEN_PHOTOS(state, photosBool) {
       state.wantsPhotos = photosBool;
     },
+
     CHOSEN_TIMESLOT(state, slotInt, slotLabel) {
       state.timeSlot = slotInt;
       state.timeSlotLabel = slotLabel;
     },
+
+    CONTACT_PHONE(state, phoneNr) {
+      state.contactPhone = phoneNr;
+    },
+    CONTACT_EMAIL(state, email) {
+      state.contactEmail = email;
+    },
+    
+    
 
     // Local Storage Cached
     FLIGHTS_LIST(state, obj) {
@@ -235,6 +250,15 @@ export default new Vuex.Store({
       localStorage._currentStep = stepName
     },
 
+    setContactPhone(context, phoneNr) {
+      //console.log('NAV_LIST', payload)
+      context.commit("CONTACT_PHONE", phoneNr);
+    },
+    setContactEmail(context, email) {
+      //console.log('NAV_LIST', payload)
+      context.commit("CONTACT_EMAIL", email);
+    },
+
   },  // END ACTIONS
   
   getters: {
@@ -248,6 +272,12 @@ export default new Vuex.Store({
     step_timeValid: (state, getters) => {
       const isValid = state.timeSlot > -1 && state.timeSlotLabel !== '' && getters.step_startValid
       //console.log('step_timeValid? :', isValid)
+      return isValid
+    },
+
+    step_infoValid: (state, getters) => {
+      const isValid = state.contactPhone !== '' && state.contactEmail !== '' && getters.step_startValid && getters.step_timeValid
+      //console.log('step_infoValid? :', isValid)
       return isValid
     }
 
