@@ -253,10 +253,12 @@ export default new Vuex.Store({
     setContactPhone(context, phoneNr) {
       //console.log('NAV_LIST', payload)
       context.commit("CONTACT_PHONE", phoneNr);
+      localStorage.contactPhone = phoneNr
     },
     setContactEmail(context, email) {
       //console.log('NAV_LIST', payload)
       context.commit("CONTACT_EMAIL", email);
+      localStorage.contactEmail = email
     },
 
   },  // END ACTIONS

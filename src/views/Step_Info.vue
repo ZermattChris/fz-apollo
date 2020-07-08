@@ -11,7 +11,6 @@
     <v-form
       ref="infoForm"
       v-model="contactValid"
-      lazy-validation
     >
       <div class="mb-3 px-2 blue-grey lighten-5 rounded">Contact Details:
         <v-row>
@@ -23,6 +22,7 @@
             <v-text-field 
               label="Phone"
               ref="Phone"
+              v-model="contactPhone"
               background-color="white"
               :rules="[rules.required, rules.phone]" 
               hide-details="auto"
@@ -43,6 +43,7 @@
             <v-text-field 
               label="Email"
               ref="Email"
+              v-model="contactEmail"
               background-color="white"
               :rules="[rules.required, rules.email]"
               hide-details="auto"
@@ -65,9 +66,12 @@
       <v-expansion-panel
         v-for="(item, i) in usersGroupSize"
         :key="i"
-        :disabled="i === 0 ? !contactValid : false"
+        :disabled="i === 0 ? !contactValid : true"
       >
-        <v-expansion-panel-header>Passenger {{i+1}}</v-expansion-panel-header>
+        <v-expansion-panel-header>
+          <span v-if="i === 0">Contact's Infos</span>
+          <span v-if="i > 0">Passenger {{i+1}}'s Infos</span>
+        </v-expansion-panel-header>
         <v-expansion-panel-content>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </v-expansion-panel-content>
@@ -119,7 +123,28 @@
 
 
     computed: {
+
+      contactPhone: {
+        get() {
+          return this.$store.state.contactPhone
+        },
+        set(phone) {
+          return this.$store.dispatch('setContactPhone', phone)
+        }
+      },
+      contactEmail: {
+        get() {
+          return this.$store.state.contactEmail
+        },
+        set(email) {
+          return this.$store.dispatch('setContactEmail', email)
+        }
+      },
       
+      // accordianControler: function () {
+      //   return [0,2]
+      // },
+
       userFlightDate: function () {
         return this.$store.state.flightDate
       },
