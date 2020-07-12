@@ -212,6 +212,8 @@ export default {
       this.$store.dispatch('setTimeSlot', 0)
       this.$store.dispatch('clearNavList')
       this.$store.dispatch('setCurrentStep', '')
+      this.$store.dispatch('setContactPhone', '')
+      this.$store.dispatch('setContactEmail', '')
     },
   },
 

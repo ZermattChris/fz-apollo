@@ -9,10 +9,10 @@
     </PageHeader>
 
     <v-form
-      ref="infoForm"
+      ref="contactForm"
       v-model="contactValid"
     >
-      <div class="mb-3 px-2 blue-grey lighten-5 rounded">Contact Details:
+      <div class="mb-3 px-2 pt-1 blue-grey lighten-5 rounded">Booking Contact:
         <v-row>
           <v-col
             cols="12"
@@ -58,30 +58,97 @@
       </div>
     </v-form>
     
-
-    <v-expansion-panels
-      focusable
-      :inset="!mobile"
+  
+    <v-form
+      ref="infosForm"
+      v-model="contactValid"
+      lazy-validation
     >
-      <v-expansion-panel
-        v-for="(item, i) in usersGroupSize"
-        :key="i"
-        :disabled="i === 0 ? !contactValid : true"
+      <v-expansion-panels
+        focusable
+        :inset="!mobile"
       >
-        <v-expansion-panel-header>
-          <span v-if="i === 0">Contact's Infos</span>
-          <span v-if="i > 0">Passenger {{i+1}}'s Infos</span>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
+        <v-expansion-panel
+            v-for="(item, i) in usersGroupSize"
+            :key="i"
+            :disabled="contactValid ? false : true"
+          >
+            <v-expansion-panel-header>
+              <span v-if="i === 0">Contact Passenger</span>
+              <span v-if="i > 0">Passenger #{{i+1}}</span>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              
+              <v-row>
+                <v-col cols="2">
+                  <!-- Sex -->
+                  <v-btn-toggle
+                    v-model="toggle_exclusive"
+                    rounded
+                  >
+                    <v-btn>
+                      <v-icon>mdi-human-male</v-icon>
+                    </v-btn>
+                    <v-btn>
+                      <v-icon>mdi-human-female</v-icon>
+                    </v-btn>
+                  </v-btn-toggle>
+                </v-col>
 
-<!-- <v-btn rounded color="primary" dark
-  :disabled="!contactValid"
-  @click="temp"
->TEMP</v-btn> -->
+                <v-col 
+                  cols="12"
+                  :sm="9"
+                  :md="10"
+                >
+                  <!-- Contact Name input -->
+                  <v-text-field 
+                    class="ml-sm-6"
+                    v-if="i === 0"
+                    background-color="white"
+                    :rules="[rules.required]"
+                    hide-details="auto"
+                    outlined
+                    dense
+                    name="first-last"
+                    placeholder="First, Last Name"
+                  />
+                </v-col>
+              </v-row>
+
+              <!-- Speed/fitness slider -->
+              <v-row>
+                <div class="pt-1 pl-3 font-weight-light">Running Ability:</div>
+                <v-col cols="12">
+                  <v-btn-toggle
+                  class="d-flex justify-space-between"
+                    v-model="toggle_exclusive"
+                    rounded
+                  >
+                    <v-btn>
+                      <v-icon>mdi-tortoise</v-icon>
+                    </v-btn>
+                    <v-slider
+                      class="pt-2"
+                      v-model="slider"
+                      thumb-label="always"
+                      :thumb-size="24"
+                    ></v-slider>
+                    <v-btn id="rabbit">
+                      <v-icon>mdi-rabbit</v-icon>
+                    </v-btn>
+                  </v-btn-toggle>
+                </v-col>
+              </v-row>
+
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+      </v-expansion-panels>
+    </v-form>
+
+    <!-- <v-btn rounded color="primary" dark
+      :disabled="!contactValid"
+      @click="temp"
+    >TEMP</v-btn> -->
 
   </div>
 </template>
@@ -101,6 +168,13 @@
       return {
         mobile: isMobile,
         contactValid: false,
+
+        enabledPanelsList: [],
+        activePanelsList:  [],
+
+        toggle_exclusive: undefined,
+        slider: 50,
+
         rules: {
           required: value => !!value || 'Required.',
           counter: value => value.length <= 20 || 'Max 20 characters',
@@ -161,8 +235,17 @@
 
     methods: {
 
-      temp: function () {
-        console.log(this.$refs.infoForm.validate())
+      // temp: function () {
+      //   console.log(this.$refs.infoForm.validate())
+      // },
+
+      addInfoComplete: function (passengerIndex) {
+        console.log(passengerIndex)
+        
+      },
+      removeInfoComplete: function (passengerIndex) {
+        console.log(passengerIndex)
+        
       },
 
       setUserDate: function (dateStr) {
@@ -173,10 +256,14 @@
     },
 
     watch: {
-      // contactValid: function () {
-      //   console.log('Contact Valid:', this.$refs.infoForm.validate())
-      //   // Enable the first of the accordian steps for input.
-      // },
+      contactValid: function () {
+        console.log('contactValid changed', this.contactValid)
+        // if (this.contactValid === true) {
+          
+        // } else {
+          
+        // }
+      },
     }
 
   }
@@ -189,6 +276,10 @@
     left:0; right: 0;
     text-align: center;
     margin: 0 auto;
+  }
+
+  .v-btn-toggle > .v-btn#rabbit:last-child {
+    border-left-width: 1px !important;
   }
 
 
