@@ -112,6 +112,18 @@
                     name="first-last"
                     placeholder="First, Last Name"
                   />
+                  <!-- ...n Passenger's Name input -->
+                  <v-text-field 
+                    class="ml-sm-6"
+                    v-if="i > 0"
+                    background-color="white"
+                    :rules="[rules.required]"
+                    hide-details="auto"
+                    outlined
+                    dense
+                    name="first-last"
+                    placeholder="First, Last Name"
+                  />
                 </v-col>
               </v-row>
 
