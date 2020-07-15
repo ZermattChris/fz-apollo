@@ -38,7 +38,7 @@
           <v-col
             cols="12"
             sm="6"
-            class="pt-2 pb-0 pt-xs-1"
+            class="pt-2 pb-3 pt-xs-1 pb-sm-0"
           >
             <v-text-field 
               label="Email"
@@ -69,8 +69,8 @@
             :disabled="contactValid ? false : true"
           >
             <v-expansion-panel-header>
-              <span v-if="i === 0">Contact Passenger</span>
-              <span v-if="i > 0">Passenger #{{i+1}}</span>
+              <span class="font-weight-bold" v-if="i === 0">Contact Passenger</span>
+              <span class="font-weight-bold" v-if="i > 0">Passenger #{{i+1}}</span>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               
@@ -83,6 +83,7 @@
                 <v-col cols="2">
                   <!-- Sex -->
                   <v-btn-toggle
+                    id="sexToggle"
                     v-model="sex_toggle"
                     rounded
                     :rules="[rules.required]"
@@ -101,29 +102,16 @@
                   :sm="9"
                   :md="10"
                 >
-                  <!-- Contact Name input -->
+                  <!-- Name input -->
                   <v-text-field 
-                    class="ml-sm-6"
-                    v-if="i === 0"
+                    class="ml-sm-6 pt-sm-1"
                     background-color="white"
                     :rules="[rules.required]"
                     hide-details="auto"
                     outlined
                     dense
                     name="first-last"
-                    placeholder="First, Last Name"
-                  />
-                  <!-- ...n Passenger's Name input -->
-                  <v-text-field 
-                    class="ml-sm-6"
-                    v-if="i > 0"
-                    background-color="white"
-                    :rules="[rules.required]"
-                    hide-details="auto"
-                    outlined
-                    dense
-                    name="first-last"
-                    placeholder="First, Last Name"
+                    :placeholder="firstLastNameHint(i)"
                   />
                 </v-col>
               </v-row>
@@ -131,7 +119,7 @@
               <!-- Speed/fitness slider -->
               <v-row style="position:relative;">
                 <div class="pt-1 pl-3 font-weight-light">Running Ability:</div>
-                <div class="speed pt-0 font-weight-thin">[TODO: text description]</div>
+                <div class="speed pt-0 font-weight-thin">{{runningDesc}}</div>
                 <v-col cols="12">
                   <v-btn-toggle
                     class="d-flex justify-space-between"
@@ -149,6 +137,7 @@
                       :thumb-size="36"
                       :max="10"
                       :min="0"
+                      :thumb-color="runningThumbColour"
                       step="2"
                       ticks="always"
                     ></v-slider>
@@ -180,12 +169,17 @@
                       class="pt-2 basicSlider"
                       v-model="weightSlider"
                       thumb-label="always"
-                      :thumb-size="36"
+                      thumb-size="36"
                       :max="100"
                       :min="10"
+                      :thumb-color="weightThumbColour"
                       step="5"
                       ticks="always"
-                    ></v-slider>
+                    >
+                      <template v-slot:thumb-label="{ value }">
+                        {{ value }}kg
+                      </template>
+                    </v-slider>
 
                     <v-btn
                       id="rightBtn" 
@@ -280,6 +274,46 @@
       //   return [0,2]
       // },
 
+      weightSliderLabel: function () {
+        return this.fitnessSlider + 'kg'
+      },
+      weightThumbColour: function () {
+         if (this.weightSlider >= 90 && this.weightSlider < 100) return 'warning'
+         if (this.weightSlider === 100) return 'red'
+         return 'green'      
+      },
+
+
+      runningThumbColour: function () {
+         if (this.fitnessSlider === 2) return 'warning'
+         if (this.fitnessSlider < 2) return 'red'
+         return ''      
+      },
+      runningDesc: function () {
+        let msg = "Bad Value"
+        switch (this.fitnessSlider) {
+          case 0:
+            msg = "Assistance Required*"
+            break
+          case 2:
+            msg = "Slow"
+            break
+          case 4:
+            msg = "Slow-ish"
+            break
+          case 6:
+            msg = "Average"
+            break
+          case 8:
+            msg = "Quick"
+            break
+          case 10:
+            msg = "Fast"
+            break
+        }
+        return "Speed: " + msg    
+      },
+
       userFlightDate: function () {
         return this.$store.state.flightDate
       },
@@ -296,6 +330,10 @@
 
     methods: {
 
+      firstLastNameHint: function (index) {
+        if (index === 0) return "First, Last Name"
+        return "First Name"
+      },
 
       onUpdateSpeed: function (speed) {
         console.log(speed)
@@ -347,6 +385,10 @@
     left:0; right: 0;
     text-align: center;
     margin: 0 auto;
+  }
+
+  #sexToggle button {
+    color: rgba(var(--fzselected-color), 1.0);
   }
 
   .v-btn-toggle > .v-btn#rightBtn:last-child {
