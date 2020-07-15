@@ -59,11 +59,6 @@
     </v-form>
     
   
-    <v-form
-      ref="infosForm"
-      v-model="contactValid"
-      lazy-validation
-    >
       <v-expansion-panels
         focusable
         :inset="!mobile"
@@ -79,12 +74,18 @@
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               
+    <v-form
+      ref="infosForm"
+      v-model="contactValid"
+      lazy-validation
+    >
               <v-row>
                 <v-col cols="2">
                   <!-- Sex -->
                   <v-btn-toggle
-                    v-model="toggle_exclusive"
+                    v-model="sex_toggle"
                     rounded
+                    :rules="[rules.required]"
                   >
                     <v-btn>
                       <v-icon>mdi-human-male</v-icon>
@@ -128,34 +129,69 @@
               </v-row>
 
               <!-- Speed/fitness slider -->
-              <v-row>
+              <v-row style="position:relative;">
                 <div class="pt-1 pl-3 font-weight-light">Running Ability:</div>
+                <div class="speed pt-0 font-weight-thin">[TODO: give each number from 0 - 10 a text description]</div>
                 <v-col cols="12">
                   <v-btn-toggle
-                  class="d-flex justify-space-between"
-                    v-model="toggle_exclusive"
+                    class="d-flex justify-space-between"
                     rounded
                   >
                     <v-btn>
                       <v-icon>mdi-tortoise</v-icon>
                     </v-btn>
                     <v-slider
-                      class="pt-2"
-                      v-model="slider"
+                      class="pt-2 basicSlider"
+                      v-model="fitnessSlider"
                       thumb-label="always"
-                      :thumb-size="24"
+                      :thumb-size="36"
+                      :max="10"
+                      :min="0"
+                      step="2"
+                      ticks="always"
                     ></v-slider>
-                    <v-btn id="rabbit">
+                    <v-btn id="rightBtn">
                       <v-icon>mdi-rabbit</v-icon>
                     </v-btn>
                   </v-btn-toggle>
                 </v-col>
               </v-row>
 
+              <!-- Weight slider -->
+              <v-row style="position:relative;">
+                <div class="pt-1 pl-3 font-weight-light">Your Weight Kg:</div>
+                <div class="weights pt-0 font-weight-thin"><span class="font-weight-medium">{{weightSlider}} Kilograms</span>, {{(weightSlider * 2.204621999990873).toFixed(0)}} Pounds, {{(weightSlider * 0.157473).toFixed(2)}} Stone</div>
+                <v-col cols="12">
+                  <v-btn-toggle
+                  class="d-flex justify-space-between"
+                    rounded
+                  >
+                    <v-btn>
+                      <v-icon size="14">mdi-weight-kilogram</v-icon>
+                    </v-btn>
+                    <v-slider
+                      class="pt-2 basicSlider"
+                      v-model="weightSlider"
+                      thumb-label="always"
+                      :thumb-size="36"
+                      :max="100"
+                      :min="10"
+                      step="5"
+                      ticks="always"
+                    ></v-slider>
+                    <v-btn id="rightBtn" class="fixedWidthBtn">
+                      <v-icon size="36">mdi-weight-kilogram</v-icon>
+                    </v-btn>
+                  </v-btn-toggle>
+                </v-col>
+              </v-row>
+
+
+    </v-form>
+
             </v-expansion-panel-content>
           </v-expansion-panel>
       </v-expansion-panels>
-    </v-form>
 
     <!-- <v-btn rounded color="primary" dark
       :disabled="!contactValid"
@@ -184,8 +220,9 @@
         enabledPanelsList: [],
         activePanelsList:  [],
 
-        toggle_exclusive: undefined,
-        slider: 50,
+        sex_toggle:    undefined,
+        fitnessSlider: 6,         // scale of 1 (slow/needs help) - 10 (fast)
+        weightSlider:  65,        // scale of 10kg - 100kg
 
         rules: {
           required: value => !!value || 'Required.',
@@ -290,8 +327,24 @@
     margin: 0 auto;
   }
 
-  .v-btn-toggle > .v-btn#rabbit:last-child {
+  .v-btn-toggle > .v-btn#rightBtn:last-child {
     border-left-width: 1px !important;
+  }
+
+  .basicSlider {
+    z-index: 100;
+  }
+
+  .fixedWidthBtn {
+    width: 50px;
+  }
+
+  .weights, .speed {
+    position: absolute;
+    top: 4.5em;
+    z-index: 101;
+    width: 100%;
+    text-align: center;
   }
 
 
