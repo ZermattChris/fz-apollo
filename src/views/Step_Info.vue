@@ -160,7 +160,7 @@
               <!-- Weight slider -->
               <v-row style="position:relative;">
                 <div class="pt-1 pl-3 font-weight-light">Your Weight Kg:</div>
-                <div class="weights pt-0 font-weight-thin"><span class="font-weight-medium">{{weightSlider}} Kilograms</span>, {{(weightSlider * 2.204621999990873).toFixed(0)}} Pounds, {{(weightSlider * 0.157473).toFixed(2)}} Stone</div>
+                <div class="weights pt-0 font-weight-thin"><span class="font-weight-medium">{{weightSlider}}&nbsp;Kilograms</span>, {{(weightSlider * 2.204621999990873).toFixed(0)}}{{ '\xa0' }}Pounds, {{(weightSlider * 0.157473).toFixed(1)}}{{ '\xa0' }}Stone</div>
                 <v-col cols="12">
                   <v-btn-toggle
                   class="d-flex justify-space-between"
@@ -344,6 +344,7 @@
     top: 4.5em;
     z-index: 101;
     width: 100%;
+    padding: 0 70px;
     text-align: center;
   }
 
