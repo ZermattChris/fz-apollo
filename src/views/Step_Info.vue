@@ -131,13 +131,15 @@
               <!-- Speed/fitness slider -->
               <v-row style="position:relative;">
                 <div class="pt-1 pl-3 font-weight-light">Running Ability:</div>
-                <div class="speed pt-0 font-weight-thin">[TODO: give each number from 0 - 10 a text description]</div>
+                <div class="speed pt-0 font-weight-thin">[TODO: text description]</div>
                 <v-col cols="12">
                   <v-btn-toggle
                     class="d-flex justify-space-between"
                     rounded
                   >
-                    <v-btn>
+                    <v-btn
+                      @click="onUpdateSpeed(-2)"
+                    >
                       <v-icon>mdi-tortoise</v-icon>
                     </v-btn>
                     <v-slider
@@ -150,7 +152,10 @@
                       step="2"
                       ticks="always"
                     ></v-slider>
-                    <v-btn id="rightBtn">
+                    <v-btn
+                      id="rightBtn"
+                      @click="onUpdateSpeed(2)"
+                    >
                       <v-icon>mdi-rabbit</v-icon>
                     </v-btn>
                   </v-btn-toggle>
@@ -166,7 +171,9 @@
                   class="d-flex justify-space-between"
                     rounded
                   >
-                    <v-btn>
+                    <v-btn
+                      @click="onUpdateWeight(-5)"
+                    >
                       <v-icon size="14">mdi-weight-kilogram</v-icon>
                     </v-btn>
                     <v-slider
@@ -179,7 +186,12 @@
                       step="5"
                       ticks="always"
                     ></v-slider>
-                    <v-btn id="rightBtn" class="fixedWidthBtn">
+
+                    <v-btn
+                      id="rightBtn" 
+                      class="fixedWidthBtn"
+                      @click="onUpdateWeight(5)"
+                    >
                       <v-icon size="36">mdi-weight-kilogram</v-icon>
                     </v-btn>
                   </v-btn-toggle>
@@ -283,6 +295,16 @@
     },
 
     methods: {
+
+
+      onUpdateSpeed: function (speed) {
+        console.log(speed)
+        this.fitnessSlider = this.fitnessSlider + speed
+      },
+      onUpdateWeight: function (weight) {
+        this.weightSlider = this.weightSlider + weight
+      },
+
 
       // temp: function () {
       //   console.log(this.$refs.infoForm.validate())
