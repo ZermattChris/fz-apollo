@@ -20,6 +20,7 @@
         <!-- Nr People Slider - linked via data to the below Int Input -->
         <NumberScroller
           ref="numberScroller"
+          class=""
           v-model="nrPeople"
           min="0"
           :max="getMaxPilots"
