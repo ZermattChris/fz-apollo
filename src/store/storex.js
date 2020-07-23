@@ -16,6 +16,14 @@ const rawNavList = {
   'Thanks': false
 }
 
+const rawPassengerList = {
+  'sex': undefined,
+  'age': 0,
+  'name': '',
+  'fitness': 6,
+  'weightKg': 65
+}
+
 export default new Vuex.Store({
   state: {
 
@@ -35,6 +43,7 @@ export default new Vuex.Store({
     contactPhone:   localStorage.contactPhone || "",
     contactEmail:   localStorage.contactEmail || "",
 
+    passengerObjList:  localStorage.passengerObjList ? JSON.parse(localStorage.passengerObjList) : rawPassengerList,
 
     // Settings - API call result
     // Using an Underscore to help make it clear that this isn't User Input.

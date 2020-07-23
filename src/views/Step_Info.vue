@@ -66,7 +66,6 @@
         <v-expansion-panel
             v-for="(item, i) in usersGroupSize"
             :key="i"
-            :disabled="contactValid ? false : true"
           >
             <v-expansion-panel-header>
               <span class="font-weight-bold" v-if="i === 0">Contact Passenger</span>
@@ -159,46 +158,6 @@
       //   return [0,2]
       // },
 
-      // weightSliderLabel: function () {
-      //   return this.fitnessSlider + 'kg'
-      // },
-      // weightThumbColour: function () {
-      //    if (this.weightSlider >= 90 && this.weightSlider < 100) return 'warning'
-      //    if (this.weightSlider === 100) return 'red'
-      //    return 'green'      
-      // },
-
-
-      // runningThumbColour: function () {
-      //    if (this.fitnessSlider === 2) return 'warning'
-      //    if (this.fitnessSlider < 2) return 'red'
-      //    return 'green'      
-      // },
-      // runningDesc: function () {
-      //   let msg = "Bad Value"
-      //   switch (this.fitnessSlider) {
-      //     case 0:
-      //       msg = "Assistance Required*"
-      //       break
-      //     case 2:
-      //       msg = "Slow"
-      //       break
-      //     case 4:
-      //       msg = "Slow-ish"
-      //       break
-      //     case 6:
-      //       msg = "Average"
-      //       break
-      //     case 8:
-      //       msg = "Quick"
-      //       break
-      //     case 10:
-      //       msg = "Fast"
-      //       break
-      //   }
-      //   return "Speed: " + msg    
-      // },
-
       userFlightDate: function () {
         return this.$store.state.flightDate
       },
@@ -214,20 +173,6 @@
     },
 
     methods: {
-
-      // firstLastNameHint: function (index) {
-      //   if (index === 0) return "First, Last Name"
-      //   return "First Name"
-      // },
-
-      // onUpdateSpeed: function (speed) {
-      //   console.log(speed)
-      //   this.fitnessSlider = this.fitnessSlider + speed
-      // },
-      // onUpdateWeight: function (weight) {
-      //   this.weightSlider = this.weightSlider + weight
-      // },
-
 
       // temp: function () {
       //   console.log(this.$refs.infoForm.validate())
