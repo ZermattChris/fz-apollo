@@ -35,7 +35,7 @@
     fab
     @click="onPrevDay"
   >
-    <v-icon>mdi-chevron-left</v-icon>
+    <v-icon>{{chevronLeft}}</v-icon>
   </v-btn>
 
   <v-btn
@@ -48,7 +48,7 @@
     fab
     @click="onNextDay"
   >
-    <v-icon>mdi-chevron-right</v-icon>
+    <v-icon>{{chevronRight}}</v-icon>
   </v-btn>
 
   <v-overlay :value="isLoading" absolute />
@@ -63,7 +63,9 @@
   import TimeList from '@/components/TimeList.vue'
   import anime from "animejs";
   
-  import {format, add, parseISO } from 'date-fns'
+  import {format, add, parseISO } from 'date-fns'  
+  import { mdiChevronLeft, mdiChevronRight } from '@mdi/js'
+
 
 
   export default {
@@ -81,6 +83,9 @@
         swipeDirection: 'None',
         mobile: isMobile,
         msg: isMobile ? 'Mobile device: Hide scroll buttons, enable Swipe.' : 'Desktop: Show scroll buttons. ',
+
+        chevronLeft: mdiChevronLeft,
+        chevronRight: mdiChevronRight,
 
         //userSelectedDate: this.$store.state.flightDate,
         // userSelectedSlot: this.$store.state.timeSlot,

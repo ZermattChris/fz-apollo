@@ -80,7 +80,7 @@
           <v-btn
             @click="onUpdateSpeed(-2)"
           >
-            <v-icon>mdi-tortoise</v-icon>
+            <v-icon>{{iconTortoise}}</v-icon>
           </v-btn>
           <v-slider
             class="pt-2 basicSlider"
@@ -97,7 +97,7 @@
             id="rightBtn"
             @click="onUpdateSpeed(2)"
           >
-            <v-icon>mdi-rabbit</v-icon>
+            <v-icon>{{iconRabbit}}</v-icon>
           </v-btn>
         </v-btn-toggle>
       </v-col>
@@ -118,7 +118,7 @@
           <v-btn
             @click="onUpdateWeight(-5)"
           >
-            <v-icon size="14">mdi-weight-kilogram</v-icon>
+            <v-icon size="14">{{iconWeightKg}}</v-icon>
           </v-btn>
           <v-slider
             class="pt-2 basicSlider"
@@ -141,7 +141,7 @@
             class="fixedWidthBtn"
             @click="onUpdateWeight(5)"
           >
-            <v-icon size="36">mdi-weight-kilogram</v-icon>
+            <v-icon size="36">{{iconWeightKg}}</v-icon>
           </v-btn>
         </v-btn-toggle>
       </v-col>
@@ -154,6 +154,7 @@
 </template>
 
 <script>
+  import { mdiWeightKilogram, mdiRabbit, mdiTortoise, mdiRadioboxBlank, mdiRadioboxMarked } from '@mdi/js'
 
   export default {
     name: "Passenger",
@@ -168,6 +169,12 @@
 
     data () {
       return {
+        iconRabbit: mdiRabbit,
+        iconTortoise: mdiTortoise,
+        iconWeightKg: mdiWeightKilogram,
+        iconRadioBlank: mdiRadioboxBlank,
+        iconRadioMarked: mdiRadioboxMarked,
+
         passengerForm: false,
 
         sex_toggle:    undefined,

@@ -97,6 +97,8 @@
 
 <script>
   import { parseISO, format } from 'date-fns'
+  import { mdiClockOutline, mdiMinusCircleOutline, mdiClockCheck } from '@mdi/js'
+
 
   export default {
     name: "TimeList",
@@ -123,9 +125,9 @@
 
     data () {
       return {
-        clockIcon: 'mdi-clock-outline',
-        clockIconOutline: 'mdi-minus-circle-outline',
-        clockIconSelected: 'mdi-clock-check',
+        clockIcon: mdiClockOutline,
+        clockIconOutline: mdiMinusCircleOutline,
+        clockIconSelected: mdiClockCheck,
         items: this.timesObj,
         selectedSlot: this.selected,
       }
