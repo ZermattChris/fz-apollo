@@ -26,7 +26,11 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## JSON local server 
 Run this in a separate console window to let us test/mock JSON API calls.
-json-server --watch ~/Projects/apollo/src/store/db.js
+json-server --watch ~/Projects/fz-apollo/src/store/db.js
+
+Click on the Resources:
+http://localhost:3000/flightsdates
+link and copy the raw data into the /store/temp.json file.
 
 
 ## API endpoints
