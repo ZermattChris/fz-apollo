@@ -60,7 +60,7 @@
             <v-text-field
               style="width:300px;"
               v-model="formatISODate"
-              prepend-icon="event"
+              :prepend-icon="calendarIcon"
               readonly
               outlined
               v-on="on"
@@ -185,7 +185,7 @@
 // @ is an alias to /src
 
 import { format, add, parseISO } from 'date-fns'
-import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud } from '@mdi/js'
+import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud, mdiCalendarMonth } from '@mdi/js'
 
 import PageHeader from '@/components/PageHeader.vue'
 import NumberScroller from "@/components/NumberScroller.vue"
@@ -207,6 +207,7 @@ export default {
       cameraIcon:         mdiCameraPlusOutline,
       cloudQuestionIcon:  mdiCloudQuestion,
       cloudIcon:          mdiCloud,
+      calendarIcon:       mdiCalendarMonth,
 
       flightOptionsDropMenuList: this.buildFlightList(),
       

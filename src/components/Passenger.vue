@@ -105,7 +105,7 @@
 
     <!-- Weight slider -->
     <v-row style="position:relative;">
-      <div class="pt-1 pl-3 font-weight-light">Your Weight Kg:</div>
+      <div class="pt-1 pl-3 font-weight-light">Your Weight:</div>
       <div class="weights pt-0 font-weight-thin"><span class="font-weight-medium">{{weightSlider}}&nbsp;Kilograms</span>, {{(weightSlider * 2.204621999990873).toFixed(0)}}{{ '\xa0' }}Pounds, {{(weightSlider * 0.157473).toFixed(1)}}{{ '\xa0' }}Stone</div>
       <v-col 
         cols="12"
