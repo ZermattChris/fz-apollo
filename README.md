@@ -44,3 +44,10 @@ https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/2020-06-
 FlightsDates
 List of dates and timeslots:availability for a given date range.
 http://localhost:3000/flightsdates
+
+
+
+
+### Hosting on Netlify.com
+secure.flyzermatt.com
+
