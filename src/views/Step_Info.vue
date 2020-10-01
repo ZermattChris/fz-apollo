@@ -60,6 +60,8 @@
     
   
       <v-expansion-panels
+        v-model="activePanelsList"
+        multiple
         focusable
         :inset="!mobile"
       >
@@ -107,8 +109,8 @@
         mobile: isMobile,
         contactValid: false,
 
-        enabledPanelsList: [],
-        activePanelsList:  [],
+        enabledPanelsList: [0],
+        activePanelsList:  [0],
 
         // sex_toggle:    undefined,
         // fitnessSlider: 6,         // scale of 1 (slow/needs help) - 10 (fast)
