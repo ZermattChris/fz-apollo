@@ -68,6 +68,7 @@
         <v-expansion-panel
             v-for="(item, i) in usersGroupSize"
             :key="i"
+            active-class="activePanel"
           >
             <v-expansion-panel-header>
               <span class="font-weight-bold" v-if="i === 0">Contact Passenger</span>
@@ -109,7 +110,6 @@
         mobile: isMobile,
         contactValid: false,
 
-        enabledPanelsList: [0],
         activePanelsList:  [0],
 
         // sex_toggle:    undefined,
@@ -219,6 +219,16 @@
     margin: 0 auto;
   }
 
+.v-expansion-panel-header--active::before {
+  background-color: #4A148C;
+  opacity: 0.5 !important;
+}
+/* .v-expansion-panel-content {
+  background-color: white;
+} */
+/* .activePanel {
+  border: 4px black solid !important;
+} */
 
 
 </style>
