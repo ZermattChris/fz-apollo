@@ -8,6 +8,8 @@
       <br>
     </PageHeader>
 
+  {{contactValid}}
+
     <v-form
       ref="contactForm"
       v-model="contactValid"
@@ -59,30 +61,32 @@
     </v-form>
     
   
-      <v-expansion-panels
-        v-model="activePanelsList"
-        multiple
-        focusable
-        :inset="!mobile"
-      >
-        <v-expansion-panel
-            v-for="(item, i) in usersGroupSize"
-            :key="i"
-            active-class="activePanel"
-          >
-            <v-expansion-panel-header>
-              <span class="font-weight-bold" v-if="i === 0">Contact Passenger</span>
-              <span class="font-weight-bold" v-if="i > 0">Passenger #{{i+1}}</span>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              
-              <Passenger
-                :passengerNr="i"
-              />
+    <v-expansion-panels
+      v-model="activePanelsList"
+      multiple
+      :disabled = !contactValid
+      :inset="!mobile"
+      ref="passengerPanels"
+    >
+      <v-expansion-panel
+          v-for="(item, i) in usersGroupSize"
+          :key="i"
+          active-class="activePanel"
+        >
+          <v-expansion-panel-header>
+            <span class="font-weight-bold" v-if="i === 0">Contact Passenger</span>
+            <span class="font-weight-bold" v-if="i > 0">Passenger #{{i+1}}</span>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            
+            <Passenger
+              :passengerNr="i"
+              :disabled=contactValid
+            />
 
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-      </v-expansion-panels>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+    </v-expansion-panels>
 
     <!-- <v-btn rounded color="primary" dark
       :disabled="!contactValid"
@@ -110,11 +114,7 @@
         mobile: isMobile,
         contactValid: false,
 
-        activePanelsList:  [0],
-
-        // sex_toggle:    undefined,
-        // fitnessSlider: 6,         // scale of 1 (slow/needs help) - 10 (fast)
-        // weightSlider:  65,        // scale of 10kg - 100kg
+        activePanelsList:  [],
 
         rules: {
           required: value => !!value || 'Required.',
@@ -138,6 +138,10 @@
 
 
     computed: {
+
+      contactFormData: function () {
+        return this.contactPhone + this.contactEmail
+      },
 
       contactPhone: {
         get() {
@@ -176,8 +180,9 @@
 
     methods: {
 
-      // temp: function () {
-      //   console.log(this.$refs.infoForm.validate())
+      // checkContactValid: function (isValid) {
+      //   //console.log("Contact Form valid: ", isValid)
+      //   this.$refs.passengerPanels.disabled = !isValid
       // },
 
       addInfoComplete: function (passengerIndex) {
@@ -196,16 +201,16 @@
       },
     },
 
-    watch: {
-      contactValid: function () {
-        console.log('contactValid changed', this.contactValid)
-        // if (this.contactValid === true) {
+    // watch: {
+    //   contactValid: function () {
+    //     console.log('contactValid changed', this.contactValid)
+    //     // if (this.contactValid === true) {
           
-        // } else {
+    //     // } else {
           
-        // }
-      },
-    }
+    //     // }
+    //   },
+    // }
 
   }
 

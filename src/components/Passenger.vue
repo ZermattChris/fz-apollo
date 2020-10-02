@@ -17,6 +17,7 @@
           class="pl-2"
           v-model="radios" 
           :rules="[rules.required]"
+          :disabled="!disabled"
         >
           <v-radio label="Male" value="male"></v-radio>
           <v-radio label="Female" value="female"></v-radio>
@@ -31,6 +32,7 @@
       >
         <!-- Age Number input -->
         <v-text-field 
+          :disabled="!disabled"
           background-color="white"
           :rules="[rules.required]"
           hide-details="auto"
@@ -54,6 +56,7 @@
       >
         <!-- Name input -->
         <v-text-field 
+          :disabled="!disabled"
           class="ml-sm-6"
           background-color="white"
           :rules="[rules.required]"
@@ -78,11 +81,13 @@
           rounded
         >
           <v-btn
+            :disabled="!disabled"
             @click="onUpdateSpeed(-2)"
           >
             <v-icon>{{iconTortoise}}</v-icon>
           </v-btn>
           <v-slider
+            :disabled="!disabled"
             class="pt-2 basicSlider"
             v-model="fitnessSlider"
             thumb-label="always"
@@ -95,6 +100,7 @@
           ></v-slider>
           <v-btn
             id="rightBtn"
+            :disabled="!disabled"
             @click="onUpdateSpeed(2)"
           >
             <v-icon>{{iconRabbit}}</v-icon>
@@ -116,11 +122,13 @@
           rounded
         >
           <v-btn
+            :disabled="!disabled"
             @click="onUpdateWeight(-5)"
           >
             <v-icon size="14">{{iconWeightKg}}</v-icon>
           </v-btn>
           <v-slider
+            :disabled="!disabled"
             class="pt-2 basicSlider"
             v-model="weightSlider"
             thumb-label="always"
@@ -138,6 +146,7 @@
 
           <v-btn
             id="rightBtn" 
+            :disabled="!disabled"
             class="fixedWidthBtn"
             @click="onUpdateWeight(5)"
           >
@@ -164,6 +173,10 @@
       passengerNr: {
         type: [Number],
         required: true,
+      },
+      disabled: {
+        type: [Boolean],
+        default: true
       },
     }, 
 
