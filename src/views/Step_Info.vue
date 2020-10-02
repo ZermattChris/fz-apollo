@@ -201,16 +201,17 @@
       },
     },
 
-    // watch: {
-    //   contactValid: function () {
-    //     console.log('contactValid changed', this.contactValid)
-    //     // if (this.contactValid === true) {
-          
-    //     // } else {
-          
-    //     // }
-    //   },
-    // }
+    watch: {
+      contactValid: function () {
+        console.log('contactValid changed', this.contactValid)
+        if (this.contactValid === true && this.activePanelsList.length === 0) {
+          console.log('open first expansion', this.contactValid)
+          this.activePanelsList = [0]
+        } else {
+          this.activePanelsList = []
+        }
+      },
+    }
 
   }
 
