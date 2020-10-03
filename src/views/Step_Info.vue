@@ -33,25 +33,25 @@
               placeholder="(+Country Code) Phone Number"
               hint="Example: +1 203 456-7890"
               persistent-hint
+              :append-outer-icon="iconInfo"
+              @click:append-outer="listCountries"
             />
             
-
-    <v-tooltip top>
-      <template v-slot:activator="{ on, attrs }">
-        <div
-          v-bind="attrs"
-          v-on="on"
-          class="countryFlags"
-        >
-          {{userPhoneCountriesDisplay}}
-        </div>
-      </template>
-      <span>{{userPhoneCountriesStrings}}</span>
-    </v-tooltip>
-
-
-
+            <!-- Tooltip showing the matching Country Name(s) as a String -->
+            <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
+                <div
+                  v-bind="attrs"
+                  v-on="on"
+                  class="countryFlags"
+                >
+                  {{userPhoneCountriesDisplay}}
+                </div>
+              </template>
+              <span>{{userPhoneCountriesStrings}}</span>
+            </v-tooltip>
           </v-col>
+
           <v-col
             cols="12"
             sm="6"
@@ -115,6 +115,7 @@
   import PageHeader from '@/components/PageHeader.vue'
   import Passenger from '@/components/Passenger.vue'
   import { isMobile } from 'mobile-device-detect'
+  import { mdiHelpCircle } from '@mdi/js'
 
   import countrycodes from '@/store/countrycodes.js'
 
@@ -137,6 +138,7 @@
         userPhoneCountryObjList: [],
         userPhoneCountriesDisplay: '',
         userPhoneCountriesStrings: '',
+        iconInfo: mdiHelpCircle,
 
         rules: {
           required: value => !!value || 'Required.',
@@ -154,8 +156,8 @@
     },
 
     created() {
-
-
+      // Show Phone country flags and Tooltip if matching.
+      this.updatePhoneCountryData()
     },
 
 
@@ -199,51 +201,31 @@
 
     methods: {
 
-      // getPhonesCountryObj: function () {
-      //   let userInputStr = this.contactPhone
-      //   // let firstChar = userInputStr.charAt(0)
-      //   // //console.log(firstChar)
-
-      //   // if (firstChar === '+') {
-      //   //   // strip out the '+'
-      //   //   userInputStr = userInputStr.substring(1, userInputStr.length)
-      //   // }
-
-      //   //let code = 41
-      //   // convert to an int to search with.
-      //   const searchInt = parseInt(userInputStr)
-      //   //const matchedCountryObj = this.cc.find( ({ phoneCode }) => phoneCode === searchInt )
-
-      //   //const matchedCountryObj = this.cc.filter(phoneCode => phoneCode === searchInt)
-      //   var results = this.cc.filter(function (obj) { return obj.phoneCode === searchInt });
-
-      //   // this is where things get tricky...
-      //   // As there can be multiple matches on a series of numbers, ie 1 can be the USA or
-      //   // the start of other number groups that represent other countries, ie 1441 is Bermuda.
-
-      //   // if the matchedCountryObj is not empty, then use the found value.
-      //   //const isObjEmpty = !Object.keys(matchedCountryObj).length
-      //   // if (results.length !== 0) {
-      //   //   this.userPhoneCountryObjList = results
-      //   // //} else if (isObjEmpty) {
-      //   //}
-
-      //   this.userPhoneCountriesDisplay = ''
-      //   for (let i = 0; i < results.length; i++) {
-      //     console.log(results[i].map)
-      //     this.userPhoneCountriesDisplay = this.userPhoneCountriesDisplay + results[i].map + " "
-      //   }
-
-
-
-
-      //   // return '🇦🇩'
-      // },
-
-      // phoneChanged: function () {
-      //   console.log("phoneChanged")
-      //   this.flag = this.getCountryFlag()
-      // },
+      // Pull this into a Method, so we can both load it when the page is first
+      // displayed and also when the user changes input via the watch contactPhone
+      updatePhoneCountryData: function () {
+        let userInputStr = this.contactPhone
+        const searchInt = parseInt(userInputStr)
+        if (isNaN(searchInt) === true) {
+          this.userPhoneCountriesDisplay = ''
+          this.userPhoneCountriesStrings = ''
+          return
+        }
+        var results = this.cc.filter(function (obj) { return obj.phoneCode === searchInt });
+        if (results.length === 0 && this.userPhoneCountriesDisplay !== '') return
+        this.userPhoneCountriesDisplay = ''
+        this.userPhoneCountriesStrings = ''
+        for (let i = 0; i < results.length; i++) {
+          console.log(results[i].map)
+          this.userPhoneCountriesDisplay = this.userPhoneCountriesDisplay + results[i].map + " "
+          // format Tooltip sting to use commas to sep values.
+          if (i === 0) {
+            this.userPhoneCountriesStrings = this.userPhoneCountriesStrings + results[i].value
+          } else {
+            this.userPhoneCountriesStrings = this.userPhoneCountriesStrings  + ", " + results[i].value
+          }
+        }
+      },
 
       addInfoComplete: function (passengerIndex) {
         console.log(passengerIndex)
@@ -259,6 +241,12 @@
         this.userTimeSlot = dateStr
         return dateStr
       },
+
+
+      listCountries: function () {
+        alert('click:append')
+      },
+
     },
 
     watch: {
@@ -271,27 +259,10 @@
           this.activePanelsList = []
         }
       },
+      // This is setting up the country flags and Tooltip whenever the user 
+      // changes the value of the Phone field.
       contactPhone: function () {
-        let userInputStr = this.contactPhone
-        const searchInt = parseInt(userInputStr)
-        if (isNaN(searchInt) === true) {
-          this.userPhoneCountriesDisplay = ''
-          this.userPhoneCountriesStrings = ''
-          return
-        }
-        var results = this.cc.filter(function (obj) { return obj.phoneCode === searchInt });
-        if (results.length === 0 && this.userPhoneCountriesDisplay !== '') return
-        this.userPhoneCountriesDisplay = ''
-        for (let i = 0; i < results.length; i++) {
-          console.log(results[i].map)
-          this.userPhoneCountriesDisplay = this.userPhoneCountriesDisplay + results[i].map + " "
-          // format Tooltip sting to use commas to sep values.
-          if (i === 0) {
-            this.userPhoneCountriesStrings = this.userPhoneCountriesStrings + results[i].value
-          } else {
-            this.userPhoneCountriesStrings = this.userPhoneCountriesStrings  + ", " + results[i].value
-          }
-        }
+        this.updatePhoneCountryData()
       }
     }
 
@@ -327,7 +298,7 @@
 }
   .phoneInput .countryFlags {
     position: absolute;
-    right: 20px;
+    right: 70px;
     top: 10px;
     font-size: 1.5em;
   }
