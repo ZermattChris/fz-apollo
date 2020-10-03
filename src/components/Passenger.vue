@@ -11,6 +11,7 @@
         :sm="2"
         :md="1"
         class="pb-0"
+        style="min-height:120px"
       >
         <!-- Sex -->
         <v-radio-group 
@@ -153,6 +154,8 @@
             <v-icon size="36">{{iconWeightKg}}</v-icon>
           </v-btn>
         </v-btn-toggle>
+
+  {{passengerForm}}
       </v-col>
     </v-row>
 
@@ -212,8 +215,8 @@
         return this.fitnessSlider + 'kg'
       },
       weightThumbColour: function () {
-         if (this.weightSlider >= 90 && this.weightSlider < 100) return 'warning'
-         if (this.weightSlider === 100) return 'red'
+        //  if (this.weightSlider >= 90 && this.weightSlider <= 100) return 'warning'
+        //  if (this.weightSlider === 100) return 'red'
          return 'green'      
       },
 

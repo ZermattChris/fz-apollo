@@ -8,8 +8,6 @@
       <br>
     </PageHeader>
 
-  {{contactValid}}
-
     <v-form
       ref="contactForm"
       v-model="contactValid"
@@ -19,7 +17,7 @@
           <v-col
             cols="12"
             sm="6"
-            class="pt-2 pb-0"
+            class="pt-2 pb-0 phoneInput"
           >
             <v-text-field 
               label="Phone"
@@ -36,6 +34,23 @@
               hint="Example: +1 203 456-7890"
               persistent-hint
             />
+            
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <div
+          v-bind="attrs"
+          v-on="on"
+          class="countryFlags"
+        >
+          {{userPhoneCountriesDisplay}}
+        </div>
+      </template>
+      <span>{{userPhoneCountriesStrings}}</span>
+    </v-tooltip>
+
+
+
           </v-col>
           <v-col
             cols="12"
@@ -101,6 +116,8 @@
   import Passenger from '@/components/Passenger.vue'
   import { isMobile } from 'mobile-device-detect'
 
+  import countrycodes from '@/store/countrycodes.js'
+
   export default {
     name: "Step_Info",
   
@@ -116,6 +133,11 @@
 
         activePanelsList:  [],
 
+        cc: countrycodes,
+        userPhoneCountryObjList: [],
+        userPhoneCountriesDisplay: '',
+        userPhoneCountriesStrings: '',
+
         rules: {
           required: value => !!value || 'Required.',
           counter: value => value.length <= 20 || 'Max 20 characters',
@@ -125,7 +147,7 @@
           },
           phone: value => {
             const pattern = /^\+(?:[0-9] ?){6,14}[0-9]$/;
-            return pattern.test(value) || 'Invalid Phone Number...'
+            return pattern.test(value) || 'hint: [+countryCode] & your number'
           },
         }
       }
@@ -160,9 +182,6 @@
         }
       },
       
-      // accordianControler: function () {
-      //   return [0,2]
-      // },
 
       userFlightDate: function () {
         return this.$store.state.flightDate
@@ -180,9 +199,50 @@
 
     methods: {
 
-      // checkContactValid: function (isValid) {
-      //   //console.log("Contact Form valid: ", isValid)
-      //   this.$refs.passengerPanels.disabled = !isValid
+      // getPhonesCountryObj: function () {
+      //   let userInputStr = this.contactPhone
+      //   // let firstChar = userInputStr.charAt(0)
+      //   // //console.log(firstChar)
+
+      //   // if (firstChar === '+') {
+      //   //   // strip out the '+'
+      //   //   userInputStr = userInputStr.substring(1, userInputStr.length)
+      //   // }
+
+      //   //let code = 41
+      //   // convert to an int to search with.
+      //   const searchInt = parseInt(userInputStr)
+      //   //const matchedCountryObj = this.cc.find( ({ phoneCode }) => phoneCode === searchInt )
+
+      //   //const matchedCountryObj = this.cc.filter(phoneCode => phoneCode === searchInt)
+      //   var results = this.cc.filter(function (obj) { return obj.phoneCode === searchInt });
+
+      //   // this is where things get tricky...
+      //   // As there can be multiple matches on a series of numbers, ie 1 can be the USA or
+      //   // the start of other number groups that represent other countries, ie 1441 is Bermuda.
+
+      //   // if the matchedCountryObj is not empty, then use the found value.
+      //   //const isObjEmpty = !Object.keys(matchedCountryObj).length
+      //   // if (results.length !== 0) {
+      //   //   this.userPhoneCountryObjList = results
+      //   // //} else if (isObjEmpty) {
+      //   //}
+
+      //   this.userPhoneCountriesDisplay = ''
+      //   for (let i = 0; i < results.length; i++) {
+      //     console.log(results[i].map)
+      //     this.userPhoneCountriesDisplay = this.userPhoneCountriesDisplay + results[i].map + " "
+      //   }
+
+
+
+
+      //   // return '🇦🇩'
+      // },
+
+      // phoneChanged: function () {
+      //   console.log("phoneChanged")
+      //   this.flag = this.getCountryFlag()
       // },
 
       addInfoComplete: function (passengerIndex) {
@@ -211,6 +271,28 @@
           this.activePanelsList = []
         }
       },
+      contactPhone: function () {
+        let userInputStr = this.contactPhone
+        const searchInt = parseInt(userInputStr)
+        if (isNaN(searchInt) === true) {
+          this.userPhoneCountriesDisplay = ''
+          this.userPhoneCountriesStrings = ''
+          return
+        }
+        var results = this.cc.filter(function (obj) { return obj.phoneCode === searchInt });
+        if (results.length === 0 && this.userPhoneCountriesDisplay !== '') return
+        this.userPhoneCountriesDisplay = ''
+        for (let i = 0; i < results.length; i++) {
+          console.log(results[i].map)
+          this.userPhoneCountriesDisplay = this.userPhoneCountriesDisplay + results[i].map + " "
+          // format Tooltip sting to use commas to sep values.
+          if (i === 0) {
+            this.userPhoneCountriesStrings = this.userPhoneCountriesStrings + results[i].value
+          } else {
+            this.userPhoneCountriesStrings = this.userPhoneCountriesStrings  + ", " + results[i].value
+          }
+        }
+      }
     }
 
   }
@@ -226,15 +308,29 @@
   }
 
 .v-expansion-panel-header--active::before {
-  background-color: #4A148C;
-  opacity: 0.5 !important;
+  background-color: #4b4b4b;
+  opacity: 0.1 !important;
+  border-radius: 2px !important;
 }
 /* .v-expansion-panel-content {
   background-color: white;
 } */
-/* .activePanel {
-  border: 4px black solid !important;
-} */
+.activePanel {
+  border-color: rgb(255,187,0) !important;
+  border-width: 2px !important;
+  border-radius: 5px !important;
+  border-style: solid !important;
+}
+
+.phoneInput {
+  position: relative;
+}
+  .phoneInput .countryFlags {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 1.5em;
+  }
 
 
 </style>
