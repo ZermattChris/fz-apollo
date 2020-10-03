@@ -114,7 +114,7 @@
         </v-card-title>
 
         <v-card-text>
-          Here's a listing of valid Country Code prefixes for reference.
+          Here's a listing of valid Country Code prefixes for reference. Double-click to select a Prefix.
         </v-card-text>
 
         
@@ -376,7 +376,7 @@
 }
   .phoneInput .countryFlags {
     position: absolute;
-    right: 70px;
+    right: 60px;
     top: 10px;
     font-size: 1.5em;
   }
