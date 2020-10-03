@@ -103,10 +103,66 @@
         </v-expansion-panel>
     </v-expansion-panels>
 
-    <!-- <v-btn rounded color="primary" dark
-      :disabled="!contactValid"
-      @click="temp"
-    >TEMP</v-btn> -->
+    <v-dialog
+      v-model="countriesListingDialog"
+      max-width="400"
+      scrollable
+    >
+      <v-card>
+        <v-card-title class="headline">
+          Country Phone Prefix Codes
+        </v-card-title>
+
+        <v-card-text>
+          It's important that we are able to contact you. Here's a listing 
+          of valid Country Code prefixes for reference.
+        </v-card-text>
+
+  <v-simple-table
+    fixed-header
+    height="300px"
+  >
+    <template v-slot:default>
+      <thead>
+        <tr>
+          <th class="text-left">
+            
+          </th>
+          <th class="text-left">
+            Country
+          </th>
+          <th class="text-left">
+            Prefix Code
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="countryObj in cc"
+          :key="countryObj.code"
+        >
+          <td>{{ countryObj.map }}</td>
+          <td>{{ countryObj.value }}</td>
+          <td>+{{ countryObj.phoneCode }}</td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="purple"
+            text
+            @click="countriesListingDialog = false"
+          >
+            Close
+          </v-btn>
+
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
   </div>
 </template>
@@ -139,6 +195,7 @@
         userPhoneCountriesDisplay: '',
         userPhoneCountriesStrings: '',
         iconInfo: mdiHelpCircle,
+        countriesListingDialog: false,
 
         rules: {
           required: value => !!value || 'Required.',
@@ -244,7 +301,8 @@
 
 
       listCountries: function () {
-        alert('click:append')
+        //alert('click:append')
+        this.countriesListingDialog = true
       },
 
     },
