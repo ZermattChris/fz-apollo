@@ -106,50 +106,53 @@
     <v-dialog
       v-model="countriesListingDialog"
       max-width="400"
-      scrollable
+      class="noOverflow"
     >
       <v-card>
-        <v-card-title class="headline">
+        <v-card-title>
           Country Phone Prefix Codes
         </v-card-title>
 
         <v-card-text>
-          It's important that we are able to contact you. Here's a listing 
-          of valid Country Code prefixes for reference.
+          Here's a listing of valid Country Code prefixes for reference.
         </v-card-text>
 
-  <v-simple-table
-    fixed-header
-    height="300px"
-  >
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">
-            
-          </th>
-          <th class="text-left">
-            Country
-          </th>
-          <th class="text-left">
-            Prefix Code
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="countryObj in cc"
-          :key="countryObj.code"
+        
+        <!-- Start of table listing -->
+        <v-simple-table
+          scrollable
+          height="60vh"
         >
-          <td>{{ countryObj.map }}</td>
-          <td>{{ countryObj.value }}</td>
-          <td>+{{ countryObj.phoneCode }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th class="text-left">
+                  Flag
+                </th>
+                <th class="text-left">
+                  Country
+                </th>
+                <th class="text-left">
+                  Prefix Code
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="countryObj in cc"
+                :key="countryObj.code"
+                @dblclick="handleCountryTableClick(countryObj.phoneCode)"
+              >
+                <td>{{ countryObj.map }}</td>
+                <td>{{ countryObj.value }}</td>
+                <td>+{{ countryObj.phoneCode }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+        <!-- End of table listing -->
 
-        <v-card-actions>
+        <v-card-actions class="dialogFooter">
           <v-spacer></v-spacer>
 
           <v-btn
@@ -196,6 +199,7 @@
         userPhoneCountriesStrings: '',
         iconInfo: mdiHelpCircle,
         countriesListingDialog: false,
+        countryPrefixCodeBuffer: '',
 
         rules: {
           required: value => !!value || 'Required.',
@@ -226,7 +230,12 @@
 
       contactPhone: {
         get() {
-          return this.$store.state.contactPhone
+          // Add a '+' to start of string if empty or missing.
+          let rawStr = this.$store.state.contactPhone
+          if ( rawStr === '' || rawStr.charAt(0) != '+' ) {
+            rawStr = '+' + rawStr
+          }
+          return rawStr
         },
         set(phone) {
           return this.$store.dispatch('setContactPhone', phone)
@@ -257,6 +266,17 @@
     },
 
     methods: {
+
+      // Select the Country Code Prefix when a user clicks on a row in the 
+      // Popup table's list
+      handleCountryTableClick: function (clickedCodePrefix) {
+        //alert("clicked! " + clickedCodePrefix)
+        this.countryPrefixCodeBuffer = clickedCodePrefix
+        //if (this.contactPhone === '' || this.contactPhone === '+') {
+        this.contactPhone = '+' + this.countryPrefixCodeBuffer
+        this.countriesListingDialog = false // close dialog box
+        //}
+      },
 
       // Pull this into a Method, so we can both load it when the page is first
       // displayed and also when the user changes input via the watch contactPhone
@@ -361,5 +381,12 @@
     font-size: 1.5em;
   }
 
+.fixedPos {
+  position: fixed;
+  height: 150px;
+}
+.noOverflow {
+  overflow: hidden;
+}
 
 </style>
