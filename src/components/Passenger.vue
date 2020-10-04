@@ -229,8 +229,8 @@
           return this.$store.getters.getAgeById(this.passengerNumber)
         },
         set(ageInt) {
-          console.log('ageInt: ', ageInt)
-          return null
+          const payload = {'passengerId':this.passengerNumber, 'ageInt':ageInt}
+          return this.$store.dispatch('setPassengerAge', payload)
         }
       },
       name: {
@@ -249,8 +249,8 @@
           return this.$store.getters.getSpeedById(this.passengerNumber)
         },
         set(speedInt) {
-          console.log('speedInt: ', speedInt)
-          return null
+          const payload = {'passengerId':this.passengerNumber, 'speedInt':speedInt}
+          return this.$store.dispatch('setPassengerSpeed', payload)
         }
       },
       weight: {
@@ -258,8 +258,8 @@
           return this.$store.getters.getWeightById(this.passengerNumber)
         },
         set(weightInt) {
-          console.log('weightInt: ', weightInt)
-          return null
+          const payload = {'passengerId':this.passengerNumber, 'weightInt':weightInt}
+          return this.$store.dispatch('setPassengerWeight', payload)
         }
       },
 

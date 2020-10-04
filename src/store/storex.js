@@ -157,12 +157,32 @@ export default new Vuex.Store({
       // Set the Name value.
       matchedPassengerObj.sex = payload.sexStr
     },
+    PASSENGER_AGE(state, payload) {
+      // Find matching passenger object
+      let matchedPassengerObj = findPassengerObj(state, payload.passengerId)
+      // Set the Name value.
+      matchedPassengerObj.age = payload.ageInt
+    },
     PASSENGER_NAME(state, payload) {
       //console.log("Mutating PASSENGER_NAME", payload);
       // Find matching passenger object
       let matchedPassengerObj = findPassengerObj(state, payload.passengerId)
       // Set the Name value.
       matchedPassengerObj.name = payload.nameStr
+    },
+    PASSENGER_SPEED(state, payload) {
+      //console.log("Mutating PASSENGER_NAME", payload);
+      // Find matching passenger object
+      let matchedPassengerObj = findPassengerObj(state, payload.passengerId)
+      // Set the Name value.
+      matchedPassengerObj.speed = payload.speedInt
+    },
+    PASSENGER_WEIGHT(state, payload) {
+      //console.log("Mutating PASSENGER_NAME", payload);
+      // Find matching passenger object
+      let matchedPassengerObj = findPassengerObj(state, payload.passengerId)
+      // Set the Name value.
+      matchedPassengerObj.weightKg = payload.weightInt
     },
 
 
@@ -297,13 +317,25 @@ export default new Vuex.Store({
       savePassengerObjListToLocalStorage(context)
     },
 
-    setPassengerName(context, payload) {
-      //console.log('passengerId: ' + payload.passengerId + ' nameStr: ' + payload.nameStr)
-      context.commit("PASSENGER_NAME", payload);
-      //localStorage.passengerObjList = JSON.stringify(context.state.passengerObjList)
+    setPassengerAge(context, payload) {
+      context.commit("PASSENGER_AGE", payload);
       savePassengerObjListToLocalStorage(context)
     },
 
+    setPassengerName(context, payload) {
+      context.commit("PASSENGER_NAME", payload);
+      savePassengerObjListToLocalStorage(context)
+    },
+
+    setPassengerSpeed(context, payload) {
+      context.commit("PASSENGER_SPEED", payload);
+      savePassengerObjListToLocalStorage(context)
+    },
+
+    setPassengerWeight(context, payload) {
+      context.commit("PASSENGER_WEIGHT", payload);
+      savePassengerObjListToLocalStorage(context)
+    },
 
 
   },  // END ACTIONS
