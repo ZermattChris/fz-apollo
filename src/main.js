@@ -6,19 +6,21 @@ import vuetify from './plugins/vuetify'
 
 import * as Sentry from "@sentry/browser";
 import { Vue as VueIntegration } from "@sentry/integrations";
+import { Integrations } from "@sentry/tracing";
 
 Sentry.init({
-  dsn: "https://examplePublicKey@o0.ingest.sentry.io/0",
+  dsn: "https://cf9cb6a8113a40c3a7775e71978e27cc@o456804.ingest.sentry.io/5450195",
   integrations: [
-    new VueIntegration({ 
+    new VueIntegration({
       Vue,
       tracing: true,
-      logErrors: true,
-      tracingOptions: {
-        trackComponents: true,
-      },
-    })
+    }),
+    new Integrations.BrowserTracing(),
   ],
+
+  // We recommend adjusting this value in production, or using tracesSampler
+  // for finer control
+  tracesSampleRate: 1.0,
 });
 
 Vue.config.productionTip = false
