@@ -214,6 +214,7 @@ export default {
       this.$store.dispatch('setCurrentStep', '')
       this.$store.dispatch('setContactPhone', '')
       this.$store.dispatch('setContactEmail', '')
+      localStorage.passengerObjList = []
     },
   },
 

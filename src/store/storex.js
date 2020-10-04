@@ -19,10 +19,10 @@ const rawNavList = {
 const rawPassengerObj = {
   'id': null,
   'sex': undefined,
-  'age': 22,
-  'name': 'joe',
-  'speed': 2,
-  'weightKg': 22
+  'age': null,
+  'name': '',
+  'speed': 6,
+  'weightKg': 20
 }
 
 export default new Vuex.Store({

@@ -4,6 +4,23 @@ import router from './router'
 import store from "./store/storex"
 import vuetify from './plugins/vuetify'
 
+import * as Sentry from "@sentry/browser";
+import { Vue as VueIntegration } from "@sentry/integrations";
+
+Sentry.init({
+  dsn: "https://examplePublicKey@o0.ingest.sentry.io/0",
+  integrations: [
+    new VueIntegration({ 
+      Vue,
+      tracing: true,
+      logErrors: true,
+      tracingOptions: {
+        trackComponents: true,
+      },
+    })
+  ],
+});
+
 Vue.config.productionTip = false
 
 
