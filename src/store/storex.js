@@ -149,6 +149,22 @@ export default new Vuex.Store({
       state._currentStep = stepName
     },
 
+    // --- Passenger Mutations ---
+
+    PASSENGER_SEX(state, payload) {
+      // Find matching passenger object
+      let matchedPassengerObj = findPassengerObj(state, payload.passengerId)
+      // Set the Name value.
+      matchedPassengerObj.sex = payload.sexStr
+    },
+    PASSENGER_NAME(state, payload) {
+      //console.log("Mutating PASSENGER_NAME", payload);
+      // Find matching passenger object
+      let matchedPassengerObj = findPassengerObj(state, payload.passengerId)
+      // Set the Name value.
+      matchedPassengerObj.name = payload.nameStr
+    },
+
 
   },  // END MUTATIONS
 
@@ -274,17 +290,18 @@ export default new Vuex.Store({
 
     // ---- Passenger Sets -----
 
+    setPassengerSex(context, payload) {
+      //console.log('passengerId: ' + payload.passengerId + ' nameStr: ' + payload.nameStr)
+      context.commit("PASSENGER_SEX", payload);
+      //localStorage.passengerObjList = JSON.stringify(context.state.passengerObjList)
+      savePassengerObjListToLocalStorage(context)
+    },
+
     setPassengerName(context, payload) {
-      console.log('passengerId: ' + payload.passengerId + ' nameStr: ' + payload.nameStr)
-      // context.commit("CONTACT_EMAIL", email);
-      // localStorage.contactEmail = email
-
-      // Find matching passenger object
-
-      // Set the Name value.
-
-      // Save to LocalStorage
-      
+      //console.log('passengerId: ' + payload.passengerId + ' nameStr: ' + payload.nameStr)
+      context.commit("PASSENGER_NAME", payload);
+      //localStorage.passengerObjList = JSON.stringify(context.state.passengerObjList)
+      savePassengerObjListToLocalStorage(context)
     },
 
 
@@ -361,4 +378,8 @@ function createNewPassengerObj (id) {
   // Set the id for the newly created Pass obj.
   newPassengerObj.id = id
   return newPassengerObj
+}
+
+function savePassengerObjListToLocalStorage (context) {
+  localStorage.passengerObjList = JSON.stringify(context.state.passengerObjList)
 }

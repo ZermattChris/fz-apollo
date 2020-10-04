@@ -220,8 +220,8 @@
           return this.$store.getters.getSexById(this.passengerNumber)
         },
         set(sexStr) {
-          console.log('sexStr: ', sexStr)
-          return null
+          const payload = {'passengerId':this.passengerNumber, 'sexStr':sexStr}
+          return this.$store.dispatch('setPassengerSex', payload)
         }
       },
       age: {
