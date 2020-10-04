@@ -16,12 +16,13 @@ const rawNavList = {
   'Thanks': false
 }
 
-const rawPassengerList = {
+const rawPassengerObj = {
+  'id': null,
   'sex': undefined,
-  'age': 0,
-  'name': '',
-  'fitness': 6,
-  'weightKg': 65
+  'age': 22,
+  'name': 'joe',
+  'speed': 2,
+  'weightKg': 22
 }
 
 export default new Vuex.Store({
@@ -43,7 +44,8 @@ export default new Vuex.Store({
     contactPhone:   localStorage.contactPhone || "",
     contactEmail:   localStorage.contactEmail || "",
 
-    passengerObjList:  localStorage.passengerObjList ? JSON.parse(localStorage.passengerObjList) : rawPassengerList,
+    // Contains a list of (cloned) rawPassengerObj's -- one for each Passenger.
+    passengerObjList:  localStorage.passengerObjList ? JSON.parse(localStorage.passengerObjList) : [],
 
     // Settings - API call result
     // Using an Underscore to help make it clear that this isn't User Input.
@@ -270,6 +272,23 @@ export default new Vuex.Store({
       localStorage.contactEmail = email
     },
 
+    // ---- Passenger Sets -----
+
+    setPassengerName(context, payload) {
+      console.log('passengerId: ' + payload.passengerId + ' nameStr: ' + payload.nameStr)
+      // context.commit("CONTACT_EMAIL", email);
+      // localStorage.contactEmail = email
+
+      // Find matching passenger object
+
+      // Set the Name value.
+
+      // Save to LocalStorage
+      
+    },
+
+
+
   },  // END ACTIONS
   
   getters: {
@@ -290,10 +309,56 @@ export default new Vuex.Store({
       const isValid = state.contactPhone !== '' && state.contactEmail !== '' && getters.step_startValid && getters.step_timeValid
       //console.log('step_infoValid? :', isValid)
       return isValid
-    }
+    },
 
+    //--------------------
+    // Passenger Getters.
+    getSexById: (state) => (custNr) => {
+      // Search for a matching entry in 'passengerObjList' for customer 'custNr'
+      // if found, return the existing age from LocalStorage, otherwise
+      // Add a new Passenger object to 'passengerObjList'
+      // -> Using helper functions below to keep this clean.
+      let matchedPassengerObj = findPassengerObj(state, custNr)
+      return matchedPassengerObj.sex
+    },
+    getAgeById: (state) => (custNr) => {
+      let matchedPassengerObj = findPassengerObj(state, custNr)
+      return matchedPassengerObj.age
+    },
+    getNameById: (state) => (custNr) => {
+      let matchedPassengerObj = findPassengerObj(state, custNr)
+      return matchedPassengerObj.name
+    },
+    getSpeedById: (state) => (custNr) => {
+      let matchedPassengerObj = findPassengerObj(state, custNr)
+      return matchedPassengerObj.speed
+    },
+    getWeightById: (state) => (custNr) => {
+      let matchedPassengerObj = findPassengerObj(state, custNr)
+      return matchedPassengerObj.weightKg
+    },
 
   }  // END GETTERS
   
 
 });
+
+
+// helper functions for working with Passenger Objects.
+
+function findPassengerObj (state, passengerId) {
+  let matchedPassengerObj = state.passengerObjList.find(passengerObjList => passengerObjList.id === passengerId)
+  if (typeof matchedPassengerObj === 'undefined') {
+    matchedPassengerObj = createNewPassengerObj(passengerId)
+    // Add to 'passengerObjList'
+    state.passengerObjList.push(matchedPassengerObj)
+  }
+  return matchedPassengerObj
+}
+
+function createNewPassengerObj (id) {
+  let newPassengerObj = Object.assign({}, rawPassengerObj)
+  // Set the id for the newly created Pass obj.
+  newPassengerObj.id = id
+  return newPassengerObj
+}

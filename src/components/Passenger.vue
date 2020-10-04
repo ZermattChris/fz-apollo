@@ -16,7 +16,7 @@
         <!-- Sex -->
         <v-radio-group 
           class="pl-2"
-          v-model="radios" 
+          v-model="sex" 
           :rules="[rules.required]"
           :disabled="!disabled"
         >
@@ -33,6 +33,7 @@
       >
         <!-- Age Number input -->
         <v-text-field 
+          v-model="age"
           :disabled="!disabled"
           background-color="white"
           :rules="[rules.required]"
@@ -57,6 +58,7 @@
       >
         <!-- Name input -->
         <v-text-field 
+          v-model="name"
           :disabled="!disabled"
           class="ml-sm-6"
           background-color="white"
@@ -88,9 +90,9 @@
             <v-icon>{{iconTortoise}}</v-icon>
           </v-btn>
           <v-slider
+            v-model="speed"
             :disabled="!disabled"
             class="pt-2 basicSlider"
-            v-model="fitnessSlider"
             thumb-label="always"
             :thumb-size="36"
             :max="10"
@@ -113,7 +115,7 @@
     <!-- Weight slider -->
     <v-row style="position:relative;">
       <div class="pt-1 pl-3 font-weight-light">Your Weight:</div>
-      <div class="weights pt-0 font-weight-thin"><span class="font-weight-medium">{{weightSlider}}&nbsp;Kilograms</span>, {{(weightSlider * 2.204621999990873).toFixed(0)}}{{ '\xa0' }}Pounds, {{(weightSlider * 0.157473).toFixed(1)}}{{ '\xa0' }}Stone</div>
+      <div class="weights pt-0 font-weight-thin"><span class="font-weight-medium">{{weight}}&nbsp;Kilograms</span>, {{(weight * 2.204621999990873).toFixed(0)}}{{ '\xa0' }}Pounds, {{(weight * 0.157473).toFixed(1)}}{{ '\xa0' }}Stone</div>
       <v-col 
         cols="12"
         class="pb-8 pb-sm-2"
@@ -129,9 +131,9 @@
             <v-icon size="14">{{iconWeightKg}}</v-icon>
           </v-btn>
           <v-slider
+            v-model="weight"
             :disabled="!disabled"
             class="pt-2 basicSlider"
-            v-model="weightSlider"
             thumb-label="always"
             thumb-size="36"
             :max="100"
@@ -191,12 +193,14 @@
         iconRadioBlank: mdiRadioboxBlank,
         iconRadioMarked: mdiRadioboxMarked,
 
+        passengerNumber: this.passengerNr,
+
         passengerForm: false,
 
-        sex_toggle:    undefined,
-        radios: undefined,
-        fitnessSlider: 6,         // scale of 1 (slow/needs help) - 10 (fast)
-        weightSlider:  65,        // scale of 10kg - 100kg
+        //sex_toggle:    undefined,
+        // radios: undefined,
+        // fitnessSlider: 6,         // scale of 1 (slow/needs help) - 10 (fast)
+        // weightSlider:  65,        // scale of 10kg - 100kg
 
         rules: {
           required: value => !!value || 'Required.',
@@ -211,8 +215,59 @@
 
     computed: {
       
+      sex: {
+        get() {
+          return this.$store.getters.getSexById(this.passengerNumber)
+        },
+        set(sexStr) {
+          console.log('sexStr: ', sexStr)
+          return null
+        }
+      },
+      age: {
+        get() {
+          return this.$store.getters.getAgeById(this.passengerNumber)
+        },
+        set(ageInt) {
+          console.log('ageInt: ', ageInt)
+          return null
+        }
+      },
+      name: {
+        get() {
+          return this.$store.getters.getNameById(this.passengerNumber)
+        },
+        set(nameStr) {
+          //return this.$store.dispatch('setContactPhone', phone)
+          const payload = {'passengerId':this.passengerNumber, 'nameStr':nameStr}
+          //console.log('passengerId: ' + payload.passengerId + ' nameStr: ' + payload.nameStr)
+          return this.$store.dispatch('setPassengerName', payload)
+        }
+      },
+      speed: {
+        get() {
+          return this.$store.getters.getSpeedById(this.passengerNumber)
+        },
+        set(speedInt) {
+          console.log('speedInt: ', speedInt)
+          return null
+        }
+      },
+      weight: {
+        get() {
+          return this.$store.getters.getWeightById(this.passengerNumber)
+        },
+        set(weightInt) {
+          console.log('weightInt: ', weightInt)
+          return null
+        }
+      },
+
+
+
+
       weightSliderLabel: function () {
-        return this.fitnessSlider + 'kg'
+        return this.speed + 'kg'
       },
       weightThumbColour: function () {
         //  if (this.weightSlider >= 90 && this.weightSlider <= 100) return 'warning'
@@ -222,13 +277,13 @@
 
 
       runningThumbColour: function () {
-         if (this.fitnessSlider === 2) return 'warning'
-         if (this.fitnessSlider < 2) return 'red'
+         if (this.speed === 2) return 'warning'
+         if (this.speed < 2) return 'red'
          return 'green'      
       },
       runningDesc: function () {
         let msg = "Bad Value"
-        switch (this.fitnessSlider) {
+        switch (this.speed) {
           case 0:
             msg = "Assistance Required*"
             break
@@ -253,12 +308,12 @@
 
     },
 
-    // watch: {
-    //   '$store.state._currentStep': function() {
-    //     //console.log(this.$store.state._currentStep)
-    //     this.update()
-    //   }
-    // },
+    watch: {
+      '$store.state._currentStep': function() {
+        //console.log(this.$store.state._currentStep)
+        this.update()
+      }
+    },
 
     methods: {
      
@@ -267,12 +322,12 @@
         return "First Name"
       },
 
-      onUpdateSpeed: function (speed) {
-        console.log(speed)
-        this.fitnessSlider = this.fitnessSlider + speed
+      onUpdateSpeed: function (newSpeed) {
+        //console.log(speed)
+        this.speed = this.speed + newSpeed
       },
-      onUpdateWeight: function (weight) {
-        this.weightSlider = this.weightSlider + weight
+      onUpdateWeight: function (newWeight) {
+        this.weight = this.weight + newWeight
       },
 
 
