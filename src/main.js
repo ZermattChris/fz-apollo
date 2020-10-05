@@ -4,24 +4,13 @@ import router from './router'
 import store from "./store/storex"
 import vuetify from './plugins/vuetify'
 
-import * as Sentry from "@sentry/browser";
-import { Vue as VueIntegration } from "@sentry/integrations";
-import { Integrations } from "@sentry/tracing";
+import Bugsnag from '@bugsnag/js'
+import BugsnagPluginVue from '@bugsnag/plugin-vue'
+Bugsnag.start({
+  apiKey: 'cb57aa27093fb50e11a5f5c1873a8923',
+  plugins: [new BugsnagPluginVue()]
+})
 
-Sentry.init({
-  dsn: "https://cf9cb6a8113a40c3a7775e71978e27cc@o456804.ingest.sentry.io/5450195",
-  integrations: [
-    new VueIntegration({
-      Vue,
-      tracing: true,
-    }),
-    new Integrations.BrowserTracing(),
-  ],
-
-  // We recommend adjusting this value in production, or using tracesSampler
-  // for finer control
-  tracesSampleRate: 1.0,
-});
 
 Vue.config.productionTip = false
 
@@ -54,3 +43,6 @@ new Vue({
 }).$mount('#app')
 
 
+Bugsnag.getPlugin('vue').installVueErrorHandler(Vue)
+// Test error shows up in bugsnag.com
+//Bugsnag.notify(new Error('Test error'))

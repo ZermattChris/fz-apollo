@@ -126,7 +126,6 @@ import NavButton from '@/components/NavButton.vue'
 import { format } from 'date-fns'
 import { mdiChevronLeft } from '@mdi/js'
 
-
 export default {
   name: 'App',
 
