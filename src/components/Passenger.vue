@@ -235,7 +235,10 @@
       },
       name: {
         get() {
-          return this.$store.getters.getNameById(this.passengerNumber)
+          const myName = this.$store.getters.getNameById(this.passengerNumber)
+          //console.log(myName)
+          this.$emit('name-changed', myName )
+          return myName
         },
         set(nameStr) {
           //return this.$store.dispatch('setContactPhone', phone)
@@ -312,10 +315,21 @@
       '$store.state._currentStep': function() {
         //console.log(this.$store.state._currentStep)
         this.update()
+      },
+
+      name: function (newName) {
+        this.$emit('name-changed', newName, this.passengerNumber )
       }
     },
 
     methods: {
+
+      // nameFieldBlur: function (ev) {
+      //   //console.log(ev)
+      //   // Fire an event at Parent with updated Name, so it can be
+      //   // displayed in the Expansion Panel Header area.
+      //   this.$emit('name-changed', ev.target.value )
+      // },
      
       firstLastNameHint: function (index) {
         if (index === 0) return "First, Last Name"

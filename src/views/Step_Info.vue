@@ -88,18 +88,34 @@
           :key="i"
           active-class="activePanel"
         >
+
+
           <v-expansion-panel-header>
-            <span class="font-weight-bold" v-if="i === 0">Contact Passenger</span>
-            <span class="font-weight-bold" v-if="i > 0">Passenger #{{i+1}}</span>
+            <!-- <template v-slot:actions>
+              <v-icon color="teal">
+                mdi-check
+              </v-icon>
+            </template> -->
+            <v-icon  
+               v-if="i === 0"
+              class="mailIcon"
+            >
+              {{iconMail}}
+            </v-icon>
+
+            <span class="font-weight-bold">{{getPassengersNameForHeader(i)}}</span>
+            <!-- <span class="font-weight-bold" v-if="i > 0">Passenger #{{i+1}}</span> -->
           </v-expansion-panel-header>
+
+
+
           <v-expansion-panel-content>
-            
             <Passenger
               :passengerNr="i"
               :disabled=contactValid
             />
-
           </v-expansion-panel-content>
+
         </v-expansion-panel>
     </v-expansion-panels>
 
@@ -174,7 +190,7 @@
   import PageHeader from '@/components/PageHeader.vue'
   import Passenger from '@/components/Passenger.vue'
   import { isMobile } from 'mobile-device-detect'
-  import { mdiHelpCircle } from '@mdi/js'
+  import { mdiHelpCircle, mdiEmailCheckOutline } from '@mdi/js'
 
   import countrycodes from '@/store/countrycodes.js'
 
@@ -191,13 +207,17 @@
         mobile: isMobile,
         contactValid: false,
 
+        iconInfo: mdiHelpCircle,
+        iconMail: mdiEmailCheckOutline,
+
         activePanelsList:  [],
+
+        passengersName: '',
 
         cc: countrycodes,
         userPhoneCountryObjList: [],
         userPhoneCountriesDisplay: '',
         userPhoneCountriesStrings: '',
-        iconInfo: mdiHelpCircle,
         countriesListingDialog: false,
         countryPrefixCodeBuffer: '',
 
@@ -223,6 +243,11 @@
 
 
     computed: {
+
+
+      // passengersName: function () {
+      //   return 'asdfasdf'
+      // },
 
       contactFormData: function () {
         return this.contactPhone + this.contactEmail
@@ -266,6 +291,33 @@
     },
 
     methods: {
+
+      getPassengersNameForHeader: function (passengerNumber) {
+        
+
+        // Ask this passenger for their name.
+        let myName = this.$store.getters.getNameById(passengerNumber)
+        console.log(passengerNumber + " :: " + myName)
+
+        // If empty, diplay default string
+        if (myName === '') {
+          // New Booking, no Passenger Name yet entered. Show default.
+          if (passengerNumber === 0 ) {
+            myName = 'Contact Passenger'
+          } else {
+            myName = 'Passenger #' + (passengerNumber +1)
+          }
+        } else {
+          // Passenger has a name already, just add the number...
+          if (passengerNumber === 0 ) {
+            myName += ' (Contact)'
+          } else {
+            myName = '#' + (passengerNumber +1) + " " + myName
+          }
+        }
+        return myName
+      },
+
 
       // Select the Country Code Prefix when a user clicks on a row in the 
       // Popup table's list
@@ -365,7 +417,7 @@
   background-color: white;
 } */
 .activePanel {
-  border-color: rgb(255,187,0) !important;
+  border-color: rgba(var(--fzselected-color), 1.0) !important;
   border-width: 2px !important;
   border-radius: 5px !important;
   border-style: solid !important;
@@ -389,4 +441,8 @@
   overflow: hidden;
 }
 
+.mailIcon {
+  max-width: 50px;
+  color: #6A1B9A;
+}
 </style>
