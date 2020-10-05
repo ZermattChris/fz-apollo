@@ -18,7 +18,7 @@ const rawNavList = {
 
 const rawPassengerObj = {
   'id': null,
-  'sex': undefined,
+  'sex': null,
   'age': null,
   'name': '',
   'speed': 6,
