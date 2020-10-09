@@ -238,7 +238,7 @@
         } else {
           isValid =  true
         }
-        this.$emit('form-valid', this.passengerNumber, isValid)   // emit event form is NOT valid
+        //this.$emit('form-valid', this.passengerNumber, isValid)   // emit event form is NOT valid
         return isValid
       },
       

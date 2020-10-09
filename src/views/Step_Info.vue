@@ -105,17 +105,13 @@
             <span class="font-weight-bold">{{getPassengersNameForHeader(i)}}</span>
             <!-- <span class="font-weight-bold" v-if="i > 0">Passenger #{{i+1}}</span> -->
 
-            <v-chip
-              class=""
-              color="success"
-              outlined
-            >
-              <v-icon left>
-                mdi-server-plus
-              </v-icon>
-              Completed
-            </v-chip>
-            {{getIsFormValid(i)}}
+            <!-- <v-icon v-if="getIsFormValid(i)" class="formValidIcon">
+              {{iconCheckmark}}
+            </v-icon>
+            <v-icon v-else class="formValidIcon">
+              {{iconMinusCircle}}
+            </v-icon> -->
+
           </v-expansion-panel-header>
 
 
@@ -124,7 +120,7 @@
             <Passenger
               :passengerNr="i"
               :disabled=contactValid
-              @form-valid=formValidator
+
             />
           </v-expansion-panel-content>
 
@@ -199,11 +195,11 @@
 </template>
 
 <script>
-  import Vue from 'vue'
+  //import Vue from 'vue'
   import PageHeader from '@/components/PageHeader.vue'
   import Passenger from '@/components/Passenger.vue'
   import { isMobile } from 'mobile-device-detect'
-  import { mdiHelpCircle, mdiEmailCheckOutline } from '@mdi/js'
+  import { mdiHelpCircle, mdiEmailCheckOutline, mdiCheckCircle, mdiMinusCircleOutline } from '@mdi/js'
 
   import countrycodes from '@/store/countrycodes.js'
 
@@ -222,6 +218,8 @@
 
         iconInfo: mdiHelpCircle,
         iconMail: mdiEmailCheckOutline,
+        iconCheckmark: mdiCheckCircle,
+        iconMinusCircle: mdiMinusCircleOutline,
 
         activePanelsList:  [],
 
@@ -305,17 +303,16 @@
 
     methods: {
 
-      getIsFormValid: function (passengerNr) {
-        return this.validFormList[passengerNr]
-      },
+      // getIsFormValid: function (passengerNr) {
+      //   return this.validFormList[passengerNr]
+      // },
 
       // Set the header icon that shows if the Passenger form is valid or not.
-      formValidator: function (passengerNr, isValid) {
-        //console.log("Form Valid:" + passengerNr + isValid)
-        Vue.set(this.validFormList, passengerNr, isValid)
-        //this.validFormList[passengerNr] = isValid
-        console.log(this.validFormList)
-      },
+      // formValidator: function (passengerNr, isValid) {
+      //   //console.log("Form Valid:" + passengerNr + isValid, Vue)
+      //   Vue.set(this.validFormList, passengerNr, isValid)
+      //   //this.validFormList[passengerNr] = isValid   // this wasn't reactive! Took me ages to figure that out again... Grrr. 
+      // },
 
 
       getPassengersNameForHeader: function (passengerNumber) {
@@ -485,5 +482,11 @@
 .mailIcon {
   max-width: 50px;
   color: #6A1B9A;
+}
+
+.formValidIcon {
+  width: 100px !important;
+  display: block !important;
+  float:right;
 }
 </style>
