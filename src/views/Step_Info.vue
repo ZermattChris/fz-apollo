@@ -89,7 +89,6 @@
           active-class="activePanel"
         >
 
-
           <v-expansion-panel-header>
             <!-- <template v-slot:actions>
               <v-icon color="teal">
@@ -105,6 +104,18 @@
 
             <span class="font-weight-bold">{{getPassengersNameForHeader(i)}}</span>
             <!-- <span class="font-weight-bold" v-if="i > 0">Passenger #{{i+1}}</span> -->
+
+            <v-chip
+              class=""
+              color="success"
+              outlined
+            >
+              <v-icon left>
+                mdi-server-plus
+              </v-icon>
+              Completed
+            </v-chip>
+            {{getIsFormValid(i)}}
           </v-expansion-panel-header>
 
 
@@ -113,6 +124,7 @@
             <Passenger
               :passengerNr="i"
               :disabled=contactValid
+              @form-valid=formValidator
             />
           </v-expansion-panel-content>
 
@@ -187,6 +199,7 @@
 </template>
 
 <script>
+  import Vue from 'vue'
   import PageHeader from '@/components/PageHeader.vue'
   import Passenger from '@/components/Passenger.vue'
   import { isMobile } from 'mobile-device-detect'
@@ -211,6 +224,9 @@
         iconMail: mdiEmailCheckOutline,
 
         activePanelsList:  [],
+
+        validFormList: [],
+        //getIsFormValid: false,
 
         passengersName: '',
 
@@ -245,9 +261,6 @@
     computed: {
 
 
-      // passengersName: function () {
-      //   return 'asdfasdf'
-      // },
 
       contactFormData: function () {
         return this.contactPhone + this.contactEmail
@@ -292,12 +305,24 @@
 
     methods: {
 
-      getPassengersNameForHeader: function (passengerNumber) {
-        
+      getIsFormValid: function (passengerNr) {
+        return this.validFormList[passengerNr]
+      },
 
+      // Set the header icon that shows if the Passenger form is valid or not.
+      formValidator: function (passengerNr, isValid) {
+        //console.log("Form Valid:" + passengerNr + isValid)
+        Vue.set(this.validFormList, passengerNr, isValid)
+        //this.validFormList[passengerNr] = isValid
+        console.log(this.validFormList)
+      },
+
+
+      getPassengersNameForHeader: function (passengerNumber) {
+      
         // Ask this passenger for their name.
         let myName = this.$store.getters.getNameById(passengerNumber)
-        console.log(passengerNumber + " :: " + myName)
+        //console.log(passengerNumber + " :: " + myName)
 
         // If empty, diplay default string
         if (myName === '') {
@@ -330,14 +355,27 @@
         //}
       },
 
+
       // Pull this into a Method, so we can both load it when the page is first
       // displayed and also when the user changes input via the watch contactPhone
+
+      // Trying to handle leading Zeros in string (after the '+' symbol). 
+      // Have removed all the Country Codes that start with Zero (Antacrtica, etc)
+      //
       updatePhoneCountryData: function () {
         let userInputStr = this.contactPhone
+        // split into 2x strings, the first is the '+' and the rest of the number as a String
+        if (userInputStr.charAt(0) === '+') {
+          userInputStr = userInputStr.substring(1)
+        }
+        // Remove all leading Zeros from number string and then recombine.
+        userInputStr = userInputStr.replace(/^0+/, '')
+
         const searchInt = parseInt(userInputStr)
         if (isNaN(searchInt) === true) {
           this.userPhoneCountriesDisplay = ''
           this.userPhoneCountriesStrings = ''
+          this.contactPhone = '+' + userInputStr
           return
         }
         var results = this.cc.filter(function (obj) { return obj.phoneCode === searchInt });
@@ -354,6 +392,7 @@
             this.userPhoneCountriesStrings = this.userPhoneCountriesStrings  + ", " + results[i].value
           }
         }
+        this.contactPhone = '+' + userInputStr
       },
 
       addInfoComplete: function (passengerIndex) {
@@ -383,7 +422,7 @@
       contactValid: function () {
         console.log('contactValid changed', this.contactValid)
         if (this.contactValid === true && this.activePanelsList.length === 0) {
-          console.log('open first expansion', this.contactValid)
+          //console.log('open first expansion', this.contactValid)
           this.activePanelsList = [0]
         } else {
           this.activePanelsList = []
@@ -393,7 +432,9 @@
       // changes the value of the Phone field.
       contactPhone: function () {
         this.updatePhoneCountryData()
-      }
+      },
+
+
     }
 
   }

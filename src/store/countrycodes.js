@@ -20,9 +20,9 @@ const countrycodes = [
     {
       code: 'AI', map: '🇦🇮', phoneCode: 1264, value: 'Anguilla',
     },
-    {
-      code: 'AQ', map: '🇦🇶', phoneCode: 0, value: 'Antarctica',
-    },
+    // {
+    //   code: 'AQ', map: '🇦🇶', phoneCode: 0, value: 'Antarctica',
+    // },
     {
       code: 'AR', map: '🇦🇷', phoneCode: 54, value: 'Argentina',
     },
@@ -74,9 +74,9 @@ const countrycodes = [
     {
       code: 'BW', map: '🇧🇼', phoneCode: 267, value: 'Botswana',
     },
-    {
-      code: 'BV', map: '🇧🇻', phoneCode: 0, value: 'Bouvet Island',
-    },
+    // {
+    //   code: 'BV', map: '🇧🇻', phoneCode: 0, value: 'Bouvet Island',
+    // },
     {
       code: 'BR', map: '🇧🇷', phoneCode: 55, value: 'Brazil',
     },
@@ -197,9 +197,9 @@ const countrycodes = [
     {
       code: 'PF', map: '🇵🇫', phoneCode: 689, value: 'French Polynesia',
     },
-    {
-      code: 'TF', map: '🇹🇫', phoneCode: 0, value: 'French Southern Territories',
-    },
+    // {
+    //   code: 'TF', map: '🇹🇫', phoneCode: 0, value: 'French Southern Territories',
+    // },
     {
       code: 'GA', map: '🇬🇦', phoneCode: 241, value: 'Gabon',
     },
