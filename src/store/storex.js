@@ -22,7 +22,7 @@ const rawPassengerObj = {
   'age': null,
   'name': '',
   'speed': 6,
-  'weightKg': 20
+  'weightKg': 25
 }
 
 export default new Vuex.Store({
