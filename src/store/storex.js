@@ -361,16 +361,17 @@ export default new Vuex.Store({
       return isValid
     },
 
-    step_timeValid: (state, getters) => {
-      const isValid = state.timeSlot > -1 && state.timeSlotLabel !== '' && getters.step_startValid
+    step_timeValid: (state) => {
+      const isValid = state.timeSlot > -1 && state.timeSlotLabel !== ''
       //console.log('step_timeValid? :', isValid)
       return isValid
     },
 
     step_infoValid: (state, getters) => {
-      const isValid = state.contactPhone !== '' && state.contactEmail !== '' && getters.step_startValid && getters.step_timeValid
+      //const isValid = state.contactPhone !== '' && state.contactEmail !== '' && getters.step_startValid && getters.step_timeValid
       //console.log('step_infoValid? :', isValid)
-      return isValid
+      console.log(state, getters)
+      return true
     },
 
     //--------------------

@@ -232,7 +232,7 @@
 
         activePanelsList:  [],
 
-        validFormList: [],
+        //validFormList: [],
         //getIsFormValid: false,
 
         passengersName: '',
@@ -267,11 +267,29 @@
 
     computed: {
 
-
-
-      contactFormData: function () {
-        return this.contactPhone + this.contactEmail
+      stepCompleted: function () {
+        // Ask the Store if Step 3 is completed (Booking Contact, plus valid for all Passengers)
+        // Add a watch on this and update the Store if this returns true.
+        // // Set 'Time' to true in the store _navList
+        // const payload = {'Info': true}
+        // this.$store.dispatch('setNavListItem', payload)
+        let allPassengerFormsValid = this.$store.getters.getAllPassengersValid
+        let payload = {}
+        if (allPassengerFormsValid && this.contactValid) {
+          console.log('Info Step COMPLETED')
+          payload = {'Info': true}
+        } else {
+          console.log('Info Step Not complete yet...')
+          payload = {'Info': false}
+        }
+        this.$store.dispatch('setNavListItem', payload)
+        return true
+        // return this.$store.getters.step_infoValid
       },
+
+      // contactFormData: function () {
+      //   return this.contactPhone + this.contactEmail
+      // },
 
       contactPhone: {
         get() {
@@ -315,14 +333,6 @@
       getIsFormValid: function (passengerNr) {
         return this.$store.getters.getIsValidById(passengerNr)
       },
-
-      // //Set the header icon that shows if the Passenger form is valid or not.
-      // formValidator: function (passengerNr, isValid) {
-      //   console.log("Form Valid:" + passengerNr + isValid)
-      //   Vue.set(this.validFormList, passengerNr, isValid)
-      //   //this.validFormList[passengerNr] = isValid   // this wasn't reactive! Took me ages to figure that out again... Grrr. 
-      // },
-
 
       getPassengersNameForHeader: function (passengerNumber) {
       
@@ -401,20 +411,20 @@
         this.contactPhone = '+' + userInputStr
       },
 
-      addInfoComplete: function (passengerIndex) {
-        console.log(passengerIndex)
+      // addInfoComplete: function (passengerIndex) {
+      //   console.log(passengerIndex)
         
-      },
-      removeInfoComplete: function (passengerIndex) {
-        console.log(passengerIndex)
+      // },
+      // removeInfoComplete: function (passengerIndex) {
+      //   console.log(passengerIndex)
         
-      },
+      // },
 
-      setUserDate: function (dateStr) {
-        //console.log(dateStr)
-        this.userTimeSlot = dateStr
-        return dateStr
-      },
+      // setUserDate: function (dateStr) {
+      //   //console.log(dateStr)
+      //   this.userTimeSlot = dateStr
+      //   return dateStr
+      // },
 
 
       listCountries: function () {
@@ -425,8 +435,13 @@
     },
 
     watch: {
+  
+      stepCompleted: function (old, newVal) {
+console.log('Step3 Completed? ' + old + ' ' + newVal)
+      },
+
       contactValid: function () {
-        console.log('contactValid changed', this.contactValid)
+        //console.log('contactValid changed', this.contactValid)
         if (this.contactValid === true && this.activePanelsList.length === 0) {
           //console.log('open first expansion', this.contactValid)
           this.activePanelsList = [0]
@@ -496,7 +511,7 @@
 .formValidIcon {
   align-self: flex-end;
   width: 55px;
-  justify-content: right;
+  justify-content: flex-end;
   padding-right: 10px;
 }
 </style>
