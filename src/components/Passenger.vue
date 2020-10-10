@@ -245,7 +245,7 @@
 
       // Trying to track the validity of a Passener's form via LocalStorage, as getting
       // pesky infite loop issues trying to update the UI with a custom event to parent.
-      myFormValid() {
+      myFormValid: function () {
         let isValid = false
         const sexTest = (this.sex === null)
         const ageTest = (this.age === null || this.age <=2 || this.age === '')
@@ -257,27 +257,27 @@
         }
         const payload = {'passengerId':this.passengerNumber, 'valid':isValid}
         this.$store.dispatch('setPassengerFormValid', payload)
-        return this.$store.getters.getIsValidById(this.passengerNumber)
+        return isValid
       },
 
-      myFormValidxxx: {
-        get() {
-          return this.$store.getters.getIsValidById(this.passengerNumber)
-        },
-        set() {
-          let isValid = false
-          const sexTest = (this.sex === null)
-          const ageTest = (this.age === null || this.age <=2 || this.age === '')
-          const nameTest = (this.name.trim() === '')
-          if (sexTest || nameTest || ageTest ) { 
-            isValid = false 
-          } else {
-            isValid =  true
-          }
-          const payload = {'passengerId':this.passengerNumber, 'valid':isValid}
-          return this.$store.dispatch('setPassengerFormValid', payload)
-        }
-      },
+      // myFormValidxxx: {
+      //   get() {
+      //     return this.$store.getters.getIsValidById(this.passengerNumber)
+      //   },
+      //   set() {
+      //     let isValid = false
+      //     const sexTest = (this.sex === null)
+      //     const ageTest = (this.age === null || this.age <=2 || this.age === '')
+      //     const nameTest = (this.name.trim() === '')
+      //     if (sexTest || nameTest || ageTest ) { 
+      //       isValid = false 
+      //     } else {
+      //       isValid =  true
+      //     }
+      //     const payload = {'passengerId':this.passengerNumber, 'valid':isValid}
+      //     return this.$store.dispatch('setPassengerFormValid', payload)
+      //   }
+      // },
       
       sex: {
         get() {

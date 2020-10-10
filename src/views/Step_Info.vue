@@ -105,6 +105,9 @@
             <span class="font-weight-bold">{{getPassengersNameForHeader(i)}}</span>
             <!-- <span class="font-weight-bold" v-if="i > 0">Passenger #{{i+1}}</span> -->
 
+            
+Valid: {{getIsFormValid(i)}}
+
             <!-- <v-icon v-if="validFormList[i]" class="formValidIcon">
               {{iconCheckmark}}
             </v-icon>
@@ -302,9 +305,9 @@
 
     methods: {
 
-      // getIsFormValid: function (passengerNr) {
-      //   return this.validFormList[passengerNr]
-      // },
+      getIsFormValid: function (passengerNr) {
+        return this.$store.getters.getIsValidById(passengerNr)
+      },
 
       // //Set the header icon that shows if the Passenger form is valid or not.
       // formValidator: function (passengerNr, isValid) {
