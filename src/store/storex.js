@@ -374,7 +374,23 @@ export default new Vuex.Store({
     },
 
     //--------------------
-    // Passenger Getters.
+    // Passenger Getters.    
+    getAllPassengersValid: (state) => {
+      // Search for a matching entry in 'passengerObjList' for customer 'custNr'
+      // if found, return the existing age from LocalStorage, otherwise
+      // Add a new Passenger object to 'passengerObjList'
+      // -> Using helper functions below to keep this clean.
+      // let matchedPassengerObj = findPassengerObj(state, custNr)
+      // return matchedPassengerObj.valid
+      let isValid = true
+      for (let i = 0; i < state.passengerObjList.length; i++) {
+        if (state.passengerObjList[i].valid !== true) {
+          isValid = false
+          break
+        }
+      }
+      return isValid
+    },
     getIsValidById: (state) => (custNr) => {
       // Search for a matching entry in 'passengerObjList' for customer 'custNr'
       // if found, return the existing age from LocalStorage, otherwise

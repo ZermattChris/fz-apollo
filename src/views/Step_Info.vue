@@ -106,14 +106,21 @@
             <!-- <span class="font-weight-bold" v-if="i > 0">Passenger #{{i+1}}</span> -->
 
             
-Valid: {{getIsFormValid(i)}}
+<!-- Valid: {{getIsFormValid(i)}} -->
 
-            <!-- <v-icon v-if="validFormList[i]" class="formValidIcon">
+            <v-icon 
+              v-if="getIsFormValid(i)" 
+              class="formValidIcon"
+              color="success"
+            >
               {{iconCheckmark}}
             </v-icon>
-            <v-icon v-else class="formValidIcon">
+            <v-icon v-else
+              class="formValidIcon"
+              color="error"
+            >
               {{iconMinusCircle}}
-            </v-icon> -->
+            </v-icon>
 
           </v-expansion-panel-header>
 
@@ -487,8 +494,9 @@ Valid: {{getIsFormValid(i)}}
 }
 
 .formValidIcon {
-  width: 100px !important;
-  display: block !important;
-  float:right;
+  align-self: flex-end;
+  width: 55px;
+  justify-content: right;
+  padding-right: 10px;
 }
 </style>

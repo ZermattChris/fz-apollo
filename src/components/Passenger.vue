@@ -158,7 +158,9 @@
           </v-btn>
         </v-btn-toggle>
 
-  FormValid: {{myFormValid}}
+  <span v-if="myFormValid" >
+    <!-- This empty span is req to get the Passenger form to update it's validity to LocalStorage properly... -->
+  </span>
       </v-col>
     </v-row>
 
