@@ -206,10 +206,10 @@ export default new Vuex.Store({
       // to load from Today()+_bookDaysOffset)
 
       // Return if the date is not set/valid.
-      //const flDate = context.state.flightDate;
+      const flDate = context.state.flightDate;
       //console.log(flDate);
 
-      return axios.get("http://localhost:3000/flightsdates/")
+      return axios.get("https://bookings-dev.simpleitsolutions.ch/onlinebooking/flightschedules/" + flDate)
         .then(response => {
           let data = response.data;
           context.commit("TIMELIST_DATES", data)
@@ -226,7 +226,8 @@ export default new Vuex.Store({
     // ******************** API: init App ********************
     async init(context) {
       // var result = await axios.get("http://localhost:3000/init");   // local JSON server for dev.
-      return axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init")
+      // return axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init")
+      return axios.get("https://bookings-dev.simpleitsolutions.ch/onlinebooking/init")
         .then(response => {
           let data = response.data;
           // Note to future self:
