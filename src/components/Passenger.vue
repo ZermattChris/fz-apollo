@@ -158,7 +158,7 @@
           </v-btn>
         </v-btn-toggle>
 
-  {{isPassengerDataValid}}
+  FormValid: {{myFormValid}}
       </v-col>
     </v-row>
 
@@ -198,7 +198,7 @@
         //name: '',
 
         passengerForm: false,
-        myFormValid: false,
+        //myFormValid: false,
 
         rules: {
           required: value => !!value || 'Required.',
@@ -225,10 +225,27 @@
 
     computed: {
 
-      isPassengerDataValid: function () {
-        // 'sex': undefined,
-        // 'age': null,
-        // 'name': '',
+      // isPassengerDataValid: function () {
+      //   // 'sex': undefined,
+      //   // 'age': null,
+      //   // 'name': '',
+      //   let isValid = false
+      //   const sexTest = (this.sex === null)
+      //   const ageTest = (this.age === null || this.age <=2 || this.age === '')
+      //   const nameTest = (this.name.trim() === '')
+      //   if (sexTest || nameTest || ageTest ) { 
+      //     isValid = false 
+      //   } else {
+      //     isValid =  true
+      //   }
+      //   //console.log("Sending isValid from Passenger: " + isValid)
+      //   //this.$emit('form-valid', this.passengerNumber, isValid)   // emit event form is NOT valid
+      //   return isValid
+      // },
+
+      // Trying to track the validity of a Passener's form via LocalStorage, as getting
+      // pesky infite loop issues trying to update the UI with a custom event to parent.
+      myFormValid() {
         let isValid = false
         const sexTest = (this.sex === null)
         const ageTest = (this.age === null || this.age <=2 || this.age === '')
@@ -238,8 +255,28 @@
         } else {
           isValid =  true
         }
-        //this.$emit('form-valid', this.passengerNumber, isValid)   // emit event form is NOT valid
-        return isValid
+        const payload = {'passengerId':this.passengerNumber, 'valid':isValid}
+        this.$store.dispatch('setPassengerFormValid', payload)
+        return this.$store.getters.getIsValidById(this.passengerNumber)
+      },
+
+      myFormValidxxx: {
+        get() {
+          return this.$store.getters.getIsValidById(this.passengerNumber)
+        },
+        set() {
+          let isValid = false
+          const sexTest = (this.sex === null)
+          const ageTest = (this.age === null || this.age <=2 || this.age === '')
+          const nameTest = (this.name.trim() === '')
+          if (sexTest || nameTest || ageTest ) { 
+            isValid = false 
+          } else {
+            isValid =  true
+          }
+          const payload = {'passengerId':this.passengerNumber, 'valid':isValid}
+          return this.$store.dispatch('setPassengerFormValid', payload)
+        }
       },
       
       sex: {

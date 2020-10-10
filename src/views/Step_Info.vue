@@ -105,7 +105,7 @@
             <span class="font-weight-bold">{{getPassengersNameForHeader(i)}}</span>
             <!-- <span class="font-weight-bold" v-if="i > 0">Passenger #{{i+1}}</span> -->
 
-            <!-- <v-icon v-if="getIsFormValid(i)" class="formValidIcon">
+            <!-- <v-icon v-if="validFormList[i]" class="formValidIcon">
               {{iconCheckmark}}
             </v-icon>
             <v-icon v-else class="formValidIcon">
@@ -120,7 +120,6 @@
             <Passenger
               :passengerNr="i"
               :disabled=contactValid
-
             />
           </v-expansion-panel-content>
 
@@ -195,7 +194,7 @@
 </template>
 
 <script>
-  //import Vue from 'vue'
+  // import Vue from 'vue'
   import PageHeader from '@/components/PageHeader.vue'
   import Passenger from '@/components/Passenger.vue'
   import { isMobile } from 'mobile-device-detect'
@@ -307,9 +306,9 @@
       //   return this.validFormList[passengerNr]
       // },
 
-      // Set the header icon that shows if the Passenger form is valid or not.
+      // //Set the header icon that shows if the Passenger form is valid or not.
       // formValidator: function (passengerNr, isValid) {
-      //   //console.log("Form Valid:" + passengerNr + isValid, Vue)
+      //   console.log("Form Valid:" + passengerNr + isValid)
       //   Vue.set(this.validFormList, passengerNr, isValid)
       //   //this.validFormList[passengerNr] = isValid   // this wasn't reactive! Took me ages to figure that out again... Grrr. 
       // },

@@ -18,6 +18,7 @@ const rawNavList = {
 
 const rawPassengerObj = {
   'id': null,
+  'valid': false,
   'sex': null,
   'age': null,
   'name': '',
@@ -150,6 +151,13 @@ export default new Vuex.Store({
     },
 
     // --- Passenger Mutations ---
+
+    PASSENGER_VALID(state, payload) {
+      // Find matching passenger object
+      let matchedPassengerObj = findPassengerObj(state, payload.passengerId)
+      // Set the Name value.
+      matchedPassengerObj.valid = payload.valid
+    },
 
     PASSENGER_SEX(state, payload) {
       // Find matching passenger object
@@ -310,10 +318,15 @@ export default new Vuex.Store({
 
     // ---- Passenger Sets -----
 
-    setPassengerSex(context, payload) {
+    setPassengerFormValid(context, payload) {
       //console.log('passengerId: ' + payload.passengerId + ' nameStr: ' + payload.nameStr)
-      context.commit("PASSENGER_SEX", payload);
+      context.commit("PASSENGER_VALID", payload);
       //localStorage.passengerObjList = JSON.stringify(context.state.passengerObjList)
+      savePassengerObjListToLocalStorage(context)
+    },
+
+    setPassengerSex(context, payload) {
+      context.commit("PASSENGER_SEX", payload);
       savePassengerObjListToLocalStorage(context)
     },
 
@@ -362,11 +375,15 @@ export default new Vuex.Store({
 
     //--------------------
     // Passenger Getters.
-    getSexById: (state) => (custNr) => {
+    getIsValidById: (state) => (custNr) => {
       // Search for a matching entry in 'passengerObjList' for customer 'custNr'
       // if found, return the existing age from LocalStorage, otherwise
       // Add a new Passenger object to 'passengerObjList'
       // -> Using helper functions below to keep this clean.
+      let matchedPassengerObj = findPassengerObj(state, custNr)
+      return matchedPassengerObj.valid
+    },
+    getSexById: (state) => (custNr) => {
       let matchedPassengerObj = findPassengerObj(state, custNr)
       return matchedPassengerObj.sex
     },
