@@ -173,7 +173,7 @@
         <!-- Start of table listing -->
         <v-simple-table
           scrollable
-          height="60vh"
+          height="55vh"
         >
           <template v-slot:default>
             <thead>
