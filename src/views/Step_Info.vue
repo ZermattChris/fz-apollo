@@ -18,7 +18,7 @@
             cols="12"
             sm="6"
             class="pt-2 pb-0 phoneInput"
-          >
+          ><!-- Start of Phone input field -->
             <v-text-field 
               label="Phone"
               ref="Phone"
@@ -30,13 +30,29 @@
               dense
               type="tel"
               name="tel"
-              placeholder="(+Country Code) Phone Number"
-              hint="Example: +1 203 456-7890"
+              placeholder="Country Code &amp; Phone Number"
+              hint="Example: +1 203 456 7890"
               persistent-hint
-              :prepend-inner-icon="iconPlus"
-              :append-outer-icon="iconInfo"
-              @click:append-outer="listCountries"
-            />
+              prefix="+"
+              @keyup="updatePhoneCountryData"
+              @blur="stripPhoneJunkOnBlur"
+            >
+              <template v-slot:append-outer>
+                <v-tooltip
+                  bottom
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-icon 
+                      v-on="on"
+                      @click="listCountries"
+                    >
+                      {{iconInfo}}
+                    </v-icon>
+                  </template>
+                  Click for list of World's Country Code prefixes...
+                </v-tooltip>
+              </template>
+            </v-text-field>
             
             <!-- Tooltip showing the matching Country Name(s) as a String -->
             <v-tooltip top>
@@ -51,6 +67,8 @@
               </template>
               <span>{{userPhoneCountriesStrings}}</span>
             </v-tooltip>
+            
+          <!-- END of Phone input field -->
           </v-col>
 
           <v-col
@@ -254,8 +272,8 @@
             return pattern.test(value) || 'Invalid Email...'
           },
           phone: value => {
-            const pattern = /^\+(?:[0-9] ?){6,14}[0-9]$/;
-            return pattern.test(value) || 'hint: [+countryCode] & your number'
+            const pattern = /^(?:[0-9-] ?){6,14}[0-9]$/;
+            return pattern.test(value) || 'hint: [countryCode] + Number (no leading Zeros)'
           },
         }
       }
@@ -264,6 +282,11 @@
     created() {
       // Show Phone country flags and Tooltip if matching.
       this.updatePhoneCountryData()
+    },
+    mounted() {
+      // set focus to Phone Input
+      this.$refs.Phone.focus()
+      //this.$nextTick(() => phoneInput.focus())
     },
 
 
@@ -373,6 +396,26 @@
         //}
       },
 
+      // onPhoneKeyPress: function (ev) {
+      //   ev.target.value = this.stripPhoneJunkChars(ev.target.value)
+      // },
+
+      stripPhoneJunkOnBlur: function (ev) {
+        // kill off trailing spaces and replace multiple spaces with a single one.
+        let cleanedStr = ev.target.value.replace(/[ ]+$/, '')
+        cleanedStr = cleanedStr.replace(/\s\s+/g, ' ')
+        // kill off trailing '-' and replace multiple '---' with a single one.
+        cleanedStr = cleanedStr.replace(/[-]+$/, '')
+        cleanedStr = cleanedStr.replace(/-+/g, '-')
+        this.contactPhone = cleanedStr
+      },
+
+      stripPhoneJunkChars: function (stringToStrip) {
+        let cleanedStr = stringToStrip.replace(/^[ ]+/, '')
+        cleanedStr = cleanedStr.replace(/^0+/, '')
+        cleanedStr = cleanedStr.replace(/[^\d -]/, '')  // remove all non numeric and space chars
+        return cleanedStr
+      },
 
       // Pull this into a Method, so we can both load it when the page is first
       // displayed and also when the user changes input via the watch contactPhone
@@ -381,19 +424,21 @@
       // Have removed all the Country Codes that start with Zero (Antacrtica, etc)
       //
       updatePhoneCountryData: function () {
-        let userInputStr = this.contactPhone
+        let userInputStr = this.contactPhone + ''   // convert to String
         // split into 2x strings, the first is the '+' and the rest of the number as a String
         // if (userInputStr.charAt(0) === '+') {
         //   userInputStr = userInputStr.substring(1)
         // }
         // Remove all leading Zeros from number string and then recombine.
-        userInputStr = userInputStr.replace(/^0+/, '')
+        // userInputStr = userInputStr.replace(/^0+/, '')
+        // userInputStr = userInputStr.replace(/[^\d ]/, '')  // remove all non numeric and space chars
+        userInputStr = this.stripPhoneJunkChars(userInputStr)
 
         const searchInt = parseInt(userInputStr)
         if (isNaN(searchInt) === true) {
           this.userPhoneCountriesDisplay = ''
           this.userPhoneCountriesStrings = ''
-          //this.contactPhone = '+' + userInputStr
+          this.contactPhone = userInputStr
           return
         }
         var results = this.cc.filter(function (obj) { return obj.phoneCode === searchInt });
@@ -401,7 +446,7 @@
         this.userPhoneCountriesDisplay = ''
         this.userPhoneCountriesStrings = ''
         for (let i = 0; i < results.length; i++) {
-          console.log(results[i].map)
+          //console.log(results[i].map)
           this.userPhoneCountriesDisplay = this.userPhoneCountriesDisplay + results[i].map + " "
           // format Tooltip sting to use commas to sep values.
           if (i === 0) {
@@ -413,21 +458,6 @@
         this.contactPhone = userInputStr
       },
 
-      // addInfoComplete: function (passengerIndex) {
-      //   console.log(passengerIndex)
-        
-      // },
-      // removeInfoComplete: function (passengerIndex) {
-      //   console.log(passengerIndex)
-        
-      // },
-
-      // setUserDate: function (dateStr) {
-      //   //console.log(dateStr)
-      //   this.userTimeSlot = dateStr
-      //   return dateStr
-      // },
-
 
       listCountries: function () {
         //alert('click:append')
@@ -438,9 +468,9 @@
 
     watch: {
   
-      stepCompleted: function (old, newVal) {
-console.log('Step3 Completed? ' + old + ' ' + newVal)
-      },
+//       stepCompleted: function (old, newVal) {
+// console.log('Step3 Completed? ' + old + ' ' + newVal)
+//       },
 
       contactValid: function () {
         //console.log('contactValid changed', this.contactValid)
@@ -453,9 +483,9 @@ console.log('Step3 Completed? ' + old + ' ' + newVal)
       },
       // This is setting up the country flags and Tooltip whenever the user 
       // changes the value of the Phone field.
-      contactPhone: function () {
-        this.updatePhoneCountryData()
-      },
+      // contactPhone: function () {
+      //   this.updatePhoneCountryData()
+      // },
 
 
     }
