@@ -217,7 +217,7 @@ export default new Vuex.Store({
         .catch(error => {
           console.log(error)
           if (context.state._DEV) {
-            context.commit("TIMELIST_DATES", tmp)
+            context.commit("TIMELIST_DATES", tmp)  // only loads temp.json data while in dev mode.
           }
         })
         .finally(() => context.commit("TIMELIST_LOADING", false))

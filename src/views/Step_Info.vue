@@ -33,6 +33,7 @@
               placeholder="(+Country Code) Phone Number"
               hint="Example: +1 203 456-7890"
               persistent-hint
+              :prepend-inner-icon="iconPlus"
               :append-outer-icon="iconInfo"
               @click:append-outer="listCountries"
             />
@@ -208,7 +209,7 @@
   import PageHeader from '@/components/PageHeader.vue'
   import Passenger from '@/components/Passenger.vue'
   import { isMobile } from 'mobile-device-detect'
-  import { mdiHelpCircle, mdiEmailCheckOutline, mdiCheckCircle, mdiMinusCircleOutline } from '@mdi/js'
+  import { mdiHelpCircle, mdiEmailCheckOutline, mdiCheckCircle, mdiMinusCircleOutline, mdiPlus } from '@mdi/js'
 
   import countrycodes from '@/store/countrycodes.js'
 
@@ -229,6 +230,7 @@
         iconMail: mdiEmailCheckOutline,
         iconCheckmark: mdiCheckCircle,
         iconMinusCircle: mdiMinusCircleOutline,
+        iconPlus: mdiPlus,
 
         activePanelsList:  [],
 
@@ -295,9 +297,9 @@
         get() {
           // Add a '+' to start of string if empty or missing.
           let rawStr = this.$store.state.contactPhone
-          if ( rawStr === '' || rawStr.charAt(0) != '+' ) {
-            rawStr = '+' + rawStr
-          }
+          // if ( rawStr === '' || rawStr.charAt(0) != '+' ) {
+          //   rawStr = '+' + rawStr
+          // }
           return rawStr
         },
         set(phone) {
@@ -366,7 +368,7 @@
         //alert("clicked! " + clickedCodePrefix)
         this.countryPrefixCodeBuffer = clickedCodePrefix
         //if (this.contactPhone === '' || this.contactPhone === '+') {
-        this.contactPhone = '+' + this.countryPrefixCodeBuffer
+        this.contactPhone = this.countryPrefixCodeBuffer
         this.countriesListingDialog = false // close dialog box
         //}
       },
@@ -381,9 +383,9 @@
       updatePhoneCountryData: function () {
         let userInputStr = this.contactPhone
         // split into 2x strings, the first is the '+' and the rest of the number as a String
-        if (userInputStr.charAt(0) === '+') {
-          userInputStr = userInputStr.substring(1)
-        }
+        // if (userInputStr.charAt(0) === '+') {
+        //   userInputStr = userInputStr.substring(1)
+        // }
         // Remove all leading Zeros from number string and then recombine.
         userInputStr = userInputStr.replace(/^0+/, '')
 
@@ -391,7 +393,7 @@
         if (isNaN(searchInt) === true) {
           this.userPhoneCountriesDisplay = ''
           this.userPhoneCountriesStrings = ''
-          this.contactPhone = '+' + userInputStr
+          //this.contactPhone = '+' + userInputStr
           return
         }
         var results = this.cc.filter(function (obj) { return obj.phoneCode === searchInt });
@@ -408,7 +410,7 @@
             this.userPhoneCountriesStrings = this.userPhoneCountriesStrings  + ", " + results[i].value
           }
         }
-        this.contactPhone = '+' + userInputStr
+        this.contactPhone = userInputStr
       },
 
       // addInfoComplete: function (passengerIndex) {
