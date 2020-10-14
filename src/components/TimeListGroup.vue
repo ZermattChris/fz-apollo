@@ -1,57 +1,57 @@
 <template>
 
-<div class="time-container-row">
+  <div class="time-container-row">
 
-  <div id="animateBox">
+    <div id="animateBox">
 
-    <div
-      class="myCol"
-      v-for="(timeListerObj, key) in daysVisibleList"
-      
-      :key="key"
-      v-touch="{
-        left: () => swipe('Left'),
-        right: () => swipe('Right')
-      }">
-      <TimeList
-        :date="key"
-        :timesObj="timeListerObj"
-        :usersDate="userSelectedDate"
-        :selected="userSelectedSlot"
-        @row-selected="clickedRow"
-      ></TimeList>
+      <div
+        class="myCol"
+        v-for="(timeListerObj, key) in daysVisibleList"
+        
+        :key="key"
+        v-touch="{
+          left: () => swipe('Left'),
+          right: () => swipe('Right')
+        }">
+        <TimeList
+          :date="key"
+          :timesObj="timeListerObj"
+          :usersDate="userSelectedDate"
+          :selected="userSelectedSlot"
+          @row-selected="clickedRow"
+        ></TimeList>
 
+      </div>
     </div>
-  </div>
 
 
-  <v-btn
-    color="white" 
-    class="scrollIcons"
-    absolute
-    top
-    left
-    :x-small="mobile"
-    fab
-    @click="onPrevDay"
-  >
-    <v-icon>{{chevronLeft}}</v-icon>
-  </v-btn>
+    <v-btn
+      color="white" 
+      class="scrollIcons"
+      absolute
+      top
+      left
+      :x-small="mobile"
+      fab
+      @click="onPrevDay"
+    >
+      <v-icon>{{chevronLeft}}</v-icon>
+    </v-btn>
 
-  <v-btn
-    color="white"
-    class="scrollIcons"
-    absolute
-    top
-    right
-    :x-small="mobile"
-    fab
-    @click="onNextDay"
-  >
-    <v-icon>{{chevronRight}}</v-icon>
-  </v-btn>
+    <v-btn
+      color="white"
+      class="scrollIcons"
+      absolute
+      top
+      right
+      :x-small="mobile"
+      fab
+      @click="onNextDay"
+    >
+      <v-icon>{{chevronRight}}</v-icon>
+    </v-btn>
 
-  <v-overlay :value="isLoading" absolute />
+    <v-overlay :value="isLoading" absolute />
 
 
   </div>
