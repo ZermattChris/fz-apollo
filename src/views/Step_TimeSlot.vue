@@ -26,15 +26,12 @@
 <!-- start of new timelist object test -->
 
 
-    <v-sheet
-    class="mx-auto"
-    elevation="8"
-    max-width="800"
+  <!-- <v-sheet
+    class="mx-auto steps-controls"
+    max-width="1200"
   >
     <v-slide-group
       v-model="model"
-      class="pa-4"
-      show-arrows
       center-active
     >
       <v-slide-item
@@ -44,9 +41,9 @@
       >
         <v-card
           :color="active ? 'primary' : 'grey lighten-1'"
-          class="ma-4"
-          height="200"
-          width="100"
+          class="mx-1"
+          min-height="200"
+          width="290"
           @click="toggle"
         >
           <v-row
@@ -54,14 +51,12 @@
             align="center"
             justify="center"
           >
-            <v-scale-transition>
               <v-icon
                 v-if="active"
                 color="white"
                 size="48"
                 v-text="'mdi-close-circle-outline'"
               ></v-icon>
-            </v-scale-transition>
           </v-row>
         </v-card>
       </v-slide-item>
@@ -69,7 +64,6 @@
 
     <v-expand-transition>
       <v-sheet
-        v-if="model != null"
         height="200"
         tile
       >
@@ -84,12 +78,39 @@
         </v-row>
       </v-sheet>
     </v-expand-transition>
-  </v-sheet>
+  </v-sheet> -->
+
+
+  <swiper 
+    class="swiperBox mx-auto steps-controls"
+    ref="mySwiper" :options="swiperOptions"
+  >
+    <swiper-slide
+      v-for="(timeListerObj, key) in daysVisibleList"
+      :key="key"
+    >
+      Slide {{key}}
+
+      <TimeList
+        :date="key"
+        :timesObj="timeListerObj"
+        :usersDate="userSelectedDate"
+        :selected="userSelectedSlot"
+      ></TimeList>
+    </swiper-slide>
+  </swiper>
+
 
   </div>
 </template>
 
 <script>
+  import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
+  // import style (>= Swiper 6.x)
+  import 'swiper/swiper-bundle.css'
+  import TimeList from '@/components/TimeList.vue'
+  import {format, add, parseISO } from 'date-fns'  
+
   // import { store } from "@/store/store.js";
   import PageHeader from '@/components/PageHeader.vue'
   import TimeListGroup from '@/components/TimeListGroup.vue'
@@ -100,12 +121,26 @@
   
     components: {
       PageHeader,
-      TimeListGroup
+      TimeListGroup,
+      Swiper,
+      SwiperSlide,
+      TimeList
+    },
+    directives: {
+      swiper: directive
     },
 
     data () {
       return {
-        model: null,
+        model: 7,
+        swiperOptions: {
+          pagination: {
+            el: '.swiper-pagination'
+          },
+          // Some Swiper option/callback...
+        },
+        daysVisibleList: {},
+        nrDatesLoaded: 3,
       }
     },
 
@@ -113,8 +148,41 @@
       this.$store.dispatch('flightOptions')
       this.$store.dispatch('timeListDates')
     },
+    async mounted() {
+      // console.log('Current Swiper instance object', this.swiper)
+      // this.swiper.slideTo(3, 1000, false)
+      
+      await this.$store.dispatch('timeListDates')
+      //console.log('after load', this.$store.state._timeListDates)
+      this.loadVisibleDays()
+      
+    },
     
     computed: {
+      swiper() {
+        return this.$refs.mySwiper.$swiper
+      },
+      userSelectedSlot: {
+        get() {
+          return this.$store.state.timeSlot
+        },
+        set(int) {
+          // Pass along the slot's label as a sanity check for booking time.
+          //console.log('slotLabel', this.slotLabel)
+          const payload = {'slot':int, 'label':this.slotLabel}
+          return this.$store.dispatch('setTimeSlot', payload)
+        }
+      },
+      userSelectedDate: {
+        get() {
+          return this.$store.state.flightDate
+        },
+        set(dateStr) {
+          return this.$store.dispatch('setFlightDate', dateStr)
+        }
+      },
+
+
       userFlightDate: function () {
         return this.$store.state.flightDate
       },
@@ -136,7 +204,24 @@
         console.log(dateStr)
         this.userTimeSlot = dateStr
         return dateStr
-      }
+      },
+
+      loadVisibleDays: function () {
+
+        if (this.$store.state._timeListDates === null) return  // wait for the API to finish loading...
+
+        const usersDate = new Date(this.userSelectedDate)
+        const dateOffset = Math.floor(this.nrDatesLoaded / 2)
+        //console.log('dateOffset', dateOffset)
+        let loopDate = format( add(usersDate, { days: -dateOffset }), 'Y-MM-dd' )
+
+        for (let x = 0; x < this.nrDatesLoaded; x++) { 
+          this.$set( this.daysVisibleList, loopDate, this.$store.state._timeListDates[loopDate] )
+          loopDate = format( add(parseISO(loopDate), { days: 1 }), 'Y-MM-dd' )
+        }
+
+      },
+
     },
   }
 
@@ -156,6 +241,10 @@
 
 TimeListGroup {
   background-color: pink;
+}
+
+.swiperBox {
+  background-color: lawngreen;
 }
 
 </style>
