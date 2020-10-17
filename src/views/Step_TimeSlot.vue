@@ -12,13 +12,13 @@
             
     </PageHeader>
 
-    <div class="steps-controls">
+    <!-- <div class="steps-controls">
       <TimeListGroup/>
-    </div>
+    </div> -->
 
     <!-- This is required as I've position:absolute'd the steps-controls container,
     otherwise any contents after the TLG would jump up. -->
-    <div class="vSpacerForAbsolute"></div>
+    <!-- <div class="vSpacerForAbsolute"></div> -->
 
 
 
@@ -80,28 +80,32 @@
     </v-expand-transition>
   </v-sheet> -->
 
-
   <swiper 
-    class="swiperBox mx-auto steps-controls"
-    ref="mySwiper" :options="swiperOptions"
+    class="swiperBox steps-controls"
+    ref="mySwiper" 
+    :options="swiperOptions"
   >
+    <div class="swiper-button-prev" slot="button-prev"></div>
+    <div class="swiper-button-next" slot="button-next"></div>
     <swiper-slide
       v-for="(timeListerObj, key) in daysVisibleList"
       :key="key"
     >
-      Slide {{key}}
-
       <TimeList
+        class=""
         :date="key"
         :timesObj="timeListerObj"
         :usersDate="userSelectedDate"
         :selected="userSelectedSlot"
+        @row-selected="clickedRow"
       ></TimeList>
     </swiper-slide>
   </swiper>
 
 
-  </div>
+
+
+</div>
 </template>
 
 <script>
@@ -113,7 +117,7 @@
 
   // import { store } from "@/store/store.js";
   import PageHeader from '@/components/PageHeader.vue'
-  import TimeListGroup from '@/components/TimeListGroup.vue'
+  // import TimeListGroup from '@/components/TimeListGroup.vue'
 
 
   export default {
@@ -121,7 +125,6 @@
   
     components: {
       PageHeader,
-      TimeListGroup,
       Swiper,
       SwiperSlide,
       TimeList
@@ -134,13 +137,29 @@
       return {
         model: 7,
         swiperOptions: {
-          pagination: {
-            el: '.swiper-pagination'
+          effect: 'coverflow',        
+          coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows : true
           },
-          // Some Swiper option/callback...
+          centeredSlides: true,
+          slidesPerView: 3,
+          spaceBetween: 10,
+          slidesPerGroup: 3,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+          }
         },
         daysVisibleList: {},
-        nrDatesLoaded: 3,
+        nrDatesLoaded: 14,
       }
     },
 
@@ -200,8 +219,22 @@
     },
 
     methods: {
+      clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
+        // chosenSlot is zero based.
+        //console.log('chosenDate', chosenDate, 'chosenSlot', chosenSlot, 'timeLabel', timeLabel)
+        this.slotLabel = chosenSlotLabel
+        // this.$store.state.timeSlot = chosenSlot
+        this.userSelectedSlot = chosenSlot
+        // this.$store.state.flightDate = chosenDate
+        this.userSelectedDate = chosenDate
+        // Set 'Time' to true in the store _navList
+        const payload = {'Time': true}
+        this.$store.dispatch('setNavListItem', payload)
+
+      },
+
       setUserDate: function (dateStr) {
-        console.log(dateStr)
+        //console.log(dateStr)
         this.userTimeSlot = dateStr
         return dateStr
       },
@@ -228,6 +261,8 @@
 </script>
 
 <style scoped>
+
+
 .steps-controls {
   position: absolute;
   left:0; right: 0;
@@ -236,15 +271,14 @@
 }
   .vSpacerForAbsolute {
     width: 100%;
-    height: 500px;
+    height: 300px;
   }
 
 TimeListGroup {
   background-color: pink;
 }
 
-.swiperBox {
-  background-color: lawngreen;
-}
+
+
 
 </style>
