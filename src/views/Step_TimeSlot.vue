@@ -85,8 +85,6 @@
     ref="mySwiper" 
     :options="swiperOptions"
   >
-    <div class="swiper-button-prev" slot="button-prev"></div>
-    <div class="swiper-button-next" slot="button-next"></div>
     <swiper-slide
       v-for="(timeListerObj, key) in daysVisibleList"
       :key="key"
@@ -99,6 +97,9 @@
         :selected="userSelectedSlot"
         @row-selected="clickedRow"
       ></TimeList>
+      <div class="swiper-pagination" slot="pagination"></div>
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
     </swiper-slide>
   </swiper>
 
@@ -111,7 +112,7 @@
 <script>
   import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
   // import style (>= Swiper 6.x)
-  import 'swiper/swiper-bundle.css'
+  import '@/assets/swiper-bundle.css'
   import TimeList from '@/components/TimeList.vue'
   import {format, add, parseISO } from 'date-fns'  
 
@@ -137,18 +138,6 @@
       return {
         model: 7,
         swiperOptions: {
-          effect: 'coverflow',        
-          coverflowEffect: {
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows : true
-          },
-          centeredSlides: true,
-          slidesPerView: 3,
-          spaceBetween: 10,
-          slidesPerGroup: 3,
           pagination: {
             el: '.swiper-pagination',
             clickable: true
@@ -156,8 +145,33 @@
           navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
-          }
+          },
+          breakpoints: {
+            1500: {
+              slidesPerView: 5,
+              spaceBetween: 40
+            },
+            1200: {
+              slidesPerView: 4,
+              spaceBetween: 40
+            },
+            850: {
+              slidesPerView: 3,
+              spaceBetween: 30
+            },
+            700: {
+              slidesPerView: 2,
+              spaceBetween: 20
+            },
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 10
+            }
+          },
+          autoHeight: true,
         },
+
+
         daysVisibleList: {},
         nrDatesLoaded: 14,
       }
