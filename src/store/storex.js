@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from "axios"
 
 // Dev only - remove once API is up.
-import tmp from "./temp.json"
+//import tmp from "./temp.json"
 
 Vue.use(Vuex)
 
@@ -216,9 +216,9 @@ export default new Vuex.Store({
         })
         .catch(error => {
           console.log(error)
-          if (context.state._DEV) {
-            context.commit("TIMELIST_DATES", tmp)  // only loads temp.json data while in dev mode.
-          }
+          // if (context.state._DEV) {
+          //   context.commit("TIMELIST_DATES", tmp)  // only loads temp.json data while in dev mode.
+          // }
         })
         .finally(() => context.commit("TIMELIST_LOADING", false))
     },

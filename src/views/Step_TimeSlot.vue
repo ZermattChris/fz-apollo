@@ -97,7 +97,6 @@
         :selected="userSelectedSlot"
         @row-selected="clickedRow"
       ></TimeList>
-      <div class="swiper-pagination" slot="pagination"></div>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
     </swiper-slide>
@@ -114,7 +113,7 @@
   // import style (>= Swiper 6.x)
   import '@/assets/swiper-bundle.css'
   import TimeList from '@/components/TimeList.vue'
-  import {format, add, parseISO } from 'date-fns'  
+  //import {format, parseISO } from 'date-fns'  
 
   // import { store } from "@/store/store.js";
   import PageHeader from '@/components/PageHeader.vue'
@@ -138,30 +137,26 @@
       return {
         model: 7,
         swiperOptions: {
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-          },
           navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
           },
           breakpoints: {
-            1500: {
+            1700: {
               slidesPerView: 5,
               spaceBetween: 40
             },
-            1200: {
+            1260: {
               slidesPerView: 4,
               spaceBetween: 40
             },
-            850: {
+            950: {
               slidesPerView: 3,
-              spaceBetween: 30
+              spaceBetween: 20
             },
             700: {
               slidesPerView: 2,
-              spaceBetween: 20
+              spaceBetween: 30
             },
             320: {
               slidesPerView: 1,
@@ -173,7 +168,7 @@
 
 
         daysVisibleList: {},
-        nrDatesLoaded: 14,
+        //nrDatesLoaded: 14,
       }
     },
 
@@ -256,15 +251,10 @@
       loadVisibleDays: function () {
 
         if (this.$store.state._timeListDates === null) return  // wait for the API to finish loading...
-
-        const usersDate = new Date(this.userSelectedDate)
-        const dateOffset = Math.floor(this.nrDatesLoaded / 2)
-        //console.log('dateOffset', dateOffset)
-        let loopDate = format( add(usersDate, { days: -dateOffset }), 'Y-MM-dd' )
-
-        for (let x = 0; x < this.nrDatesLoaded; x++) { 
-          this.$set( this.daysVisibleList, loopDate, this.$store.state._timeListDates[loopDate] )
-          loopDate = format( add(parseISO(loopDate), { days: 1 }), 'Y-MM-dd' )
+        
+        for (const dateKey in this.$store.state._timeListDates) {
+          this.$set( this.daysVisibleList, dateKey, this.$store.state._timeListDates[dateKey] )
+          console.log(dateKey)
         }
 
       },
@@ -282,6 +272,7 @@
   left:0; right: 0;
   text-align: center;
   margin: 0 auto;
+  max-width: 1820px;
 }
   .vSpacerForAbsolute {
     width: 100%;
