@@ -12,74 +12,6 @@
             
     </PageHeader>
 
-    <!-- <div class="steps-controls">
-      <TimeListGroup/>
-    </div> -->
-
-    <!-- This is required as I've position:absolute'd the steps-controls container,
-    otherwise any contents after the TLG would jump up. -->
-    <!-- <div class="vSpacerForAbsolute"></div> -->
-
-
-
-
-<!-- start of new timelist object test -->
-
-
-  <!-- <v-sheet
-    class="mx-auto steps-controls"
-    max-width="1200"
-  >
-    <v-slide-group
-      v-model="model"
-      center-active
-    >
-      <v-slide-item
-        v-for="n in 15"
-        :key="n"
-        v-slot:default="{ active, toggle }"
-      >
-        <v-card
-          :color="active ? 'primary' : 'grey lighten-1'"
-          class="mx-1"
-          min-height="200"
-          width="290"
-          @click="toggle"
-        >
-          <v-row
-            class="fill-height"
-            align="center"
-            justify="center"
-          >
-              <v-icon
-                v-if="active"
-                color="white"
-                size="48"
-                v-text="'mdi-close-circle-outline'"
-              ></v-icon>
-          </v-row>
-        </v-card>
-      </v-slide-item>
-    </v-slide-group>
-
-    <v-expand-transition>
-      <v-sheet
-        height="200"
-        tile
-      >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <h3 class="title">
-            Selected {{ model }}
-          </h3>
-        </v-row>
-      </v-sheet>
-    </v-expand-transition>
-  </v-sheet> -->
-
   <swiper 
     class="swiperBox steps-controls"
     ref="mySwiper" 
@@ -97,11 +29,8 @@
         :selected="userSelectedSlot"
         @row-selected="clickedRow"
       ></TimeList>
-      <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
     </swiper-slide>
   </swiper>
-
 
 
 
@@ -111,13 +40,10 @@
 <script>
   import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
   // import style (>= Swiper 6.x)
-  import '@/assets/swiper-bundle.css'
+  import 'swiper/css/swiper.css'
   import TimeList from '@/components/TimeList.vue'
-  //import {format, parseISO } from 'date-fns'  
 
-  // import { store } from "@/store/store.js";
   import PageHeader from '@/components/PageHeader.vue'
-  // import TimeListGroup from '@/components/TimeListGroup.vue'
 
 
   export default {
@@ -137,10 +63,6 @@
       return {
         model: 7,
         swiperOptions: {
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          },
           breakpoints: {
             1700: {
               slidesPerView: 5,
@@ -158,23 +80,22 @@
               slidesPerView: 2,
               spaceBetween: 30
             },
-            320: {
+            220: {
               slidesPerView: 1,
               spaceBetween: 10
             }
           },
+          centeredSlides: true,
           autoHeight: true,
+          slideToClickedSlide: true,
         },
-
-
-        daysVisibleList: {},
-        //nrDatesLoaded: 14,
+        //daysVisibleList: this.$store.state._timeListDates,
       }
     },
 
     created() {
       this.$store.dispatch('flightOptions')
-      this.$store.dispatch('timeListDates')
+      //this.$store.dispatch('timeListDates')
     },
     async mounted() {
       // console.log('Current Swiper instance object', this.swiper)
@@ -182,11 +103,14 @@
       
       await this.$store.dispatch('timeListDates')
       //console.log('after load', this.$store.state._timeListDates)
-      this.loadVisibleDays()
+      this.centerUsersDay()
       
     },
     
     computed: {
+      daysVisibleList() {
+        return this.$store.state._timeListDates
+      },
       swiper() {
         return this.$refs.mySwiper.$swiper
       },
@@ -248,14 +172,9 @@
         return dateStr
       },
 
-      loadVisibleDays: function () {
+      centerUsersDay: function () {
 
-        if (this.$store.state._timeListDates === null) return  // wait for the API to finish loading...
-        
-        for (const dateKey in this.$store.state._timeListDates) {
-          this.$set( this.daysVisibleList, dateKey, this.$store.state._timeListDates[dateKey] )
-          console.log(dateKey)
-        }
+        this.$refs.mySwiper.$swiper.slideTo(7, 1000, false)
 
       },
 
@@ -273,17 +192,20 @@
   text-align: center;
   margin: 0 auto;
   max-width: 1820px;
+
 }
-  .vSpacerForAbsolute {
+  /* .vSpacerForAbsolute {
     width: 100%;
     height: 300px;
-  }
+  } */
 
-TimeListGroup {
+/* TimeListGroup {
   background-color: pink;
-}
+} */
 
-
+/* .swiper-slide {
+  margin-bottom: 60px;
+} */
 
 
 </style>
