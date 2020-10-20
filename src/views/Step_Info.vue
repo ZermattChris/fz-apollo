@@ -109,12 +109,9 @@
           active-class="activePanel"
         >
 
-          <v-expansion-panel-header>
-            <!-- <template v-slot:actions>
-              <v-icon color="teal">
-                mdi-check
-              </v-icon>
-            </template> -->
+          <v-expansion-panel-header
+            @click="scrollToElement"
+          >
             <v-icon  
                v-if="i === 0"
               class="mailIcon"
@@ -124,9 +121,7 @@
 
             <span class="font-weight-bold">{{getPassengersNameForHeader(i)}}</span>
             <!-- <span class="font-weight-bold" v-if="i > 0">Passenger #{{i+1}}</span> -->
-
-            
-<!-- Valid: {{getIsFormValid(i)}} -->
+            <!-- Valid: {{getIsFormValid(i)}} -->
 
             <v-icon 
               v-if="getIsFormValid(i)" 
@@ -474,6 +469,10 @@
         if (this.contactValid === true) {
           setTimeout(() => { this.$scrollTo('#expand-panels', 500) }, 300)
         }
+      },
+      scrollToElement: function (ev) {
+        let el = ev.currentTarget
+        setTimeout(() => { this.$scrollTo(el, 500) }, 300)
       },
 
     },
