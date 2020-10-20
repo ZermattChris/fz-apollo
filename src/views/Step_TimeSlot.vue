@@ -61,7 +61,6 @@
 
     data () {
       return {
-        model: 7,
         swiperOptions: {
           breakpoints: {
             1700: {
@@ -174,7 +173,35 @@
 
       centerUsersDay: function () {
 
-        this.$refs.mySwiper.$swiper.slideTo(7, 1000, false)
+        // need to find index of currently chosen user's date.
+
+        //let index = this.daysVisibleList.findIndex(p => p.attr1 == this.userSelectedDate)
+
+        // let x = 1
+        // for (let key in Object.values(this.daysVisibleList)) {
+        //   if (this.userSelectedDate === key) {
+        //     console.log('found it!: ', x, this.userSelectedDate)
+        //   }
+        //   //console.log(x)
+        //   x = x+1
+        // }
+
+        //const index = this.daysVisibleList.findIndex(item => item.name === this.userSelectedDate)
+
+        const usrDateStr = this.userSelectedDate
+        const tmpList = this.daysVisibleList
+        let index = 0
+        let foundIndx = 0
+        Object.keys(tmpList).forEach(function(key) {
+          //console.log(key, tmpList[key]);
+          if (key === usrDateStr) {
+            console.log(index, key, tmpList[key]);
+            foundIndx = index
+          }
+          index = index + 1
+        });
+
+        this.swiper.slideTo(foundIndx, 1000, false)
 
       },
 
