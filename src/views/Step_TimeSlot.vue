@@ -29,7 +29,7 @@
         :selected="userSelectedSlot"
         @row-selected="clickedRow"
       ></TimeList>
-    <div class="vSpacerForAbsolute"></div>
+      <div class="vSpacerForFooter"></div>
     </swiper-slide>
     
 
@@ -53,9 +53,9 @@
   
     components: {
       PageHeader,
+      TimeList,
       Swiper,
       SwiperSlide,
-      TimeList
     },
     directives: {
       swiper: directive
@@ -64,6 +64,7 @@
     data () {
       return {
         swiperOptions: {
+          spaceBetween: 40,
           breakpoints: {
             1700: {
               slidesPerView: 5,
@@ -174,20 +175,11 @@
 
       centerUsersDay: function () {
 
-        // need to find index of currently chosen user's date.
-
-        //let index = this.daysVisibleList.findIndex(p => p.attr1 == this.userSelectedDate)
-
-        // let x = 1
-        // for (let key in Object.values(this.daysVisibleList)) {
-        //   if (this.userSelectedDate === key) {
-        //     console.log('found it!: ', x, this.userSelectedDate)
-        //   }
-        //   //console.log(x)
-        //   x = x+1
-        // }
-
-        //const index = this.daysVisibleList.findIndex(item => item.name === this.userSelectedDate)
+        let temp = this.$refs.mySwiper.$swiper
+        console.log(temp)
+        if (this.swiper === undefined) {
+          return
+        }
 
         const usrDateStr = this.userSelectedDate
         const tmpList = this.daysVisibleList
@@ -203,7 +195,7 @@
         });
 
         this.swiper.slideTo(foundIndx, 1000, false)
-
+        
       },
 
     },
@@ -223,18 +215,10 @@
 }
 
 
-  .vSpacerForAbsolute {
+  .vSpacerForFooter {
     width: 100%;
     height: 100px;
   }
-
-/* TimeListGroup {
-  background-color: pink;
-} */
-
-/* .swiper-slide {
-  margin-bottom: 60px;
-} */
 
 
 </style>
