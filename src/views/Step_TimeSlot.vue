@@ -10,33 +10,43 @@
       <br><br>
       How to choose the right time for you: <a href="#TODO"><span class="text-no-wrap">Flight Guidelines</span></a>
             
-    </PageHeader>
-
-  <swiper 
-    class="swiperBox steps-controls"
-    ref="mySwiper" 
-    :options="swiperOptions"
-  >
-    <swiper-slide
-      v-for="(timeListerObj, key) in daysVisibleList"
-      :key="key"
-    >
-      <TimeList
-        class=""
-        :date="key"
-        :timesObj="timeListerObj"
-        :usersDate="userSelectedDate"
-        :selected="userSelectedSlot"
-        @row-selected="clickedRow"
-      ></TimeList>
-      <div class="vSpacerForFooter"></div>
-    </swiper-slide>
     
 
-  </swiper>
+    </PageHeader>
+
+    <!-- Simple loading icon from main page load... -->
+    <div class="text-center pt-6" v-if="!daysVisibleList">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="amber"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+
+    <swiper 
+      class="swiperBox steps-controls"
+      ref="mySwiper" 
+      :options="swiperOptions"
+    >
+      <swiper-slide
+        v-for="(timeListerObj, key) in daysVisibleList"
+        :key="key"
+      >
+        <TimeList
+          class=""
+          :date="key"
+          :timesObj="timeListerObj"
+          :usersDate="userSelectedDate"
+          :selected="userSelectedSlot"
+          @row-selected="clickedRow"
+        ></TimeList>
+        <div class="vSpacerForFooter"></div>
+      </swiper-slide>
+    </swiper>
 
 
-</div>
+  </div>
 </template>
 
 <script>
@@ -63,7 +73,11 @@
 
     data () {
       return {
+        //swiper: null,
         swiperOptions: {
+          centeredSlides: true,
+          //autoHeight: true,
+          slideToClickedSlide: true,
           spaceBetween: 40,
           breakpoints: {
             1700: {
@@ -87,9 +101,6 @@
               spaceBetween: 10
             }
           },
-          centeredSlides: true,
-          autoHeight: true,
-          slideToClickedSlide: true,
         },
       }
     },
@@ -99,11 +110,12 @@
       //this.$store.dispatch('timeListDates')
     },
     async mounted() {
-      // console.log('Current Swiper instance object', this.swiper)
+      console.log('Current Swiper instance object:', this.swiper)
       // this.swiper.slideTo(3, 1000, false)
       
-      await this.$store.dispatch('timeListDates')
+      await this.$store.dispatch('timeListDates').catch((err) => { console.error(err); })
       //console.log('after load', this.$store.state._timeListDates)
+      //this.swiper = this.$refs.mySwiper.$swiper 
       this.centerUsersDay()
       
     },
@@ -175,8 +187,8 @@
 
       centerUsersDay: function () {
 
-        let temp = this.$refs.mySwiper.$swiper
-        console.log(temp)
+        //let temp = this.$refs.mySwiper.$swiper
+        console.log("Swiper in centerUsersDay(): ", this.$refs)
         if (this.swiper === undefined) {
           return
         }
@@ -194,7 +206,7 @@
           index = index + 1
         });
 
-        this.swiper.slideTo(foundIndx, 1000, false)
+        this.swiper.slideTo(foundIndx, 500, false)
         
       },
 
