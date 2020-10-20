@@ -29,9 +29,11 @@
         :selected="userSelectedSlot"
         @row-selected="clickedRow"
       ></TimeList>
+    <div class="vSpacerForAbsolute"></div>
     </swiper-slide>
-  </swiper>
+    
 
+  </swiper>
 
 
 </div>
@@ -88,7 +90,6 @@
           autoHeight: true,
           slideToClickedSlide: true,
         },
-        //daysVisibleList: this.$store.state._timeListDates,
       }
     },
 
@@ -219,12 +220,13 @@
   text-align: center;
   margin: 0 auto;
   max-width: 1820px;
-
 }
-  /* .vSpacerForAbsolute {
+
+
+  .vSpacerForAbsolute {
     width: 100%;
-    height: 300px;
-  } */
+    height: 100px;
+  }
 
 /* TimeListGroup {
   background-color: pink;
