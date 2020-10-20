@@ -11,7 +11,6 @@ Bugsnag.start({
   plugins: [new BugsnagPluginVue()]
 })
 
-
 Vue.config.productionTip = false
 
 
@@ -46,3 +45,7 @@ new Vue({
 Bugsnag.getPlugin('vue').installVueErrorHandler(Vue)
 // Test error shows up in bugsnag.com
 //Bugsnag.notify(new Error('Test error'))
+
+
+const VueScrollTo = require('vue-scrollto')
+Vue.use(VueScrollTo)

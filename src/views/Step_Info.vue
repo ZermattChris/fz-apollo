@@ -101,6 +101,7 @@
       :disabled = !contactValid
       :inset="!mobile"
       ref="passengerPanels"
+      id="expand-panels"
     >
       <v-expansion-panel
           v-for="(item, i) in usersGroupSize"
@@ -354,6 +355,10 @@
     },
 
     methods: {
+      
+      // toTop: function () {
+      //   this.$vuetify.goTo(0)
+      // },
 
       getIsFormValid: function (passengerNr) {
         return this.$store.getters.getIsValidById(passengerNr)
@@ -464,6 +469,13 @@
         this.countriesListingDialog = true
       },
 
+      // Scroll down to the first, opened expander panel if Contact form is valid
+      scrollToFirstUserIfValid: function () {
+        if (this.contactValid === true) {
+          setTimeout(() => { this.$scrollTo('#expand-panels', 500) }, 300)
+        }
+      },
+
     },
 
     watch: {
@@ -477,6 +489,9 @@
         if (this.contactValid === true && this.activePanelsList.length === 0) {
           //console.log('open first expansion', this.contactValid)
           this.activePanelsList = [0]
+          //this.$scrollTo('#expand-panels', 500)
+          // attempt to jump to opened Expansion panels if form valid.
+          this.scrollToFirstUserIfValid()
         } else {
           this.activePanelsList = []
         }
