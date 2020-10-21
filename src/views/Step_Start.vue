@@ -12,7 +12,7 @@
 
 
       <!-- ***************** Nr People ******************** -->
-      <h3 class="disable-select">
+      <h3 id="nrPeopleFlying" class="disable-select">
         <v-icon :color="isValidNrPeople ? 'success' : 'primary'">{{ isValidNrPeople ? stepIconCompleted : stepIcon }}</v-icon>
         Nr of People Flying
       </h3>
@@ -34,26 +34,17 @@
 
 
          <!-- ***************** Flight Date ******************** -->
-      <h3 class="disable-select">
+      <h3 id="chooseFlightDate" class="disable-select">
         <v-icon :color="flightDate ? 'success' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
         Flight Date
       </h3>
-      <!-- DEBUG MSG TEMP -->
-      <!-- <v-chip
-        color="warning"
-        text-color="white">
-        <v-avatar left>
-          <v-icon>mdi-bug</v-icon>
-        </v-avatar>
-        DEBUG: You need to choose <strong>June 18th, 2020</strong> to get next step to display properly
-      </v-chip> -->
       
       <div class="controls">
         <v-dialog
           ref="dialog"
           v-model="flightModal"
           :return-value.sync="flightDate"
-
+          @input="scrollToFormTop"
           width="290px"
         >
           <template v-slot:activator="{ on }">
@@ -360,6 +351,10 @@ export default {
     }
   },
   methods: {
+
+    scrollToFormTop: function () {
+      setTimeout(() => { this.$scrollTo('#chooseFlightDate', 500) }, 100)
+    },
     
     // move this to updating a VueX state list, that the Continue button
     // can react to on its own.

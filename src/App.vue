@@ -20,17 +20,7 @@
       dark
       hide-on-scroll
     >
-      <!-- Back Btn -->
-      <v-btn
-        class="text-capitalize"
-        :class="canGoBack ? '' : 'd-none'"
-        style="position:absolute; left:-5px;"
-        text
-        @click="onBackBtnClick"
-      >
-        <v-icon left>{{iconPrevChevron}}</v-icon>
-        Back
-      </v-btn>
+
       
       <div 
         id="logo"
@@ -90,12 +80,23 @@
       app
       padless
     >
+      <!-- Back Btn -->
+      <v-btn
+        class="text-capitalize"
+        :class="canGoBack ? '' : 'hideBackBtn'"
+        style="position:absolute; left:5px; z-index:1000;"
+        text
+        @click="onBackBtnClick"
+      >
+        <v-icon left>{{iconPrevChevron}}</v-icon>
+        Back
+      </v-btn>
+
       <!-- Continue Btn -->
       <div
         class="d-flex"
         style="position:absolute; width:100%; height:100%; top:12px;"
       >
-        <!-- Continue Btn -->
         <NavButton
           class="mx-auto"
           ref="ContinueBtn"
@@ -299,6 +300,8 @@ h3 > .v-icon {
 .v-input__icon {
   margin-right: 5px !important;
 }
-
+.hideBackBtn {
+  visibility: hidden;
+}
 
 </style>

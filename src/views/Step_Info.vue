@@ -88,6 +88,7 @@
               type="email"
               name="email"
               placeholder="you@mail.com"
+              @blur="scrollToFirstUserIfValid"
             />
           </v-col>
         </v-row>
@@ -408,6 +409,8 @@
         cleanedStr = cleanedStr.replace(/[-]+$/, '')
         cleanedStr = cleanedStr.replace(/-+/g, '-')
         this.contactPhone = cleanedStr
+
+        //this.scrollToFirstUserIfValid()
       },
 
       stripPhoneJunkChars: function (stringToStrip) {
@@ -490,7 +493,7 @@
           this.activePanelsList = [0]
           //this.$scrollTo('#expand-panels', 500)
           // attempt to jump to opened Expansion panels if form valid.
-          this.scrollToFirstUserIfValid()
+          //this.scrollToFirstUserIfValid()
         } else {
           this.activePanelsList = []
         }

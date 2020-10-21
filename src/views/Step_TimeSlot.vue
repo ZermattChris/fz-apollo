@@ -25,6 +25,7 @@
     </div>
 
     <swiper 
+      id="timeSlotSwiper"
       class="swiperBox steps-controls"
       ref="mySwiper" 
       :options="swiperOptions"
@@ -165,6 +166,12 @@
     },
 
     methods: {
+
+
+      scrollToTimeSlotTop: function () {
+        setTimeout(() => { this.$scrollTo('#timeSlotSwiper', 500) }, 200)
+      },
+      
       clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
         // chosenSlot is zero based.
         //console.log('chosenDate', chosenDate, 'chosenSlot', chosenSlot, 'timeLabel', timeLabel)
@@ -177,6 +184,8 @@
         const payload = {'Time': true}
         this.$store.dispatch('setNavListItem', payload)
 
+        // Push the TimeSlot Swiper to top of screen
+        this.scrollToTimeSlotTop()
       },
 
       setUserDate: function (dateStr) {

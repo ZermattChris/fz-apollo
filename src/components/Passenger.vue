@@ -91,6 +91,7 @@
             <v-icon>{{iconTortoise}}</v-icon>
           </v-btn>
           <v-slider
+            id="speedSlider"
             v-model="speed"
             :disabled="!disabled"
             class="pt-2 basicSlider"
@@ -105,7 +106,7 @@
           <v-btn
             id="rightBtn"
             :disabled="!disabled"
-            @click="onUpdateSpeed(2)"
+            @mousedown="onUpdateSpeed(2)"
           >
             <v-icon>{{iconRabbit}}</v-icon>
           </v-btn>
@@ -398,6 +399,12 @@
 
     methods: {
 
+      // captureFocusSpeed: function () {
+      //   //alert('', e)
+      //   //document.getElementById('speedSlider').focus()
+      //   //e.preventDefault()
+      // },
+
       nameKeydown: function (e) {
         // Stop crap Name chars from being input. Uses the same regex as the watch on 'name' without negated.
         if (this.regexNegated.test(e.key)) {
@@ -458,6 +465,8 @@
     text-align: center;
   }
 
-
-
+  >>>.v-slider--horizontal .v-slider__track-container {
+    height: 4px !important;
+  }
+  
 </style>>
