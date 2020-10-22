@@ -106,12 +106,13 @@
       }
     },
 
+
     created() {
       this.$store.dispatch('flightOptions')
       //this.$store.dispatch('timeListDates')
     },
     async mounted() {
-      console.log('Current Swiper instance object:', this.swiper)
+      //console.log('Current Swiper instance object:', this.swiper)
       // this.swiper.slideTo(3, 1000, false)
       
       await this.$store.dispatch('timeListDates').catch((err) => { console.error(err); })
@@ -197,7 +198,7 @@
       centerUsersDay: function () {
 
         //let temp = this.$refs.mySwiper.$swiper
-        console.log("Swiper in centerUsersDay(): ", this.$refs)
+        //console.log("Swiper in centerUsersDay(): ", this.$refs)
         if (this.swiper === undefined) {
           return
         }
@@ -209,7 +210,7 @@
         Object.keys(tmpList).forEach(function(key) {
           //console.log(key, tmpList[key]);
           if (key === usrDateStr) {
-            console.log(index, key, tmpList[key]);
+            //console.log(index, key, tmpList[key]);
             foundIndx = index
           }
           index = index + 1

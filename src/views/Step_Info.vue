@@ -302,9 +302,6 @@
 
         activePanelsList:  [],
 
-        //validFormList: [],
-        //getIsFormValid: false,
-
         passengersName: '',
 
         cc: countrycodes,
@@ -334,9 +331,10 @@
       this.updatePhoneCountryData()
     },
     mounted() {
-      // set focus to Phone Input
-      this.$refs.Phone.focus()
-      //this.$nextTick(() => phoneInput.focus())
+      // set focus to Phone Input if field is empty.
+      if (this.contactPhone === '') {
+        this.$refs.Phone.focus()
+      }
     },
 
 
@@ -355,11 +353,11 @@
         let payload = {}
         let valid = false
         if (allPassengerFormsValid && this.contactValid) {
-          console.log('Info Step COMPLETED')
+          //console.log('Info Step COMPLETED')
           payload = {'Info': true}
           valid = true
         } else {
-          console.log('Info Step Not complete yet...')
+          //console.log('Info Step Not complete yet...')
           payload = {'Info': false}
           valid = false
         }

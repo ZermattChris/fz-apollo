@@ -104,7 +104,7 @@
       </div>
       <div 
         style="text-align:right;"
-        class="hidden-xs-only white--text overline mr-2"
+        class="hidden-xs-only white--text overline mr-2 text--secondary"
       >
         © {{getCurrentYear}} - FlyZermatt
       </div>
@@ -167,7 +167,7 @@ export default {
               Go back to the first Step that has clean data, and let the user know that there
               was old/stale data that needs to be reinput.
     */
-    console.log('beforeCreate on App.vue')
+    //console.log('beforeCreate on App.vue')
   },
 
   updated () {

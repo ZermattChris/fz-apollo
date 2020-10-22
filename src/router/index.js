@@ -64,7 +64,7 @@ const router = new VueRouter({
 
 // Global Navigation Guards.
 router.afterEach((to) => {
-  console.log('Global -> afterEach() in router', to.name)
+  //console.log('Global -> afterEach() in router', to.name)
   store.dispatch('setCurrentStep', to.name)
 })
 

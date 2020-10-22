@@ -42,7 +42,7 @@
         },
         ()=>{
           // How to react to the watch
-          console.log('Reacted to watched -> state._navList')
+          //console.log('Reacted to watched -> state._navList')
           this.update()
         },
         {
@@ -53,12 +53,12 @@
     },
 
 
-    watch: {
-      '$store.state._currentStep': function() {
-        //console.log(this.$store.state._currentStep)
-        this.update()
-      }
-    },
+    // watch: {
+    //   '$store.state._currentStep': function() {
+    //     //console.log(this.$store.state._currentStep)
+    //     this.update()
+    //   }
+    // },
 
     methods: {
       // ! Issues here. route.name resolves to null ??
