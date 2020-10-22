@@ -292,8 +292,7 @@
       return {
         mobile: isMobile,
         contactValid: false,
-        confirmDetailsDialog: false,
-
+        
         iconInfo: mdiHelpCircle,
         iconMail: mdiEmailCheckOutline,
         iconCheckmark: mdiCheckCircle,
@@ -339,6 +338,15 @@
 
 
     computed: {
+
+      confirmDetailsDialog: {
+        get() {
+          return this.$store.state._showReviewDialog
+        },
+        set(boolVal) {
+          this.$store.dispatch('showReviewDialog', boolVal)
+        }
+      },
 
       stepCompleted: function () {
         // I think this can all go into the Store's '' getter call. Then just need to 
@@ -532,6 +540,10 @@
 
     watch: {
       
+      // stepxCompleted: function () {
+      //   //console.log('Step3 Completed? ' + newVal)
+      // },
+
       // This triggers the update of the NavButton component by causing the
       // computed stepCompleted to be triggered, updating the NavList in Store.
       stepCompleted: function () {

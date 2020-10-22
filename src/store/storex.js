@@ -58,6 +58,7 @@ export default new Vuex.Store({
     // EasyJet style of choosing a Date's Timeslot.
     _timeListDates: null, // List of dates obj with time slots
 
+    // Not sure any of these are really needed/used...
     // Loading values. Use to update UI to show various components are loading...
     _app_loading: true,          // defaults to true, as initial loading state of app.
     _flightsList_loading: false,
@@ -67,12 +68,25 @@ export default new Vuex.Store({
     // Holds the Router name and t/f for each Page's validity.
     _navList: localStorage._navList ? JSON.parse(localStorage._navList) : rawNavList,
 
-      // Where we currently are in the Form Steps
-    _currentStep: localStorage._currentStep || "",  
+    // Where we currently are in the Form Steps
+    _currentStep: localStorage._currentStep || "",
+
+    // this var when false, will open up the Review your Booking dialog.
+    // Set to false again when data changes, to force them to re-Review.
+    _hasReviewedData: false,
+    _showReviewDialog: false,
 
   },   // END STATE
 
   mutations: {
+
+    HAS_REVIEWED_DATA(state, reviewedBool) {
+      state._hasReviewedData = reviewedBool;
+    },
+    SHOW_REVIEW_DIALOG(state, showBool) {
+      state._showReviewDialog = showBool;
+    },
+
     // UI Loading...
     APP_LOADING(state, isLoading) {
       state._app_loading = isLoading;
@@ -262,29 +276,38 @@ export default new Vuex.Store({
 
 
     setFlightsList(context, flightsListObj) {
-      context.commit("FLIGHTS_LIST", flightsListObj);
+      context.commit("FLIGHTS_LIST", flightsListObj)
     },
+
+
+    hasReviewedData(context, reviewedBool) {
+      context.commit("HAS_REVIEWED_DATA", reviewedBool)
+    },
+    showReviewDialog(context, showBool) {
+      context.commit("SHOW_REVIEW_DIALOG", showBool)
+    },
+    
 
     // --- USER INPUTS ---
     setNrPeople(context, nr) {
-      context.commit("CHOSEN_NR_PEOPLE", +nr);
+      context.commit("CHOSEN_NR_PEOPLE", +nr)
       localStorage.nrPeople = nr
     },
     setFlightDate(context, dateStr) {
-      context.commit("CHOSEN_DATE", dateStr);
+      context.commit("CHOSEN_DATE", dateStr)
       localStorage.flightDate = dateStr
     },
     setFlight(context, flightNameStr) {
-      context.commit("CHOSEN_FLIGHT", flightNameStr);
+      context.commit("CHOSEN_FLIGHT", flightNameStr)
       localStorage.selectedFlight = flightNameStr
     },
     setWantsPhotos(context, picsBool) {
-      context.commit("CHOSEN_PHOTOS", picsBool);
+      context.commit("CHOSEN_PHOTOS", picsBool)
       localStorage.wantsPhotos = picsBool
     },
     setTimeSlot(context, payload) {
       //console.log('slotInt', payload.slot, payload.label)
-      context.commit("CHOSEN_TIMESLOT", payload.slot, payload.label);
+      context.commit("CHOSEN_TIMESLOT", payload.slot, payload.label)
       localStorage.selectedTimeslot = payload.slot
       localStorage.selectedTimeslotLabel = payload.label
     },
@@ -292,28 +315,28 @@ export default new Vuex.Store({
     // Nav Action.
     clearNavList(context) {
       //console.log('NAV_LIST', payload)
-      context.commit("CLEAR_NAV_LIST");
+      context.commit("CLEAR_NAV_LIST")
       localStorage._navList = JSON.stringify(context.state._navList)
     },
     setNavListItem(context, payload) {
       //console.log('NAV_LIST', payload)
-      context.commit("NAV_LIST", payload);
+      context.commit("NAV_LIST", payload)
       localStorage._navList = JSON.stringify(context.state._navList)
     },
     setCurrentStep(context, stepName) {
       //console.log('NAV_LIST', payload)
-      context.commit("CURRENT_STEP", stepName);
+      context.commit("CURRENT_STEP", stepName)
       localStorage._currentStep = stepName
     },
 
     setContactPhone(context, phoneNr) {
       //console.log('NAV_LIST', payload)
-      context.commit("CONTACT_PHONE", phoneNr);
+      context.commit("CONTACT_PHONE", phoneNr)
       localStorage.contactPhone = phoneNr
     },
     setContactEmail(context, email) {
       //console.log('NAV_LIST', payload)
-      context.commit("CONTACT_EMAIL", email);
+      context.commit("CONTACT_EMAIL", email)
       localStorage.contactEmail = email
     },
 

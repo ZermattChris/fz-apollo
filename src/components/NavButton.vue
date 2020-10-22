@@ -89,7 +89,11 @@
             this.$store.dispatch('setCurrentStep', 'Info')
             break
           case 'Info': 
-            //console.log('Leaving Info')
+            //console.log('Send the Info page an event that opens the Review your Booking dialog.')
+            if (this.$store.state._hasReviewedData === false) {
+              this.$store.dispatch('showReviewDialog', true)
+              return
+            }
             this.$store.dispatch('setCurrentStep', 'Next')
             break
           case 'Next': 
