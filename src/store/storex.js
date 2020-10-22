@@ -356,6 +356,9 @@ export default new Vuex.Store({
   
   getters: {
 
+    // Not sure I really need these like this. Each step is checking if valid and marking
+    // it into the state._navList array. Just a single call to this to check if marked valid
+    // should be enough...
     step_startValid: state => {
       const isValid = state.nrPeople && state.flightDate !== '' && state.selectedFlight !== ''
       //console.log('step_startValid? :', isValid)
@@ -368,12 +371,14 @@ export default new Vuex.Store({
       return isValid
     },
 
-    step_infoValid: (state, getters) => {
-      //const isValid = state.contactPhone !== '' && state.contactEmail !== '' && getters.step_startValid && getters.step_timeValid
-      //console.log('step_infoValid? :', isValid)
-      console.log(state, getters)
-      return true
-    },
+    // step_infoValid: (state, getters) => {
+    //   //const isValid = state.contactPhone !== '' && state.contactEmail !== '' && getters.step_startValid && getters.step_timeValid
+    //   //console.log('step_infoValid? :', isValid)
+    //   // console.log(state, getters)
+    //   // const isValid = getters.getAllPassengersValid() && 
+
+    //   return true
+    // },
 
     //--------------------
     // Passenger Getters.    

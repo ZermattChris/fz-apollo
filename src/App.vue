@@ -110,9 +110,10 @@
       </div>
       <div 
         style="max-width:140px; line-height:1.2em; text-align:right;"
-        class="hidden-sm-and-up white--text overline mr-2"
+        class="hidden-sm-and-up white--text overline mr-2 text-caption text--secondary"
       >
-        © {{getCurrentYear}} FlyZermatt
+        © {{getCurrentYear}}<br/>
+        FlyZermatt
       </div>
     </v-footer>
 

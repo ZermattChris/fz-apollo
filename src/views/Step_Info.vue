@@ -8,6 +8,7 @@
       <br>
     </PageHeader>
 
+    <!-- START Contact Form -->
     <v-form
       ref="contactForm"
       v-model="contactValid"
@@ -94,8 +95,10 @@
         </v-row>
       </div>
     </v-form>
+    <!-- END Contact Form -->
     
-  
+
+    <!-- START Passenger Forms -->
     <v-expansion-panels
       v-model="activePanelsList"
       multiple
@@ -121,8 +124,6 @@
             </v-icon>
 
             <span class="font-weight-bold">{{getPassengersNameForHeader(i)}}</span>
-            <!-- <span class="font-weight-bold" v-if="i > 0">Passenger #{{i+1}}</span> -->
-            <!-- Valid: {{getIsFormValid(i)}} -->
 
             <v-icon 
               v-if="getIsFormValid(i)" 
@@ -151,7 +152,9 @@
 
         </v-expansion-panel>
     </v-expansion-panels>
+    <!-- END Passenger Forms -->
 
+    <!-- START of Country Code Listings dialog -->
     <v-dialog
       v-model="countriesListingDialog"
       max-width="400"
@@ -215,6 +218,55 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <!-- END of Country Code Listings dialog -->
+
+
+
+
+
+
+    <!-- START Confirm Passenger details dialog -->
+    <v-dialog
+      v-model="confirmDetailsDialog"
+    >
+      <v-card>
+        <v-card-title>
+          Confirm your Booking Details
+        </v-card-title>
+
+        <v-card-text>
+          Please check that your Booking information is correct, especially
+          your Phone Number and Email (otherwise we can't contact you if we need to 
+          adjust your booking due to weather, etc.)
+        </v-card-text>
+
+        
+        <!-- Start of table listing -->
+        <v-simple-table
+          scrollable
+          height="55vh"
+        >
+          <template v-slot:default>
+            confirming stuff goes here...
+          </template>
+        </v-simple-table>
+        <!-- End of table listing -->
+
+        <v-card-actions class="dialogFooter">
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="purple"
+            text
+            @click="confirmDetailsDialog = false"
+          >
+            Confirm Details
+          </v-btn>
+
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- END Confirm Passenger details dialog -->
 
   </div>
 </template>
@@ -240,6 +292,7 @@
       return {
         mobile: isMobile,
         contactValid: false,
+        confirmDetailsDialog: false,
 
         iconInfo: mdiHelpCircle,
         iconMail: mdiEmailCheckOutline,
@@ -290,6 +343,9 @@
     computed: {
 
       stepCompleted: function () {
+        // I think this can all go into the Store's '' getter call. Then just need to 
+        // do a watch to see if this Step is valid...
+
         // Ask the Store if Step 3 is completed (Booking Contact, plus valid for all Passengers)
         // Add a watch on this and update the Store if this returns true.
         // // Set 'Time' to true in the store _navList
@@ -297,29 +353,25 @@
         // this.$store.dispatch('setNavListItem', payload)
         let allPassengerFormsValid = this.$store.getters.getAllPassengersValid
         let payload = {}
+        let valid = false
         if (allPassengerFormsValid && this.contactValid) {
           console.log('Info Step COMPLETED')
           payload = {'Info': true}
+          valid = true
         } else {
           console.log('Info Step Not complete yet...')
           payload = {'Info': false}
+          valid = false
         }
         this.$store.dispatch('setNavListItem', payload)
-        return true
+        return valid
         // return this.$store.getters.step_infoValid
       },
 
-      // contactFormData: function () {
-      //   return this.contactPhone + this.contactEmail
-      // },
 
       contactPhone: {
         get() {
-          // Add a '+' to start of string if empty or missing.
           let rawStr = this.$store.state.contactPhone
-          // if ( rawStr === '' || rawStr.charAt(0) != '+' ) {
-          //   rawStr = '+' + rawStr
-          // }
           return rawStr
         },
         set(phone) {
@@ -481,10 +533,12 @@
     },
 
     watch: {
-  
-//       stepCompleted: function (old, newVal) {
-// console.log('Step3 Completed? ' + old + ' ' + newVal)
-//       },
+      
+      // This triggers the update of the NavButton component by causing the
+      // computed stepCompleted to be triggered, updating the NavList in Store.
+      stepCompleted: function () {
+        //console.log('Step3 Completed? ' + newVal)
+      },
 
       contactValid: function () {
         //console.log('contactValid changed', this.contactValid)
@@ -498,12 +552,6 @@
           this.activePanelsList = []
         }
       },
-      // This is setting up the country flags and Tooltip whenever the user 
-      // changes the value of the Phone field.
-      // contactPhone: function () {
-      //   this.updatePhoneCountryData()
-      // },
-
 
     }
 
@@ -524,9 +572,6 @@
   opacity: 0.1 !important;
   border-radius: 2px !important;
 }
-/* .v-expansion-panel-content {
-  background-color: white;
-} */
 .activePanel {
   border-color: rgba(var(--fzselected-color), 1.0) !important;
   border-width: 2px !important;

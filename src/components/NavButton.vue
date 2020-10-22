@@ -49,27 +49,9 @@
           // React to changes in the watched Object in store.
           deep:true
         }
-      );
-      // this.$store.watch(
-      //   function (state) {
-      //     console.log('state._currentStep', state._currentStep)
-      //     return state._currentStep;
-      //   },
-      //   function () {
-      //     //do something on data change
-      //     this.update()
-      //   },
-      //   {
-      //       deep: true //add this if u need to watch object properties change etc.
-      //   }
-      // )
+      )
     },
 
-    // computed: {
-    //   ...mapGetters({
-    //     currentRouteStep: '_currentStep'
-    //   })
-    // },
 
     watch: {
       '$store.state._currentStep': function() {
@@ -86,7 +68,7 @@
         const currPage = this.$route.name
         //console.log('Updating CONTINUE Btn for: ', currPage)
         const val = this.$store.state._navList[currPage]
-        console.log('currPage', currPage, 'val', val)
+        //console.log('currPage', currPage, 'val', val)
         this.isDisabled = !val
       },
 
@@ -99,27 +81,27 @@
 
         switch (currStep) {
           case 'Start': 
-            console.log('Leaving Start')
+            //console.log('Leaving Start')
             this.$store.dispatch('setCurrentStep', 'Time')
             break
           case 'Time': 
-            console.log('Leaving Time')
+            //console.log('Leaving Time')
             this.$store.dispatch('setCurrentStep', 'Info')
             break
           case 'Info': 
-            console.log('Leaving Info')
+            //console.log('Leaving Info')
             this.$store.dispatch('setCurrentStep', 'Next')
             break
           case 'Next': 
-            console.log('Leaving Next')
+            //console.log('Leaving Next')
             this.$store.dispatch('setCurrentStep', 'Pay')
             break
           case 'Pay': 
-            console.log('Leaving Pay')
+            //console.log('Leaving Pay')
             this.$store.dispatch('setCurrentStep', 'Thanks')
             break
           case 'Thanks': 
-            console.log('Leaving Thanks. Where next?? (homepage??)')
+            //console.log('Leaving Thanks. Where next?? (homepage??)')
             this.$store.dispatch('setCurrentStep', 'Completed')
             window.location = 'http://www.flyzermatt.com'
             return
