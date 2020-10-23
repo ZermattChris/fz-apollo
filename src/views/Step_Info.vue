@@ -230,11 +230,11 @@
       v-model="confirmDetailsDialog"
     >
       <v-card>
-        <v-card-title>
-          Confirm your Booking Details
+        <v-card-title class="text-h6 lineHeight">
+          Please Review &amp; Confirm <br>your Booking Details
         </v-card-title>
 
-        <v-card-text>
+        <v-card-text class="lineHeight">
           Please check that your Booking information is correct, especially
           your Phone Number and Email (otherwise we can't contact you if we need to 
           adjust your booking due to weather, etc.)
@@ -244,10 +244,85 @@
         <!-- Start of table listing -->
         <v-simple-table
           scrollable
-          height="55vh"
+          height="35vh"
+          dense
         >
           <template v-slot:default>
-            confirming stuff goes here...
+            
+            <!-- Phone Number -->
+            <v-chip
+              class="ml-6"
+              color="indigo darken-3"
+              outlined
+            >
+              <v-icon left>
+                mdi-phone
+              </v-icon>
+              +{{contactPhone}}
+            </v-chip>
+
+            <!-- Email -->
+            <v-chip
+              class="ml-6"
+              color="indigo darken-3"
+              outlined
+            >
+              <v-icon left>
+                mdi-email
+              </v-icon>
+              {{contactEmail}}
+            </v-chip>
+
+
+            
+            <v-simple-table
+              fixed-header
+              height=""
+              class="mt-4 mx-sm-6 "
+              dense
+            >
+              <template v-slot:default>
+                <thead>
+                  <tr>
+                    <th class="text-left">
+                      M/F
+                    </th>
+                    <th class="text-left">
+                      Age
+                    </th>
+                    <th class="text-left">
+                      Name
+                    </th>
+                    <th class="text-left">
+                      Speed
+                    </th>
+                    <th class="text-left">
+                      Kg
+                    </th>
+                    <th class="text-left">
+                      Icons
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="passenger in passengersList"
+                    :key="passenger.id"
+                  >
+                    <td>{{ passenger.sex }}</td>
+                    <td>{{ passenger.age }}</td>
+                    <td>{{ passenger.name }}</td>
+                    <td>{{ passenger.speed }}</td>
+                    <td>{{ passenger.weightKg }}</td>
+                    <td>(icons)</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+
+
+
+
           </template>
         </v-simple-table>
         <!-- End of table listing -->
@@ -338,6 +413,11 @@
 
 
     computed: {
+
+
+      passengersList: function () {
+        return this.$store.state.passengerObjList
+      },
 
       confirmDetailsDialog: {
         get() {
@@ -617,5 +697,9 @@
   width: 55px;
   justify-content: flex-end;
   padding-right: 10px;
+}
+
+.lineHeight {
+  line-height: 1.2em;
 }
 </style>
