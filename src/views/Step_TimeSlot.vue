@@ -1,17 +1,16 @@
 <template>
   <div class="timeSlot">
-    
     <PageHeader :title="timeListerHeaderStr">
-      [TODO:awkward] The time of day can affect how your flight is for your 
-      <span class="hilite-text text-no-wrap">Group of {{usersGroupSize}}</span> 
-      &mdash; there are many variables, including
-      which flight, time of year, weather, confidence and your fitness level.
+      [TODO:awkward] The time of day can affect how your flight is for your
+      <span class="hilite-text text-no-wrap"
+        >Group of {{ usersGroupSize }}</span
+      >
+      &mdash; there are many variables, including which flight, time of year,
+      weather, confidence and your fitness level.
 
-      <br><br>
-      How to choose the right time for you: <a href="#TODO"><span class="text-no-wrap">Flight Guidelines</span></a>
-            
-    
-
+      <br /><br />
+      How to choose the right time for you:
+      <a href="#TODO"><span class="text-no-wrap">Flight Guidelines</span></a>
     </PageHeader>
 
     <!-- Simple loading icon from main page load... -->
@@ -24,16 +23,13 @@
       ></v-progress-circular>
     </div>
 
-    <swiper 
+    <swiper
       id="timeSlotSwiper"
       class="swiperBox steps-controls"
-      ref="mySwiper" 
+      ref="mySwiper"
       :options="swiperOptions"
     >
-      <swiper-slide
-        v-for="(timeListerObj, key) in daysVisibleList"
-        :key="key"
-      >
+      <swiper-slide v-for="(timeListerObj, key) in daysVisibleList" :key="key">
         <TimeList
           class=""
           :date="key"
@@ -45,8 +41,6 @@
         <div class="vSpacerForFooter"></div>
       </swiper-slide>
     </swiper>
-
-
   </div>
 </template>
 
@@ -73,9 +67,12 @@
     },
 
     data () {
+      //var self = this;
       return {
+        //getUsersTimeListerDay: 0,
         //swiper: null,
         swiperOptions: {
+          initialSlide: this.$store.getters.getUsersDayIndex(),
           centeredSlides: true,
           //autoHeight: true,
           slideToClickedSlide: true,
@@ -109,20 +106,14 @@
 
     created() {
       this.$store.dispatch('flightOptions')
-      //this.$store.dispatch('timeListDates')
     },
     async mounted() {
-      //console.log('Current Swiper instance object:', this.swiper)
-      // this.swiper.slideTo(3, 1000, false)
-      
       await this.$store.dispatch('timeListDates').catch((err) => { console.error(err); })
-      //console.log('after load', this.$store.state._timeListDates)
-      //this.swiper = this.$refs.mySwiper.$swiper 
-      this.centerUsersDay()
-      
     },
     
+
     computed: {
+
       daysVisibleList() {
         return this.$store.state._timeListDates
       },
@@ -133,10 +124,10 @@
         get() {
           return this.$store.state.timeSlot
         },
-        set(int) {
+        set(payload) {
           // Pass along the slot's label as a sanity check for booking time.
-          //console.log('slotLabel', this.slotLabel)
-          const payload = {'slot':int, 'label':this.slotLabel}
+          //console.log(payload)
+          // const payload = {'slot':int, 'label':this.slotLabel}
           return this.$store.dispatch('setTimeSlot', payload)
         }
       },
@@ -167,8 +158,7 @@
     },
 
     methods: {
-
-
+  
       scrollToTimeSlotTop: function () {
         setTimeout(() => { this.$scrollTo('#timeSlotSwiper', 500) }, 200)
       },
@@ -176,13 +166,14 @@
       clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
         // chosenSlot is zero based.
         //console.log('chosenDate', chosenDate, 'chosenSlot', chosenSlot, 'timeLabel', timeLabel)
-        this.slotLabel = chosenSlotLabel
+        //this.slotLabel = chosenSlotLabel
         // this.$store.state.timeSlot = chosenSlot
-        this.userSelectedSlot = chosenSlot
+        let payload = {'slot':chosenSlot, 'label':chosenSlotLabel}
+        this.userSelectedSlot = payload
         // this.$store.state.flightDate = chosenDate
         this.userSelectedDate = chosenDate
         // Set 'Time' to true in the store _navList
-        const payload = {'Time': true}
+        payload = {'Time': true}
         this.$store.dispatch('setNavListItem', payload)
 
         // Push the TimeSlot Swiper to top of screen
@@ -195,52 +186,23 @@
         return dateStr
       },
 
-      centerUsersDay: function () {
-
-        //let temp = this.$refs.mySwiper.$swiper
-        //console.log("Swiper in centerUsersDay(): ", this.$refs)
-        if (this.swiper === undefined) {
-          return
-        }
-
-        const usrDateStr = this.userSelectedDate
-        const tmpList = this.daysVisibleList
-        let index = 0
-        let foundIndx = 0
-        Object.keys(tmpList).forEach(function(key) {
-          //console.log(key, tmpList[key]);
-          if (key === usrDateStr) {
-            //console.log(index, key, tmpList[key]);
-            foundIndx = index
-          }
-          index = index + 1
-        });
-
-        this.swiper.slideTo(foundIndx, 500, false)
-        
-      },
-
     },
   }
 
 </script>
 
 <style scoped>
-
-
 .steps-controls {
   position: absolute;
-  left:0; right: 0;
+  left: 0;
+  right: 0;
   text-align: center;
   margin: 0 auto;
   max-width: 1820px;
 }
 
-
-  .vSpacerForFooter {
-    width: 100%;
-    height: 100px;
-  }
-
-
+.vSpacerForFooter {
+  width: 100%;
+  height: 100px;
+}
 </style>

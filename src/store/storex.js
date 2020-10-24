@@ -40,6 +40,7 @@ export default new Vuex.Store({
     wantsPhotos:    localStorage.wantsPhotos ? JSON.parse(localStorage.wantsPhotos) : false,  // convert to bool if not undefined.
     
     timeSlot:      +localStorage.selectedTimeslot || -1,
+    //timeSlotLabel:  localStorage.selectedTimeslotLabel || "",
     timeSlotLabel:  localStorage.selectedTimeslotLabel || "",
 
     contactPhone:   localStorage.contactPhone || "",
@@ -448,6 +449,28 @@ export default new Vuex.Store({
     getWeightById: (state) => (custNr) => {
       let matchedPassengerObj = findPassengerObj(state, custNr)
       return matchedPassengerObj.weightKg
+    },
+
+
+    getUsersDayIndex: (state) => () => {
+      
+      let foundIndx = 0
+
+      const usrDateStr = state.flightDate
+      const tmpList = state._timeListDates
+      let index = 0
+      Object.keys(tmpList).forEach(function(key) {
+        //console.log(key, tmpList[key]);
+        if (key === usrDateStr) {
+          //console.log(index, key, tmpList[key]);
+          foundIndx = index
+        }
+        index = index + 1
+      });
+
+      //this.swiper.slideTo(foundIndx, 500, false)
+      return foundIndx
+
     },
 
   }  // END GETTERS

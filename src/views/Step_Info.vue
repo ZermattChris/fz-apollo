@@ -228,8 +228,8 @@
     <!-- START Confirm Passenger details dialog -->
     <v-dialog
       v-model="confirmDetailsDialog"
-      class=""
       max-width="800px"
+      content-class="fullWidthDialog"
       persistent
     >
       <v-card>
@@ -272,8 +272,8 @@
                   </tr>
                   <tr>
                     <!-- Flight Time -->
-                    <td class="font-weight-bold">Flight Meeting Time:  </td>
-                    <td>{{bookingFlightTime}}</td>
+                    <td class="font-weight-bold">Flight Number &amp; Meeting Time:  </td>
+                    <td>#<strong>{{bookingFlightSlot}}</strong> — {{bookingFlightTime}}</td>
                   </tr>
                   <tr>
                     <!-- Flight Type/Name -->
@@ -415,6 +415,8 @@
   
   import countrycodes from '@/store/countrycodes.js'
 
+  import { format, parseISO } from 'date-fns'
+
   export default {
     name: "Step_Info",
   
@@ -539,19 +541,26 @@
         return this.$store.state.nrPeople
       },
       bookingDate: function () {
-        return this.$store.state.flightDate
+        return format(parseISO(this.$store.state.flightDate), 'PPPP')
       },
       bookingFlightSlot: function () {
         return this.$store.state.timeSlot
       },
       bookingFlightTime: function () {
-        return this.$store.state.timeSlotLabel
+        //console.log(this.$store.state.timeSlotLabel)
+        //return this.$store.state.timeSlotLabel
+        return localStorage.selectedTimeslotLabel
       },
       bookingFlight: function () {
         return this.$store.state.selectedFlight
       },
       bookingPhotosOption: function () {
-        return this.$store.state.wantsPhotos
+        const wantsFotos = this.$store.state.wantsPhotos
+        let formattedStr = 'No Photos'
+        if (wantsFotos) {
+          formattedStr = 'Yes, want Photos'
+        }
+        return formattedStr
       },
       
 
@@ -730,6 +739,14 @@
 
 </script>
 
+<style>
+  .fullWidthDialog {
+    width: 100%;
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+</style>
+
 <style scoped>
   .steps-controls {
     position: absolute;
@@ -783,10 +800,14 @@
 .lineHeight {
   line-height: 1.2em;
 }
+
 .outterTable {
-  max-width: 750px;
+  max-width: 850px;
 }
 .infoTable {
   max-width: 400px;
 }
+
+
+
 </style>

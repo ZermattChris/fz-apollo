@@ -210,7 +210,8 @@ export default {
       this.$store.dispatch('setFlightDate', '')
       this.$store.dispatch('setFlight', '')
       this.$store.dispatch('setWantsPhotos', false)
-      this.$store.dispatch('setTimeSlot', 0)
+      const payload = {'slot':-1, 'label':''}
+      this.$store.dispatch('setTimeSlot', payload)
       this.$store.dispatch('clearNavList')
       this.$store.dispatch('setCurrentStep', '')
       this.$store.dispatch('setContactPhone', '')
@@ -304,5 +305,6 @@ h3 > .v-icon {
 .hideBackBtn {
   visibility: hidden;
 }
+
 
 </style>
