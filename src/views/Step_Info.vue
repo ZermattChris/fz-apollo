@@ -230,9 +230,11 @@
       v-model="confirmDetailsDialog"
       max-width="800px"
       content-class="fullWidthDialog"
+      overlay-opacity="0.8"
       persistent
+      scrollable
     >
-      <v-card>
+      <v-card height="auto">
         <v-card-title class="text-h5 font-weight-bold lineHeight">
           Please Review &amp; Confirm <br>your Booking Details
         </v-card-title>
@@ -247,9 +249,9 @@
         <!-- Start of table listing -->
         <v-simple-table
           scrollable
-          height="35vh"
+          height="55vh"
           dense
-          class="outterTable mx-sm-auto "
+          class="outterTable mx-sm-auto pa-2"
         >
           <template v-slot:default>
             
@@ -262,8 +264,19 @@
                 <tbody>
                   <tr>
                     <!-- Number of People in booking -->
-                    <td class="font-weight-bold">Number of People flying: </td>
-                    <td>{{nrBookingPeople}}</td>
+                    <td class="font-weight-bold">People flying: </td>
+                    <td>
+                      <v-chip
+                        color="deep-purple"
+                        class="px-6 my-1"
+                        outlined
+                      >
+                        <!-- <v-avatar left>
+                          <v-icon>{{iconPeople}}</v-icon>
+                        </v-avatar> -->
+                        <strong class="">{{nrBookingPeople}}</strong>
+                      </v-chip>
+                  </td>
                   </tr>
                   <tr>
                     <!-- Flight Date -->
@@ -272,7 +285,7 @@
                   </tr>
                   <tr>
                     <!-- Flight Time -->
-                    <td class="font-weight-bold">Flight Number &amp; Meeting Time:  </td>
+                    <td class="font-weight-bold">Flight Number &amp; <br/>Meeting Time:  </td>
                     <td>#<strong>{{bookingFlightSlot}}</strong> — {{bookingFlightTime}}</td>
                   </tr>
                   <tr>
@@ -339,9 +352,6 @@
                     <th class="text-left">
                       Kg
                     </th>
-                    <th class="text-left">
-                      Icons
-                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -349,12 +359,27 @@
                     v-for="passenger in passengersList"
                     :key="passenger.id"
                   >
-                    <td>{{ passenger.name }}</td>
-                    <td>{{ passenger.sex }}</td>
+                    <td>{{passenger.id +1}}) {{ passenger.name }}</td>
+                    <td><v-icon :color="maleFemaleColour(passenger.sex)">{{maleFemaleIcon(passenger.sex)}}</v-icon></td>
                     <td>{{ passenger.age }}</td>
-                    <td>{{ passenger.speed }}</td>
-                    <td>{{ passenger.weightKg }}</td>
-                    <td>(icons)</td>
+                    <td>{{ speedLabel(passenger.speed) }}</td>
+                    
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on, attrs }">
+                        <td
+                          v-bind="attrs"
+                          v-on="on"
+                          class=""
+                        >
+                          {{ passenger.weightKg }}
+                        </td>
+                      </template>
+                      <span>
+                        {{ (weight(passenger.id +1) * 2.204621999990873).toFixed(0) }}{{ '\xa0' }}Pounds, 
+                        {{ (weight(passenger.id +1) * 0.157473).toFixed(1) }}{{ '\xa0' }}Stone
+                      </span>
+                    </v-tooltip>
+
                   </tr>
                 </tbody>
               </template>
@@ -411,7 +436,7 @@
   import PageHeader from '@/components/PageHeader.vue'
   import Passenger from '@/components/Passenger.vue'
   import { isMobile } from 'mobile-device-detect'
-  import { mdiHelpCircle, mdiEmailCheckOutline, mdiCheckCircle, mdiMinusCircleOutline, mdiPlus, mdiArrowRightCircle, mdiClose } from '@mdi/js'
+  import { mdiHumanMale, mdiHumanFemale, mdiHumanMaleFemale, mdiHelpCircle, mdiEmailCheckOutline, mdiCheckCircle, mdiMinusCircleOutline, mdiPlus, mdiArrowRightCircle, mdiClose } from '@mdi/js'
   
   import countrycodes from '@/store/countrycodes.js'
 
@@ -437,6 +462,9 @@
         iconPlus: mdiPlus,
         iconNextArrow: mdiArrowRightCircle,
         iconClose: mdiClose,
+        iconPeople: mdiHumanMaleFemale,
+        iconMale: mdiHumanMale,
+        iconFemale: mdiHumanFemale,
 
         activePanelsList:  [],
 
@@ -580,9 +608,42 @@
 
     methods: {
       
-      // toTop: function () {
-      //   this.$vuetify.goTo(0)
-      // },
+      weight: function (id) {
+        return this.$store.getters.getWeightById(id)
+      },
+
+      speedLabel: function (speedString) {
+        let msg = "Bad Value"
+        switch (speedString) {
+          case 0:
+            msg = "Assistance Req."
+            break
+          case 2:
+            msg = "Slow"
+            break
+          case 4:
+            msg = "Slow-ish"
+            break
+          case 6:
+            msg = "Average"
+            break
+          case 8:
+            msg = "Quick"
+            break
+          case 10:
+            msg = "Fast"
+            break
+        }
+        return msg  
+      },
+      maleFemaleColour: function (mfString) {
+        if (mfString === 'male') { return "blue" }
+        return "pink"
+      },
+      maleFemaleIcon: function (mfString) {
+        if (mfString === 'male') { return this.iconMale }
+        return this.iconFemale
+      },
 
       getIsFormValid: function (passengerNr) {
         return this.$store.getters.getIsValidById(passengerNr)
@@ -805,7 +866,7 @@
   max-width: 850px;
 }
 .infoTable {
-  max-width: 400px;
+  max-width: 600px;
 }
 
 
