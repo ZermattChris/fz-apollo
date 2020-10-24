@@ -228,9 +228,12 @@
     <!-- START Confirm Passenger details dialog -->
     <v-dialog
       v-model="confirmDetailsDialog"
+      class=""
+      max-width="800px"
+      persistent
     >
       <v-card>
-        <v-card-title class="text-h6 lineHeight">
+        <v-card-title class="text-h5 font-weight-bold lineHeight">
           Please Review &amp; Confirm <br>your Booking Details
         </v-card-title>
 
@@ -246,9 +249,46 @@
           scrollable
           height="35vh"
           dense
+          class="outterTable mx-sm-auto "
         >
           <template v-slot:default>
             
+
+            <v-simple-table
+              class="mb-6 infoTable"
+              dense
+            >
+              <template v-slot:default>
+                <tbody>
+                  <tr>
+                    <!-- Number of People in booking -->
+                    <td class="font-weight-bold">Number of People flying: </td>
+                    <td>{{nrBookingPeople}}</td>
+                  </tr>
+                  <tr>
+                    <!-- Flight Date -->
+                    <td class="font-weight-bold">Flight Date:</td>
+                    <td>{{bookingDate}}</td>
+                  </tr>
+                  <tr>
+                    <!-- Flight Time -->
+                    <td class="font-weight-bold">Flight Meeting Time:  </td>
+                    <td>{{bookingFlightTime}}</td>
+                  </tr>
+                  <tr>
+                    <!-- Flight Type/Name -->
+                    <td class="font-weight-bold">Flight:</td>
+                    <td>{{bookingFlight}}</td>
+                  </tr>
+                  <tr>
+                    <!-- Photos Option -->
+                    <td class="font-weight-bold">Photos + Videos: </td>
+                    <td>{{bookingPhotosOption}}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+
             <!-- Phone Number -->
             <v-chip
               class="ml-6"
@@ -278,20 +318,20 @@
             <v-simple-table
               fixed-header
               height=""
-              class="mt-4 mx-sm-6 "
+              class="mt-4 "
               dense
             >
               <template v-slot:default>
                 <thead>
                   <tr>
                     <th class="text-left">
+                      Name
+                    </th>
+                    <th class="text-left">
                       M/F
                     </th>
                     <th class="text-left">
                       Age
-                    </th>
-                    <th class="text-left">
-                      Name
                     </th>
                     <th class="text-left">
                       Speed
@@ -309,9 +349,9 @@
                     v-for="passenger in passengersList"
                     :key="passenger.id"
                   >
+                    <td>{{ passenger.name }}</td>
                     <td>{{ passenger.sex }}</td>
                     <td>{{ passenger.age }}</td>
-                    <td>{{ passenger.name }}</td>
                     <td>{{ passenger.speed }}</td>
                     <td>{{ passenger.weightKg }}</td>
                     <td>(icons)</td>
@@ -327,16 +367,36 @@
         </v-simple-table>
         <!-- End of table listing -->
 
-        <v-card-actions class="dialogFooter">
+        <v-card-actions class="pb-4 dialogFooter">
           <v-spacer></v-spacer>
 
           <v-btn
-            color="purple"
-            text
+            color=""
+            rounded
+            outlined
+            large
+            class="px-4 mx-auto"
             @click="confirmDetailsDialog = false"
           >
-            Confirm Details
+            Change Details
+            <v-icon right>{{iconClose}}</v-icon>
           </v-btn>
+
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="primary"
+            elevation="2"
+            rounded
+            large
+            class="px-4 mx-auto"
+            @click="confirmDetailsDialog = false"
+          >
+            Confirm
+            <v-icon right>{{iconNextArrow}}</v-icon>
+          </v-btn>
+
+          <v-spacer></v-spacer>
 
         </v-card-actions>
       </v-card>
@@ -351,8 +411,8 @@
   import PageHeader from '@/components/PageHeader.vue'
   import Passenger from '@/components/Passenger.vue'
   import { isMobile } from 'mobile-device-detect'
-  import { mdiHelpCircle, mdiEmailCheckOutline, mdiCheckCircle, mdiMinusCircleOutline, mdiPlus } from '@mdi/js'
-
+  import { mdiHelpCircle, mdiEmailCheckOutline, mdiCheckCircle, mdiMinusCircleOutline, mdiPlus, mdiArrowRightCircle, mdiClose } from '@mdi/js'
+  
   import countrycodes from '@/store/countrycodes.js'
 
   export default {
@@ -373,6 +433,8 @@
         iconCheckmark: mdiCheckCircle,
         iconMinusCircle: mdiMinusCircleOutline,
         iconPlus: mdiPlus,
+        iconNextArrow: mdiArrowRightCircle,
+        iconClose: mdiClose,
 
         activePanelsList:  [],
 
@@ -471,6 +533,25 @@
         set(email) {
           return this.$store.dispatch('setContactEmail', email)
         }
+      },
+
+      nrBookingPeople: function () {
+        return this.$store.state.nrPeople
+      },
+      bookingDate: function () {
+        return this.$store.state.flightDate
+      },
+      bookingFlightSlot: function () {
+        return this.$store.state.timeSlot
+      },
+      bookingFlightTime: function () {
+        return this.$store.state.timeSlotLabel
+      },
+      bookingFlight: function () {
+        return this.$store.state.selectedFlight
+      },
+      bookingPhotosOption: function () {
+        return this.$store.state.wantsPhotos
       },
       
 
@@ -701,5 +782,11 @@
 
 .lineHeight {
   line-height: 1.2em;
+}
+.outterTable {
+  max-width: 750px;
+}
+.infoTable {
+  max-width: 400px;
 }
 </style>
