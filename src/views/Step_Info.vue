@@ -375,8 +375,8 @@
                         </td>
                       </template>
                       <span>
-                        {{ (weight(passenger.id +1) * 2.204621999990873).toFixed(0) }}{{ '\xa0' }}Pounds, 
-                        {{ (weight(passenger.id +1) * 0.157473).toFixed(1) }}{{ '\xa0' }}Stone
+                        {{ (weight(passenger.id) * 2.204621999990873).toFixed(0) }}{{ '\xa0' }}Pounds, 
+                        {{ (weight(passenger.id) * 0.157473).toFixed(1) }}{{ '\xa0' }}Stone
                       </span>
                     </v-tooltip>
 
