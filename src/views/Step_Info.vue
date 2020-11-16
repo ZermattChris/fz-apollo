@@ -144,6 +144,7 @@
 
 
           <v-expansion-panel-content>
+            <!-- Now need to move the old contact form into the Contact person's location. -->
             <Passenger
               :passengerNr="i"
               :disabled=contactValid
