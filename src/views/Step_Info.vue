@@ -8,94 +8,6 @@
       <br>
     </PageHeader>
 
-    <!-- START Contact Form -->
-    <v-form
-      ref="contactForm"
-      v-model="contactValid"
-    >
-      <div class="mb-3 px-2 pt-1 blue-grey lighten-5 rounded">Booking Contact:
-        <v-row>
-          <v-col
-            cols="12"
-            sm="6"
-            class="pt-2 pb-0 phoneInput"
-          ><!-- Start of Phone input field -->
-            <v-text-field 
-              label="Phone"
-              ref="Phone"
-              v-model="contactPhone"
-              background-color="white"
-              :rules="[rules.required, rules.phone]" 
-              hide-details="auto"
-              outlined
-              dense
-              type="tel"
-              name="tel"
-              placeholder="Country Code &amp; Phone Number"
-              hint="Example: +1 203 456 7890"
-              persistent-hint
-              prefix="+"
-              @keyup="updatePhoneCountryData"
-              @blur="stripPhoneJunkOnBlur"
-            >
-              <template v-slot:append-outer>
-                <v-tooltip
-                  bottom
-                >
-                  <template v-slot:activator="{ on }">
-                    <v-icon 
-                      v-on="on"
-                      @click="listCountries"
-                    >
-                      {{iconInfo}}
-                    </v-icon>
-                  </template>
-                  Click for list of World's Country Code prefixes...
-                </v-tooltip>
-              </template>
-            </v-text-field>
-            
-            <!-- Tooltip showing the matching Country Name(s) as a String -->
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <div
-                  v-bind="attrs"
-                  v-on="on"
-                  class="countryFlags"
-                >
-                  {{userPhoneCountriesDisplay}}
-                </div>
-              </template>
-              <span>{{userPhoneCountriesStrings}}</span>
-            </v-tooltip>
-            
-          <!-- END of Phone input field -->
-          </v-col>
-
-          <v-col
-            cols="12"
-            sm="6"
-            class="pt-2 pb-3 pt-xs-1 pb-sm-0"
-          >
-            <v-text-field 
-              label="Email"
-              ref="Email"
-              v-model="contactEmail"
-              background-color="white"
-              :rules="[rules.required, rules.email]"
-              hide-details="auto"
-              outlined
-              dense
-              type="email"
-              name="email"
-              placeholder="you@mail.com"
-              @blur="scrollToFirstUserIfValid"
-            />
-          </v-col>
-        </v-row>
-      </div>
-    </v-form>
-    <!-- END Contact Form -->
     
 
     <!-- START Passenger Forms -->
@@ -142,16 +54,103 @@
           </v-expansion-panel-header>
 
 
+          <!-- START: Contact form -->
+          <v-form
+            ref="contactForm"
+            v-model="contactValid"
+          >
+            <v-row v-if="i === 0">
+              <v-col
+                cols="12"
+                sm="6"
+                class="pt-2 pb-0 phoneInput"
+              ><!-- Start of Phone input field -->
+                <v-text-field 
+                  label="Phone"
+                  ref="Phone"
+                  v-model="contactPhone"
+                  background-color="white"
+                  :rules="[rules.required, rules.phone]" 
+                  hide-details="auto"
+                  outlined
+                  dense
+                  type="tel"
+                  name="tel"
+                  placeholder="Country Code &amp; Phone Number"
+                  hint="Example: +1 203 456 7890"
+                  persistent-hint
+                  prefix="+"
+                  @keyup="updatePhoneCountryData"
+                  @blur="stripPhoneJunkOnBlur"
+                >
+                  <template v-slot:append-outer>
+                    <v-tooltip
+                      bottom
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-icon 
+                          v-on="on"
+                          @click="listCountries"
+                        >
+                          {{iconInfo}}
+                        </v-icon>
+                      </template>
+                      Click for list of World's Country Code prefixes...
+                    </v-tooltip>
+                  </template>
+                </v-text-field>
+                
+                <!-- Tooltip showing the matching Country Name(s) as a String -->
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <div
+                      v-bind="attrs"
+                      v-on="on"
+                      class="countryFlags"
+                    >
+                      {{userPhoneCountriesDisplay}}
+                    </div>
+                  </template>
+                  <span>{{userPhoneCountriesStrings}}</span>
+                </v-tooltip>
+                
+              <!-- END of Phone input field -->
+              </v-col>
 
-          <v-expansion-panel-content>
-            <!-- Now need to move the old contact form into the Contact person's location. -->
-            <Passenger
-              :passengerNr="i"
-              :disabled=contactValid
-            />
-          </v-expansion-panel-content>
+              <v-col
+                cols="12"
+                sm="6"
+                class="pt-2 pb-3 pt-xs-1 pb-sm-0"
+              >
+                <v-text-field 
+                  label="Email"
+                  ref="Email"
+                  v-model="contactEmail"
+                  background-color="white"
+                  :rules="[rules.required, rules.email]"
+                  hide-details="auto"
+                  outlined
+                  dense
+                  type="email"
+                  name="email"
+                  placeholder="you@mail.com"
+                  @blur="scrollToFirstUserIfValid"
+                />
+              </v-col>
+            </v-row>
 
-        </v-expansion-panel>
+        </v-form>
+        <!-- END Contact Form -->
+                
+
+        <v-expansion-panel-content>
+          <Passenger
+            :passengerNr="i"
+          />
+        </v-expansion-panel-content>
+
+      </v-expansion-panel>
+      
     </v-expansion-panels>
     <!-- END Passenger Forms -->
 
@@ -467,7 +466,7 @@
         iconMale: mdiHumanMale,
         iconFemale: mdiHumanFemale,
 
-        activePanelsList:  [],
+        activePanelsList:  [0],
 
         passengersName: '',
 
