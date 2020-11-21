@@ -114,6 +114,7 @@
         <v-switch 
           id="photosSwitch"
           v-model="switchPhotos" 
+          class="ml-10"
           color="success"
           inset 
           :label="`Filmed with GoPros on specially built sticks for some great memories!`"
