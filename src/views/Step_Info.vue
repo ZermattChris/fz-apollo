@@ -1,5 +1,7 @@
 <template>
-  <div class="stepInfo">
+  <div class="stepInfo"
+  
+  >
 
 
     <PageHeader :title="timeListerHeaderStr">
@@ -59,7 +61,9 @@
             ref="contactForm"
             v-model="contactValid"
           >
-            <v-row v-if="i === 0">
+            <v-row v-if="i === 0"
+              class="py-2 px-4"
+            >
               <v-col
                 cols="12"
                 sm="6"
@@ -91,6 +95,7 @@
                         <v-icon 
                           v-on="on"
                           @click="listCountries"
+                          tabindex="-1"
                         >
                           {{iconInfo}}
                         </v-icon>
@@ -101,7 +106,7 @@
                 </v-text-field>
                 
                 <!-- Tooltip showing the matching Country Name(s) as a String -->
-                <v-tooltip top>
+                <v-tooltip top >
                   <template v-slot:activator="{ on, attrs }">
                     <div
                       v-bind="attrs"
@@ -142,6 +147,7 @@
         </v-form>
         <!-- END Contact Form -->
                 
+        <v-divider  v-if="i === 0"></v-divider>
 
         <v-expansion-panel-content>
           <Passenger
@@ -782,16 +788,16 @@
       },
 
       contactValid: function () {
-        //console.log('contactValid changed', this.contactValid)
-        if (this.contactValid === true && this.activePanelsList.length === 0) {
-          //console.log('open first expansion', this.contactValid)
-          this.activePanelsList = [0]
-          //this.$scrollTo('#expand-panels', 500)
-          // attempt to jump to opened Expansion panels if form valid.
-          //this.scrollToFirstUserIfValid()
-        } else {
-          this.activePanelsList = []
-        }
+        // //console.log('contactValid changed', this.contactValid)
+        // if (this.contactValid === true && this.activePanelsList.length === 0) {
+        //   //console.log('open first expansion', this.contactValid)
+        //   this.activePanelsList = [0]
+        //   //this.$scrollTo('#expand-panels', 500)
+        //   // attempt to jump to opened Expansion panels if form valid.
+        //   //this.scrollToFirstUserIfValid()
+        // } else {
+        //   this.activePanelsList = []
+        // }
       },
 
     }
@@ -809,6 +815,11 @@
 </style>
 
 <style scoped>
+
+.stepInfo {
+  max-width: 1100px;
+}
+
   .steps-controls {
     position: absolute;
     left:0; right: 0;
