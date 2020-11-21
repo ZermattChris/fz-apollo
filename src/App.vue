@@ -60,12 +60,12 @@
 
           />
 
-          <div class="text-center mt-12 mb-6">
+          <!-- <div class="text-center mt-12 mb-6"> -->
             <!-- Continue Btn -->
             <!-- <NavButton
               ref="ContinueBtn"
             /> -->
-          </div>
+          <!-- </div> -->
 
         </v-col>
         <v-col cols="12" md="1" lg="2"></v-col>
