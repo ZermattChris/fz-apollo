@@ -30,29 +30,35 @@
           <v-expansion-panel-header
             @click="scrollToElement"
           >
-            <v-icon  
-               v-if="i === 0"
-              class="mailIcon"
-            >
-              {{iconMail}}
-            </v-icon>
+            <template v-slot:default="{ open }">
 
-            <span class="font-weight-bold">{{getPassengersNameForHeader(i)}}</span>
+              <v-icon  
+                v-if="i === 0"
+                class="mailIcon"
+              >
+                {{iconMail}}
+              </v-icon>
 
-            <v-icon 
-              v-if="getIsFormValid(i)" 
-              class="formValidIcon"
-              color="success"
-            >
-              {{iconCheckmark}}
-            </v-icon>
-            <v-icon v-else
-              class="formValidIcon"
-              color="error"
-            >
-              {{iconMinusCircle}}
-            </v-icon>
+              <span class="font-weight-bold">{{getPassengersNameForHeader(i)}}
 
+              <span v-if="!open" class="overline text--disabled pl-4">Click to open...</span>
+              </span>
+
+              <v-icon 
+                v-if="getIsFormValid(i)" 
+                class="formValidIcon"
+                color="success"
+              >
+                {{iconCheckmark}}
+              </v-icon>
+              <v-icon v-else
+                class="formValidIcon"
+                color="error"
+              >
+                {{iconMinusCircle}}
+              </v-icon>
+
+            </template>
           </v-expansion-panel-header>
 
 
@@ -105,7 +111,7 @@
                   </template>
                 </v-text-field>
                 
-                <!-- Tooltip showing the matching Country Name(s) as a String -->
+                <!-- FLAG Icon + Tooltip showing the matching Country Name(s) as a String -->
                 <v-tooltip top >
                   <template v-slot:activator="{ on, attrs }">
                     <div
@@ -147,7 +153,10 @@
         </v-form>
         <!-- END Contact Form -->
                 
-        <v-divider  v-if="i === 0"></v-divider>
+        <v-divider
+          v-if="i === 0"
+          class="mb-0"
+        ></v-divider>
 
         <v-expansion-panel-content>
           <Passenger
@@ -245,7 +254,7 @@
           Please Review &amp; Confirm <br>your Booking Details
         </v-card-title>
 
-        <v-card-text class="lineHeight">
+        <v-card-text class="lineHeight d-none d-sm-flex">
           Please check that your Booking information is correct, especially
           your Phone Number and Email (otherwise we can't contact you if we need to 
           adjust your booking due to weather, etc.)
@@ -257,13 +266,13 @@
           scrollable
           height="55vh"
           dense
-          class="outterTable mx-sm-auto pa-2"
+          class="outterTable mx-sm-auto"
         >
           <template v-slot:default>
             
 
             <v-simple-table
-              class="mb-6 infoTable"
+              class="mb-2 mb-sm-4 infoTable"
               dense
             >
               <template v-slot:default>
@@ -274,7 +283,7 @@
                     <td>
                       <v-chip
                         color="deep-purple"
-                        class="px-6 my-1"
+                        class="px-6 my-1 my-sm-2"
                         outlined
                       >
                         <!-- <v-avatar left>
@@ -291,13 +300,13 @@
                   </tr>
                   <tr>
                     <!-- Flight Time -->
-                    <td class="font-weight-bold">Flight Number &amp; <br/>Meeting Time:  </td>
+                    <td class="font-weight-bold">Flight Nr &amp; <br/>Meeting Time:  </td>
                     <td>#<strong>{{bookingFlightSlot}}</strong> — {{bookingFlightTime}}</td>
                   </tr>
                   <tr>
                     <!-- Flight Type/Name -->
                     <td class="font-weight-bold">Flight:</td>
-                    <td>{{bookingFlight}}</td>
+                    <td class="text-capitalize">{{bookingFlight}}</td>
                   </tr>
                   <tr>
                     <!-- Photos Option -->
@@ -310,7 +319,7 @@
 
             <!-- Phone Number -->
             <v-chip
-              class="ml-6"
+              class="ml-6 mb-2"
               color="indigo darken-3"
               outlined
             >
@@ -322,7 +331,7 @@
 
             <!-- Email -->
             <v-chip
-              class="ml-6"
+              class="ml-6 mb-2"
               color="indigo darken-3"
               outlined
             >
@@ -337,7 +346,7 @@
             <v-simple-table
               fixed-header
               height=""
-              class="mt-4 "
+              class="mt-1 mt-sm-4"
               dense
             >
               <template v-slot:default>
@@ -365,7 +374,7 @@
                     v-for="passenger in passengersList"
                     :key="passenger.id"
                   >
-                    <td>{{passenger.id +1}}) {{ passenger.name }}</td>
+                    <td class="text-capitalize">{{passenger.id +1}}) {{ passenger.name }}</td>
                     <td><v-icon :color="maleFemaleColour(passenger.sex)">{{maleFemaleIcon(passenger.sex)}}</v-icon></td>
                     <td>{{ passenger.age }}</td>
                     <td>{{ speedLabel(passenger.speed) }}</td>
@@ -826,12 +835,18 @@
     text-align: center;
     margin: 0 auto;
   }
+/* Header background colour */
+
 
 .v-expansion-panel-header--active::before {
-  background-color: #4b4b4b;
+  background: rgb(75,75,75);
+  background: linear-gradient(90deg, rgba(75,75,75,1) 10%, rgba(75,75,75,0.08585441012342432) 75%, rgba(106,27,154,0.3379552504595589) 100%) !important;
   opacity: 0.1 !important;
   border-radius: 2px !important;
+  border: 2px solid indigo;
 }
+
+
 .activePanel {
   border-color: rgba(var(--fzselected-color), 1.0) !important;
   border-width: 2px !important;
@@ -847,6 +862,8 @@
     right: 60px;
     top: 10px;
     font-size: 1.5em;
+    color: black;
+    cursor: default;
   }
 
 .fixedPos {
