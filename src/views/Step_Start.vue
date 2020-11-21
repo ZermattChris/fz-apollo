@@ -221,13 +221,13 @@ export default {
   },
   mounted() {
     // Set focus to '+' button of NumberScroller compoennt.
-    setTimeout(() => {
-      //console.log(this.$refs.numberScroller.$el.querySelector('#increment'))
-      // only set the focus if Nr People is Zero.
-      if (this.nrPeople == 0) {
-        this.$refs.numberScroller.$el.querySelector('#increment').focus()
-      }
-    })
+    // setTimeout(() => {
+    //   //console.log(this.$refs.numberScroller.$el.querySelector('#increment'))
+    //   // only set the focus if Nr People is Zero.
+    //   if (this.nrPeople == 0) {
+    //     this.$refs.numberScroller.$el.querySelector('#increment').focus()
+    //   }
+    // })
     //this.onValueChanged()
   },
   beforeUpdate() {
