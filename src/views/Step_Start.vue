@@ -7,29 +7,8 @@
       To make sure that we provide the highest levels of safety..
     </PageHeader>
 
-    <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12">
+    <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12   pt-sm-2">
       
-
-
-      <!-- ***************** Nr People ******************** -->
-      <h3 id="nrPeopleFlying" class="disable-select">
-        <v-icon :color="isValidNrPeople ? 'success' : 'primary'">{{ isValidNrPeople ? stepIconCompleted : stepIcon }}</v-icon>
-        Nr of People Flying
-      </h3>
-      <div class="controls">
-        <!-- Nr People Slider - linked via data to the below Int Input -->
-        <NumberScroller
-          ref="numberScroller"
-          class=""
-          v-model="nrPeople"
-          min="0"
-          :max="getMaxPilots"
-          min-message="Min per Booking is 1"
-          :max-message="getMaxMessage"
-          @at-max-value="showBigGroupWarning"
-        />
-      </div>
-
 
 
 
@@ -39,7 +18,7 @@
         Flight Date
       </h3>
       
-      <div class="controls">
+      <div class="controls mb-0 mb-sm-6 mb-md-10">
         <v-dialog
           ref="dialog"
           v-model="flightModal"
@@ -75,6 +54,27 @@
       </div>
 
 
+      <!-- ***************** Nr People ******************** -->
+      <h3 id="nrPeopleFlying" class="disable-select">
+        <v-icon :color="isValidNrPeople ? 'success' : 'primary'">{{ isValidNrPeople ? stepIconCompleted : stepIcon }}</v-icon>
+        Nr of People Flying
+      </h3>
+      <div class="controls mb-0 mb-sm-6 mb-md-10">
+        <!-- Nr People Slider - linked via data to the below Int Input -->
+        <NumberScroller
+          ref="numberScroller"
+          class="ml-10"
+          v-model="nrPeople"
+          min="0"
+          :max="getMaxPilots"
+          min-message="Min per Booking is 1"
+          :max-message="getMaxMessage"
+          @at-max-value="showBigGroupWarning"
+        />
+      </div>
+
+
+
 
       <!-- ***************** Which Flight? ******************** -->
       <h3 class="disable-select">
@@ -83,7 +83,7 @@
         </v-icon>
         Which Flight?
       </h3>
-      <div class="controls">
+      <div class="controls mb-0 mb-sm-6 mb-md-10">
         <v-select
          class="disable-select"
           style="max-width:300px;"
@@ -109,7 +109,7 @@
         <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
         Photos + Videos (optional)
       </h3>
-      <div class="controls">
+      <div class="controls mb-0 mb-sm-6">
         <!-- Photos and Videos included? -->
         <v-switch 
           id="photosSwitch"
@@ -124,7 +124,7 @@
 
 
       <!-- ***************** Popup Dialog for trying to exceed max number of people ******************** -->
-      <div class="text-center" id="Big-Group-Dialog">
+      <div class="text-center ma-0" id="Big-Group-Dialog">
         <v-dialog
           v-model="bigGroupDialog"
           width="400"
@@ -438,6 +438,7 @@ export default {
 </script>
 
 <style scoped>
+
 
 #flightDropMenu {
   max-width: 400px;
