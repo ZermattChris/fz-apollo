@@ -81,10 +81,12 @@
           style="font-size:0.8em;"
           elevation="2"
           max-width="400"
+          transition="fade-transition"
         >
           <v-icon class="my-1" color="orange darken-4">
             {{infoIcon}}
           </v-icon>
+          <strong class="ml-1 orange--text text--darken-4">Booking Info</strong>:
           <br/>
           Your group size is larger than the number of available pilots
           for your chosen day.
