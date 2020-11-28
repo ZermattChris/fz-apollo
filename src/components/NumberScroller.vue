@@ -6,6 +6,7 @@
       :class="{ 'focused': focused }"
       flat
       outlined
+      :disabled="!isEnabled"
     >
       <v-icon
         id="decrement"
@@ -57,6 +58,10 @@ export default {
   name: "NumberScroller",
 
   props: {
+    enabled: {
+      type: Boolean,
+      default: true,
+    },
     value: {
       type: [String, Number],
       required: true,
@@ -77,6 +82,8 @@ export default {
     return {
       myVal: this.value,
       prevVal: this.value,
+
+      isEnabled: this.enabled,
 
       focused: false,
 

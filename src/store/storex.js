@@ -213,6 +213,12 @@ export default new Vuex.Store({
 
   actions: {
     // API CALLS.
+
+
+
+
+
+
     // ******************** API: TimeList Dates ********************
     async timeListDates(context) {
       context.commit("TIMELIST_LOADING", true); // Loading UI ON
@@ -222,7 +228,11 @@ export default new Vuex.Store({
 
       // Return if the date is not set/valid.
       const flDate = context.state.flightDate;
-      //console.log(flDate);
+      //console.log(flDate)
+      if (flDate === '') {
+        console.log('flDate is empty, not pulling flights/date data from timeListDates() API')
+        return
+      }
 
       return axios.get("https://bookings-dev.simpleitsolutions.ch/onlinebooking/flightschedules/" + flDate)
         .then(response => {
@@ -237,6 +247,13 @@ export default new Vuex.Store({
         })
         .finally(() => context.commit("TIMELIST_LOADING", false))
     },
+
+
+
+
+
+
+
 
     // ******************** API: init App ********************
     async init(context) {

@@ -48,7 +48,10 @@
           >
             <v-spacer></v-spacer>
             <v-btn text color="primary" @click="flightModal = false">Cancel</v-btn>
-            <v-btn text color="primary" @click="$refs.dialog.save(flightDate)">OK</v-btn>
+
+            
+            <v-btn text color="primary" @click="onFlightDateDialogClose">OK</v-btn>
+            <!-- <v-btn text color="primary" @click="$refs.dialog.save(flightDate)">OK</v-btn> -->
           </v-date-picker>
         </v-dialog>
       </div>
@@ -66,11 +69,31 @@
           class="ml-10"
           v-model="nrPeople"
           min="0"
-          :max="getMaxPilots"
+          :max=15
           min-message="Min per Booking is 1"
-          :max-message="getMaxMessage"
           @at-max-value="showBigGroupWarning"
         />
+
+        <v-card
+          outlined
+          v-if="nrPeopleExceedsMaxPilots"
+          class="ml-10 mb-6 pa-2 amber lighten-3"
+          style="font-size:0.8em;"
+          elevation="2"
+          max-width="400"
+        >
+          <v-icon class="my-1" color="orange darken-4">
+            {{infoIcon}}
+          </v-icon>
+          <br/>
+          Your group size is larger than the number of available pilots
+          for your chosen day.
+          <br/><br/>
+          You can split your group over multiple times in the next step,
+          or give us a call: <strong>Tel +41 79 643-6808</strong>
+        </v-card>
+
+        
       </div>
 
 
@@ -136,18 +159,18 @@
               primary-title
             >
             <div class="white--text disable-select">
-              Booking a Big Group
+              Booking a very Big Group
             </div>
               
             </v-card-title>
 
             <v-card-text class="pt-6 black--text">
-              If your group contains more than {{getMaxPilots}} people...
-              <br><br>
-              ...you can either do 2 or more seperate Bookings here, 
-              splitting your group amongst available times, or send
-              us a <strong>Booking Message</strong> (later in this booking process) or
-              just give us a ring at: Tel +41 79 643-6808
+              As the largest Paragliding Company in Zermatt, we are best 
+              able to organise for large groups. As this requres organisational
+              effort on our end, the easiest is to call us:
+              <strong>Tel +41 79 643-6808</strong>
+              <br/><br/>
+              (NOTE: You could also split your group into two seperate bookings)
             </v-card-text>
 
             <v-divider></v-divider>
@@ -177,7 +200,7 @@
 // @ is an alias to /src
 
 import { format, add, parseISO } from 'date-fns'
-import { mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud, mdiCalendarMonth } from '@mdi/js'
+import { mdiInformation, mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud, mdiCalendarMonth } from '@mdi/js'
 
 import PageHeader from '@/components/PageHeader.vue'
 import NumberScroller from "@/components/NumberScroller.vue"
@@ -200,11 +223,18 @@ export default {
       cloudQuestionIcon:  mdiCloudQuestion,
       cloudIcon:          mdiCloud,
       calendarIcon:       mdiCalendarMonth,
+      infoIcon:           mdiInformation,
 
       flightOptionsDropMenuList: this.buildFlightList(),
       
       flightMenu: false,
       flightModal: false,
+
+      nrPeopleExceedsMaxPilots: false,
+      maxGroupSize: 15,         // Just some sort of limit -- call us if bigger group (sucks inputting that many people's names...)
+
+
+      nrPeopleEnabled: false,
 
       bigGroupDialog: false,
 
@@ -219,7 +249,7 @@ export default {
     //this.flightOptionsDropMenuList = this.buildFlightList(this.flightsWatch)
     this.$store.dispatch('flightOptions')
   },
-  mounted() {
+  // mounted() {
     // Set focus to '+' button of NumberScroller compoennt.
     // setTimeout(() => {
     //   //console.log(this.$refs.numberScroller.$el.querySelector('#increment'))
@@ -229,10 +259,23 @@ export default {
     //   }
     // })
     //this.onValueChanged()
-  },
+  // },
   beforeUpdate() {
     // update the Continue btn if page is valid
     this.onValueChanged()
+  },
+
+  async mounted() {
+    await this.$store.dispatch('timeListDates').catch((err) => { console.error(err) })
+    // Run code to see what the max nr of pilots available in a time slot for this day are.
+    const maxAvailPilotsOnDay = this.getMaxPilotsForDay()
+    // if Nr People chosen is over the above value, then display the too many pilots
+    // message below the Nr People input.
+    if (maxAvailPilotsOnDay < this.nrPeople) {
+      this.nrPeopleExceedsMaxPilots = true
+    } else {
+      this.nrPeopleExceedsMaxPilots = false
+    }
   },
 
 
@@ -253,11 +296,21 @@ export default {
         return this.$store.state.nrPeople
       },
       set(nr) {
+        // Run code to see what the max nr of pilots available in a time slot for this day are.
+        const maxAvailPilotsOnDay = this.getMaxPilotsForDay()
+        // if Nr People chosen is over the above value, then display the too many pilots
+        // message below the Nr People input.
+        if (maxAvailPilotsOnDay < nr) {
+          this.nrPeopleExceedsMaxPilots = true
+        } else {
+          this.nrPeopleExceedsMaxPilots = false
+        }
+
         return this.$store.dispatch('setNrPeople', nr)
       }
     },
     getMaxPilots: function () {
-      return this.$store.state._maxPilots
+      return this.maxGroupSize
     },
 
     flightDate: {
@@ -315,10 +368,11 @@ export default {
     },
 
     getMaxMessage: function () {
-      return "Max per Booking is: " + this.$store.state._maxPilots
+      return "Maximum per Booking is: " + this.maxGroupSize
     },
 
     isValidNrPeople: function () {
+      // this needs to come out for new logic...
       if (this.nrPeople > 0 && this.nrPeople <= this.$store.state._maxPilots) {
         return true
       }
@@ -352,6 +406,32 @@ export default {
     }
   },
   methods: {
+
+    async onFlightDateDialogClose() {
+
+      // Save the User's date value.
+      this.$refs.dialog.save(this.flightDate)
+
+      await this.$store.dispatch('timeListDates').catch((err) => { console.error(err); })
+      //console.log("Loaded Dates and Times for: " + this.flightDate)
+
+
+      // Run code to see what the max nr of pilots available in a time slot for this day are.
+      const maxAvailPilotsOnDay = this.getMaxPilotsForDay()
+      // if Nr People chosen is over the above value, then display the too many pilots
+      // message below the Nr People input.
+      if (maxAvailPilotsOnDay < this.nrPeople) {
+        this.nrPeopleExceedsMaxPilots = true
+      } else {
+        this.nrPeopleExceedsMaxPilots = false
+      }
+
+    },
+
+    getMaxPilotsForDay: function () {
+      return 4
+    },
+
 
     scrollToFormTop: function () {
       setTimeout(() => { this.$scrollTo('#chooseFlightDate', 500) }, 100)
@@ -396,6 +476,8 @@ export default {
   },
 
   watch: {
+
+
     forWatchingBothFlightDateAndFlightType() {
       // const [oldPropertyA, oldProvertyB] = oldVal.split('|');
       // const [newPropertyA, newProvertyB] = newVal.split('|');
@@ -413,14 +495,10 @@ export default {
       // and generate a new drop menu for Which Flight?
       this.flightOptionsDropMenuList = this.buildFlightList()
     },
-    flightDate: function (prev, old) {
-      // Scroll page down when changed.
-      if (prev != old) {
-        //console.log('scroll bottom')
-        //const scrollBottom = document.height() - window.height() - window.scrollTop()
-        //this.$refs.stepStart.scrollBottom
-        //VueScrollTo.scrollTo('#photosSwitch', 800)
-      }
+    flightDate: function () {
+      // enable nr people and which flight if valid date chosen.
+      //this.nrPeopleEnabled = true
+      console.log('Chosen Date: ' + this.flightDate)
     },
     bigGroupDialog: function (val) {
       // set focus to Close button when the dialog is displayed.

@@ -108,6 +108,14 @@
       this.$store.dispatch('flightOptions')
     },
     async mounted() {
+      // We're going to pre-load this in Step 1, to allow
+      // checking number of people against how many max pilots are available
+      // for the chosen day. 
+      // Means we just need to check if this is null (not yet set) and handle this
+      // as an error (navigating directly to this step would cause this)
+
+      // TODO
+      
       await this.$store.dispatch('timeListDates').catch((err) => { console.error(err); })
     },
     
