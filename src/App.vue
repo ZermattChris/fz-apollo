@@ -39,13 +39,13 @@
 
       <!-- TEMP clear data btn -->
       <v-btn v-if="_isDEV"
-        class="text-capitalize"
+        class="text-uppercase "
         style="position:absolute; right:5px;"
         text
         @click="onClearData"
       >
-        <v-icon left>{{iconPrevChevron}}</v-icon>
-        Clear
+        <v-icon left>{{iconGarbageBin}}</v-icon>
+        Reset
       </v-btn>
 
     </v-app-bar>
@@ -126,7 +126,7 @@
 import NavButton from '@/components/NavButton.vue'
 
 import { format } from 'date-fns'
-import { mdiChevronLeft } from '@mdi/js'
+import { mdiDeleteForever, mdiChevronLeft } from '@mdi/js'
 
 export default {
   name: 'App',
@@ -183,6 +183,7 @@ export default {
     overlayDelay: 500,  // Milliseconds before loading block is shown...
 
     iconPrevChevron: mdiChevronLeft,
+    iconGarbageBin: mdiDeleteForever,
     
     canGoBack:   false,
     // canContinue: false,
@@ -203,6 +204,8 @@ export default {
 
     // ************************** Storage workers **************************. 
     // This is just a _DEV function for quick testing
+    // Is called by the < Clear button on header.
+    // Remove for final release. (maybe put into a debug menu?)
     onClearData: function () {
       if (this.$store.state._DEV !== true) return
       //console.log('Clear all data:')
@@ -217,6 +220,8 @@ export default {
       this.$store.dispatch('setContactPhone', '')
       this.$store.dispatch('setContactEmail', '')
       localStorage.passengerObjList = []
+      this.$router.push('/') // return to step 1
+      window.location.reload()
     },
   },
 

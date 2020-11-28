@@ -28,7 +28,8 @@
         >
           <template v-slot:activator="{ on }">
             <v-text-field
-              style="width:300px;"
+              ref="flightDateInput"
+              style="width:330px;"
               v-model="formatISODate"
               :prepend-icon="calendarIcon"
               readonly
@@ -103,7 +104,7 @@
 
 
       <!-- ***************** Which Flight? ******************** -->
-      <h3 class="disable-select">
+      <h3 class="disable-select" >
         <v-icon  
           :color="flightChosen ? 'success' : 'primary'">{{ flightOptionsDropMenuList ? stepIconCompleted : stepIcon }}
         </v-icon>
@@ -112,7 +113,7 @@
       <div class="controls mb-0 mb-sm-6 mb-md-10">
         <v-select
          class="disable-select"
-          style="max-width:300px;"
+          style="max-width:330px;"
           v-model="flightChosen"
           :items="flightOptionsDropMenuList"
           item-text="name"
@@ -233,8 +234,8 @@ export default {
       flightMenu: false,
       flightModal: false,
 
-      nrPeopleExceedsMaxPilots: false,
-      maxGroupSize: 15,         // Just some sort of limit -- call us if bigger group (sucks inputting that many people's names...)
+      nrPeopleExceedsMaxPilots: false,    // when true, shows "Booking Info:" message under Nr of People Flying input.
+      maxGroupSize: 15,                   // Just some sort of limit -- call us if bigger group (sucks inputting that many people's names...)
 
 
       nrPeopleEnabled: false,
@@ -269,6 +270,12 @@ export default {
   },
 
   async mounted() {
+
+    setTimeout(() => {
+      this.$refs.flightDateInput.focus()
+    }, 500)
+
+
     await this.$store.dispatch('timeListDates').catch((err) => { console.error(err) })
     // Run code to see what the max nr of pilots available in a time slot for this day are.
     const maxAvailPilotsOnDay = this.getMaxPilotsForDay()
@@ -376,7 +383,7 @@ export default {
 
     isValidNrPeople: function () {
       // this needs to come out for new logic...
-      if (this.nrPeople > 0 && this.nrPeople <= this.$store.state._maxPilots) {
+      if (this.nrPeople > 0 && this.nrPeople <= this.maxGroupSize) {
         return true
       }
       return false
@@ -431,8 +438,22 @@ export default {
 
     },
 
+    // Look up the max number of avail pilots for the User's selected date.
     getMaxPilotsForDay: function () {
-      return 4
+      
+      for (const [key, value] of Object.entries(this.$store.state._timeListDates)) {
+        //console.log(`${key}: ${value}`);
+        if (key === this.flightDate) {
+          // found it!
+          let maxNrPilotsFound = 0
+          // eslint-disable-next-line
+          for (const [key2, value2] of Object.entries(value)) {
+            if (value2 > maxNrPilotsFound) maxNrPilotsFound = value2
+          }
+          return maxNrPilotsFound
+        }
+      }
+
     },
 
 
