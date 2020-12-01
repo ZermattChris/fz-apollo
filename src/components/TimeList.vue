@@ -41,6 +41,7 @@
     </div>
 
     <v-list-item-group 
+      flat
       v-model="selectedSlot"
       color="indigo"
       active-class="success--text text--darken-2"
@@ -74,7 +75,17 @@
               v-html="formatAvail(nrAvail) + ' Pilots available'"
               outlined
             ></v-chip>
-            <span class="description">XXX</span>
+            <!-- <span class="description">XXX</span> -->
+            <!-- Nr People Slider - linked via data to the below Int Input -->
+            <NumberScrollerSmall
+              ref="numberScroller"
+              class="mt-2"
+              v-model="nrPeople"
+              min="0"
+              :max="nrAvail"
+              min-message="Min per Booking is 1"
+              @at-max-value="showBigGroupWarning"
+            />
           </v-list-item-title>
         </v-list-item-content>
 
@@ -101,9 +112,13 @@
   import { parseISO, format } from 'date-fns'
   import { mdiClockOutline, mdiMinusCircleOutline, mdiClockCheck } from '@mdi/js'
 
+  import NumberScrollerSmall from "@/components/NumberScrollerSmall.vue"
 
   export default {
     name: "TimeList",
+    components: {
+      NumberScrollerSmall,
+    },
 
     props: {
       usersDate: {

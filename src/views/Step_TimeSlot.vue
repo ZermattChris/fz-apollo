@@ -77,7 +77,7 @@
           centeredSlides: true,
           //autoHeight: true,
           slideToClickedSlide: true,
-          threshold: 6,
+          threshold: 9,
           spaceBetween: 40,
           breakpoints: {
             1700: {
