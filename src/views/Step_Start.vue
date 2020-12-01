@@ -75,6 +75,8 @@
           @at-max-value="showBigGroupWarning"
         />
 
+        <!-- Information block that tells user we don't have that many pilots 
+        for a single time slot... -->
         <v-expand-transition>
           <v-card
             outlined
@@ -90,8 +92,8 @@
             </v-icon>
             <strong class="ml-1 orange--text text--darken-4">Booking Info</strong>:
             <br/>
-            Your group size is larger than the number of available pilots
-            for your chosen day.
+            Your group size is larger than the number of available pilots for a single
+            time slot on your chosen day.
             <br/><br/>
             You can split your group over multiple times in the next step,
             or give us a call: <strong>Tel +41 79 643-6808</strong>
@@ -281,7 +283,20 @@ export default {
     const maxAvailPilotsOnDay = this.getMaxPilotsForDay()
     // if Nr People chosen is over the above value, then display the too many pilots
     // message below the Nr People input.
-    if (maxAvailPilotsOnDay < this.nrPeople) {
+    // If no Max nr of pilots yet available (User hasn't selected a date yet),
+    // then this.getMaxPilotsForDay() returns 0, so treat that as valid.
+
+    // If no User Date has been selected yet, then we can't know how many Max Pilots
+    // are available for a given date. Just set the Info message to hidden and return.
+    if ( this.$store.state.flightDate !== '' ) {
+      this.nrPeopleExceedsMaxPilots = false
+      return
+    }
+
+
+    if (maxAvailPilotsOnDay === 0 ) {
+      this.nrPeopleExceedsMaxPilots = false
+    } else if  (maxAvailPilotsOnDay < this.nrPeople ) {
       this.nrPeopleExceedsMaxPilots = true
     } else {
       this.nrPeopleExceedsMaxPilots = false
@@ -306,14 +321,23 @@ export default {
         return this.$store.state.nrPeople
       },
       set(nr) {
-        // Run code to see what the max nr of pilots available in a time slot for this day are.
-        const maxAvailPilotsOnDay = this.getMaxPilotsForDay()
-        // if Nr People chosen is over the above value, then display the too many pilots
-        // message below the Nr People input.
-        if (maxAvailPilotsOnDay < nr) {
-          this.nrPeopleExceedsMaxPilots = true
+
+        // If no User Date has been selected yet, then we can't know how many Max Pilots
+        // are available for a given date. Just set the Info message to hidden and return.
+        if ( this.$store.state.flightDate !== '' ) {
+          
+          // Run code to see what the max nr of pilots available in a time slot for this day are.
+          const maxAvailPilotsOnDay = this.getMaxPilotsForDay()
+          // if Nr People chosen is over the above value, then display the too many pilots
+          // message below the Nr People input.
+          if (maxAvailPilotsOnDay < nr) {
+            this.nrPeopleExceedsMaxPilots = true
+          } else {
+            this.nrPeopleExceedsMaxPilots = false
+          }
+
         } else {
-          this.nrPeopleExceedsMaxPilots = false
+            this.nrPeopleExceedsMaxPilots = false
         }
 
         return this.$store.dispatch('setNrPeople', nr)
@@ -441,6 +465,8 @@ export default {
     // Look up the max number of avail pilots for the User's selected date.
     getMaxPilotsForDay: function () {
       
+      if (this.$store.state._timeListDates === null) return 0
+
       for (const [key, value] of Object.entries(this.$store.state._timeListDates)) {
         //console.log(`${key}: ${value}`);
         if (key === this.flightDate) {

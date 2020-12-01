@@ -71,20 +71,22 @@
               class="availability" 
               :class="{'grey--text text--lighten-2' : notEnoughAvailability(nrAvail)}"
               :color="getSelectedColour(nrAvail, key)"
-              v-html="formatAvail(nrAvail)"
+              v-html="formatAvail(nrAvail) + ' Pilots available'"
               outlined
             ></v-chip>
-            <span class="description">Available</span>
+            <span class="description">XXX</span>
           </v-list-item-title>
         </v-list-item-content>
 
-        <v-list-item-action>
+        <!-- <v-list-item-action>
           <v-switch 
             :input-value="wasSelected(key)"
             inset 
             color="success"
           ></v-switch>
-        </v-list-item-action>
+        </v-list-item-action> -->
+
+        <div style="min-width:15px; min-height:30px;"></div>
 
       </v-list-item>
 
@@ -170,8 +172,9 @@
         return this.clockIcon
       },
 
-      notEnoughAvailability: function (nrAvail) {
-        if ( nrAvail < this.$store.state.nrPeople) return true
+      notEnoughAvailability: function () {
+      // notEnoughAvailability: function (nrAvail) {
+        //if ( nrAvail < this.$store.state.nrPeople) return true
         return false
       },
 

@@ -5,8 +5,7 @@
 
 
     <PageHeader :title="timeListerHeaderStr">
-      [rough idea for text here] Explain why we need all of this info – safer flights, easier for us 
-      to give the best possible experience and to ease the scheduling process on our end...
+      [TODO] Explain why we need all of this info – safer flights, etc.
       <br>
     </PageHeader>
 

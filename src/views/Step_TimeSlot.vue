@@ -1,16 +1,17 @@
 <template>
   <div class="timeSlot">
     <PageHeader :title="timeListerHeaderStr">
-      [TODO:awkward] The time of day can affect how your flight is for your
-      <span class="hilite-text text-no-wrap"
-        >Group of {{ usersGroupSize }}</span
-      >
-      &mdash; there are many variables, including which flight, time of year,
-      weather, confidence and your fitness level.
 
-      <br /><br />
-      How to choose the right time for you:
+      [TODO] The time of day can affect...
+
+      <br />
+      
+      Your Group's size: <span class="hilite-text text-no-wrap">{{ usersGroupSize }}</span> passengers
+      
+      <br />
+      
       <a href="#TODO"><span class="text-no-wrap">Flight Guidelines</span></a>
+
     </PageHeader>
 
     <!-- Simple loading icon from main page load... -->
@@ -76,6 +77,7 @@
           centeredSlides: true,
           //autoHeight: true,
           slideToClickedSlide: true,
+          threshold: 6,
           spaceBetween: 40,
           breakpoints: {
             1700: {
@@ -158,10 +160,10 @@
       timeListerHeaderStr: function () {
         if (this.isObjEmpty(this.$store.state._flightsList)) return
         // Need to return the matching Flight Description from store.flightsList object.store.
-        const userFlightKey = this.$store.state.selectedFlight
+        //const userFlightKey = this.$store.state.selectedFlight
         //console.log('userFlightKey in list?: ', this.$store.state._flightsList)
-        const flightDesc = this.$store.state._flightsList[userFlightKey]
-        return "2. Flight Time for: <span class='hilite-text text-no-wrap'>" + flightDesc + "</span>"
+        //const flightDesc = this.$store.state._flightsList[userFlightKey]
+        return "2. Flight Time"
       }
     },
 
