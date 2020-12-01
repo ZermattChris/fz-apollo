@@ -7,7 +7,7 @@
       To make sure that we provide the highest levels of safety..
     </PageHeader>
 
-    <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12   pt-sm-2">
+    <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12 pt-sm-2" style="max-width:600px;">
       
 
 
@@ -18,8 +18,24 @@
         Flight Date
       </h3>
       
-      <div class="controls mb-0 mb-sm-6 mb-md-10">
-        <v-dialog
+      <div class="controls mb-0 mb-sm-2 mb-md-4">
+
+        <v-date-picker 
+          v-model="flightDate" 
+          scrollable
+          show-current
+          elevation="4"
+          :min="flightMinDate"
+          :max="flightMaxDate"
+          class="ml-10 mb-6 mb-sm-8 mb-md-10"
+          width=""
+          style="min-width:240px;"
+        >
+        </v-date-picker>
+
+
+
+        <!-- <v-dialog
           ref="dialog"
           v-model="flightModal"
           :return-value.sync="flightDate"
@@ -49,23 +65,22 @@
           >
             <v-spacer></v-spacer>
             <v-btn text color="primary" @click="flightModal = false">Cancel</v-btn>
-
-            
             <v-btn text color="primary" @click="onFlightDateDialogClose">OK</v-btn>
-            <!-- <v-btn text color="primary" @click="$refs.dialog.save(flightDate)">OK</v-btn> -->
           </v-date-picker>
-        </v-dialog>
+        </v-dialog> -->
+
+
       </div>
 
 
       <!-- ***************** Nr People ******************** -->
-      <h3 id="nrPeopleFlying" class="disable-select">
+      <!-- <h3 id="nrPeopleFlying" class="disable-select">
         <v-icon :color="isValidNrPeople ? 'success' : 'primary'">{{ isValidNrPeople ? stepIconCompleted : stepIcon }}</v-icon>
         Nr of People Flying
       </h3>
-      <div class="controls mb-0 mb-sm-6 mb-md-10">
+      <div class="controls mb-0 mb-sm-6 mb-md-10"> -->
         <!-- Nr People Slider - linked via data to the below Int Input -->
-        <NumberScroller
+        <!-- <NumberScroller
           ref="numberScroller"
           class="ml-10"
           v-model="nrPeople"
@@ -73,11 +88,11 @@
           :max=15
           min-message="Min per Booking is 1"
           @at-max-value="showBigGroupWarning"
-        />
+        /> -->
 
         <!-- Information block that tells user we don't have that many pilots 
         for a single time slot... -->
-        <v-expand-transition>
+        <!-- <v-expand-transition>
           <v-card
             outlined
             v-if="nrPeopleExceedsMaxPilots"
@@ -100,7 +115,7 @@
           </v-card>
         </v-expand-transition>
         
-      </div>
+      </div> -->
 
 
 
@@ -154,7 +169,7 @@
 
 
       <!-- ***************** Popup Dialog for trying to exceed max number of people ******************** -->
-      <div class="text-center ma-0" id="Big-Group-Dialog">
+      <!-- <div class="text-center ma-0" id="Big-Group-Dialog">
         <v-dialog
           v-model="bigGroupDialog"
           width="400"
@@ -194,7 +209,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-      </div>
+      </div> -->
 
     </div>
 
@@ -209,13 +224,12 @@ import { format, add, parseISO } from 'date-fns'
 import { mdiInformation, mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud, mdiCalendarMonth } from '@mdi/js'
 
 import PageHeader from '@/components/PageHeader.vue'
-import NumberScroller from "@/components/NumberScroller.vue"
+// import NumberScroller from "@/components/NumberScroller.vue"
 //const VueScrollTo = require('vue-scrollto');
 
 export default {
   name: 'Start',
   components: {
-    NumberScroller,
     PageHeader
   },
 
@@ -273,9 +287,9 @@ export default {
 
   async mounted() {
 
-    setTimeout(() => {
-      this.$refs.flightDateInput.focus()
-    }, 500)
+    // setTimeout(() => {
+    //   this.$refs.flightDateInput.focus()
+    // }, 500)
 
 
     await this.$store.dispatch('timeListDates').catch((err) => { console.error(err) })

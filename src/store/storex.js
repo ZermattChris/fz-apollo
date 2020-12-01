@@ -401,7 +401,7 @@ export default new Vuex.Store({
     // it into the state._navList array. Just a single call to this to check if marked valid
     // should be enough...
     step_startValid: state => {
-      const isValid = state.nrPeople && state.flightDate !== '' && state.selectedFlight !== ''
+      const isValid = state.flightDate !== '' && state.selectedFlight !== ''
       //console.log('step_startValid? :', isValid)
       return isValid
     },
