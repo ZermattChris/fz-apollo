@@ -2,16 +2,23 @@
   <div class="timeSlot">
     <PageHeader :title="timeListerHeaderStr">
 
-      [TODO] The time of day can affect...
+      Click on a Time to choose how many passengers would like to fly and at what time.
+      <br />(Tip: you can split larger groups up over multiple time slots on a single day)
 
-      <br />
+      <br /><br />
+      <v-btn
+        v-show="!hidden"
+        color="orange"
+        fab
+        dark
+        small
+        class="black--text"
+        id="passenger-btn"
+      >
+        {{ usersGroupSize }}
+      </v-btn>
+      Passengers in total.
       
-      Your Group's size: <span class="hilite-text text-no-wrap">{{ usersGroupSize }}</span> passengers
-      
-      <br />
-      
-      <a href="#TODO"><span class="text-no-wrap">Flight Guidelines</span></a>
-
     </PageHeader>
 
     <!-- Simple loading icon from main page load... -->
@@ -163,7 +170,7 @@
         //const userFlightKey = this.$store.state.selectedFlight
         //console.log('userFlightKey in list?: ', this.$store.state._flightsList)
         //const flightDesc = this.$store.state._flightsList[userFlightKey]
-        return "2. Flight Time"
+        return "2. How Many Flying?"
       }
     },
 
@@ -215,4 +222,10 @@
   width: 100%;
   height: 100px;
 }
+
+#passenger-btn {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
 </style>

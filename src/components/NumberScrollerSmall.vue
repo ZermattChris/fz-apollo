@@ -162,10 +162,9 @@ export default {
   justify-content: center;
   align-content: center;
   align-items: stretch;
-  box-sizing: border-box !important;
+  box-sizing: b  order-box !important;
   padding: 5px !important;
   height: 50px;
-  max-width: 170px;
   border-color: rgba(0, 0, 0, 0.4) !important;
   background-color: rgb(255, 255, 255) !important;
 }
@@ -189,7 +188,7 @@ export default {
     font-size: 1.5em;
     font-weight: 600;
   }
-    input.nrInput:focus {
+    yuoyinput.nrInput:focus {
       /* remove the pesky box outline when selected */
     }
 

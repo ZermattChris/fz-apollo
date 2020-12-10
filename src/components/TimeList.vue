@@ -44,14 +44,12 @@
       flat
       v-model="selectedSlot"
       color="indigo"
-      active-class="success--text text--darken-2"
     >
       <v-list-item
         v-for="(nrAvail, label, key) in items"
         :key="key"
         :ripple="false"
         class="listItem"
-        :class="{'listItemDisabled' : notEnoughAvailability(nrAvail)}"
         dense
         :disabled="notEnoughAvailability(nrAvail)"
         @click="onSelectRow(nrAvail, label, key)"
@@ -70,14 +68,13 @@
             <span class="time" v-html="formatTime(label)"></span>
             <v-chip
               class="availability" 
-              :class="{'grey--text text--lighten-2' : notEnoughAvailability(nrAvail)}"
               :color="getSelectedColour(nrAvail, key)"
               v-html="formatAvail(nrAvail) + ' Pilots available'"
               outlined
             ></v-chip>
             <!-- <span class="description">XXX</span> -->
             <!-- Nr People Slider - linked via data to the below Int Input -->
-            <NumberScrollerSmall
+            <!-- <NumberScrollerSmall
               ref="numberScroller"
               class="mt-2"
               v-model="nrPeople"
@@ -85,7 +82,7 @@
               :max="nrAvail"
               min-message="Min per Booking is 1"
               @at-max-value="showBigGroupWarning"
-            />
+            /> -->
           </v-list-item-title>
         </v-list-item-content>
 
@@ -112,12 +109,12 @@
   import { parseISO, format } from 'date-fns'
   import { mdiClockOutline, mdiMinusCircleOutline, mdiClockCheck } from '@mdi/js'
 
-  import NumberScrollerSmall from "@/components/NumberScrollerSmall.vue"
+  //import NumberScrollerSmall from "@/components/NumberScrollerSmall.vue"
 
   export default {
     name: "TimeList",
     components: {
-      NumberScrollerSmall,
+      //NumberScrollerSmall,
     },
 
     props: {
@@ -171,19 +168,20 @@
 
     methods: {
 
-      getSelectedColour: function (nrAvail, key) {
-        if (this.notEnoughAvailability(nrAvail)) return 'silver'
-        if (key === this.selectedSlot) return 'success darken-2'
+      getSelectedColour: function () {
+        // if (this.notEnoughAvailability(nrAvail)) return 'silver'
+        // if (key === this.selectedSlot) return 'success darken-2'
         return ''
       },
-      getClockColour: function (nrAvail, key) {
-        if (this.notEnoughAvailability(nrAvail)) return 'grey lighten-1'
-        if (key === this.selectedSlot) return 'success darken-2'
+      getClockColour: function () {
+        // if (this.notEnoughAvailability(nrAvail)) return 'grey lighten-1'
+        // if (key === this.selectedSlot) return 'success darken-2'
         return ''
       },
-      getClockIcon: function (nrAvail, key) {
-        if (this.notEnoughAvailability(nrAvail)) return this.clockIconOutline
-        if (key === this.selectedSlot) return this.clockIconSelected
+      //getClockIcon: function (nrAvail, key) {
+      getClockIcon: function () {
+        // if (this.notEnoughAvailability(nrAvail)) return this.clockIconOutline
+        // if (key === this.selectedSlot) return this.clockIconSelected
         return this.clockIcon
       },
 
