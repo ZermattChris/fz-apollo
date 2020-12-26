@@ -2,8 +2,14 @@
   <div class="timeSlot">
     <PageHeader :title="timeListerHeaderStr">
 
-      Click on a Time to choose how many passengers would like to fly and at what time.
-      <br />(Tip: you can split larger groups up over multiple time slots on a single day)
+      Click on a Time to choose how many passengers would like to fly.
+      <br />
+        ( <v-icon
+        
+        color="orange"
+      >
+        {{iconIdea}}
+      </v-icon> Tip: you can split larger groups up over multiple time slots on a single day)
 
       <br /><br />
       <v-btn
@@ -17,7 +23,8 @@
       >
         {{ usersGroupSize }}
       </v-btn>
-      Passengers in total.
+      <span id="passenger-text">Passengers in total.</span>
+      
       
     </PageHeader>
 
@@ -60,6 +67,9 @@
 
   import PageHeader from '@/components/PageHeader.vue'
 
+  
+  import { mdiLightbulbOnOutline } from '@mdi/js'
+
 
   export default {
     name: "Step_TimeSlot",
@@ -77,6 +87,9 @@
     data () {
       //var self = this;
       return {
+
+        iconIdea: mdiLightbulbOnOutline,
+
         //getUsersTimeListerDay: 0,
         //swiper: null,
         swiperOptions: {
@@ -226,6 +239,11 @@
 #passenger-btn {
   font-size: 1.2em;
   font-weight: bold;
+}
+#passenger-text {
+  position: relative;
+  top: 0.1em;
+  left: 0.3em;
 }
 
 </style>

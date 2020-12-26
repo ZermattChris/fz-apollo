@@ -54,7 +54,11 @@
         :disabled="notEnoughAvailability(nrAvail)"
         @click="onSelectRow(nrAvail, label, key)"
       >
-        <v-list-item-icon>
+
+<!-- This is where the new TimeSlot component needs to go in. -->
+
+
+        <!-- <v-list-item-icon>
           <v-icon 
             class="clockIcon"
             v-text="getClockIcon(nrAvail, key)"
@@ -72,27 +76,27 @@
               v-html="formatAvail(nrAvail) + ' Pilots available'"
               outlined
             ></v-chip>
-            <!-- <span class="description">XXX</span> -->
-            <!-- Nr People Slider - linked via data to the below Int Input -->
-            <!-- <NumberScrollerSmall
-              ref="numberScroller"
-              class="mt-2"
-              v-model="nrPeople"
-              min="0"
-              :max="nrAvail"
-              min-message="Min per Booking is 1"
-              @at-max-value="showBigGroupWarning"
-            /> -->
-          </v-list-item-title>
-        </v-list-item-content>
 
-        <!-- <v-list-item-action>
-          <v-switch 
-            :input-value="wasSelected(key)"
-            inset 
-            color="success"
-          ></v-switch>
-        </v-list-item-action> -->
+            <v-fab-transition>
+              <v-btn
+                class="nr-people-timeslot"
+                v-show="!hidden"
+                color="orange"
+                fab
+                dark
+                small
+                absolute
+                middle
+              >
+                0
+              </v-btn>
+            </v-fab-transition>
+            
+          </v-list-item-title>
+        </v-list-item-content> -->
+
+
+<!-- END: TimeSlot component -->
 
         <div style="min-width:15px; min-height:30px;"></div>
 
@@ -185,6 +189,7 @@
         return this.clockIcon
       },
 
+      // disabled at momment...
       notEnoughAvailability: function () {
       // notEnoughAvailability: function (nrAvail) {
         //if ( nrAvail < this.$store.state.nrPeople) return true
@@ -205,14 +210,24 @@
         return true
       },
 
-      onSelectRow: function (nrAvail, timeLabel, chosenSlot ) {
-        this.selectedSlot = chosenSlot
+      onSelectRow: function () {
+      //onSelectRow: function (nrAvail, timeLabel, chosenSlot ) {
+        //this.selectedSlot = chosenSlot
         // User selected a Row or the Switch, fire event for parent
         //console.log("Selected a Row. NrAvail:", nrAvail, 'timeLabel', timeLabel, 'chosenSlot', chosenSlot)
-        this.$emit('row-selected', this.date, this.selectedSlot, timeLabel )
+        //this.$emit('row-selected', this.date, this.selectedSlot, timeLabel )
+
+        // Show a pop-up allowing user to add/remove number of passengers
+        // to this time slot.
+        // Only show if there are greater than Zero pilots avialable for this slot.
+        // (otherwise some sort of "shake" to imply no would be slick...)
+
+        //
+
+
       },
       onUnselectRows: function () {
-        this.selectedSlot = -1
+        //this.selectedSlot = -1
       },
 
       formatAvail: function (slotObj) {
@@ -303,6 +318,8 @@
     }
 
   .listItem {
+    min-height: 55px;
+    min-width: 270px;
     padding-top: 0.15em;
     border-bottom: 1px solid rgb(218, 218, 218);
     background-color: white !important;
@@ -351,6 +368,10 @@
     padding-left: 0.5em;
   }
 
+  .availability {
+    cursor: pointer;
+  }
+
 
 #usersDateAvatar {
   position: absolute; 
@@ -358,6 +379,14 @@
   right: -6px; 
   margin-top: -18px;
   z-index: 100;
+}
+
+.nr-people-timeslot {
+  font-size: 1.5em;
+  font-style: normal;
+  font-weight: bold;
+  text-shadow: 0px 0px 1px black;
+  right: -20px;
 }
 
 </style>
