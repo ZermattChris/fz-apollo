@@ -483,9 +483,9 @@ export default new Vuex.Store({
       let index = 0
       Object.keys(tmpList).forEach(function(key) {
         // if (foundIndx === 0) {
-          console.log(key, tmpList[key]);
+          // console.log(key, tmpList[key]);
           if (key === usrDateStr) {
-            console.log("MATCH: " + index, key, tmpList[key]);
+            // console.log("MATCH: " + index, key, tmpList[key]);
             foundIndx = index
           }
           index = index + 1
@@ -527,32 +527,37 @@ function savePassengerObjListToLocalStorage (context) {
 }
 
 
-
+// *****************************************************************
 // this is a temp helper function to build fake dates based upon 
 // the user's chosen date, until Tommy has his backend API working.
+// *****************************************************************
 function generateFlightsDates (usersFlightDate) {
 
   //console.log('targetDate: ', targetDate)
   const nrDaysToGen = 30
-  const nrDaysBeforeUserDateToDisplay = 7
-  //let oneDaySeconds = 86400;
-
-  // Date stamp incorrect. Need to return +2 days from now(), but with 
-  // 00:00:00 (midnight), not when this function was generated!
   
-  let dateObj = dateUtils.sub(new Date(usersFlightDate), { days: nrDaysBeforeUserDateToDisplay })
+  let prevDaysToShow = 7
+  // users date minus today. if less than prevDaysToShow, then update.
+  let testDateInt = dateUtils.differenceInDays(new Date(usersFlightDate), new Date() )
+  console.log('testDateInt: ', testDateInt)
+  if (testDateInt < prevDaysToShow) {
+    prevDaysToShow = testDateInt
+  }
+  // const nrDaysBeforeUserDateToDisplay = 7
+  
+  let dateObj = dateUtils.sub(new Date(usersFlightDate), { days: prevDaysToShow })
   //let dateObj = new Date(usersFlightDate)
   //let dateObj = dateUtils.add(usersDate, { days: 2 }); // today +2 days.
   // let currDayKey = dateUtils.getUnixTime(new Date(startDate));
 
-  let flightsdates = {};
+  let flightsdates = {}
 
   for (let id = 0; id < nrDaysToGen; id++) {
 
-    console.log('Raw date string: ', dateObj)
+    // console.log('Raw date string: ', dateObj)
 
     let currDayKey = dateUtils.format(dateObj, 'yyyy-MM-dd')    // this is fucking up! Working now, changed year from 'Y' to 'yyyy'
-    console.log('Formatted date string: ', currDayKey)
+    // console.log('Formatted date string: ', currDayKey)
 
     let timesList = [
       "08:30",

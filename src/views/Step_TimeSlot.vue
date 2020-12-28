@@ -54,10 +54,10 @@
           @row-selected="clickedRow"
         ></TimeList>
 
-
+ <!-- <br/>
     userOriginalDate Step 1: {{usersStep1Date}} <br/>
     userSelectedDate: {{userSelectedDate}} <br/>
-    swiper: {{usersDayIndex}} <br/>
+    swiper: {{usersDayIndex}} <br/> -->
 
         <div class="vSpacerForFooter"></div>
 
@@ -106,7 +106,7 @@
         //swiper: null,
         swiperOptions: {
           centeredSlides: true,
-          initialSlide: 7,    //this.usersDayIndex(),
+          initialSlide: this.usersDayIndex(),
           //autoHeight: true,
           slideToClickedSlide: true,
           threshold: 9,
@@ -160,10 +160,6 @@
 
     computed: {
 
-      usersDayIndex() {
-        return this.$store.getters.getUsersDayIndex()
-      },
-
 
       daysVisibleList() {
         return this.$store.state._timeListDates
@@ -210,6 +206,10 @@
 
     methods: {
   
+      usersDayIndex: function () {
+        return this.$store.getters.getUsersDayIndex()
+      },
+
       scrollToTimeSlotTop: function () {
         setTimeout(() => { this.$scrollTo('#timeSlotSwiper', 500) }, 200)
       },
