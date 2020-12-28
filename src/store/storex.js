@@ -4,7 +4,10 @@ import axios from "axios"
 
 // Dev only - remove once API is up.
 // import tmp from "./temp3.json"
-const flightsdates = require("./flightsdates.js");
+//const tempData = require("./flightsdates.js");
+var faker = require("faker")    //temp
+var dateUtils = require('date-fns')     // temp
+
 
 Vue.use(Vuex)
 
@@ -243,7 +246,7 @@ export default new Vuex.Store({
         .catch(error => {
           console.log('Temp dev data being generated for FlightDates in store -> timeListDates(). ', error)
           if (context.state._DEV) {
-            context.commit("TIMELIST_DATES", flightsdates)  // only loads temp.json data while in dev mode.
+            context.commit("TIMELIST_DATES", generateFlightsDates(flDate))  // only loads temp.json data while in dev mode.
           }
         })
         .finally(() => context.commit("TIMELIST_LOADING", false))
@@ -315,6 +318,7 @@ export default new Vuex.Store({
     setFlightDate(context, dateStr) {
       context.commit("CHOSEN_DATE", dateStr)
       localStorage.flightDate = dateStr
+      console.log("FlightDate Set in Store. " + dateStr)
     },
     setFlight(context, flightNameStr) {
       context.commit("CHOSEN_FLIGHT", flightNameStr)
@@ -478,13 +482,15 @@ export default new Vuex.Store({
       const tmpList = state._timeListDates
       let index = 0
       Object.keys(tmpList).forEach(function(key) {
-        //console.log(key, tmpList[key]);
-        if (key === usrDateStr) {
-          //console.log(index, key, tmpList[key]);
-          foundIndx = index
-        }
-        index = index + 1
-      });
+        // if (foundIndx === 0) {
+          console.log(key, tmpList[key]);
+          if (key === usrDateStr) {
+            console.log("MATCH: " + index, key, tmpList[key]);
+            foundIndx = index
+          }
+          index = index + 1
+        // }
+      })
 
       //this.swiper.slideTo(foundIndx, 500, false)
       return foundIndx
@@ -518,4 +524,59 @@ function createNewPassengerObj (id) {
 
 function savePassengerObjListToLocalStorage (context) {
   localStorage.passengerObjList = JSON.stringify(context.state.passengerObjList)
+}
+
+
+
+// this is a temp helper function to build fake dates based upon 
+// the user's chosen date, until Tommy has his backend API working.
+function generateFlightsDates (usersFlightDate) {
+
+  //console.log('targetDate: ', targetDate)
+  const nrDaysToGen = 30
+  const nrDaysBeforeUserDateToDisplay = 7
+  //let oneDaySeconds = 86400;
+
+  // Date stamp incorrect. Need to return +2 days from now(), but with 
+  // 00:00:00 (midnight), not when this function was generated!
+  
+  let dateObj = dateUtils.sub(new Date(usersFlightDate), { days: nrDaysBeforeUserDateToDisplay })
+  //let dateObj = new Date(usersFlightDate)
+  //let dateObj = dateUtils.add(usersDate, { days: 2 }); // today +2 days.
+  // let currDayKey = dateUtils.getUnixTime(new Date(startDate));
+
+  let flightsdates = {};
+
+  for (let id = 0; id < nrDaysToGen; id++) {
+
+    console.log('Raw date string: ', dateObj)
+
+    let currDayKey = dateUtils.format(dateObj, 'yyyy-MM-dd')    // this is fucking up! Working now, changed year from 'Y' to 'yyyy'
+    console.log('Formatted date string: ', currDayKey)
+
+    let timesList = [
+      "08:30",
+      "10:15",
+      "11:45",
+      "13:15",
+      "14:45",
+      "16:15",
+      "17:00",
+      "19:00"
+    ];
+    let timeslots = {};
+    
+    // Loop and build this day's timeslots.
+    timesList.forEach(function(time) {
+      let slotAvail = faker.random.number({ min: 0, max: 7 });
+      timeslots[time] = slotAvail
+    });
+    
+    flightsdates[currDayKey] = timeslots;
+
+    dateObj = dateUtils.add(dateObj, { days: 1 })
+
+  }
+
+  return flightsdates;
 }

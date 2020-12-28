@@ -53,9 +53,17 @@
           :selected="userSelectedSlot"
           @row-selected="clickedRow"
         ></TimeList>
+
+
+    userOriginalDate Step 1: {{usersStep1Date}} <br/>
+    userSelectedDate: {{userSelectedDate}} <br/>
+    swiper: {{usersDayIndex}} <br/>
+
         <div class="vSpacerForFooter"></div>
+
       </swiper-slide>
     </swiper>
+
   </div>
 </template>
 
@@ -90,11 +98,15 @@
 
         iconIdea: mdiLightbulbOnOutline,
 
+        // Keep track of the user's initally chosen date from Step 1, and 
+        // offer them a UI to return to that date easily.
+        usersStep1Date: '',
+
         //getUsersTimeListerDay: 0,
         //swiper: null,
         swiperOptions: {
-          initialSlide: this.$store.getters.getUsersDayIndex(),
           centeredSlides: true,
+          initialSlide: 7,    //this.usersDayIndex(),
           //autoHeight: true,
           slideToClickedSlide: true,
           threshold: 9,
@@ -128,6 +140,8 @@
 
     created() {
       this.$store.dispatch('flightOptions')
+      // Keep track of User's step 1 selected date.
+      this.usersStep1Date = this.$store.state.flightDate
     },
     async mounted() {
       // We're going to pre-load this in Step 1, to allow
@@ -137,12 +151,19 @@
       // as an error (navigating directly to this step would cause this)
 
       // TODO
-      
+
+      // this.Swiper.initialSlide = this.$store.getters.getUsersDayIndex()
+
       await this.$store.dispatch('timeListDates').catch((err) => { console.error(err); })
     },
     
 
     computed: {
+
+      usersDayIndex() {
+        return this.$store.getters.getUsersDayIndex()
+      },
+
 
       daysVisibleList() {
         return this.$store.state._timeListDates
@@ -183,7 +204,7 @@
         //const userFlightKey = this.$store.state.selectedFlight
         //console.log('userFlightKey in list?: ', this.$store.state._flightsList)
         //const flightDesc = this.$store.state._flightsList[userFlightKey]
-        return "2. How Many Flying?"
+        return "2. How Many are Flying?"
       }
     },
 

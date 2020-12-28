@@ -52,7 +52,8 @@ function generateFlightsDates() {
     // Increment our Epoch based date Key +1 Day's worth of seconds.
     //currDayKey += oneDaySeconds;
   }
+
   return flightsdates;
 }
 
-module.exports = generateFlightsDates()
+module.exports.generateFlightsDates = generateFlightsDates()
