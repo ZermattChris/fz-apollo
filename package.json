@@ -19,7 +19,7 @@
     "es6-promise": "^4.2.8",
     "mobile-device-detect": "^0.3.3",
     "npm": "^6.14.8",
-    "swiper": "5.4.5",
+    "swiper": "^5.4.5",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
     "vue-i18n": "^8.18.1",

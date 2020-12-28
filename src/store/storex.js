@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 import axios from "axios"
 
 // Dev only - remove once API is up.
-//import tmp from "./temp.json"
+// import tmp from "./temp3.json"
+const flightsdates = require("./flightsdates.js");
 
 Vue.use(Vuex)
 
@@ -233,17 +234,17 @@ export default new Vuex.Store({
         console.log('flDate is empty, not pulling flights/date data from timeListDates() API')
         return
       }
-
-      return axios.get("https://bookings-dev.simpleitsolutions.ch/onlinebooking/flightschedules/" + flDate)
+      // Temporarily disable the call to backend until Tommy builds it properly.
+      return axios.get("https://XXXXXXXXX-bookings-dev.simpleitsolutions.ch/onlinebooking/flightschedules/" + flDate)
         .then(response => {
           let data = response.data;
           context.commit("TIMELIST_DATES", data)
         })
         .catch(error => {
-          console.log(error)
-          // if (context.state._DEV) {
-          //   context.commit("TIMELIST_DATES", tmp)  // only loads temp.json data while in dev mode.
-          // }
+          console.log('Temp dev data being generated for FlightDates in store -> timeListDates(). ', error)
+          if (context.state._DEV) {
+            context.commit("TIMELIST_DATES", flightsdates)  // only loads temp.json data while in dev mode.
+          }
         })
         .finally(() => context.commit("TIMELIST_LOADING", false))
     },
