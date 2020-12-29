@@ -22,6 +22,7 @@
       <span id="passenger-text">Passengers in total.</span>
       
       <v-btn
+        style="z-index:100;"
         x-small
         color="orange"
         dark
@@ -215,16 +216,16 @@
       
       clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
         // chosenSlot is zero based.
-        //console.log('chosenDate', chosenDate, 'chosenSlot', chosenSlot, 'timeLabel', timeLabel)
+        console.log('Step_TimeSlot -> clickedRow().  chosenDate', chosenDate, 'chosenSlot', chosenSlot, chosenSlotLabel)
         //this.slotLabel = chosenSlotLabel
         // this.$store.state.timeSlot = chosenSlot
-        let payload = {'slot':chosenSlot, 'label':chosenSlotLabel}
-        this.userSelectedSlot = payload
-        // this.$store.state.flightDate = chosenDate
-        this.userSelectedDate = chosenDate
-        // Set 'Time' to true in the store _navList
-        payload = {'Time': true}
-        this.$store.dispatch('setNavListItem', payload)
+        // let payload = {'slot':chosenSlot, 'label':chosenSlotLabel}
+        // this.userSelectedSlot = payload
+        // // this.$store.state.flightDate = chosenDate
+        // this.userSelectedDate = chosenDate
+        // // Set 'Time' to true in the store _navList
+        // payload = {'Time': true}
+        // this.$store.dispatch('setNavListItem', payload)
 
         // Push the TimeSlot Swiper to top of screen
         this.scrollToTimeSlotTop()

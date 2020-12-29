@@ -17,27 +17,6 @@
         {{titleDate.fullDate}}
       </div>
 
-      <!-- <v-tooltip 
-        top
-        open-on-click
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-avatar 
-            id="usersDateAvatar"
-            v-if="matchesUserDate"
-            color="success" 
-            size="36"
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-icon 
-              dark
-            >mdi-calendar-check</v-icon>
-          </v-avatar>
-        </template>
-        <span>Your selected Date from Step 1.</span>
-      </v-tooltip> -->
-
     </div>
 
     <v-list-item-group 
@@ -51,14 +30,13 @@
         :ripple="false"
         class="listItem"
         dense
-        :disabled="notEnoughAvailability(nrAvail)"
         @click="onSelectRow(nrAvail, label, key)"
       >
 
 <!-- This is where the new TimeSlot component needs to go in. -->
 
-
-        <!-- <v-list-item-icon>
+        <!-- Clock Icon -->
+        <v-list-item-icon>
           <v-icon 
             class="clockIcon"
             v-text="getClockIcon(nrAvail, key)"
@@ -67,34 +45,19 @@
           ></v-icon>
         </v-list-item-icon>
 
+
         <v-list-item-content>
           <v-list-item-title>
             <span class="time" v-html="formatTime(label)"></span>
             <v-chip
               class="availability" 
               :color="getSelectedColour(nrAvail, key)"
-              v-html="formatAvail(nrAvail) + ' Pilots available'"
+              v-html="'xxx Pilots available'"
               outlined
             ></v-chip>
-
-            <v-fab-transition>
-              <v-btn
-                class="nr-people-timeslot"
-                v-show="!hidden"
-                color="orange"
-                fab
-                dark
-                small
-                absolute
-                middle
-              >
-                0
-              </v-btn>
-            </v-fab-transition>
             
           </v-list-item-title>
-        </v-list-item-content> -->
-
+        </v-list-item-content>
 
 <!-- END: TimeSlot component -->
 
@@ -104,7 +67,7 @@
 
       
     </v-list-item-group>
-<!-- Selected: {{matchesUserDate}} -->
+
   </div>
 
 </template>
@@ -172,6 +135,28 @@
 
     methods: {
 
+        onSelectRow: function (nrAvail, timeLabel, chosenSlot ) {
+        //this.selectedSlot = chosenSlot
+        // User selected a Row or the Switch, fire event for parent
+        console.log("Selected a Row. NrAvail:", nrAvail, 'timeLabel', timeLabel, 'chosenSlot', chosenSlot)
+        //this.$emit('row-selected', this.date, this.selectedSlot, timeLabel )
+
+        // Show a pop-up allowing user to add/remove number of passengers
+        // to this time slot.
+        // Only show if there are greater than Zero pilots avialable for this slot.
+        // (otherwise some sort of "shake" to imply no would be slick...)
+
+        //
+
+
+      },
+
+      formatAvail: function () {
+        // Just grab the Observer object's value and return it.
+        //const availStr = slotObj[key]
+        //return slotObj
+      },
+
       getSelectedColour: function () {
         // if (this.notEnoughAvailability(nrAvail)) return 'silver'
         // if (key === this.selectedSlot) return 'success darken-2'
@@ -189,52 +174,6 @@
         return this.clockIcon
       },
 
-      // disabled at momment...
-      notEnoughAvailability: function () {
-      // notEnoughAvailability: function (nrAvail) {
-        //if ( nrAvail < this.$store.state.nrPeople) return true
-        return false
-      },
-
-      wasSelected: function (key) {
-        // Also set to false if this TL isn't currently selected.
-        if (!this.matchesUserDate) {
-          this.selectedSlot = -1
-          return false
-        }
-        // Need to figure out if this Select is part of the selected row or not.
-        //console.log('key', key)
-        if (key !== this.selectedSlot) {
-          return false
-        }
-        return true
-      },
-
-      onSelectRow: function () {
-      //onSelectRow: function (nrAvail, timeLabel, chosenSlot ) {
-        //this.selectedSlot = chosenSlot
-        // User selected a Row or the Switch, fire event for parent
-        //console.log("Selected a Row. NrAvail:", nrAvail, 'timeLabel', timeLabel, 'chosenSlot', chosenSlot)
-        //this.$emit('row-selected', this.date, this.selectedSlot, timeLabel )
-
-        // Show a pop-up allowing user to add/remove number of passengers
-        // to this time slot.
-        // Only show if there are greater than Zero pilots avialable for this slot.
-        // (otherwise some sort of "shake" to imply no would be slick...)
-
-        //
-
-
-      },
-      onUnselectRows: function () {
-        //this.selectedSlot = -1
-      },
-
-      formatAvail: function (slotObj) {
-        // Just grab the Observer object's value and return it.
-        //const availStr = slotObj[key]
-        return slotObj
-      },
       formatTime: function (key) {
           //console.log("key, slotObj", key, slotObj)
         // format into nice html for display.
@@ -261,12 +200,6 @@
         },
     },
 
-    mounted() {
-      //console.log(this.dates)
-      
-    },
-
-
   }
 
 </script>
@@ -280,21 +213,7 @@
     border-color: rgb(211, 211, 211) !important;
     /* background-color: rgb(248, 239, 255); */
   }
-    /* .selectedBorder {
-      padding: 0;
-      border-style: solid !important;
-      border-width: 4px !important;
-      border-color: rgba(var(--fzselected-color), 0.3) !important;
-    }  */
-    /* .boxDisplaySize {
-      
-    } */
 
-  .v-list--dense {
-    margin-left: 10px !important;
-    margin-right: 10px !important;
-    position: relative;
-  }
 
   .darkTextShadow {
     text-shadow: 0px 0px 2px black, 0px 0px 1px black;
@@ -324,20 +243,12 @@
     border-bottom: 1px solid rgb(218, 218, 218);
     background-color: white !important;
   }
-  .listItemDisabled {
-    background-color: rgba(226, 210, 233, 0.25) !important;
-  }
 
   /* Gives us a bit more left/right space */
   .v-list-item {
     padding: 0 14px;
   }
 
-    .clockIcon {
-      position: relative;
-      left: -5px;
-      top: 2px;
-    }
 
   /* Format pesky Time label */
   .time {
@@ -356,37 +267,5 @@
       top: -0.24em;
       left: 0.1em;
     }
-
-  .v-chip.v-chip--outlined {
-    border-width: 3px;
-    font-size: larger;
-    font-weight: bolder;
-    margin-left: 2em;
-  }
-
-  .description {
-    padding-left: 0.5em;
-  }
-
-  .availability {
-    cursor: pointer;
-  }
-
-
-#usersDateAvatar {
-  position: absolute; 
-  top: 50%; 
-  right: -6px; 
-  margin-top: -18px;
-  z-index: 100;
-}
-
-.nr-people-timeslot {
-  font-size: 1.5em;
-  font-style: normal;
-  font-weight: bold;
-  text-shadow: 0px 0px 1px black;
-  right: -20px;
-}
 
 </style>
