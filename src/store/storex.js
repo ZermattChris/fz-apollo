@@ -60,8 +60,10 @@ export default new Vuex.Store({
     _bookMonthsOffset: -1,
     _videoPrice: -1,
     _flightsList: null,
+
     // EasyJet style of choosing a Date's Timeslot.
-    _timeListDates: null, // List of dates obj with time slots
+    //_timeListDates: null, // List of dates obj with time slots
+    _timeListDates: localStorage._timeListDates ? JSON.parse(localStorage._timeListDates) : {},
 
     // Not sure any of these are really needed/used...
     // Loading values. Use to update UI to show various components are loading...
@@ -106,6 +108,9 @@ export default new Vuex.Store({
     // APIs
     TIMELIST_DATES(state, obj) {
       state._timeListDates = obj;
+      // Save the timeListDates data to localstorage, to prevent page
+      // reloads for borking Step 2.
+      localStorage._timeListDates = JSON.stringify(state._timeListDates)
     },
 
     MAX_PILOTS(state, nr) {
@@ -227,16 +232,13 @@ export default new Vuex.Store({
     async timeListDates(context) {
       context.commit("TIMELIST_LOADING", true); // Loading UI ON
 
-      // TODO: Figure out the starting date (keep in mind that we only need
-      // to load from Today()+_bookDaysOffset)
-
       // Return if the date is not set/valid.
       const flDate = context.state.flightDate;
       //console.log(flDate)
-      if (flDate === '') {
-        console.log('flDate is empty, not pulling flights/date data from timeListDates() API')
-        return
-      }
+      // if (flDate === '') {
+      //   console.log('flDate is empty, not pulling flights/date data from timeListDates() API')
+      //   return
+      // }
       // Temporarily disable the call to backend until Tommy builds it properly.
       return axios.get("https://XXXXXXXXX-bookings-dev.simpleitsolutions.ch/onlinebooking/flightschedules/" + flDate)
         .then(response => {
@@ -244,12 +246,14 @@ export default new Vuex.Store({
           context.commit("TIMELIST_DATES", data)
         })
         .catch(error => {
-          console.log('Temp dev data being generated for FlightDates in store -> timeListDates(). ', error)
           if (context.state._DEV) {
+            console.log('Temp dev data being generated for FlightDates in store -> timeListDates(). ', error)
             context.commit("TIMELIST_DATES", generateFlightsDates(flDate))  // only loads temp.json data while in dev mode.
           }
         })
-        .finally(() => context.commit("TIMELIST_LOADING", false))
+        .finally(() => 
+          context.commit("TIMELIST_LOADING", false),
+        )
     },
 
 
@@ -473,13 +477,16 @@ export default new Vuex.Store({
       return matchedPassengerObj.weightKg
     },
 
-
+    //*************************
     getUsersDayIndex: (state) => () => {
       
       let foundIndx = 0
 
       const usrDateStr = state.flightDate
       const tmpList = state._timeListDates
+
+      if (tmpList === null) return foundIndx
+
       let index = 0
       Object.keys(tmpList).forEach(function(key) {
         // if (foundIndx === 0) {

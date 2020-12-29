@@ -13,7 +13,6 @@
 
       <br /><br />
       <v-btn
-        v-show="!hidden"
         color="orange"
         fab
         dark
@@ -154,7 +153,7 @@
 
       // this.Swiper.initialSlide = this.$store.getters.getUsersDayIndex()
 
-      await this.$store.dispatch('timeListDates').catch((err) => { console.error(err); })
+      //await this.$store.dispatch('timeListDates').catch((err) => { console.error(err); })
     },
     
 

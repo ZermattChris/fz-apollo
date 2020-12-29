@@ -292,7 +292,7 @@ export default {
     // }, 500)
 
 
-    await this.$store.dispatch('timeListDates').catch((err) => { console.error(err) })
+    //await this.$store.dispatch('timeListDates').catch((err) => { console.error(err) })
     // Run code to see what the max nr of pilots available in a time slot for this day are.
     const maxAvailPilotsOnDay = this.getMaxPilotsForDay()
     // if Nr People chosen is over the above value, then display the too many pilots
