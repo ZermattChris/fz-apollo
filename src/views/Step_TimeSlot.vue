@@ -4,14 +4,11 @@
 
       Click on a Time to choose how many passengers would like to fly.
       <br />
-        ( <v-icon
-        
-        color="orange"
-      >
-        {{iconIdea}}
-      </v-icon> Tip: you can split larger groups up over multiple time slots on a single day)
+        ( <v-icon color="orange">{{iconIdea}}</v-icon> Tip: you can split larger groups up over multiple time slots on a single day)
 
-      <br /><br />
+      <br />
+      <br />
+
       <v-btn
         color="orange"
         fab
@@ -24,6 +21,15 @@
       </v-btn>
       <span id="passenger-text">Passengers in total.</span>
       
+      <v-btn
+        x-small
+        color="orange"
+        dark
+        class="ml-6 darken-2"
+        @click="onChosenDateClick"
+      >
+        <v-icon small left>{{iconArrowRight}}</v-icon> Return to Original Date
+      </v-btn>
       
     </PageHeader>
 
@@ -75,7 +81,7 @@
   import PageHeader from '@/components/PageHeader.vue'
 
   
-  import { mdiLightbulbOnOutline } from '@mdi/js'
+  import { mdiLightbulbOnOutline, mdiArrowRightCircle } from '@mdi/js'
 
 
   export default {
@@ -96,6 +102,7 @@
       return {
 
         iconIdea: mdiLightbulbOnOutline,
+        iconArrowRight: mdiArrowRightCircle,
 
         // Keep track of the user's initally chosen date from Step 1, and 
         // offer them a UI to return to that date easily.
@@ -142,21 +149,8 @@
       // Keep track of User's step 1 selected date.
       this.usersStep1Date = this.$store.state.flightDate
     },
-    async mounted() {
-      // We're going to pre-load this in Step 1, to allow
-      // checking number of people against how many max pilots are available
-      // for the chosen day. 
-      // Means we just need to check if this is null (not yet set) and handle this
-      // as an error (navigating directly to this step would cause this)
 
-      // TODO
-
-      // this.Swiper.initialSlide = this.$store.getters.getUsersDayIndex()
-
-      //await this.$store.dispatch('timeListDates').catch((err) => { console.error(err); })
-    },
     
-
     computed: {
 
 
@@ -205,6 +199,12 @@
 
     methods: {
   
+      onChosenDateClick: function () {
+        // scroll Swiper to the currently selected date.
+        //console.log( 'Scroll to slide: ' + this.swiperOptions.initialSlide )
+        this.swiper.slideTo(this.swiperOptions.initialSlide)
+      },
+
       usersDayIndex: function () {
         return this.$store.getters.getUsersDayIndex()
       },
