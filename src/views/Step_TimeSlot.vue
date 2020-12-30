@@ -29,9 +29,9 @@
           <v-btn
             style="z-index:2;"
             x-small
-            color="orange"
+            color="green"
             dark
-            class="ml-6 darken-2"
+            class="ml-6 "
             v-bind="attrs"
             v-on="on"
             @click="onToOrigDateClick"

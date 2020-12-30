@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <div id="slotContainer">
 
     <!-- Clock Icon -->
     <v-list-item-icon>
@@ -15,14 +15,13 @@
     <!-- Pilots Avaliable. -->
     <v-list-item-content>
       <v-list-item-title>
-        <span class="time" v-html="formatTime(timeStr)"></span>
-        <v-chip
-          class="availability" 
-          :color="getSelectedColour(pilotsAvail, index)"
-          v-html="formatAvail(pilotsAvail) + ' Pilots available'"
-          outlined
-        ></v-chip>
-        
+          <span class="time" v-html="formatTime(timeStr)"></span>
+          <v-chip
+            class="availability" 
+            :color="getSelectedColour()"
+            v-html="pilotsAvail + ' Pilots available'"
+            outlined
+          />
       </v-list-item-title>
     </v-list-item-content>
 
@@ -78,26 +77,19 @@
     methods: {
 
 
-      formatAvail: function (slotObj) {
-        // Just grab the Observer object's value and return it.
-        //const availStr = slotObj[key]
-        return slotObj
-      },
 
       getSelectedColour: function () {
-        // if (this.notEnoughAvailability(pilotsAvail)) return 'silver'
-        // if (key === this.selectedSlot) return 'success darken-2'
-        return ''
+        if (this.pilotsAvail == 0) return 'silver'
+        return 'success darken-2'
       },
       getClockColour: function () {
-        // if (this.notEnoughAvailability(pilotsAvail)) return 'grey lighten-1'
-        // if (key === this.selectedSlot) return 'success darken-2'
-        return ''
+        if (this.pilotsAvail == 0) return 'grey lighten-1'
+        return 'success darken-2'
       },
-      //getClockIcon: function (pilotsAvail, key) {
       getClockIcon: function () {
-        // if (this.notEnoughAvailability(pilotsAvail)) return this.clockIconOutline
-        // if (key === this.selectedSlot) return this.clockIconSelected
+        // TODO This needs to be updated when selecting a Slot works, to
+        // TODO show a clock icon when there are passengers on this slot.
+        if (this.pilotsAvail == 0) return this.clockIconOutline
         return this.clockIcon
       },
 
@@ -132,50 +124,18 @@
 </script>
 
 <style scoped>
-  .timeListerBox {
-    display: inline-block;
-    /* this needs to match the Selected Border width below. */
-    border-style: solid !important;
-    border-width: 1px !important;
-    border-color: rgb(211, 211, 211) !important;
-    /* background-color: rgb(248, 239, 255); */
-  }
 
-
-  .darkTextShadow {
-    text-shadow: 0px 0px 2px black, 0px 0px 1px black;
+  #slotContainer {
+    display: inline-flex;
+    width: 100%;
   }
-  .whiteTextShadow {
-    text-shadow: 0px 0px 2px rgb(255, 255, 255), 0px 0px 1px rgb(255, 255, 255);
-  }
+  
 
-  .TLHeader {
+  .clockIcon {
     position: relative;
+    left: -0px;
+    top: 2px;
   }
-    .TLHeader h3 {
-      font-size: 1.6em;
-      position: relative;
-    }
-    .selectedTitleColour {
-      color: rgba(var(--fzselected-color), 1.0);
-    }
-    .selectedChip {
-      border-color: rgba(var(--fzselected-color), 1.0);
-    }
-
-  .listItem {
-    min-height: 55px;
-    min-width: 270px;
-    padding-top: 0.15em;
-    border-bottom: 1px solid rgb(218, 218, 218);
-    background-color: white !important;
-  }
-
-  /* Gives us a bit more left/right space */
-  .v-list-item {
-    padding: 0 14px;
-  }
-
 
   /* Format pesky Time timeStr */
   .time {
@@ -195,11 +155,19 @@
       left: 0.1em;
     }
 
-  #usersDateAvatar {
-    position: absolute; 
-    top: 50%; 
-    right: -6px; 
-    margin-top: -18px;
-    z-index: 100;
+
+  .availability {
+    position: relative;
+    left: 0px;
+    cursor: pointer;
+    margin-left: 20px;
+    margin-bottom: 1px;    /* fixes odd 1px jump bug */
   }
+
+.theme--light.v-chip  {
+  color:inherit
+}
+
+
+
 </style>

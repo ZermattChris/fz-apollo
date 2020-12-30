@@ -51,6 +51,7 @@
         :ripple="false"
         class="listItem"
         dense
+        :disabled="pilotsAvail == 0"
         @click="onSelectRow(pilotsAvail, timeStr, index)"
       >
 <!-- time: {{index}}
@@ -169,19 +170,11 @@
 
 
 
-
-
-        //this.selectedSlot = chosenSlot
         // User selected a Row or the Switch, fire event for parent
         //console.log("Selected a Row. pilotsAvail:", pilotsAvail, 'timeLabel', timeLabel, 'chosenSlot', chosenSlot)
         this.$emit('row-selected', this.date, chosenSlot, timeLabel )
 
-        // Show a pop-up allowing user to add/remove number of passengers
-        // to this time slot.
-        // Only show if there are greater than Zero pilots avialable for this slot.
-        // (otherwise some sort of "shake" to imply no would be slick...)
-
-        //
+        
 
 
       },
@@ -248,6 +241,15 @@
     border-color: rgb(211, 211, 211) !important;
     /* background-color: rgb(248, 239, 255); */
   }
+    .listItem {
+      /* min-height: 55px; */
+      min-width: 270px;
+      padding-top: 0.15em;
+      border-bottom: 1px solid rgb(218, 218, 218);
+      background-color: white !important;
+    }
+
+
 
 
   .darkTextShadow {
@@ -271,13 +273,7 @@
       border-color: rgba(var(--fzselected-color), 1.0);
     }
 
-  .listItem {
-    min-height: 55px;
-    min-width: 270px;
-    padding-top: 0.15em;
-    border-bottom: 1px solid rgb(218, 218, 218);
-    background-color: white !important;
-  }
+
 
   /* Gives us a bit more left/right space */
   .v-list-item {
