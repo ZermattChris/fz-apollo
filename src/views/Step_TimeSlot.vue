@@ -19,18 +19,29 @@
       >
         {{ usersGroupSize }}
       </v-btn>
-      <span id="passenger-text">Passengers in total.</span>
+      <span id="passenger-text">Passengers</span>
       
-      <v-btn
-        style="z-index:100;"
-        x-small
-        color="orange"
-        dark
-        class="ml-6 darken-2"
-        @click="onChosenDateClick"
-      >
-        <v-icon small left>{{iconArrowRight}}</v-icon> Return to Original Date
-      </v-btn>
+
+
+
+      <v-tooltip bottom open-delay="700">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            style="z-index:2;"
+            x-small
+            color="orange"
+            dark
+            class="ml-6 darken-2"
+            v-bind="attrs"
+            v-on="on"
+            @click="onToOrigDateClick"
+          >
+            <v-icon small left>{{iconArrowRight}}</v-icon> Original Date
+          </v-btn>
+        </template>
+        <span>Scroll back to the Date chosen in Step 1</span>
+      </v-tooltip>
+
       
     </PageHeader>
 
@@ -55,15 +66,15 @@
           class=""
           :date="key"
           :timesObj="timeListerObj"
-          :usersDate="userSelectedDate"
+          :usersDate="usersCurrDate"
           :selected="userSelectedSlot"
           @row-selected="clickedRow"
         ></TimeList>
 
  <!-- <br/>
     userOriginalDate Step 1: {{usersStep1Date}} <br/>
-    userSelectedDate: {{userSelectedDate}} <br/>
-    swiper: {{usersDayIndex}} <br/> -->
+    usersCurrDate: {{usersCurrDate}} <br/>
+    swiper: {{swiper.swiperOptions.initialSlide}} <br/> -->
 
         <div class="vSpacerForFooter"></div>
 
@@ -172,7 +183,7 @@
           return this.$store.dispatch('setTimeSlot', payload)
         }
       },
-      userSelectedDate: {
+      usersCurrDate: {
         get() {
           return this.$store.state.flightDate
         },
@@ -200,9 +211,8 @@
 
     methods: {
   
-      onChosenDateClick: function () {
+      onToOrigDateClick: function () {
         // scroll Swiper to the currently selected date.
-        //console.log( 'Scroll to slide: ' + this.swiperOptions.initialSlide )
         this.swiper.slideTo(this.swiperOptions.initialSlide)
       },
 
@@ -222,13 +232,13 @@
         // let payload = {'slot':chosenSlot, 'label':chosenSlotLabel}
         // this.userSelectedSlot = payload
         // // this.$store.state.flightDate = chosenDate
-        // this.userSelectedDate = chosenDate
+        // this.usersCurrDate = chosenDate
         // // Set 'Time' to true in the store _navList
         // payload = {'Time': true}
         // this.$store.dispatch('setNavListItem', payload)
 
         // Push the TimeSlot Swiper to top of screen
-        this.scrollToTimeSlotTop()
+        //this.scrollToTimeSlotTop()
       },
 
       setUserDate: function (dateStr) {

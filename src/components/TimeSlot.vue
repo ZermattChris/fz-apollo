@@ -1,190 +1,82 @@
 <template>
 
-  <div
-    class="timeListerBox mx-auto elevation-2 rounded"
-  >
+  <div>
 
-    <div 
-      class="TLHeader white--text grey darken-2"
-    >
-      <h3 
-        :class="{'selectedTitleColour' : matchesUserDate}">
-        {{titleDate.abbreviation}}
-      </h3>
-      <div
-        :class="{'selectedTitleColour' : matchesUserDate}"
-      >
-        {{titleDate.fullDate}}
-      </div>
+    <!-- Clock Icon -->
+    <v-list-item-icon>
+      <v-icon 
+        class="clockIcon"
+        v-text="getClockIcon(pilotsAvail, index)"
+        :color="getClockColour(pilotsAvail, index)"
+        size="28"
+      ></v-icon>
+    </v-list-item-icon>
 
-      <v-tooltip 
-        top
-        open-on-click
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-avatar 
-            id="usersDateAvatar"
-            v-if="matchesUserDate"
-            color="success" 
-            size="36"
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-icon 
-              dark
-            >mdi-calendar-check</v-icon>
-          </v-avatar>
-        </template>
-        <span>Your selected Date from Step 1.</span>
-      </v-tooltip>
-
-    </div>
-
-    <v-list-item-group 
-      flat
-      v-model="selectedSlot"
-      color="indigo"
-    >
-      <v-list-item
-        v-for="(pilotsAvail, timeStr, index) in items"
-        :key="index"
-        :ripple="false"
-        class="listItem"
-        dense
-        @click="onSelectRow(pilotsAvail, timeStr, index)"
-      >
-<!-- time: {{index}}
-<br/> -->
-
-<!-- This is where the new TimeSlot component needs to go in. -->
-
-        <TimeSlot 
-          :index="index"
-          :pilotsAvail="pilotsAvail"
-          :timeStr="timeStr"
+    <!-- Pilots Avaliable. -->
+    <v-list-item-content>
+      <v-list-item-title>
+        <span class="time" v-html="formatTime(timeStr)"></span>
+        <v-chip
+          class="availability" 
+          :color="getSelectedColour(pilotsAvail, index)"
+          v-html="formatAvail(pilotsAvail) + ' Pilots available'"
+          outlined
+        ></v-chip>
         
-        />
-
-
-        <!-- Clock Icon -->
-        <!-- <v-list-item-icon>
-          <v-icon 
-            class="clockIcon"
-            v-text="getClockIcon(pilotsAvail, index)"
-            :color="getClockColour(pilotsAvail, index)"
-            size="28"
-          ></v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-content>
-          <v-list-item-title>
-            <span class="time" v-html="formatTime(timeStr)"></span>
-            <v-chip
-              class="availability" 
-              :color="getSelectedColour(pilotsAvail, index)"
-              v-html="formatAvail(pilotsAvail) + ' Pilots available'"
-              outlined
-            ></v-chip>
-            
-          </v-list-item-title>
-        </v-list-item-content>
-
-        <div style="min-width:15px; background-color:yellow; min-height:30px;"></div> -->
-
-      </v-list-item>
-
-      
-    </v-list-item-group>
+      </v-list-item-title>
+    </v-list-item-content>
 
   </div>
 
 </template>
 
 <script>
-  import { parseISO, format } from 'date-fns'
   import { mdiClockOutline, mdiMinusCircleOutline, mdiClockCheck } from '@mdi/js'
-
-  import TimeSlot from "@/components/TimeSlot.vue"
 
   //import NumberScrollerSmall from "@/components/NumberScrollerSmall.vue"
 
   export default {
-    name: "TimeList",
+    name: "TimeSlot",
     components: {
-      TimeSlot,
+      //NumberScrollerSmall,
     },
 
     props: {
-      usersDate: {
-        type: String,
-        default: ''
-      },
-      date: {
-        type: String,
-        required: true,
-      },
-      timesObj: {
-        type: [Array, Object],
-        required: true,
-      },
-      selected: {
+      index: {
         type: [Number],
-        required: false,
+        required: true,
         default: -1
+      },
+      pilotsAvail: {
+        type: [Number],
+        required: true,
+        default: 0
+      },
+      timeStr: {
+        type: String,
+        required: true,
+        default: ''
       },
     }, 
 
     data () {
       return {
+        // Icons
         clockIcon: mdiClockOutline,
         clockIconOutline: mdiMinusCircleOutline,
         clockIconSelected: mdiClockCheck,
-        items: this.timesObj,
-        selectedSlot: this.selected,
+        // Data
+        nrPassengersThisSlot: 0
       }
     },
 
     computed: {
 
-      matchesUserDate: function () {
-        //console.log(this.usersDate, this.date)
-        if (this.usersDate === this.date) return true
-        return false
-      },
-      titleDate: function () {
-        // replace with an API call when its live.
-        //console.log(this.date)
-        const myDate = parseISO(this.date)
-        //console.log(myDate)
-        const dayAbrvStr = format(myDate, 'ccc')
-        const fullDateStr = format(myDate, 'PPP')
-        return {abbreviation: dayAbrvStr, fullDate: fullDateStr}
-      },
       
     },
 
     methods: {
 
-        onSelectRow: function (pilotsAvail, timeLabel, chosenSlot ) {
-
-
-
-
-
-        //this.selectedSlot = chosenSlot
-        // User selected a Row or the Switch, fire event for parent
-        //console.log("Selected a Row. pilotsAvail:", pilotsAvail, 'timeLabel', timeLabel, 'chosenSlot', chosenSlot)
-        this.$emit('row-selected', this.date, chosenSlot, timeLabel )
-
-        // Show a pop-up allowing user to add/remove number of passengers
-        // to this time slot.
-        // Only show if there are greater than Zero pilots avialable for this slot.
-        // (otherwise some sort of "shake" to imply no would be slick...)
-
-        //
-
-
-      },
 
       formatAvail: function (slotObj) {
         // Just grab the Observer object's value and return it.
