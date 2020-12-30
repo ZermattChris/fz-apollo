@@ -1,6 +1,9 @@
 <template>
 
-  <div id="slotContainer">
+  <div 
+    id="slotContainer"
+    @click="onClickedRow"
+  >
 
     <!-- Clock Icon -->
     <v-list-item-icon>
@@ -25,6 +28,13 @@
       </v-list-item-title>
     </v-list-item-content>
 
+    <div 
+      id="passengerInputBox"
+      :hidden="isSelected"
+    >
+      asdf
+    </div>
+    
   </div>
 
 </template>
@@ -65,17 +75,32 @@
         clockIconOutline: mdiMinusCircleOutline,
         clockIconSelected: mdiClockCheck,
         // Data
-        nrPassengersThisSlot: 0
+        nrPassengersThisSlot: 0,
+        isSelected: -1,
       }
     },
 
     computed: {
 
+      // initSelected: function () {
+      //   return (this.index === this.selectedIndex)
+      // },
       
     },
 
     methods: {
 
+      onClickedRow: function () {
+        //console.log("Clicked Row " + this.index + ". isSelected: " + this.isSelected)
+        // toggle Passenger input box
+        this.isSelected = !this.isSelected
+        // fire event that TimeList can listen for that deselects all of the other TimeSlots
+        //this.$emit('timeSlot-selected', this.index)
+      },
+
+      deselect: function () {
+        this.isSelected = false
+      },
 
 
       getSelectedColour: function () {
@@ -94,9 +119,6 @@
       },
 
       formatTime: function (key) {
-          //console.log("key, slotObj", key, slotObj)
-        // format into nice html for display.
-        // const timeKey = slotObj[key]
         const htmlSnippet = "<span class='hour'>" + this.getHours(key) + "</span><span class='minute'>:" + this.getMins(key) + "</span>"
         return htmlSnippet
       },
@@ -127,6 +149,7 @@
 
   #slotContainer {
     display: inline-flex;
+    flex-wrap: wrap;
     width: 100%;
   }
   
@@ -164,10 +187,14 @@
     margin-bottom: 1px;    /* fixes odd 1px jump bug */
   }
 
-.theme--light.v-chip  {
+.theme--light.v-chip {
   color:inherit
 }
 
-
+/* *********** */
+#passengerInputBox  {
+  background-color: pink;
+  width: 100%;
+}
 
 </style>

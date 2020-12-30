@@ -54,44 +54,11 @@
         :disabled="pilotsAvail == 0"
         @click="onSelectRow(pilotsAvail, timeStr, index)"
       >
-<!-- time: {{index}}
-<br/> -->
-
-<!-- This is where the new TimeSlot component needs to go in. -->
-
         <TimeSlot 
           :index="index"
           :pilotsAvail="pilotsAvail"
           :timeStr="timeStr"
-        
         />
-
-
-        <!-- Clock Icon -->
-        <!-- <v-list-item-icon>
-          <v-icon 
-            class="clockIcon"
-            v-text="getClockIcon(pilotsAvail, index)"
-            :color="getClockColour(pilotsAvail, index)"
-            size="28"
-          ></v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-content>
-          <v-list-item-title>
-            <span class="time" v-html="formatTime(timeStr)"></span>
-            <v-chip
-              class="availability" 
-              :color="getSelectedColour(pilotsAvail, index)"
-              v-html="formatAvail(pilotsAvail) + ' Pilots available'"
-              outlined
-            ></v-chip>
-            
-          </v-list-item-title>
-        </v-list-item-content>
-
-        <div style="min-width:15px; background-color:yellow; min-height:30px;"></div> -->
-
       </v-list-item>
 
       
@@ -128,11 +95,6 @@
         type: [Array, Object],
         required: true,
       },
-      selected: {
-        type: [Number],
-        required: false,
-        default: -1
-      },
     }, 
 
     data () {
@@ -141,7 +103,7 @@
         clockIconOutline: mdiMinusCircleOutline,
         clockIconSelected: mdiClockCheck,
         items: this.timesObj,
-        selectedSlot: this.selected,
+        selectedSlot: -1,
       }
     },
 

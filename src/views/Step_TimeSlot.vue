@@ -67,7 +67,6 @@
           :date="key"
           :timesObj="timeListerObj"
           :usersDate="usersCurrDate"
-          :selected="userSelectedSlot"
           @row-selected="clickedRow"
         ></TimeList>
 
