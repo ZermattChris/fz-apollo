@@ -103,7 +103,7 @@
         clockIconOutline: mdiMinusCircleOutline,
         clockIconSelected: mdiClockCheck,
         items: this.timesObj,
-        selectedSlot: -1,
+        selectedSlot: -1,   // keeps track of the currently open TimeSlot if there is one.
       }
     },
 
@@ -128,9 +128,14 @@
 
     methods: {
 
-        onSelectRow: function (pilotsAvail, timeLabel, chosenSlot ) {
+      onSelectRow: function (pilotsAvail, timeLabel, chosenSlot ) {
 
+        //this.selectedSlot = chosenSlot
 
+        // // deselect previous opened slot if there is one.
+        // if (this.selectedSlot !== chosenSlot && this.selectedSlot > -1 ) {
+        //   console.log('Need to close slot: ' + this.selectedSlot)
+        // }
 
         // User selected a Row or the Switch, fire event for parent
         //console.log("Selected a Row. pilotsAvail:", pilotsAvail, 'timeLabel', timeLabel, 'chosenSlot', chosenSlot)

@@ -30,7 +30,7 @@
 
     <div 
       id="passengerInputBox"
-      :hidden="isSelected"
+      :hidden="!isSelected"
     >
       asdf
     </div>
@@ -66,6 +66,10 @@
         required: true,
         default: ''
       },
+      // selectedSlot: {
+      //   type: [Number],
+      //   required: true,
+      // },
     }, 
 
     data () {
@@ -76,15 +80,16 @@
         clockIconSelected: mdiClockCheck,
         // Data
         nrPassengersThisSlot: 0,
-        isSelected: -1,
+        isSelected: false,
       }
     },
 
     computed: {
 
-      // initSelected: function () {
-      //   return (this.index === this.selectedIndex)
-      // },
+      initSelected: function () {
+        if (this.index === this.selectedSlot) return true
+        return false
+      },
       
     },
 
@@ -93,7 +98,7 @@
       onClickedRow: function () {
         //console.log("Clicked Row " + this.index + ". isSelected: " + this.isSelected)
         // toggle Passenger input box
-        this.isSelected = !this.isSelected
+        this.isSelected = true
         // fire event that TimeList can listen for that deselects all of the other TimeSlots
         //this.$emit('timeSlot-selected', this.index)
       },
