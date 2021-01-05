@@ -30,6 +30,12 @@ const rawPassengerObj = {
   'weightKg': 25
 }
 
+const rawDateTimeObj = {
+  'initialDate': '',
+  'currentDate': '',
+  'slotsList': [],
+}
+
 export default new Vuex.Store({
   state: {
 
@@ -51,7 +57,11 @@ export default new Vuex.Store({
     contactEmail:   localStorage.contactEmail || "",
 
     // Contains a list of (cloned) rawPassengerObj's -- one for each Passenger.
-    passengerObjList:  localStorage.passengerObjList ? JSON.parse(localStorage.passengerObjList) : [],
+    passengerObjList: localStorage.passengerObjList ? JSON.parse(localStorage.passengerObjList) : [],
+
+    // Holds a list of objects that relate to the chosen Time Slots on a given date.
+    dateTimeObjList: localStorage.dateTimeObjList ? JSON.parse(localStorage.dateTimeObjList) : rawDateTimeObj,
+
 
     // Settings - API call result
     // Using an Underscore to help make it clear that this isn't User Input.
@@ -421,14 +431,6 @@ export default new Vuex.Store({
       return isValid
     },
 
-    // step_infoValid: (state, getters) => {
-    //   //const isValid = state.contactPhone !== '' && state.contactEmail !== '' && getters.step_startValid && getters.step_timeValid
-    //   //console.log('step_infoValid? :', isValid)
-    //   // console.log(state, getters)
-    //   // const isValid = getters.getAllPassengersValid() && 
-
-    //   return true
-    // },
 
     //--------------------
     // Passenger Getters.    
@@ -510,8 +512,32 @@ export default new Vuex.Store({
 });
 
 
-// helper functions for working with Passenger Objects.
+/*****************************************************
+Helper functions for working with rawDateTimeObj
+Used to track what time slots and how many passengers
+chosen on a given
+*****************************************************/
 
+// // Create a new Slot Object that gets added to the dateTimeObjList
+// function createSlotObj (index) {
+//   let newSlotObj = Object.assign({}, rawPassengerObj)
+//   // Set the id for the newly created Pass obj.
+//   newSlotObj.index = index
+//   return newSlotObj
+// }
+
+
+// function saveDateTimeObjListToLocalStorage (context) {
+//   localStorage.dateTimeObjList = JSON.stringify(context.state.dateTimeObjList)
+// }
+
+
+
+
+
+/*****************************************************
+// helper functions for working with Passenger Objects.
+ *****************************************************/
 function findPassengerObj (state, passengerId) {
   let matchedPassengerObj = state.passengerObjList.find(passengerObjList => passengerObjList.id === passengerId)
   if (typeof matchedPassengerObj === 'undefined') {
