@@ -62,6 +62,10 @@ export default new Vuex.Store({
     // Holds a list of objects that relate to the chosen Time Slots on a given date.
     dateTimeObjList: localStorage.dateTimeObjList ? JSON.parse(localStorage.dateTimeObjList) : rawDateTimeObj,
 
+    // Active Date is used by the TimeList / TimeSlot components
+    // and is the date the user has clicked, but not made the FlightDate
+    // yet, by adding passengers.
+    _activeDate: '',
 
     // Settings - API call result
     // Using an Underscore to help make it clear that this isn't User Input.
@@ -136,30 +140,34 @@ export default new Vuex.Store({
       state._videoPrice = price;
     },
 
+    ACTIVE_DATE(state, dateStr) {
+      state._activeDate = dateStr
+    },
+
     // User inputs, Local Storage Cached
     CHOSEN_NR_PEOPLE(state, nr) {
-      state.nrPeople = nr;
+      state.nrPeople = nr
     },
     CHOSEN_DATE(state, dateStr) {
-      state.flightDate = dateStr;
+      state.flightDate = dateStr
     },
     CHOSEN_FLIGHT(state, flightStr) {
-      state.selectedFlight = flightStr;
+      state.selectedFlight = flightStr
     },
     CHOSEN_PHOTOS(state, photosBool) {
-      state.wantsPhotos = photosBool;
+      state.wantsPhotos = photosBool
     },
 
     CHOSEN_TIMESLOT(state, slotInt, slotLabel) {
       state.timeSlot = slotInt;
-      state.timeSlotLabel = slotLabel;
+      state.timeSlotLabel = slotLabel
     },
 
     CONTACT_PHONE(state, phoneNr) {
-      state.contactPhone = phoneNr;
+      state.contactPhone = phoneNr
     },
     CONTACT_EMAIL(state, email) {
-      state.contactEmail = email;
+      state.contactEmail = email
     },
     
     
@@ -334,6 +342,10 @@ export default new Vuex.Store({
       localStorage.flightDate = dateStr
       console.log("FlightDate Set in Store. " + dateStr)
     },
+    setActiveDate(context, dateStr) {
+      context.commit("ACTIVE_DATE", dateStr)  // no localstorage for this. Set when entering TimeList step.
+    },
+
     setFlight(context, flightNameStr) {
       context.commit("CHOSEN_FLIGHT", flightNameStr)
       localStorage.selectedFlight = flightNameStr

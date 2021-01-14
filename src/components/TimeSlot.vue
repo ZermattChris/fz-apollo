@@ -30,7 +30,7 @@
 
     <div 
       id="passengerInputBox"
-      :hidden="!isSelected"
+      :hidden="!isExpanded"
     >
       asdf
     </div>
@@ -56,6 +56,10 @@
         required: true,
         default: -1
       },
+      isActive: {
+        type: [Boolean],
+        default: false
+      },
       pilotsAvail: {
         type: [Number],
         required: true,
@@ -65,11 +69,7 @@
         type: String,
         required: true,
         default: ''
-      },
-      // selectedSlot: {
-      //   type: [Number],
-      //   required: true,
-      // },
+      }
     }, 
 
     data () {
@@ -81,8 +81,18 @@
         // Data
         nrPassengersThisSlot: 0,
         isSelected: false,
+        isExpanded: false
       }
     },
+
+
+    beforeUpdate() {
+      if (this.isActive === false) {
+        this.isExpanded = false
+      }
+    },
+
+
 
     computed: {
 
@@ -99,12 +109,14 @@
         //console.log("Clicked Row " + this.index + ". isSelected: " + this.isSelected)
         // toggle Passenger input box
         this.isSelected = true
+        this.isExpanded = true
         // fire event that TimeList can listen for that deselects all of the other TimeSlots
         //this.$emit('timeSlot-selected', this.index)
       },
 
       deselect: function () {
         this.isSelected = false
+        this.isExpanded = false
       },
 
 

@@ -56,6 +56,7 @@
       >
         <TimeSlot 
           :index="index"
+          :isActive="matchesUserDate"
           :pilotsAvail="pilotsAvail"
           :timeStr="timeStr"
         />
@@ -83,10 +84,10 @@
     },
 
     props: {
-      usersDate: {
-        type: String,
-        default: ''
-      },
+      // usersDate: {
+      //   type: String,
+      //   default: ''
+      // },
       date: {
         type: String,
         required: true,
@@ -109,9 +110,17 @@
 
     computed: {
 
+
+      usersDate() {
+        return this.$store.state.flightDate
+      },
+
+
+      // TODO - change this function to a more accurate name when updating for
+      // new system.
       matchesUserDate: function () {
         //console.log(this.usersDate, this.date)
-        if (this.usersDate === this.date) return true
+        if (this.date === this.usersDate || this.date === this.$store.state._activeDate) return true
         return false
       },
       titleDate: function () {
@@ -129,6 +138,11 @@
     methods: {
 
       onSelectRow: function (pilotsAvail, timeLabel, chosenSlot ) {
+
+
+        this.$store.state._activeDate = this.date
+
+
 
         //this.selectedSlot = chosenSlot
 

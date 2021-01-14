@@ -66,7 +66,6 @@
           class=""
           :date="key"
           :timesObj="timeListerObj"
-          :usersDate="usersCurrDate"
           @row-selected="clickedRow"
         ></TimeList>
 
@@ -157,6 +156,9 @@
 
     created() {
       this.$store.dispatch('flightOptions')
+      // Set the ActiveDate to the same as FlightDate from step 1.
+      this.$store.dispatch('setActiveDate', this.$store.state.flightDate)
+
       // Keep track of User's step 1 selected date.
       this.usersStep1Date = this.$store.state.flightDate
     },
