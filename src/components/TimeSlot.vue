@@ -88,7 +88,7 @@
 
     beforeUpdate() {
       if (this.isActive === false) {
-        this.isExpanded = false
+        //this.isExpanded = false
       }
     },
 
@@ -110,6 +110,7 @@
         // toggle Passenger input box
         this.isSelected = true
         this.isExpanded = true
+
         // fire event that TimeList can listen for that deselects all of the other TimeSlots
         //this.$emit('timeSlot-selected', this.index)
       },

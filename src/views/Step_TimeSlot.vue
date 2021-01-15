@@ -75,6 +75,7 @@
           :date="key"
           :timesObj="timeListerObj"
           @row-selected="clickedRow"
+          @click="console.log('Clicked a Swiper Slide')"
         ></TimeList>
 
         <div class="vSpacerForFooter" ></div>
@@ -126,7 +127,7 @@
         swiperOptions: {
           centeredSlides: true,
           initialSlide: this.usersDayIndex(),
-          //autoHeight: true,
+          autoHeight: true,
           slideToClickedSlide: true,
           threshold: 9,
           spaceBetween: 40,
@@ -230,8 +231,9 @@
       
       clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
 
-        // TODO Not sure we actually need to listen to any events here...
-
+        // update the autoheight on Swiper to allow for TimeSlot height changes
+        // when toggling passenger inputs.
+        this.swiper.updateAutoHeight()
 
         // chosenSlot is zero based.
         console.log('Step_TimeSlot -> clickedRow().  chosenDate', chosenDate, 'chosenSlot', chosenSlot, chosenSlotLabel)
@@ -272,7 +274,7 @@
 
 .vSpacerForFooter {
   width: 100%;
-  height: 100px;
+  height: 60px;
 }
 
 #passenger-btn {
