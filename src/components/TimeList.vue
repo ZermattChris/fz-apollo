@@ -4,8 +4,9 @@
     class="timeListerBox mx-auto elevation-2 rounded"
   >
 
-    <div 
-      class="TLHeader white--text grey darken-2"
+    <div
+      :class="(date === usersDate) ? 'TLHeader orange' : 'TLHeader white--text grey darken-2'"
+      @click="onSelectRow(-1, '', -1)"
     >
       <h3 :class="getHeaderCSSClassName">
         {{titleDate.abbreviation}}
@@ -31,10 +32,11 @@
           >
             <v-icon 
               dark
-            >mdi-calendar-check</v-icon>
+              size="24"
+            >{{iconCalendar}}</v-icon>
           </v-avatar>
         </template>
-        <span>Your selected Date from Step 1.</span>
+        <span>Selected Date</span>
       </v-tooltip>
 
     </div>
@@ -70,7 +72,7 @@
 
 <script>
   import { parseISO, format } from 'date-fns'
-  import { mdiClockOutline, mdiMinusCircleOutline, mdiClockCheck } from '@mdi/js'
+  import { mdiClockOutline, mdiMinusCircleOutline, mdiClockCheck, mdiCalendarCheck } from '@mdi/js'
 
   //import TimeSlot from "@/components/TimeSlot.vue"
 
@@ -98,6 +100,8 @@
         clockIcon: mdiClockOutline,
         clockIconOutline: mdiMinusCircleOutline,
         clockIconSelected: mdiClockCheck,
+        iconCalendar: mdiCalendarCheck,
+
         items: this.timesObj,
         selectedSlot: -1,   // keeps track of the currently open TimeSlot if there is one.
       }
@@ -119,7 +123,7 @@
         return false
       },
       getHeaderCSSClassName: function () {
-        if (this.date === this.$store.state._activeDate) return 'selectedTitleColour'
+        if (this.date === this.$store.state._activeDate && this.date !== this.usersDate) return 'selectedTitleColour'
         if (this.date === this.usersDate) return 'activeTitleColour'
         return ''
       },
@@ -252,7 +256,9 @@
       color: rgba(var(--fzselected-color), 1.0);
     }
     .activeTitleColour {
-      color: rgba(221, 255, 153, 1.0);
+      /* color: #4CAF50; */
+      color: black;
+      
     }
     .selectedChip {
       border-color: rgba(var(--fzselected-color), 1.0);

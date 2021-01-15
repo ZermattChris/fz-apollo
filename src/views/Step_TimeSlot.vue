@@ -27,8 +27,11 @@
       <v-tooltip bottom open-delay="700">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
-            style="z-index:2;"
+            outlined
             x-small
+            fab
+            right
+            style="z-index:2; float:right;"
             color="green"
             dark
             class="ml-6 "
@@ -36,16 +39,16 @@
             v-on="on"
             @click="onToOrigDateClick"
           >
-            <v-icon small left>{{iconArrowRight}}</v-icon> Original Date
+            <v-icon small>{{iconArrowRight}}</v-icon>
           </v-btn>
         </template>
-        <span>Scroll back to the Date chosen in Step 1</span>
+        <span>Jump to Selected Date</span>
       </v-tooltip>
 
 
- <br/>
-    Orig Date: {{usersCurrDate}} <br/>
-    Active Date: {{$store.state._activeDate}} <br/>
+      <!-- <br/>
+      Orig Date: {{usersCurrDate}} <br/>
+      Active Date: {{$store.state._activeDate}} <br/> -->
 
       
     </PageHeader>
@@ -74,7 +77,7 @@
           @row-selected="clickedRow"
         ></TimeList>
 
-        <div class="vSpacerForFooter"></div>
+        <div class="vSpacerForFooter" ></div>
 
       </swiper-slide>
     </swiper>
@@ -91,7 +94,7 @@
   import PageHeader from '@/components/PageHeader.vue'
 
   
-  import { mdiLightbulbOnOutline, mdiArrowRightCircle } from '@mdi/js'
+  import { mdiLightbulbOnOutline, mdiArrowDownCircle } from '@mdi/js'
 
 
   export default {
@@ -112,7 +115,7 @@
       return {
 
         iconIdea: mdiLightbulbOnOutline,
-        iconArrowRight: mdiArrowRightCircle,
+        iconArrowRight: mdiArrowDownCircle,
 
         // Keep track of the user's initally chosen date from Step 1, and 
         // offer them a UI to return to that date easily.
