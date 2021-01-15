@@ -41,30 +41,30 @@
 
     </div>
 
-    <v-list-item-group 
-      flat
-      v-model="selectedSlot"
-      color="indigo"
-    >
-      <v-list-item
-        v-for="(pilotsAvail, timeStr, index) in items"
-        :key="index"
-        :ripple="false"
-        class="listItem"
-        dense
-        :disabled="pilotsAvail == 0"
-        @click="onSelectRow(pilotsAvail, timeStr, index)"
+    <v-list flat class="pa-0">
+      <v-list-item-group 
+        flat
+        v-model="selectedSlot"
+        color="indigo"
       >
-        <!-- <TimeSlot 
-          :index="index"
-          :isActive="matchesUserDate"
-          :pilotsAvail="pilotsAvail"
-          :timeStr="timeStr"
-        /> -->
-      </v-list-item>
-
-      
-    </v-list-item-group>
+        <v-list-item
+          v-for="(pilotsAvail, timeStr, index) in items"
+          :key="index"
+          :ripple="false"
+          class="listItem"
+          dense
+          :disabled="pilotsAvail == 0"
+          @click="onSelectRow(pilotsAvail, timeStr, index)"
+        >
+          <TimeSlot 
+            :index="index"
+            :isActive="matchesUserDate"
+            :pilotsAvail="pilotsAvail"
+            :timeStr="timeStr"
+          />
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
 
   </div>
 
@@ -74,14 +74,14 @@
   import { parseISO, format } from 'date-fns'
   import { mdiClockOutline, mdiMinusCircleOutline, mdiClockCheck, mdiCalendarCheck } from '@mdi/js'
 
-  //import TimeSlot from "@/components/TimeSlot.vue"
+  import TimeSlot from "@/components/TimeSlot.vue"
 
   //import NumberScrollerSmall from "@/components/NumberScrollerSmall.vue"
 
   export default {
     name: "TimeList",
     components: {
-      //TimeSlot,
+      TimeSlot,
     },
 
     props: {

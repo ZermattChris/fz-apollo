@@ -42,7 +42,7 @@
             <v-icon small>{{iconArrowRight}}</v-icon>
           </v-btn>
         </template>
-        <span>Jump to Selected Date</span>
+        <span>Jump to Origanal Date</span>
       </v-tooltip>
 
 
