@@ -30,7 +30,7 @@
 
     <div 
       id="passengerInputBox"
-      :hidden="!isExpanded"
+      :hidden="!isActive"
     >
       asdf
     </div>
@@ -56,9 +56,9 @@
         required: true,
         default: -1
       },
-      isActive: {
-        type: [Boolean],
-        default: false
+      expanded: {
+        type: [Number],
+        default: -1
       },
       pilotsAvail: {
         type: [Number],

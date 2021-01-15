@@ -24,7 +24,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-avatar 
             id="usersDateAvatar"
-            v-if="matchesUserDate"
+            v-if="isActiveDate"
             color="success" 
             size="36"
             v-bind="attrs"
@@ -58,7 +58,7 @@
         >
           <TimeSlot 
             :index="index"
-            :isActive="matchesUserDate"
+            :expanded="selectedSlot"
             :pilotsAvail="pilotsAvail"
             :timeStr="timeStr"
           />
@@ -115,11 +115,9 @@
       },
 
 
-      // TODO - change this function to a more accurate name when updating for
-      // new system.
-      matchesUserDate: function () {
+      isActiveDate: function () {
         //console.log(this.usersDate, this.date)
-        if (this.date === this.usersDate || this.date === this.$store.state._activeDate) return true
+        if (this.date === this.$store.state._activeDate) return true
         return false
       },
       getHeaderCSSClassName: function () {
