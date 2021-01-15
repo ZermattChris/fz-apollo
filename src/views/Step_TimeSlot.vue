@@ -42,6 +42,11 @@
         <span>Scroll back to the Date chosen in Step 1</span>
       </v-tooltip>
 
+
+ <br/>
+    Orig Date: {{usersCurrDate}} <br/>
+    Active Date: {{$store.state._activeDate}} <br/>
+
       
     </PageHeader>
 
@@ -68,11 +73,6 @@
           :timesObj="timeListerObj"
           @row-selected="clickedRow"
         ></TimeList>
-
- <!-- <br/>
-    userOriginalDate Step 1: {{usersStep1Date}} <br/>
-    usersCurrDate: {{usersCurrDate}} <br/>
-    swiper: {{swiper.swiperOptions.initialSlide}} <br/> -->
 
         <div class="vSpacerForFooter"></div>
 
@@ -226,6 +226,10 @@
       },
       
       clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
+
+        // TODO Not sure we actually need to listen to any events here...
+
+
         // chosenSlot is zero based.
         console.log('Step_TimeSlot -> clickedRow().  chosenDate', chosenDate, 'chosenSlot', chosenSlot, chosenSlotLabel)
         //this.slotLabel = chosenSlotLabel

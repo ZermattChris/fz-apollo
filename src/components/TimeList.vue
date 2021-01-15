@@ -7,12 +7,11 @@
     <div 
       class="TLHeader white--text grey darken-2"
     >
-      <h3 
-        :class="{'selectedTitleColour' : matchesUserDate}">
+      <h3 :class="getHeaderCSSClassName">
         {{titleDate.abbreviation}}
       </h3>
       <div
-        :class="{'selectedTitleColour' : matchesUserDate}"
+        :class="getHeaderCSSClassName"
       >
         {{titleDate.fullDate}}
       </div>
@@ -54,12 +53,12 @@
         :disabled="pilotsAvail == 0"
         @click="onSelectRow(pilotsAvail, timeStr, index)"
       >
-        <TimeSlot 
+        <!-- <TimeSlot 
           :index="index"
           :isActive="matchesUserDate"
           :pilotsAvail="pilotsAvail"
           :timeStr="timeStr"
-        />
+        /> -->
       </v-list-item>
 
       
@@ -73,21 +72,17 @@
   import { parseISO, format } from 'date-fns'
   import { mdiClockOutline, mdiMinusCircleOutline, mdiClockCheck } from '@mdi/js'
 
-  import TimeSlot from "@/components/TimeSlot.vue"
+  //import TimeSlot from "@/components/TimeSlot.vue"
 
   //import NumberScrollerSmall from "@/components/NumberScrollerSmall.vue"
 
   export default {
     name: "TimeList",
     components: {
-      TimeSlot,
+      //TimeSlot,
     },
 
     props: {
-      // usersDate: {
-      //   type: String,
-      //   default: ''
-      // },
       date: {
         type: String,
         required: true,
@@ -123,6 +118,13 @@
         if (this.date === this.usersDate || this.date === this.$store.state._activeDate) return true
         return false
       },
+      getHeaderCSSClassName: function () {
+        if (this.date === this.$store.state._activeDate) return 'selectedTitleColour'
+        if (this.date === this.usersDate) return 'activeTitleColour'
+        return ''
+      },
+
+
       titleDate: function () {
         // replace with an API call when its live.
         //console.log(this.date)
@@ -140,8 +142,7 @@
       onSelectRow: function (pilotsAvail, timeLabel, chosenSlot ) {
 
 
-        this.$store.state._activeDate = this.date
-
+        this.$store.dispatch('setActiveDate', this.date)
 
 
         //this.selectedSlot = chosenSlot
@@ -249,6 +250,9 @@
     }
     .selectedTitleColour {
       color: rgba(var(--fzselected-color), 1.0);
+    }
+    .activeTitleColour {
+      color: rgba(221, 255, 153, 1.0);
     }
     .selectedChip {
       border-color: rgba(var(--fzselected-color), 1.0);
