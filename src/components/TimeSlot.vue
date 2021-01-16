@@ -4,7 +4,8 @@
     id="slotContainer"
     @click="onClickedRow"
   >
-
+<!-- {{selectedSlotIndex}} <br/>
+{{ isExpanded() ? "Opened" : "Closed" }} -->
     <!-- Clock Icon -->
     <v-list-item-icon>
       <v-icon 
@@ -30,7 +31,7 @@
 
     <div 
       id="passengerInputBox"
-      :hidden="!isActive"
+      :hidden="!isExpanded()"
     >
       asdf
     </div>
@@ -56,7 +57,7 @@
         required: true,
         default: -1
       },
-      expanded: {
+      selectedSlotIndex: {
         type: [Number],
         default: -1
       },
@@ -79,47 +80,43 @@
         clockIconOutline: mdiMinusCircleOutline,
         clockIconSelected: mdiClockCheck,
         // Data
-        nrPassengersThisSlot: 0,
-        isSelected: false,
-        isExpanded: false
+        // expanded: this.initExpanded
       }
     },
 
 
     beforeUpdate() {
-      if (this.isActive === false) {
-        //this.isExpanded = false
-      }
+      // this.initExpanded
     },
 
 
 
     computed: {
 
-      initSelected: function () {
-        if (this.index === this.selectedSlot) return true
-        return false
-      },
-      
     },
 
     methods: {
 
-      onClickedRow: function () {
+      onClickedRow: function (event) {
         //console.log("Clicked Row " + this.index + ". isSelected: " + this.isSelected)
         // toggle Passenger input box
-        this.isSelected = true
-        this.isExpanded = true
+        
+        //this.expanded = true
 
         // fire event that TimeList can listen for that deselects all of the other TimeSlots
-        //this.$emit('timeSlot-selected', this.index)
+        this.$emit('selected', this.index)
+
+        event.stopPropagation()
+
       },
 
-      deselect: function () {
-        this.isSelected = false
-        this.isExpanded = false
-      },
 
+      isExpanded: function () {
+        //console.log("Index " + this.index + ". selected slot's index: " + this.selectedSlotIndex)
+        if (this.index === this.selectedSlotIndex) return true
+        return false
+      },
+      
 
       getSelectedColour: function () {
         if (this.pilotsAvail == 0) return 'silver'

@@ -69,7 +69,11 @@
       ref="mySwiper"
       :options="swiperOptions"
     >
-      <swiper-slide v-for="(timeListerObj, key) in daysVisibleList" :key="key">
+      <swiper-slide 
+        v-for="(timeListerObj, key) in daysVisibleList" 
+        :key="key"
+        class="pb-2"
+      >
         <TimeList
           class=""
           :date="key"
@@ -229,14 +233,20 @@
         setTimeout(() => { this.$scrollTo('#timeSlotSwiper', 500) }, 200)
       },
       
-      clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
+      clickedRow: function () {
+      //clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
 
         // update the autoheight on Swiper to allow for TimeSlot height changes
-        // when toggling passenger inputs.
-        this.swiper.updateAutoHeight()
+        // when toggling passenger inputs. Needs a timeout to work.
+        setTimeout(() => {
+          this.swiper.updateAutoHeight()
+        }, 10)
+
+        
+        //this.swiper.update()
 
         // chosenSlot is zero based.
-        console.log('Step_TimeSlot -> clickedRow().  chosenDate', chosenDate, 'chosenSlot', chosenSlot, chosenSlotLabel)
+        //console.log('Step_TimeSlot -> clickedRow().  chosenDate', chosenDate, 'chosenSlot', chosenSlot, chosenSlotLabel)
         //this.slotLabel = chosenSlotLabel
         // this.$store.state.timeSlot = chosenSlot
         // let payload = {'slot':chosenSlot, 'label':chosenSlotLabel}

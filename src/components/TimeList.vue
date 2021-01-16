@@ -6,7 +6,7 @@
 
     <div
       :class="(date === usersDate) ? 'TLHeader orange' : 'TLHeader white--text grey darken-2'"
-      @click="onSelectRow(-1, '', -1)"
+      @click="onClickedTimeList"
     >
       <h3 :class="getHeaderCSSClassName">
         {{titleDate.abbreviation}}
@@ -54,13 +54,13 @@
           class="listItem"
           dense
           :disabled="pilotsAvail == 0"
-          @click="onSelectRow(pilotsAvail, timeStr, index)"
         >
           <TimeSlot 
             :index="index"
-            :expanded="selectedSlot"
+            :selectedSlotIndex="selectedSlot"
             :pilotsAvail="pilotsAvail"
             :timeStr="timeStr"
+            @selected="onClikedTimeSlot"
           />
         </v-list-item>
       </v-list-item-group>
@@ -141,26 +141,14 @@
 
     methods: {
 
-      onSelectRow: function (pilotsAvail, timeLabel, chosenSlot ) {
+      onClikedTimeSlot: function (slotIndex) {
+        // console.log('slotIndex: '+slotIndex)
+        this.selectedSlot = slotIndex
+        this.$emit('row-selected', slotIndex)
+      },
 
-
+      onClickedTimeList: function () {
         this.$store.dispatch('setActiveDate', this.date)
-
-
-        //this.selectedSlot = chosenSlot
-
-        // // deselect previous opened slot if there is one.
-        // if (this.selectedSlot !== chosenSlot && this.selectedSlot > -1 ) {
-        //   console.log('Need to close slot: ' + this.selectedSlot)
-        // }
-
-        // User selected a Row or the Switch, fire event for parent
-        //console.log("Selected a Row. pilotsAvail:", pilotsAvail, 'timeLabel', timeLabel, 'chosenSlot', chosenSlot)
-        this.$emit('row-selected', this.date, chosenSlot, timeLabel )
-
-        
-
-
       },
 
       formatAvail: function (slotObj) {
