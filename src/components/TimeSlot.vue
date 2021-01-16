@@ -27,13 +27,12 @@
             outlined
           />
       </v-list-item-title>
-    </v-list-item-content>
+    </v-list-item-content>  
 
-    <div 
-      id="passengerInputBox"
+    <div id="passengerInputBox"
       :hidden="!isExpanded()"
     >
-      asdf
+      <NumberScrollerNew/>
     </div>
     
   </div>
@@ -43,12 +42,12 @@
 <script>
   import { mdiClockOutline, mdiMinusCircleOutline, mdiClockCheck } from '@mdi/js'
 
-  //import NumberScrollerSmall from "@/components/NumberScrollerSmall.vue"
+  import NumberScrollerNew from "@/components/NumberScrollerNew.vue"
 
   export default {
     name: "TimeSlot",
     components: {
-      //NumberScrollerSmall,
+      NumberScrollerNew,
     },
 
     props: {
@@ -80,34 +79,17 @@
         clockIconOutline: mdiMinusCircleOutline,
         clockIconSelected: mdiClockCheck,
         // Data
-        // expanded: this.initExpanded
+        
       }
     },
 
 
-    beforeUpdate() {
-      // this.initExpanded
-    },
-
-
-
-    computed: {
-
-    },
-
     methods: {
 
       onClickedRow: function (event) {
-        //console.log("Clicked Row " + this.index + ". isSelected: " + this.isSelected)
-        // toggle Passenger input box
-        
-        //this.expanded = true
-
         // fire event that TimeList can listen for that deselects all of the other TimeSlots
         this.$emit('selected', this.index)
-
-        event.stopPropagation()
-
+        event.stopPropagation()   // Needed this otherwise the event was being swallowed by the TimeList.
       },
 
 
@@ -208,8 +190,8 @@
 
 /* *********** */
 #passengerInputBox  {
-  background-color: pink;
-  width: 100%;
+  min-height: 50px;
+  flex-basis: 300px;
 }
 
 </style>

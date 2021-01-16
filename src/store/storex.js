@@ -30,9 +30,8 @@ const rawPassengerObj = {
   'weightKg': 25
 }
 
-const rawDateTimeObj = {
-  'initialDate': '',
-  'currentDate': '',
+const rawSlotPassengers = {
+  'selectedDate': '',   // probably don't need this as redundant, but good for sanity at start.
   'slotsList': [],
 }
 
@@ -60,7 +59,7 @@ export default new Vuex.Store({
     passengerObjList: localStorage.passengerObjList ? JSON.parse(localStorage.passengerObjList) : [],
 
     // Holds a list of objects that relate to the chosen Time Slots on a given date.
-    dateTimeObjList: localStorage.dateTimeObjList ? JSON.parse(localStorage.dateTimeObjList) : rawDateTimeObj,
+    slotPassengersObj: localStorage.SlotPassengers ? JSON.parse(localStorage.SlotPassengers) : rawSlotPassengers,
 
     // Active Date is used by the TimeList / TimeSlot components
     // and is the date the user has clicked, but not made the FlightDate
@@ -573,7 +572,7 @@ function savePassengerObjListToLocalStorage (context) {
 
 
 // *****************************************************************
-// this is a temp helper function to build fake dates based upon 
+// TEMP: this is a temp helper function to build fake dates based upon 
 // the user's chosen date, until Tommy has his backend API working.
 // *****************************************************************
 function generateFlightsDates (usersFlightDate) {

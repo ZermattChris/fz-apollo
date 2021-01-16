@@ -34,12 +34,12 @@
             style="z-index:2; float:right;"
             color="green"
             dark
-            class="ml-6 "
+            class="ml-6 mt-2"
             v-bind="attrs"
             v-on="on"
             @click="onToOrigDateClick"
           >
-            <v-icon small>{{iconArrowRight}}</v-icon>
+            <v-icon small>{{iconArrowDown}}</v-icon>
           </v-btn>
         </template>
         <span>Jump to Origanal Date</span>
@@ -78,7 +78,7 @@
           class=""
           :date="key"
           :timesObj="timeListerObj"
-          @row-selected="clickedRow"
+          @row-selected="onRowSelected"
           @click="console.log('Clicked a Swiper Slide')"
         ></TimeList>
 
@@ -120,7 +120,7 @@
       return {
 
         iconIdea: mdiLightbulbOnOutline,
-        iconArrowRight: mdiArrowDownCircle,
+        iconArrowDown: mdiArrowDownCircle,
 
         // Keep track of the user's initally chosen date from Step 1, and 
         // offer them a UI to return to that date easily.
@@ -233,14 +233,14 @@
         setTimeout(() => { this.$scrollTo('#timeSlotSwiper', 500) }, 200)
       },
       
-      clickedRow: function () {
+      onRowSelected: function () {
       //clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
 
         // update the autoheight on Swiper to allow for TimeSlot height changes
         // when toggling passenger inputs. Needs a timeout to work.
         setTimeout(() => {
           this.swiper.updateAutoHeight()
-        }, 10)
+        }, 50)
 
         
         //this.swiper.update()
@@ -284,7 +284,7 @@
 
 .vSpacerForFooter {
   width: 100%;
-  height: 60px;
+  height: 70px;
 }
 
 #passenger-btn {

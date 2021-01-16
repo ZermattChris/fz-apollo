@@ -57,7 +57,7 @@
         >
           <TimeSlot 
             :index="index"
-            :selectedSlotIndex="selectedSlot"
+            :selectedSlotIndex="getSelectedSlotIndex()"
             :pilotsAvail="pilotsAvail"
             :timeStr="timeStr"
             @selected="onClikedTimeSlot"
@@ -141,9 +141,17 @@
 
     methods: {
 
+      getSelectedSlotIndex: function () {
+        if (this.isActiveDate === false ) return -1   // This TimeSlot isn't active, so close all the TiimeSlots.
+        return this.selectedSlot
+      },
+
+
+
       onClikedTimeSlot: function (slotIndex) {
         // console.log('slotIndex: '+slotIndex)
         this.selectedSlot = slotIndex
+        this.onClickedTimeList()
         this.$emit('row-selected', slotIndex)
       },
 
