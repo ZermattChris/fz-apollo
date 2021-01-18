@@ -23,7 +23,7 @@
           <v-chip
             class="availability" 
             :color="getSelectedColour()"
-            v-html="pilotsAvail + ' Pilots available'"
+            v-html="pilotsAvail + ' Avail.'"
             outlined
           />
       </v-list-item-title>
@@ -32,7 +32,9 @@
     <div id="passengerInputBox"
       :hidden="!isExpanded()"
     >
-      <NumberScrollerNew/>
+      <NumberScrollerNew
+        :max="pilotsAvail"
+      />
     </div>
     
   </div>

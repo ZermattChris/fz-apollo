@@ -9,42 +9,44 @@
       <br />
       <br />
 
-      <v-btn
-        color="orange"
-        fab
-        dark
-        small
-        class="black--text"
-        id="passenger-btn"
-      >
-        {{ usersGroupSize }}
-      </v-btn>
-      <span id="passenger-text">Passengers</span>
-      
+      <span v-show="usersGroupSize > 0">
+        <v-btn
+          color="orange"
+          fab
+          dark
+          small
+          class="black--text"
+          id="passenger-btn"
+        >
+          {{ usersGroupSize }}
+        </v-btn>
+        <span id="passenger-text">Passengers</span>
+      </span>
 
 
 
-      <v-tooltip bottom open-delay="700">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            outlined
-            x-small
-            fab
-            right
-            style="z-index:2; float:right;"
-            color="green"
-            dark
-            class="ml-6 mt-2"
-            v-bind="attrs"
-            v-on="on"
-            @click="onToOrigDateClick"
-          >
-            <v-icon small>{{iconArrowDown}}</v-icon>
-          </v-btn>
-        </template>
-        <span>Jump to Origanal Date</span>
-      </v-tooltip>
-
+      <span v-show="usersGroupSize > 0">
+        <v-tooltip bottom open-delay="700">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              outlined
+              x-small
+              fab
+              right
+              style="z-index:2; float:right;"
+              color="green"
+              dark
+              class="ml-6 mt-2"
+              v-bind="attrs"
+              v-on="on"
+              @click="onToOrigDateClick"
+            >
+              <v-icon small>{{iconArrowDown}}</v-icon>
+            </v-btn>
+          </template>
+          <span>Jump to Origanal Date</span>
+        </v-tooltip>
+      </span>
 
       <!-- <br/>
       Orig Date: {{usersCurrDate}} <br/>

@@ -143,6 +143,26 @@
 
       getSelectedSlotIndex: function () {
         if (this.isActiveDate === false ) return -1   // This TimeSlot isn't active, so close all the TiimeSlots.
+
+        // We want to display the earliest available slot in the Open position.
+        //
+        if (this.selectedSlot === -1) {
+
+          let x = 0;
+          let foundSlot = -1
+          for (let key of Object.keys(this.items)) {
+            const pilots = this.items[key]
+            if (pilots > 0 && foundSlot === -1) {
+              foundSlot = x
+              //console.log("Slot index: " + foundSlot + " Time: " + key + " Pilots: " + this.items[key])
+            }
+            x++
+          }
+
+          this.selectedSlot = foundSlot
+
+        }
+
         return this.selectedSlot
       },
 

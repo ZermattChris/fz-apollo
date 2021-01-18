@@ -578,7 +578,7 @@ function savePassengerObjListToLocalStorage (context) {
 function generateFlightsDates (usersFlightDate) {
 
   //console.log('targetDate: ', targetDate)
-  const nrDaysToGen = 30
+  const nrDaysToGen = 14
   
   let prevDaysToShow = 7
   // users date minus today. if less than prevDaysToShow, then update.
@@ -619,9 +619,9 @@ function generateFlightsDates (usersFlightDate) {
     timesList.forEach(function(time) {
       let slotAvail = faker.random.number({ min: 0, max: 7 });
       timeslots[time] = slotAvail
-    });
+    })
     
-    flightsdates[currDayKey] = timeslots;
+    flightsdates[currDayKey] = timeslots
 
     dateObj = dateUtils.add(dateObj, { days: 1 })
 

@@ -10,12 +10,13 @@
         left
         fab
         absolute
+        @click="onMinus"
       >
         <v-icon>mdi-minus</v-icon>
       </v-btn>
 
-      <span>
-        
+      <span style="max-width: 100px;">
+        Passengers {{myVal}}
       </span>
 
       <v-btn
@@ -25,6 +26,7 @@
         right
         fab
         absolute
+        @click="onPlus"
       >
         <v-icon>mdi-plus</v-icon>
       </v-btn>
@@ -45,11 +47,11 @@ export default {
 
     value: {
       type: [String, Number],
-      required: true,
+      default: 0,
     },
     min: {
       type: [String, Number],
-      required: true,
+      default: 0,
     },
     max: {
       type: [String, Number],
@@ -60,6 +62,8 @@ export default {
   data () {
     return {
       myVal: this.value,
+      myMin: this.min,
+      myMax: this.max,
 
       iconPlus:  mdiPlusCircleOutline,
       iconMinus: mdiMinusCircleOutline,
@@ -68,16 +72,16 @@ export default {
   },
 
   methods: {
-    onDown: function () {
-      //console.log('decrement ' + inputsVal)
-      this.myVal--
+    onMinus: function () {
+      if (this.myVal > this.myMin) this.myVal--
+      //this.myVal--
+      //console.log('clicked minus. Val: ' + this.myVal)
     },
-    onUp: function () {
-      // console.log('increment')
-      // console.log('Before: ' + this.myVal)
-      this.myVal++
-      // console.log('After: ' + this.myVal)
-    }
+    onPlus: function () {
+      if (this.myVal < this.myMax) this.myVal++
+      //this.myVal++
+      //console.log('clicked plus. Val: ' + this.myVal)
+    },
   },
 
 
