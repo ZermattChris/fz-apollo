@@ -4,12 +4,12 @@
 
       Click on a Time to choose how many passengers would like to fly.
       <br />
-        ( <v-icon color="orange">{{iconIdea}}</v-icon> Tip: you can split larger groups up over multiple time slots on a single day)
+        ( <v-icon color="orange">{{iconIdea}}</v-icon> Tip: Larger groups can be split into more than one time.)
 
       <br />
       <br />
 
-      <span v-show="usersGroupSize > 0">
+      <span :class="(passengerTotal > 0) ? '' : 'hidden'">
         <v-btn
           color="orange"
           fab
@@ -18,14 +18,14 @@
           class="black--text"
           id="passenger-btn"
         >
-          {{ usersGroupSize }}
+          {{ passengerTotal }}
         </v-btn>
-        <span id="passenger-text">Passengers</span>
+        <span id="passenger-text">Passengers in total</span>
       </span>
 
 
 
-      <span v-show="usersGroupSize > 0">
+      <span>
         <v-tooltip bottom open-delay="700">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -120,6 +120,7 @@
     data () {
       //var self = this;
       return {
+        totalPassengers: 0,
 
         iconIdea: mdiLightbulbOnOutline,
         iconArrowDown: mdiArrowDownCircle,
@@ -171,11 +172,17 @@
 
       // Keep track of User's step 1 selected date.
       this.usersStep1Date = this.$store.state.flightDate
-    },
 
+      //this.totalPassengers = this.$store.getters.totalPassengerNumber
+    },
+    beforeUpdate() {
+    },
     
     computed: {
 
+      passengerTotal() {
+        return this.$store.state.totalPassengers
+      },
 
       daysVisibleList() {
         return this.$store.state._timeListDates
@@ -207,9 +214,7 @@
       userFlightDate: function () {
         return this.$store.state.flightDate
       },
-      usersGroupSize: function () {
-        return this.$store.state.nrPeople
-      },
+
       timeListerHeaderStr: function () {
         if (this.isObjEmpty(this.$store.state._flightsList)) return
         // Need to return the matching Flight Description from store.flightsList object.store.
@@ -222,6 +227,16 @@
 
     methods: {
   
+      //   usersGroupSize: function () {
+      //   // this needs to change to calling a vuex helper to find out how many total
+      //   // passengers there are in the currently active TimeSlot.
+
+      //   // TODO
+      //   return this.$store.getters.totalPassengerNumber
+
+      //   //return this.$store.state.nrPeople
+      // },
+
       onToOrigDateClick: function () {
         // scroll Swiper to the currently selected date.
         this.swiper.slideTo(this.swiperOptions.initialSlide)
@@ -297,6 +312,10 @@
   position: relative;
   top: 0.1em;
   left: 0.3em;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 </style>

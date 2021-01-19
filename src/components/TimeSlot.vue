@@ -23,7 +23,7 @@
           <v-chip
             class="availability" 
             :color="getSelectedColour()"
-            v-html="pilotsAvail + ' Avail.'"
+            v-html="pilotsAvail + ' Places free'"
             outlined
           />
       </v-list-item-title>
@@ -34,6 +34,7 @@
     >
       <NumberScrollerNew
         :max="pilotsAvail"
+        @changed="onChangedNrPassengers"
       />
     </div>
     
@@ -80,13 +81,37 @@
         clockIcon: mdiClockOutline,
         clockIconOutline: mdiMinusCircleOutline,
         clockIconSelected: mdiClockCheck,
+
         // Data
-        
+        originalPilotsAvail: this.pilotsAvail,
+        passengersInSlot: 0,
       }
     },
 
 
     methods: {
+
+      onChangedNrPassengers: function ( val) {
+
+        // TODO.
+        // Just going to silently swap the date and passengers. Will make fancier at some point
+        // if we really think this is needed.
+        //
+        // Need to check if we're still in the current flightDate or if we've changed to a different date.
+        // if different, need to ask user if they want to change (clearing old passenger inputs)
+
+        // Make sure we've set the flightDate to this TimeSlot's date.
+        this.$store.dispatch('setFlightDate', this.$store.state._activeDate)
+
+        this.passengersInSlot = val
+        //console.log("Passengers in slot: " + this.passengersInSlot)
+        // This looks like a good place to do the updating of the Passengers in the vuex helper
+        // functions. Pass in the Slot's index, Date String and number of Passengers.
+        const payload = {'index':this.index, 'timeString':this.timeStr, 'passengers':val}
+        return this.$store.dispatch('setSlotPassengers', payload)
+      },
+
+
 
       onClickedRow: function (event) {
         // fire event that TimeList can listen for that deselects all of the other TimeSlots
@@ -157,6 +182,7 @@
     position: relative;
     left: -0px;
     top: 2px;
+    flex-basis: 50px;
   }
 
   /* Format pesky Time timeStr */
@@ -165,6 +191,7 @@
     position: absolute;
     top: 1.1em;
     left: 50px;
+    flex-basis: 60px;
   }
     span>>>.hour {
       font-size: larger;
@@ -184,6 +211,7 @@
     cursor: pointer;
     margin-left: 20px;
     margin-bottom: 1px;    /* fixes odd 1px jump bug */
+    flex-basis: 100px;
   }
 
 .theme--light.v-chip {

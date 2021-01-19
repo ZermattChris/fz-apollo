@@ -4,6 +4,8 @@
       class="addPassengersBox"
     >
       <v-btn
+        class="ml-7"
+        :class="(myVal == myMin) ? 'disabledButton' : ''"
         color="pink"
         dark
         small
@@ -15,11 +17,13 @@
         <v-icon>mdi-minus</v-icon>
       </v-btn>
 
-      <span style="max-width: 100px;">
+      <span style="position:relative; top:8px; max-width: 100px;" class="">
         Passengers {{myVal}}
       </span>
 
       <v-btn
+        class="mr-7"
+        :class="(myVal == myMax) ? 'disabledButton' : ''"
         color="pink"
         dark
         small
@@ -73,13 +77,17 @@ export default {
 
   methods: {
     onMinus: function () {
-      if (this.myVal > this.myMin) this.myVal--
-      //this.myVal--
+      if (this.myVal > this.myMin) {
+        this.myVal--
+        this.$emit('changed', this.myVal)
+      }
       //console.log('clicked minus. Val: ' + this.myVal)
     },
     onPlus: function () {
-      if (this.myVal < this.myMax) this.myVal++
-      //this.myVal++
+      if (this.myVal < this.myMax) {
+        this.myVal++
+        this.$emit('changed', this.myVal)
+      }
       //console.log('clicked plus. Val: ' + this.myVal)
     },
   },
@@ -94,6 +102,12 @@ export default {
 
 .addPassengersBox {
   border: none;
+}
+.disabledButton {
+  color: silver;
+  box-shadow: none;
+  background-color: white !important;
+  border: 1px grey solid !important;
 }
 
 
