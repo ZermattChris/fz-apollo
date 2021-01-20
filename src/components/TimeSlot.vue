@@ -37,6 +37,15 @@
         @changed="onChangedNrPassengers"
       />
     </div>
+
+    <v-btn
+      id="slotPassengersTotalBtn"
+      v-show="passengersInSlot > 0"
+      fab
+      small
+    >
+      {{ passengersInSlot }}
+    </v-btn>
     
   </div>
 
@@ -222,6 +231,18 @@
 #passengerInputBox  {
   min-height: 50px;
   flex-basis: 300px;
+}
+
+#slotPassengersTotalBtn {
+  position: absolute;
+  z-index: 20;
+  right: -20px;
+  top: 3px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: black !important;
+  background-color: white;
+  border: 3px rgb(206, 86, 0) solid !important;
 }
 
 </style>

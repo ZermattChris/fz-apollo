@@ -11,11 +11,10 @@
 
       <span :class="(passengerTotal > 0) ? '' : 'hidden'">
         <v-btn
-          color="orange"
           fab
+          outlined
           dark
           small
-          class="black--text"
           id="passenger-btn"
         >
           {{ passengerTotal }}
@@ -166,7 +165,8 @@
 
 
     created() {
-      this.$store.dispatch('flightOptions')
+      this.$store.dispatch('flightOptions')   // ??
+
       // Set the ActiveDate to the same as FlightDate from step 1.
       this.$store.dispatch('setActiveDate', this.$store.state.flightDate)
 
@@ -307,6 +307,10 @@
 #passenger-btn {
   font-size: 1.2em;
   font-weight: bold;
+  color: black !important;
+  border-color: rgb(206, 86, 0);
+  border-width: 3px;
+  cursor: default;
 }
 #passenger-text {
   position: relative;

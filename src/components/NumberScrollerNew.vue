@@ -34,6 +34,8 @@
       >
         <v-icon>mdi-plus</v-icon>
       </v-btn>
+
+
     </div>
 
 </template>
@@ -109,6 +111,7 @@ export default {
   background-color: white !important;
   border: 1px grey solid !important;
 }
+
 
 
 </style>

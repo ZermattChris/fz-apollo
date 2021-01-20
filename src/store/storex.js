@@ -66,7 +66,7 @@ export default new Vuex.Store({
     // Active Date is used by the TimeList / TimeSlot components
     // and is the date the user has clicked, but not made the FlightDate
     // yet, by adding passengers.
-    _activeDate: '',
+    _activeDate: "",
 
     // Settings - API call result
     // Using an Underscore to help make it clear that this isn't User Input.
@@ -385,10 +385,11 @@ export default new Vuex.Store({
     setFlightDate(context, dateStr) {
       context.commit("CHOSEN_DATE", dateStr)
       localStorage.flightDate = dateStr
-      console.log("FlightDate Set in Store. " + dateStr)
+      //console.log("FlightDate Set in Store. " + dateStr)
     },
     setActiveDate(context, dateStr) {
       context.commit("ACTIVE_DATE", dateStr)  // no localstorage for this. Set when entering TimeList step.
+      //localStorage._activeDate = dateStr
     },
 
     setFlight(context, flightNameStr) {
