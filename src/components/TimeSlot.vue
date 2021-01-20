@@ -103,13 +103,28 @@
       }
     },
 
+    // beforeUpdate() {
+    //   this.passengersInSlot = this.$store.getters.getStoredPassengersInSlot(this.slotDate, this.index)
+    // },
+
     computed: {
 
-      placesFree() {
+      storedPassengers () {
+        return this.originalPilotsAvail - this.passengersInSlot
+      },
+      placesFree () {
         return this.originalPilotsAvail - this.passengersInSlot
       },
 
     },
+
+    // watch: {
+
+    //   forChangedNrPassengers() {
+
+    //   },
+
+    // },
 
     methods: {
 

@@ -3,7 +3,7 @@
     <PageHeader :title="timeListerHeaderStr">
 
       Click on a Time to choose how many passengers would like to fly.
-      <br />
+      <br /><br />
         ( <v-icon color="orange">{{iconIdea}}</v-icon> Tip: Larger groups can be split into more than one time.)
 
       <br />
