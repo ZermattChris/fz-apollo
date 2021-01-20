@@ -43,7 +43,9 @@ export default new Vuex.Store({
 
     // User inputs.
     // Cached in browser's localStorage.
-    nrPeople:      +localStorage.nrPeople || 0,
+    totalPassengers: 0,     // This is to replace nrPeople below, as using multiple inputs over slots
+
+    nrPeople:      +localStorage.nrPeople || 0,   // deprecated. Use: totalPassengers
     flightDate:     localStorage.flightDate || "",
     selectedFlight: localStorage.selectedFlight || "",
     wantsPhotos:    localStorage.wantsPhotos ? JSON.parse(localStorage.wantsPhotos) : false,  // convert to bool if not undefined.
@@ -64,7 +66,7 @@ export default new Vuex.Store({
     // Active Date is used by the TimeList / TimeSlot components
     // and is the date the user has clicked, but not made the FlightDate
     // yet, by adding passengers.
-    _activeDate: '',
+    _activeDate: "",
 
     // Settings - API call result
     // Using an Underscore to help make it clear that this isn't User Input.
@@ -235,6 +237,48 @@ export default new Vuex.Store({
     },
 
 
+
+    // This sets passenger number for the currently Selected Date.
+    // const rawSlotPassengers = {
+    //   'selectedDate': '',   // probably don't need this as redundant, but good for sanity at start.
+    //   'slotsList': [0:{"timeString":"08:30", "passengers":3}],
+    // }
+    // slotPassengersObj
+    SLOT_SELECTED_DATE(state, dateStr) {
+      state.slotPassengersObj.selectedDate = dateStr
+    },
+    NUMBER_PASSENGERS(state, payload) {
+      //console.log("Mutating NUMBER_PASSENGERS", payload);
+      // If stored date and flightDate don't match, then clear slotPassengersObj
+      // TODO: This isn't clearing the old selected inputs properly when changing date!
+      if (state.slotPassengersObj.selectedDate !== state.flightDate) {
+        state.slotPassengersObj = rawSlotPassengers
+        state.slotPassengersObj.selectedDate = state.flightDate
+      }
+
+      // Set the Array entry.
+      state.slotPassengersObj.slotsList[payload.index] = {"timeString":payload.timeString, "passengers":payload.passengers}
+      //console.log("slotPassengersObj", state.slotPassengersObj);
+
+
+      let count = 0
+      for (const slot of state.slotPassengersObj.slotsList) {
+        // Need to guard against 'unset' slots (ones with no entry set yet), 
+        // as this resolves to 'undefined'. Just skip, should be okay.
+        if (slot !== undefined) {
+          //console.log('time: ' + slot.timeString + '  passengers: ' + slot.passengers)
+          count = count + slot.passengers
+        }
+      }
+      //console.log("Total Passengers: ", count)
+
+      // Need to add up all passengers and set this reactive property.
+      state.totalPassengers = count
+
+    },
+
+
+
   },  // END MUTATIONS
 
   actions: {
@@ -332,6 +376,12 @@ export default new Vuex.Store({
     
 
     // --- USER INPUTS ---
+
+    // setTotalPassengers(context, nr) {
+    //   context.commit("PASSENGERS", +nr)
+    //   localStorage.totalPassengers = nr
+    // },
+
     setNrPeople(context, nr) {
       context.commit("CHOSEN_NR_PEOPLE", +nr)
       localStorage.nrPeople = nr
@@ -339,10 +389,19 @@ export default new Vuex.Store({
     setFlightDate(context, dateStr) {
       context.commit("CHOSEN_DATE", dateStr)
       localStorage.flightDate = dateStr
+      // Also need to set the selectedDate to match, so this is always correct and
+      // doesn't fall out of sync (or just remove it from the Passengers slot object altogether...)
+      // const rawSlotPassengers = {
+      //   'selectedDate': '',   // probably don't need this as redundant, but good for sanity at start.
+      //   'slotsList': [0:{"timeString":"08:30", "passengers":3}],
+      // }
+      context.commit("SLOT_SELECTED_DATE", dateStr)
+
       console.log("FlightDate Set in Store. " + dateStr)
     },
     setActiveDate(context, dateStr) {
       context.commit("ACTIVE_DATE", dateStr)  // no localstorage for this. Set when entering TimeList step.
+      //localStorage._activeDate = dateStr
     },
 
     setFlight(context, flightNameStr) {
@@ -423,9 +482,44 @@ export default new Vuex.Store({
     },
 
 
+    // ---- TimeSlot Sets -----
+
+    setSlotPassengers(context, payload) {
+      //console.log('slotIndex: ' + payload.index + ' TimeStr: ' + payload.timeString + ' Passengers: ' + payload.passengers)
+      context.commit("NUMBER_PASSENGERS", payload);
+      localStorage.slotPassengersObj = JSON.stringify(context.state.slotPassengersObj)
+      //savePassengerObjListToLocalStorage(context)
+    },
+
+
+
+
   },  // END ACTIONS
   
   getters: {
+
+    // const rawSlotPassengers = {
+    //   'selectedDate': '',   // probably don't need this as redundant, but good for sanity at start.
+    //   'slotsList': [],
+    // }
+    getStoredPassengersInSlot: (state) => (slotDate, slotIndex) => {
+
+      if (slotDate != state.flightDate) {
+        console.log('Not todays Slot', slotDate, state.flightDate)
+        return 0
+      }
+
+      let slotsList = state.slotPassengersObj.slotsList[slotIndex]
+      if (slotsList === undefined) {
+        console.log(' -> No passengers yet in this slot: ', slotIndex)
+        return 0
+      }
+      
+      //console.log('Found passengers in slot: ', slotsList, slotIndex)
+      
+      return slotsList.passengers
+    },
+
 
     // Not sure I really need these like this. Each step is checking if valid and marking
     // it into the state._navList array. Just a single call to this to check if marked valid
@@ -445,6 +539,12 @@ export default new Vuex.Store({
 
     //--------------------
     // Passenger Getters.    
+    getNumberPassengers: (state) => {
+      // TODO
+      return state.passengers
+    },
+
+
     getAllPassengersValid: (state) => {
       // Search for a matching entry in 'passengerObjList' for customer 'custNr'
       // if found, return the existing age from LocalStorage, otherwise
@@ -524,29 +624,6 @@ export default new Vuex.Store({
 
 
 /*****************************************************
-Helper functions for working with rawDateTimeObj
-Used to track what time slots and how many passengers
-chosen on a given
-*****************************************************/
-
-// // Create a new Slot Object that gets added to the dateTimeObjList
-// function createSlotObj (index) {
-//   let newSlotObj = Object.assign({}, rawPassengerObj)
-//   // Set the id for the newly created Pass obj.
-//   newSlotObj.index = index
-//   return newSlotObj
-// }
-
-
-// function saveDateTimeObjListToLocalStorage (context) {
-//   localStorage.dateTimeObjList = JSON.stringify(context.state.dateTimeObjList)
-// }
-
-
-
-
-
-/*****************************************************
 // helper functions for working with Passenger Objects.
  *****************************************************/
 function findPassengerObj (state, passengerId) {
@@ -578,12 +655,12 @@ function savePassengerObjListToLocalStorage (context) {
 function generateFlightsDates (usersFlightDate) {
 
   //console.log('targetDate: ', targetDate)
-  const nrDaysToGen = 30
+  const nrDaysToGen = 14
   
   let prevDaysToShow = 7
   // users date minus today. if less than prevDaysToShow, then update.
   let testDateInt = dateUtils.differenceInDays(new Date(usersFlightDate), new Date() )
-  console.log('testDateInt: ', testDateInt)
+  //console.log('testDateInt: ', testDateInt)
   if (testDateInt < prevDaysToShow) {
     prevDaysToShow = testDateInt
   }
@@ -619,9 +696,9 @@ function generateFlightsDates (usersFlightDate) {
     timesList.forEach(function(time) {
       let slotAvail = faker.random.number({ min: 0, max: 7 });
       timeslots[time] = slotAvail
-    });
+    })
     
-    flightsdates[currDayKey] = timeslots;
+    flightsdates[currDayKey] = timeslots
 
     dateObj = dateUtils.add(dateObj, { days: 1 })
 

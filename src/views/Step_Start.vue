@@ -330,6 +330,7 @@ export default {
     },
 
     // new VueX store...
+    // Not used here anymore. Deprecated.
     nrPeople: {
       get() {
         return this.$store.state.nrPeople

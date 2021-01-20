@@ -23,7 +23,7 @@
           <v-chip
             class="availability" 
             :color="getSelectedColour()"
-            v-html="pilotsAvail + ' Pilots available'"
+            v-html="placesFree + ' Places free'"
             outlined
           />
       </v-list-item-title>
@@ -32,9 +32,23 @@
     <div id="passengerInputBox"
       :hidden="!isExpanded()"
     >
-      <NumberScrollerNew/>
+      <NumberScrollerNew
+        :value="passengersInSlot"
+        :max="pilotsAvail"
+        @changed="onChangedNrPassengers"
+      />
     </div>
-      
+
+    <!-- Total number of passengers selected in this slot (hidden if 0) -->
+    <v-btn
+      id="slotPassengersTotalBtn"
+      v-show="passengersInSlot > 0"
+      fab
+      small
+    >
+      {{ passengersInSlot }}
+    </v-btn>
+    
   </div>
 
 </template>
@@ -51,6 +65,10 @@
     },
 
     props: {
+      slotDate: {
+        type: String,
+        required: true,
+      },
       index: {
         type: [Number],
         required: true,
@@ -78,13 +96,36 @@
         clockIcon: mdiClockOutline,
         clockIconOutline: mdiMinusCircleOutline,
         clockIconSelected: mdiClockCheck,
+
         // Data
-        
+        originalPilotsAvail: this.pilotsAvail,
+        passengersInSlot: this.$store.getters.getStoredPassengersInSlot(this.slotDate, this.index)
       }
     },
 
+    computed: {
+
+      placesFree() {
+        return this.originalPilotsAvail - this.passengersInSlot
+      },
+
+    },
 
     methods: {
+
+      onChangedNrPassengers: function ( val) {
+        // Make sure we've set the flightDate to this TimeSlot's date.
+        this.$store.dispatch('setFlightDate', this.$store.state._activeDate)
+
+        this.passengersInSlot = val
+        //console.log("Passengers in slot: " + this.passengersInSlot)
+        // This looks like a good place to do the updating of the Passengers in the vuex helper
+        // functions. Pass in the Slot's index, Date String and number of Passengers.
+        const payload = {'index':this.index, 'timeString':this.timeStr, 'passengers':val}
+        return this.$store.dispatch('setSlotPassengers', payload)
+      },
+
+
 
       onClickedRow: function (event) {
         // fire event that TimeList can listen for that deselects all of the other TimeSlots
@@ -100,8 +141,10 @@
       },
       
 
+      // these can all be computed props.
       getSelectedColour: function () {
-        if (this.pilotsAvail == 0) return 'silver'
+        if (this.pilotsAvail === 0) return 'silver'
+        if (this.placesFree === 0) return 'silver'
         return 'success darken-2'
       },
       getClockColour: function () {
@@ -155,6 +198,7 @@
     position: relative;
     left: -0px;
     top: 2px;
+    flex-basis: 50px;
   }
 
   /* Format pesky Time timeStr */
@@ -163,6 +207,7 @@
     position: absolute;
     top: 1.1em;
     left: 50px;
+    flex-basis: 60px;
   }
     span>>>.hour {
       font-size: larger;
@@ -182,6 +227,7 @@
     cursor: pointer;
     margin-left: 20px;
     margin-bottom: 1px;    /* fixes odd 1px jump bug */
+    flex-basis: 100px;
   }
 
 .theme--light.v-chip {
@@ -192,6 +238,18 @@
 #passengerInputBox  {
   min-height: 50px;
   flex-basis: 300px;
+}
+
+#slotPassengersTotalBtn {
+  position: absolute;
+  z-index: 20;
+  right: -10px;
+  top: 3px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: black !important;
+  background-color: white;
+  border: 3px rgb(206, 86, 0) solid !important;
 }
 
 </style>

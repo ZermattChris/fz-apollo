@@ -4,47 +4,48 @@
 
       Click on a Time to choose how many passengers would like to fly.
       <br />
-        ( <v-icon color="orange">{{iconIdea}}</v-icon> Tip: you can split larger groups up over multiple time slots on a single day)
+        ( <v-icon color="orange">{{iconIdea}}</v-icon> Tip: Larger groups can be split into more than one time.)
 
       <br />
       <br />
 
-      <v-btn
-        color="orange"
-        fab
-        dark
-        small
-        class="black--text"
-        id="passenger-btn"
-      >
-        {{ usersGroupSize }}
-      </v-btn>
-      <span id="passenger-text">Passengers</span>
-      
+      <span :class="(passengerTotal > 0) ? '' : 'hidden'">
+        <v-btn
+          fab
+          outlined
+          dark
+          small
+          id="passenger-btn"
+        >
+          {{ passengerTotal }}
+        </v-btn>
+        <span id="passenger-text" class="font-weight-bold">Passengers in total</span>
+      </span>
 
 
 
-      <v-tooltip bottom open-delay="700">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            outlined
-            x-small
-            fab
-            right
-            style="z-index:2; float:right;"
-            color="green"
-            dark
-            class="ml-6 mt-2"
-            v-bind="attrs"
-            v-on="on"
-            @click="onToOrigDateClick"
-          >
-            <v-icon small>{{iconArrowDown}}</v-icon>
-          </v-btn>
-        </template>
-        <span>Jump to Origanal Date</span>
-      </v-tooltip>
-
+      <span>
+        <v-tooltip bottom open-delay="700">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              outlined
+              x-small
+              fab
+              right
+              style="z-index:2; float:right;"
+              color="green"
+              dark
+              class="ml-6 mt-2"
+              v-bind="attrs"
+              v-on="on"
+              @click="onToOrigDateClick"
+            >
+              <v-icon small>{{iconArrowDown}}</v-icon>
+            </v-btn>
+          </template>
+          <span>Jump to Origanal Date</span>
+        </v-tooltip>
+      </span>
 
       <!-- <br/>
       Orig Date: {{usersCurrDate}} <br/>
@@ -53,7 +54,7 @@
       
     </PageHeader>
 
-    <!-- Simple loading icon from main page load... -->
+    <!-- ???? Simple loading icon from main page load... -->
     <div class="text-center pt-6" v-if="!daysVisibleList">
       <v-progress-circular
         :size="70"
@@ -118,6 +119,7 @@
     data () {
       //var self = this;
       return {
+        //totalPassengers: 0,
 
         iconIdea: mdiLightbulbOnOutline,
         iconArrowDown: mdiArrowDownCircle,
@@ -163,17 +165,33 @@
 
 
     created() {
-      this.$store.dispatch('flightOptions')
+      this.$store.dispatch('flightOptions')   // ??
+
       // Set the ActiveDate to the same as FlightDate from step 1.
       this.$store.dispatch('setActiveDate', this.$store.state.flightDate)
 
       // Keep track of User's step 1 selected date.
       this.usersStep1Date = this.$store.state.flightDate
-    },
 
+      //this.totalPassengers = this.$store.getters.totalPassengerNumber
+    },
+    beforeUpdate() {
+    },
     
     computed: {
 
+      passengerTotal() {
+        const totalP = this.$store.state.totalPassengers
+        // Pass along to the Nav button if user has 1+ passengers.
+        let payload = {'Time': false}
+        if (totalP > 0) {
+          payload = {'Time': true}
+        } else if (totalP < 0) {
+          console.error("passengerTotal is less than 0. " + totalP)
+        }
+        this.$store.dispatch('setNavListItem', payload)
+        return totalP
+      },
 
       daysVisibleList() {
         return this.$store.state._timeListDates
@@ -205,9 +223,7 @@
       userFlightDate: function () {
         return this.$store.state.flightDate
       },
-      usersGroupSize: function () {
-        return this.$store.state.nrPeople
-      },
+
       timeListerHeaderStr: function () {
         if (this.isObjEmpty(this.$store.state._flightsList)) return
         // Need to return the matching Flight Description from store.flightsList object.store.
@@ -268,6 +284,24 @@
       },
 
     },
+
+    // watch: {
+
+    //   forChangedNrPassengers() {
+    //     // const [oldPropertyA, oldProvertyB] = oldVal.split('|');
+    //     // const [newPropertyA, newProvertyB] = newVal.split('|');
+    //     //console.log('Both Flight Date and Type changed. PropA: ' + oldPropertyA + '!=' + newPropertyA + ' -- PropB: ' + oldProvertyB + '!=' + newProvertyB)
+        
+    //     // LOAD VueX - grab timesListDates from API.
+    //     // Only fire if the Which Flight? isn't empty.
+    //     if (this.flightChosen === '') return
+    //     //console.log('Flight Date + Flight Type chnged. Preload TLGroup')
+    //     this.$store.dispatch('timeListDates')
+    //     this.onValueChanged()
+    //   },
+        
+    // },
+
   }
 
 </script>
@@ -290,11 +324,19 @@
 #passenger-btn {
   font-size: 1.2em;
   font-weight: bold;
+  color: black !important;
+  border-color: rgb(206, 86, 0);
+  border-width: 3px;
+  cursor: default;
 }
 #passenger-text {
   position: relative;
   top: 0.1em;
   left: 0.3em;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 </style>
