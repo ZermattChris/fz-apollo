@@ -33,11 +33,13 @@
       :hidden="!isExpanded()"
     >
       <NumberScrollerNew
+        :value="passengersInSlot"
         :max="pilotsAvail"
         @changed="onChangedNrPassengers"
       />
     </div>
 
+    <!-- Total number of passengers selected in this slot (hidden if 0) -->
     <v-btn
       id="slotPassengersTotalBtn"
       v-show="passengersInSlot > 0"
@@ -63,6 +65,10 @@
     },
 
     props: {
+      slotDate: {
+        type: String,
+        required: true,
+      },
       index: {
         type: [Number],
         required: true,
@@ -93,10 +99,14 @@
 
         // Data
         originalPilotsAvail: this.pilotsAvail,
-        passengersInSlot: 0,
+        passengersInSlot: this.$store.getters.getStoredPassengersInSlot(this.slotDate, this.index)
       }
     },
 
+    // mounted () {
+    //   this.passengersInSlot = this.$store.getters.getStoredPassengersInSlot(this.slotDate, this.index)
+    // },
+    
 
     computed: {
 
@@ -238,7 +248,7 @@
 #slotPassengersTotalBtn {
   position: absolute;
   z-index: 20;
-  right: -20px;
+  right: -10px;
   top: 3px;
   font-size: 1.2em;
   font-weight: bold;

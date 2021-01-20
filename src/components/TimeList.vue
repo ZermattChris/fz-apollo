@@ -56,6 +56,7 @@
           :disabled="pilotsAvail == 0"
         >
           <TimeSlot 
+            :slotDate="date"
             :index="index"
             :selectedSlotIndex="getSelectedSlotIndex()"
             :pilotsAvail="pilotsAvail"
