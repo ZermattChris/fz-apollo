@@ -103,11 +103,6 @@
       }
     },
 
-    // mounted () {
-    //   this.passengersInSlot = this.$store.getters.getStoredPassengersInSlot(this.slotDate, this.index)
-    // },
-    
-
     computed: {
 
       placesFree() {
