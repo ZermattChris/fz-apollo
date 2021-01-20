@@ -145,9 +145,7 @@
         if (this.isActiveDate === false ) return -1   // This TimeSlot isn't active, so close all the TiimeSlots.
 
         // We want to display the earliest available slot in the Open position.
-        //
         if (this.selectedSlot === -1) {
-
           let x = 0;
           let foundSlot = -1
           for (let key of Object.keys(this.items)) {
@@ -158,15 +156,10 @@
             }
             x++
           }
-
           this.selectedSlot = foundSlot
-
         }
-
         return this.selectedSlot
       },
-
-
 
       onClikedTimeSlot: function (slotIndex) {
         // console.log('slotIndex: '+slotIndex)
@@ -179,53 +172,6 @@
         this.$store.dispatch('setActiveDate', this.date)
       },
 
-      formatAvail: function (slotObj) {
-        // Just grab the Observer object's value and return it.
-        //const availStr = slotObj[key]
-        return slotObj
-      },
-
-      getSelectedColour: function () {
-        // if (this.notEnoughAvailability(pilotsAvail)) return 'silver'
-        // if (key === this.selectedSlot) return 'success darken-2'
-        return ''
-      },
-      getClockColour: function () {
-        // if (this.notEnoughAvailability(pilotsAvail)) return 'grey lighten-1'
-        // if (key === this.selectedSlot) return 'success darken-2'
-        return ''
-      },
-      //getClockIcon: function (pilotsAvail, key) {
-      getClockIcon: function () {
-        // if (this.notEnoughAvailability(pilotsAvail)) return this.clockIconOutline
-        // if (key === this.selectedSlot) return this.clockIconSelected
-        return this.clockIcon
-      },
-
-      formatTime: function (key) {
-          //console.log("key, slotObj", key, slotObj)
-        // format into nice html for display.
-        // const timeKey = slotObj[key]
-        const htmlSnippet = "<span class='hour'>" + this.getHours(key) + "</span><span class='minute'>:" + this.getMins(key) + "</span>"
-        return htmlSnippet
-      },
-        getHours: function (timeStr) {
-          //console.log("timeStr", timeStr)
-          // split timeStr on the colon ':' or throw error.
-          let items = timeStr.split(':')
-          if (items.length !== 2) {
-            throw new Error('Time String data (timeSlots array) must be in the format of "10:45". Was passed:' + timeStr)
-          }
-          return items[0]
-        },
-        getMins: function (timeStr) {
-          // split timeStr on the colon ':' or throw error.
-          let items = timeStr.split(':')
-          if (items.length !== 2) {
-            throw new Error('Time String data (timeSlots array) must be in the format of "10:45". Was passed:' + timeStr)
-          }
-          return items[1]
-        },
     },
 
   }

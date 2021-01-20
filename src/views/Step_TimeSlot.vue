@@ -19,7 +19,7 @@
         >
           {{ passengerTotal }}
         </v-btn>
-        <span id="passenger-text">Passengers in total</span>
+        <span id="passenger-text" class="font-weight-bold">Passengers in total</span>
       </span>
 
 
@@ -119,7 +119,7 @@
     data () {
       //var self = this;
       return {
-        totalPassengers: 0,
+        //totalPassengers: 0,
 
         iconIdea: mdiLightbulbOnOutline,
         iconArrowDown: mdiArrowDownCircle,
@@ -181,7 +181,16 @@
     computed: {
 
       passengerTotal() {
-        return this.$store.state.totalPassengers
+        const totalP = this.$store.state.totalPassengers
+        // Pass along to the Nav button if user has 1+ passengers.
+        let payload = {'Time': false}
+        if (totalP > 0) {
+          payload = {'Time': true}
+        } else if (totalP < 0) {
+          console.error("passengerTotal is less than 0. " + totalP)
+        }
+        this.$store.dispatch('setNavListItem', payload)
+        return totalP
       },
 
       daysVisibleList() {
@@ -227,16 +236,6 @@
 
     methods: {
   
-      //   usersGroupSize: function () {
-      //   // this needs to change to calling a vuex helper to find out how many total
-      //   // passengers there are in the currently active TimeSlot.
-
-      //   // TODO
-      //   return this.$store.getters.totalPassengerNumber
-
-      //   //return this.$store.state.nrPeople
-      // },
-
       onToOrigDateClick: function () {
         // scroll Swiper to the currently selected date.
         this.swiper.slideTo(this.swiperOptions.initialSlide)
@@ -285,6 +284,24 @@
       },
 
     },
+
+    // watch: {
+
+    //   forChangedNrPassengers() {
+    //     // const [oldPropertyA, oldProvertyB] = oldVal.split('|');
+    //     // const [newPropertyA, newProvertyB] = newVal.split('|');
+    //     //console.log('Both Flight Date and Type changed. PropA: ' + oldPropertyA + '!=' + newPropertyA + ' -- PropB: ' + oldProvertyB + '!=' + newProvertyB)
+        
+    //     // LOAD VueX - grab timesListDates from API.
+    //     // Only fire if the Which Flight? isn't empty.
+    //     if (this.flightChosen === '') return
+    //     //console.log('Flight Date + Flight Type chnged. Preload TLGroup')
+    //     this.$store.dispatch('timeListDates')
+    //     this.onValueChanged()
+    //   },
+        
+    // },
+
   }
 
 </script>

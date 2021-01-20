@@ -23,7 +23,7 @@
           <v-chip
             class="availability" 
             :color="getSelectedColour()"
-            v-html="pilotsAvail + ' Places free'"
+            v-html="placesFree + ' Places free'"
             outlined
           />
       </v-list-item-title>
@@ -98,17 +98,17 @@
     },
 
 
+    computed: {
+
+      placesFree() {
+        return this.originalPilotsAvail - this.passengersInSlot
+      },
+
+    },
+
     methods: {
 
       onChangedNrPassengers: function ( val) {
-
-        // TODO.
-        // Just going to silently swap the date and passengers. Will make fancier at some point
-        // if we really think this is needed.
-        //
-        // Need to check if we're still in the current flightDate or if we've changed to a different date.
-        // if different, need to ask user if they want to change (clearing old passenger inputs)
-
         // Make sure we've set the flightDate to this TimeSlot's date.
         this.$store.dispatch('setFlightDate', this.$store.state._activeDate)
 
@@ -136,8 +136,10 @@
       },
       
 
+      // these can all be computed props.
       getSelectedColour: function () {
-        if (this.pilotsAvail == 0) return 'silver'
+        if (this.pilotsAvail === 0) return 'silver'
+        if (this.placesFree === 0) return 'silver'
         return 'success darken-2'
       },
       getClockColour: function () {
