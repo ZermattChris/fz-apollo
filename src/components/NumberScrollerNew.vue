@@ -10,6 +10,7 @@
         left
         fab
         absolute
+        @click="onClick(-1)"
       >
         <v-icon>mdi-minus</v-icon>
       </v-btn>
@@ -25,6 +26,7 @@
         right
         fab
         absolute
+        @click="onClick(1)"
       >
         <v-icon>mdi-plus</v-icon>
       </v-btn>
@@ -36,7 +38,7 @@
 <script>
 // @ is an alias to /src
 
-import { mdiPlusCircleOutline, mdiMinusCircleOutline } from '@mdi/js';
+// import { mdiPlus, mdiMinus } from '@mdi/js';
 
 export default {
   name: "NumberScrollerSmall",
@@ -45,7 +47,7 @@ export default {
 
     value: {
       type: [String, Number],
-      required: true,
+      default: 0
     },
     min: {
       type: [String, Number],
@@ -61,23 +63,17 @@ export default {
     return {
       myVal: this.value,
 
-      iconPlus:  mdiPlusCircleOutline,
-      iconMinus: mdiMinusCircleOutline,
+      // iconPlus:  mdiPlusCircleOutline,
+      // iconMinus: mdiMinusCircleOutline,
 
     }
   },
 
   methods: {
-    onDown: function () {
-      //console.log('decrement ' + inputsVal)
-      this.myVal--
+    onClick: function (val) {
+      console.log('click ' + val)
+      this.myVal = this.myVal + val
     },
-    onUp: function () {
-      // console.log('increment')
-      // console.log('Before: ' + this.myVal)
-      this.myVal++
-      // console.log('After: ' + this.myVal)
-    }
   },
 
 

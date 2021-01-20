@@ -34,7 +34,7 @@
     >
       <NumberScrollerNew/>
     </div>
-    
+      
   </div>
 
 </template>
