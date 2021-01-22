@@ -509,13 +509,13 @@ export default new Vuex.Store({
     getStoredPassengersInSlot: (state) => (slotDate, slotIndex) => {
 
       if (slotDate != state.flightDate) {
-        console.log('Not todays Slot', slotDate, state.flightDate)
+        //console.log('Not todays Slot', slotDate, state.flightDate)
         return 0
       }
 
       let slotsList = state.slotPassengersObj.slotsList[slotIndex]
       if (slotsList === undefined) {
-        console.log(' -> No passengers yet in this slot: ', slotIndex)
+        //console.log(' -> No passengers yet in this slot: ', slotIndex)
         return 0
       }
       

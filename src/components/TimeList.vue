@@ -116,6 +116,11 @@
       },
 
 
+      // isSelectedDate: function () {
+      //   //console.log(this.usersDate, this.date)
+      //   if (this.date === this.$store.state.flightDate) return true
+      //   return false
+      // },
       isActiveDate: function () {
         //console.log(this.usersDate, this.date)
         if (this.date === this.$store.state._activeDate) return true
@@ -166,6 +171,7 @@
         // console.log('slotIndex: '+slotIndex)
         this.selectedSlot = slotIndex
         this.onClickedTimeList()
+
         this.$emit('row-selected', slotIndex)
       },
 

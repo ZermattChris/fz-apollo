@@ -42,7 +42,7 @@
     <!-- Total number of passengers selected in this slot (hidden if 0) -->
     <v-btn
       id="slotPassengersTotalBtn"
-      v-show="passengersInSlot > 0"
+      v-show="(passengersInSlot > 0)"
       fab
       small
     >
@@ -74,6 +74,11 @@
         required: true,
         default: -1
       },
+      // isSelected: {
+      //   type: [String, Boolean],
+      //   required: true,
+      //   default: false,
+      // },
       selectedSlotIndex: {
         type: [Number],
         default: -1
@@ -104,7 +109,7 @@
     },
 
     // beforeUpdate() {
-    //   this.passengersInSlot = this.$store.getters.getStoredPassengersInSlot(this.slotDate, this.index)
+    //   if (this.isSelected === false) this.passengersInSlot = 0
     // },
 
     computed: {
@@ -115,16 +120,29 @@
       placesFree () {
         return this.originalPilotsAvail - this.passengersInSlot
       },
+      flightDate () {
+        return this.$store.flightDate
+      },
+
+
+      flightDateChanged () {
+        return this.$store.state.flightDate
+      },
 
     },
 
-    // watch: {
+    watch: {
 
-    //   forChangedNrPassengers() {
+      // Whooop! This works! I've finally remembered how to handle this reactive shit.
+      flightDateChanged: function(newVal, oldVal) {
+        //console.log('newVal',newVal, 'oldVal',oldVal)
+        if (oldVal === this.slotDate) {
+          // Clear everything shown visually on this slot.
+          this.passengersInSlot = 0
+        }
+      }
 
-    //   },
-
-    // },
+    },
 
     methods: {
 
