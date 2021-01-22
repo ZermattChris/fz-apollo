@@ -35,6 +35,33 @@ const rawSlotPassengers = {
   'slotsList': [],
 }
 
+const initPassengersInTimeSlot = function () {
+
+  let slotPassObj = localStorage.slotPassengersObj ? JSON.parse(localStorage.slotPassengersObj) : {}
+  let count = 0
+  // for (const slotObj of slotPassObj) {
+  //   if ( slotObj !== null) {
+  //     count = count + slotObj.passengers
+  //   }
+  // }
+
+  // for (const [key, value] of Object.entries(slotPassObj)) {
+  //   console.log(key, value.passengers)
+  // }
+
+  let passengersCountList = slotPassObj.slotsList
+
+  for (const slotInfo of passengersCountList){
+    //console.log(slotInfo.passengers)
+    if ( slotInfo !== null) {
+      count = count + slotInfo.passengers
+    }
+  }
+
+  return count
+}
+
+
 export default new Vuex.Store({
   state: {
 
@@ -43,7 +70,7 @@ export default new Vuex.Store({
 
     // User inputs.
     // Cached in browser's localStorage.
-    totalPassengers: 0,     // This is to replace nrPeople below, as using multiple inputs over slots
+    totalPassengers: initPassengersInTimeSlot(),     // This is to replace nrPeople below, as using multiple inputs over slots
 
     nrPeople:      +localStorage.nrPeople || 0,   // deprecated. Use: totalPassengers
     flightDate:     localStorage.flightDate || "",
@@ -519,6 +546,11 @@ export default new Vuex.Store({
     //   'selectedDate': '',   // probably don't need this as redundant, but good for sanity at start.
     //   'slotsList': [],
     // }
+    // getTotalPassengersInTimeSlot: (state) => {
+
+    //   return 8
+    // },
+
     getStoredPassengersInSlot: (state) => (slotDate, slotIndex) => {
 
       if (slotDate != state.flightDate) {
