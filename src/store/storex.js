@@ -569,7 +569,26 @@ export default new Vuex.Store({
 
 
     //--------------------
-    // Passenger Getters.    
+    // Passenger Getters.  
+    
+    // Added this as we only want to return the passengers from the
+    // state.passengerObjList up to the current state.totalPassengers (there can
+    // be more than this in the passengerObjectList, as going say, from 4 to 2x
+    // passengers will still leave all 4x in the passengerObjectList)
+    getPassengersList: (state) => {
+
+      let refinedPassengerObjList = []
+
+      for (let i = 0; i < state.totalPassengers; i++) {
+        let copiedPassenger = JSON.parse(JSON.stringify(state.passengerObjList[i]))
+        refinedPassengerObjList[i] = copiedPassenger
+      }
+
+      return refinedPassengerObjList
+    },
+    
+
+
     getTotalPassengers: (state) => {
       return state.totalPassengers
     },
@@ -582,13 +601,25 @@ export default new Vuex.Store({
       // -> Using helper functions below to keep this clean.
       // let matchedPassengerObj = findPassengerObj(state, custNr)
       // return matchedPassengerObj.valid
+
       let isValid = true
-      for (let i = 0; i < state.passengerObjList.length; i++) {
+      
+      for (let i = 0; i < state.totalPassengers; i++) {
         if (state.passengerObjList[i].valid !== true) {
           isValid = false
           break
         }
       }
+
+      // OLD: Need to use totalPassengers as counter.
+      // for (let i = 0; i < state.passengerObjList.length; i++) {
+      //   if (state.passengerObjList[i].valid !== true) {
+      //     isValid = false
+      //     break
+      //   }
+      // }
+
+
       return isValid
     },
     getIsValidById: (state) => (custNr) => {

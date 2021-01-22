@@ -176,14 +176,14 @@
           this.passengersInSlot--
           this.onChangedNrPassengers()
         }
-        console.log('clicked minus. Val: ' + this.passengersInSlot)
+        //console.log('clicked minus. Val: ' + this.passengersInSlot)
       },
       onPlus: function () {
         if (this.passengersInSlot < this.myMax) {
           this.passengersInSlot++
           this.onChangedNrPassengers()
         }
-        console.log('clicked plus. Val: ' + this.passengersInSlot)
+        //console.log('clicked plus. Val: ' + this.passengersInSlot)
       },
 
 

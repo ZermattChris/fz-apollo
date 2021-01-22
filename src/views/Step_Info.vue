@@ -282,15 +282,19 @@
                     <td class="font-weight-bold">People flying: </td>
                     <td>
                       <v-chip
+                        color="deep-orange"
+                        class="pl-4 pr-6"
+                        id="passenger-btn"
+                      >
+                        {{ nrBookingPeople }}
+                      </v-chip>
+                      <!-- <v-chip
                         color="deep-purple"
                         class="px-6 my-1 my-sm-2"
                         outlined
                       >
-                        <!-- <v-avatar left>
-                          <v-icon>{{iconPeople}}</v-icon>
-                        </v-avatar> -->
                         <strong class="">{{nrBookingPeople}}</strong>
-                      </v-chip>
+                      </v-chip> -->
                   </td>
                   </tr>
                   <tr>
@@ -298,11 +302,10 @@
                     <td class="font-weight-bold">Flight Date:</td>
                     <td>{{bookingDate}}</td>
                   </tr>
-                  <tr>
-                    <!-- Flight Time -->
+                  <!-- <tr>
                     <td class="font-weight-bold">Flight Nr &amp; <br/>Meeting Time:  </td>
                     <td>#<strong>{{bookingFlightSlot}}</strong> — {{bookingFlightTime}}</td>
-                  </tr>
+                  </tr> -->
                   <tr>
                     <!-- Flight Type/Name -->
                     <td class="font-weight-bold">Flight:</td>
@@ -374,7 +377,10 @@
                     v-for="passenger in passengersList"
                     :key="passenger.id"
                   >
-                    <td class="text-capitalize">{{passenger.id +1}}) {{ passenger.name }}</td>
+                    <td class="text-capitalize">
+                      {{passenger.id +1}}) 
+                      {{ passenger.name }}
+                    </td>
                     <td><v-icon :color="maleFemaleColour(passenger.sex)">{{maleFemaleIcon(passenger.sex)}}</v-icon></td>
                     <td>{{ passenger.age }}</td>
                     <td>{{ speedLabel(passenger.speed) }}</td>
@@ -401,6 +407,9 @@
             </v-simple-table>
 
 
+                <div class="mt-8">
+                  TODO: How to handle passengers spread over multiple time slots??
+                </div>
 
 
           </template>
@@ -418,7 +427,7 @@
             class="px-4 mx-auto"
             @click="confirmDetailsDialog = false"
           >
-            Change Details
+            Cancel
             <v-icon right>{{iconClose}}</v-icon>
           </v-btn>
 
@@ -523,7 +532,7 @@
 
 
       passengersList: function () {
-        return this.$store.state.passengerObjList
+        return this.$store.getters.getPassengersList
       },
 
       confirmDetailsDialog: {
@@ -536,6 +545,7 @@
       },
 
       stepCompleted: function () {
+
         // I think this can all go into the Store's '' getter call. Then just need to 
         // do a watch to see if this Step is valid...
 
@@ -592,6 +602,10 @@
       bookingFlightTime: function () {
         //console.log(this.$store.state.timeSlotLabel)
         //return this.$store.state.timeSlotLabel
+
+
+
+
         return localStorage.selectedTimeslotLabel
       },
       bookingFlight: function () {
@@ -898,5 +912,17 @@
 }
 
 
+#passenger-btn {
+  height: 24px;
+  width: 24px;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: white !important;
+  border-color: rgb(255, 255, 255) !important;
+  border-width: 3px !important;
+  cursor: default;
+  text-shadow: 0 0 3px black !important;
+  text-align: center;
+}
 
 </style>
