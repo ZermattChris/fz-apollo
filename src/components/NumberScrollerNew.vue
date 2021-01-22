@@ -44,7 +44,7 @@
 <script>
 // @ is an alias to /src
 
-import { mdiPlusCircleOutline, mdiMinusCircleOutline } from '@mdi/js';
+// import { mdiPlus, mdiMinus } from '@mdi/js';
 
 export default {
   name: "NumberScrollerSmall",
@@ -71,8 +71,8 @@ export default {
       myMin: this.min,
       myMax: this.max,
 
-      iconPlus:  mdiPlusCircleOutline,
-      iconMinus: mdiMinusCircleOutline,
+      // iconPlus:  mdiPlusCircleOutline,
+      // iconMinus: mdiMinusCircleOutline,
 
     }
   },

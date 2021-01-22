@@ -245,6 +245,10 @@ export default new Vuex.Store({
     // }
     // slotPassengersObj
     SLOT_SELECTED_DATE(state, dateStr) {
+      if (state.slotPassengersObj.selectedDate !== state.flightDate) {
+        state.slotPassengersObj.selectedDate = ''
+        state.slotPassengersObj.slotsList = []
+      }
       state.slotPassengersObj.selectedDate = dateStr
     },
     NUMBER_PASSENGERS(state, payload) {
@@ -397,7 +401,7 @@ export default new Vuex.Store({
       // }
       context.commit("SLOT_SELECTED_DATE", dateStr)
 
-      console.log("FlightDate Set in Store. " + dateStr)
+      //console.log("FlightDate Set in Store. " + dateStr)
     },
     setActiveDate(context, dateStr) {
       context.commit("ACTIVE_DATE", dateStr)  // no localstorage for this. Set when entering TimeList step.

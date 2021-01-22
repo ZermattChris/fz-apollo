@@ -2,8 +2,8 @@
   <div class="timeSlot">
     <PageHeader :title="timeListerHeaderStr">
 
-      Pick a Time and choose how many passengers would like to fly.
-      <br />
+      Click on a Time to choose how many passengers would like to fly.
+      <br /><br />
         ( <v-icon color="orange">{{iconIdea}}</v-icon> Tip: Larger groups can be split into more than one time.)
 
       <br />
