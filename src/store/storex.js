@@ -5,7 +5,7 @@ import axios from "axios"
 // Dev only - remove once API is up.
 // import tmp from "./temp3.json"
 //const tempData = require("./flightsdates.js");
-var faker = require("faker")    //temp
+//var faker = require("faker")    //temp
 var dateUtils = require('date-fns')     // temp
 
 
@@ -724,7 +724,7 @@ function generateFlightsDates (usersFlightDate) {
     
     // Loop and build this day's timeslots.
     timesList.forEach(function(time) {
-      let slotAvail = faker.random.number({ min: 0, max: 7 });
+      let slotAvail = Math.floor(Math.random() * 7)
       timeslots[time] = slotAvail
     })
     
