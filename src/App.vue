@@ -209,7 +209,7 @@ export default {
     onClearData: function () {
       if (this.$store.state._DEV !== true) return
       //console.log('Clear all data:')
-      this.$store.dispatch('setNrPeople', 0)
+      //this.$store.dispatch('setNrPeople', 0)
       this.$store.dispatch('setFlightDate', '')
       this.$store.dispatch('setFlight', '')
       this.$store.dispatch('setWantsPhotos', false)

@@ -62,7 +62,7 @@ export default new Vuex.Store({
     // Cached in browser's localStorage.
     totalPassengers: initPassengersInTimeSlot(),     // This is to replace nrPeople below, as using multiple inputs over slots
 
-    nrPeople:      +localStorage.nrPeople || 0,   // deprecated. Use: totalPassengers
+    //nrPeople:      +localStorage.nrPeople || 0,   // deprecated. Use: totalPassengers
     flightDate:     localStorage.flightDate || "",
     selectedFlight: localStorage.selectedFlight || "",
     wantsPhotos:    localStorage.wantsPhotos ? JSON.parse(localStorage.wantsPhotos) : false,  // convert to bool if not undefined.
@@ -71,8 +71,8 @@ export default new Vuex.Store({
     //timeSlotLabel:  localStorage.selectedTimeslotLabel || "",
     timeSlotLabel:  localStorage.selectedTimeslotLabel || "",
 
-    contactPhone:   localStorage.contactPhone || "",
-    contactEmail:   localStorage.contactEmail || "",
+    contactPhone:   sessionStorage.contactPhone || "",
+    contactEmail:   sessionStorage.contactEmail || "",
 
     // Contains a list of (cloned) rawPassengerObj's -- one for each Passenger.
     passengerObjList: localStorage.passengerObjList ? JSON.parse(localStorage.passengerObjList) : [],
@@ -163,9 +163,9 @@ export default new Vuex.Store({
     },
 
     // User inputs, Local Storage Cached
-    CHOSEN_NR_PEOPLE(state, nr) {
-      state.nrPeople = nr
-    },
+    // CHOSEN_NR_PEOPLE(state, nr) {
+    //   state.nrPeople = nr
+    // },
     CHOSEN_DATE(state, dateStr) {
       state.flightDate = dateStr
     },
@@ -409,10 +409,10 @@ export default new Vuex.Store({
     //   localStorage.totalPassengers = nr
     // },
 
-    setNrPeople(context, nr) {
-      context.commit("CHOSEN_NR_PEOPLE", +nr)
-      localStorage.nrPeople = nr
-    },
+    // setNrPeople(context, nr) {
+    //   context.commit("CHOSEN_NR_PEOPLE", +nr)
+    //   localStorage.nrPeople = nr
+    // },
     setFlightDate(context, dateStr) {
       context.commit("CHOSEN_DATE", dateStr)
       localStorage.flightDate = dateStr
@@ -466,12 +466,12 @@ export default new Vuex.Store({
     setContactPhone(context, phoneNr) {
       //console.log('NAV_LIST', payload)
       context.commit("CONTACT_PHONE", phoneNr)
-      localStorage.contactPhone = phoneNr
+      sessionStorage.contactPhone = phoneNr
     },
     setContactEmail(context, email) {
       //console.log('NAV_LIST', payload)
       context.commit("CONTACT_EMAIL", email)
-      localStorage.contactEmail = email
+      sessionStorage.contactEmail = email
     },
 
     // ---- Passenger Sets -----
