@@ -533,15 +533,6 @@ export default new Vuex.Store({
   
   getters: {
 
-    // const rawSlotPassengers = {
-    //   'selectedDate': '',   // probably don't need this as redundant, but good for sanity at start.
-    //   'slotsList': [],
-    // }
-    // getTotalPassengersInTimeSlot: (state) => {
-
-    //   return 8
-    // },
-
     getStoredPassengersInSlot: (state) => (slotDate, slotIndex) => {
 
       if (slotDate != state.flightDate) {
@@ -579,9 +570,8 @@ export default new Vuex.Store({
 
     //--------------------
     // Passenger Getters.    
-    getNumberPassengers: (state) => {
-      // TODO
-      return state.passengers
+    getTotalPassengers: (state) => {
+      return state.totalPassengers
     },
 
 

@@ -77,6 +77,7 @@
                 <v-text-field 
                   label="Phone"
                   ref="Phone"
+                  id="Phone"
                   v-model="contactPhone"
                   background-color="white"
                   :rules="[rules.required, rules.phone]" 
@@ -513,7 +514,7 @@
     mounted() {
       // set focus to Phone Input if field is empty.
       if (this.contactPhone === '') {
-        this.$refs.Phone.focus()
+        this.$refs.Phone[0].focus()
       }
     },
 
@@ -580,7 +581,7 @@
       },
 
       nrBookingPeople: function () {
-        return this.$store.state.nrPeople
+        return this.$store.getters.getTotalPassengers
       },
       bookingDate: function () {
         return format(parseISO(this.$store.state.flightDate), 'PPPP')
@@ -610,10 +611,10 @@
         return this.$store.state.flightDate
       },
       usersGroupSize: function () {
-        return this.$store.state.nrPeople
+        return this.$store.getters.getTotalPassengers
       },
       timeListerHeaderStr: function () {
-        if (this.$store.state.nrPeople === 1) {
+        if (this.nrBookingPeople === 1) {
           return "3. Your Details"
         }
         return "3. Group Details"

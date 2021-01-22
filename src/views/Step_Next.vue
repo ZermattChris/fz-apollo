@@ -54,7 +54,7 @@
         return this.$store.state.flightDate
       },
       usersGroupSize: function () {
-        return this.$store.state.nrPeople
+        return this.$store.getters.getTotalPassengers
       },
       
     },
