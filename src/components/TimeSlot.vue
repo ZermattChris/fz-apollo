@@ -4,8 +4,6 @@
     id="slotContainer"
     @click="onClickedRow"
   >
-<!-- {{selectedSlotIndex}} <br/>
-{{ isExpanded() ? "Opened" : "Closed" }} -->
     <!-- Clock Icon -->
     <v-list-item-icon>
       <v-icon 
@@ -32,11 +30,48 @@
     <div id="passengerInputBox"
       :hidden="!isExpanded()"
     >
-      <NumberScrollerNew
+      <!-- <NumberScrollerNew
         :value="passengersInSlot"
         :max="pilotsAvail"
         @changed="onChangedNrPassengers"
-      />
+      /> -->
+          <div
+      class="addPassengersBox"
+    >
+      <v-btn
+        class="ml-7"
+        :class="(passengersInSlot == myMin) ? 'disabledButton' : ''"
+        color="pink"
+        dark
+        small
+        left
+        fab
+        absolute
+        @click="onMinus"
+      >
+        <v-icon>mdi-minus</v-icon>
+      </v-btn>
+
+      <span style="position:relative; top:8px; max-width: 100px;" class="">
+        Passengers {{passengersInSlot}}
+      </span>
+
+      <v-btn
+        class="mr-7"
+        :class="(passengersInSlot == myMax) ? 'disabledButton' : ''"
+        color="pink"
+        dark
+        small
+        right
+        fab
+        absolute
+        @click="onPlus"
+      >
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+
+
+    </div>
     </div>
 
     <!-- Total number of passengers selected in this slot (hidden if 0) -->
@@ -54,14 +89,14 @@
 </template>
 
 <script>
-  import { mdiClockOutline, mdiMinusCircleOutline, mdiClockCheck } from '@mdi/js'
+  import { mdiClockOutline, mdiPlusCircleOutline, mdiMinusCircleOutline, mdiClockCheck } from '@mdi/js'
 
-  import NumberScrollerNew from "@/components/NumberScrollerNew.vue"
+  // import NumberScrollerNew from "@/components/NumberScrollerNew.vue"
 
   export default {
     name: "TimeSlot",
     components: {
-      NumberScrollerNew,
+      // NumberScrollerNew,
     },
 
     props: {
@@ -74,11 +109,6 @@
         required: true,
         default: -1
       },
-      // isSelected: {
-      //   type: [String, Boolean],
-      //   required: true,
-      //   default: false,
-      // },
       selectedSlotIndex: {
         type: [Number],
         default: -1
@@ -101,10 +131,15 @@
         clockIcon: mdiClockOutline,
         clockIconOutline: mdiMinusCircleOutline,
         clockIconSelected: mdiClockCheck,
+      iconPlus:  mdiPlusCircleOutline,
+      iconMinus: mdiMinusCircleOutline,
 
         // Data
         originalPilotsAvail: this.pilotsAvail,
-        passengersInSlot: this.$store.getters.getStoredPassengersInSlot(this.slotDate, this.index)
+        passengersInSlot: this.$store.getters.getStoredPassengersInSlot(this.slotDate, this.index),
+
+        myMin: 0,
+        myMax: this.pilotsAvail,
       }
     },
 
@@ -120,9 +155,9 @@
       placesFree () {
         return this.originalPilotsAvail - this.passengersInSlot
       },
-      flightDate () {
-        return this.$store.flightDate
-      },
+      // flightDate () {
+      //   return this.$store.flightDate
+      // },
 
 
       flightDateChanged () {
@@ -134,9 +169,9 @@
     watch: {
 
       // Whooop! This works! I've finally remembered how to handle this reactive shit.
-      flightDateChanged: function(newVal, oldVal) {
+      flightDateChanged: function(newVal) {
         //console.log('newVal',newVal, 'oldVal',oldVal)
-        if (oldVal === this.slotDate) {
+        if (newVal !== this.slotDate) {
           // Clear everything shown visually on this slot.
           this.passengersInSlot = 0
         }
@@ -146,24 +181,40 @@
 
     methods: {
 
-      onChangedNrPassengers: function ( val) {
+    onMinus: function () {
+      if (this.passengersInSlot > this.myMin) {
+        this.passengersInSlot--
+        this.onChangedNrPassengers()
+      }
+      console.log('clicked minus. Val: ' + this.passengersInSlot)
+    },
+    onPlus: function () {
+      if (this.passengersInSlot < this.myMax) {
+        this.passengersInSlot++
+        this.onChangedNrPassengers()
+      }
+      console.log('clicked plus. Val: ' + this.passengersInSlot)
+    },
+
+
+
+      onChangedNrPassengers: function () {
         // Make sure we've set the flightDate to this TimeSlot's date.
         this.$store.dispatch('setFlightDate', this.$store.state._activeDate)
 
-        this.passengersInSlot = val
         //console.log("Passengers in slot: " + this.passengersInSlot)
         // This looks like a good place to do the updating of the Passengers in the vuex helper
         // functions. Pass in the Slot's index, Date String and number of Passengers.
-        const payload = {'index':this.index, 'timeString':this.timeStr, 'passengers':val}
+        const payload = {'index':this.index, 'timeString':this.timeStr, 'passengers':this.passengersInSlot}
         return this.$store.dispatch('setSlotPassengers', payload)
       },
 
 
 
-      onClickedRow: function (event) {
+      onClickedRow: function (ev) {
         // fire event that TimeList can listen for that deselects all of the other TimeSlots
         this.$emit('selected', this.index)
-        event.stopPropagation()   // Needed this otherwise the event was being swallowed by the TimeList.
+        ev.stopPropagation()   // Needed this otherwise the event was being swallowed by the TimeList.
       },
 
 
@@ -283,6 +334,17 @@
   color: black !important;
   background-color: white;
   border: 3px rgb(206, 86, 0) solid !important;
+}
+
+
+.addPassengersBox {
+  border: none;
+}
+.disabledButton {
+  color: silver;
+  box-shadow: none;
+  background-color: white !important;
+  border: 1px grey solid !important;
 }
 
 </style>
