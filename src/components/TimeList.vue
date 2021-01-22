@@ -77,8 +77,6 @@
 
   import TimeSlot from "@/components/TimeSlot.vue"
 
-  //import NumberScrollerSmall from "@/components/NumberScrollerSmall.vue"
-
   export default {
     name: "TimeList",
     components: {
@@ -115,12 +113,6 @@
         return this.$store.state.flightDate
       },
 
-
-      // isSelectedDate: function () {
-      //   //console.log(this.usersDate, this.date)
-      //   if (this.date === this.$store.state.flightDate) return true
-      //   return false
-      // },
       isActiveDate: function () {
         //console.log(this.usersDate, this.date)
         if (this.date === this.$store.state._activeDate) return true

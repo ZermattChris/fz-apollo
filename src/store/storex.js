@@ -68,7 +68,6 @@ export default new Vuex.Store({
     wantsPhotos:    localStorage.wantsPhotos ? JSON.parse(localStorage.wantsPhotos) : false,  // convert to bool if not undefined.
     
     timeSlot:      +localStorage.selectedTimeslot || -1,
-    //timeSlotLabel:  localStorage.selectedTimeslotLabel || "",
     timeSlotLabel:  localStorage.selectedTimeslotLabel || "",
 
     contactPhone:   sessionStorage.contactPhone || "",
@@ -87,9 +86,9 @@ export default new Vuex.Store({
 
     // Settings - API call result
     // Using an Underscore to help make it clear that this isn't User Input.
-    _maxPilots: -1,
-    _bookDaysOffset: -1,
-    _bookMonthsOffset: -1,
+    //_maxPilots: -1,
+    _bookDaysOffset: 0,
+    _bookMonthsOffset: 0,
     _videoPrice: -1,
     _flightsList: null,
 
@@ -145,9 +144,6 @@ export default new Vuex.Store({
       localStorage._timeListDates = JSON.stringify(state._timeListDates)
     },
 
-    MAX_PILOTS(state, nr) {
-      state._maxPilots = nr;
-    },
     BOOK_DAYS_OFFSET(state, daysOffset) {
       state._bookDaysOffset = daysOffset;
     },
@@ -163,9 +159,6 @@ export default new Vuex.Store({
     },
 
     // User inputs, Local Storage Cached
-    // CHOSEN_NR_PEOPLE(state, nr) {
-    //   state.nrPeople = nr
-    // },
     CHOSEN_DATE(state, dateStr) {
       state.flightDate = dateStr
     },
@@ -256,11 +249,6 @@ export default new Vuex.Store({
 
 
     // This sets passenger number for the currently Selected Date.
-    // const rawSlotPassengers = {
-    //   'selectedDate': '',   // probably don't need this as redundant, but good for sanity at start.
-    //   'slotsList': [0:{"timeString":"08:30", "passengers":3}],
-    // }
-    // slotPassengersObj
     SLOT_SELECTED_DATE(state, dateStr) {
       if (state.slotPassengersObj.selectedDate !== state.flightDate) {
         state.slotPassengersObj.selectedDate = ''
@@ -360,7 +348,6 @@ export default new Vuex.Store({
           let data = response.data;
           // Note to future self:
           // the preceeding + converts from String to Number before mutatiing.
-          context.commit("MAX_PILOTS", +data["max-pilots"]);
           context.commit("BOOK_DAYS_OFFSET", +data["book-days-from-today"]);
           context.commit("BOOK_MONTS_OFFSET", +data["book-future-months"]);
           context.commit("VIDEO_PRICE", +data["video-cost"]);
@@ -404,15 +391,6 @@ export default new Vuex.Store({
 
     // --- USER INPUTS ---
 
-    // setTotalPassengers(context, nr) {
-    //   context.commit("PASSENGERS", +nr)
-    //   localStorage.totalPassengers = nr
-    // },
-
-    // setNrPeople(context, nr) {
-    //   context.commit("CHOSEN_NR_PEOPLE", +nr)
-    //   localStorage.nrPeople = nr
-    // },
     setFlightDate(context, dateStr) {
       context.commit("CHOSEN_DATE", dateStr)
       localStorage.flightDate = dateStr
@@ -611,15 +589,6 @@ export default new Vuex.Store({
         }
       }
 
-      // OLD: Need to use totalPassengers as counter.
-      // for (let i = 0; i < state.passengerObjList.length; i++) {
-      //   if (state.passengerObjList[i].valid !== true) {
-      //     isValid = false
-      //     break
-      //   }
-      // }
-
-
       return isValid
     },
     getIsValidById: (state) => (custNr) => {
@@ -725,12 +694,8 @@ function generateFlightsDates (usersFlightDate) {
   if (testDateInt < prevDaysToShow) {
     prevDaysToShow = testDateInt
   }
-  // const nrDaysBeforeUserDateToDisplay = 7
   
   let dateObj = dateUtils.sub(new Date(usersFlightDate), { days: prevDaysToShow })
-  //let dateObj = new Date(usersFlightDate)
-  //let dateObj = dateUtils.add(usersDate, { days: 2 }); // today +2 days.
-  // let currDayKey = dateUtils.getUnixTime(new Date(startDate));
 
   let flightsdates = {}
 

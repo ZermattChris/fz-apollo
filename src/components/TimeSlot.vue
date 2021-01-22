@@ -84,12 +84,10 @@
 <script>
   import { mdiClockOutline, mdiPlusCircleOutline, mdiMinusCircleOutline, mdiClockCheck } from '@mdi/js'
 
-  // import NumberScrollerNew from "@/components/NumberScrollerNew.vue"
-
   export default {
     name: "TimeSlot",
     components: {
-      // NumberScrollerNew,
+      
     },
 
     props: {
@@ -135,10 +133,6 @@
         myMax: this.pilotsAvail,
       }
     },
-
-    // created() {
-    //   this.$store.getters.getStoredPassengersInSlot(this.slotDate, this.index)
-    // },
 
     computed: {
 

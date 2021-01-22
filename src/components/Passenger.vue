@@ -218,33 +218,8 @@
       
     },
 
-    // filters: {
-    //   capitalize: function (value) {
-    //     if (!value) return ''
-    //     value = value.toString()
-    //     return value.charAt(0).toUpperCase() + value.slice(1)
-    //   }
-    // },
-
     computed: {
 
-      // isPassengerDataValid: function () {
-      //   // 'sex': undefined,
-      //   // 'age': null,
-      //   // 'name': '',
-      //   let isValid = false
-      //   const sexTest = (this.sex === null)
-      //   const ageTest = (this.age === null || this.age <=2 || this.age === '')
-      //   const nameTest = (this.name.trim() === '')
-      //   if (sexTest || nameTest || ageTest ) { 
-      //     isValid = false 
-      //   } else {
-      //     isValid =  true
-      //   }
-      //   //console.log("Sending isValid from Passenger: " + isValid)
-      //   //this.$emit('form-valid', this.passengerNumber, isValid)   // emit event form is NOT valid
-      //   return isValid
-      // },
 
       // Trying to track the validity of a Passener's form via LocalStorage, as getting
       // pesky infite loop issues trying to update the UI with a custom event to parent.
@@ -263,25 +238,6 @@
         return isValid
       },
 
-      // myFormValidxxx: {
-      //   get() {
-      //     return this.$store.getters.getIsValidById(this.passengerNumber)
-      //   },
-      //   set() {
-      //     let isValid = false
-      //     const sexTest = (this.sex === null)
-      //     const ageTest = (this.age === null || this.age <=2 || this.age === '')
-      //     const nameTest = (this.name.trim() === '')
-      //     if (sexTest || nameTest || ageTest ) { 
-      //       isValid = false 
-      //     } else {
-      //       isValid =  true
-      //     }
-      //     const payload = {'passengerId':this.passengerNumber, 'valid':isValid}
-      //     return this.$store.dispatch('setPassengerFormValid', payload)
-      //   }
-      // },
-      
       sex: {
         get() {
           return this.$store.getters.getSexById(this.passengerNumber)
@@ -380,11 +336,6 @@
 
     watch: {
 
-      // isPassengerDataValid: function(isValid) {
-      //   this.$emit('form-valid', this.passengerNumber, isValid)   // emit event form is NOT valid
-      // },
-
-
       '$store.state._currentStep': function() {
         this.update()
       },
@@ -398,12 +349,6 @@
     },
 
     methods: {
-
-      // captureFocusSpeed: function () {
-      //   //alert('', e)
-      //   //document.getElementById('speedSlider').focus()
-      //   //e.preventDefault()
-      // },
 
       nameKeydown: function (e) {
         // Stop crap Name chars from being input. Uses the same regex as the watch on 'name' without negated.

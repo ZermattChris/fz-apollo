@@ -21,7 +21,6 @@
       hide-on-scroll
     >
 
-      
       <div 
         id="logo"
         class="d-flex align-center"
@@ -36,9 +35,8 @@
         />
       </div>
 
-
       <!-- TEMP clear data btn -->
-      <v-btn v-if="_isDEV"
+      <!-- <v-btn v-if="_isDEV"
         class="text-uppercase "
         style="position:absolute; right:5px;"
         text
@@ -46,7 +44,7 @@
       >
         <v-icon left>{{iconGarbageBin}}</v-icon>
         Reset
-      </v-btn>
+      </v-btn> -->
 
     </v-app-bar>
 
@@ -125,7 +123,7 @@
 <script>
 import NavButton from '@/components/NavButton.vue'
 
-import { format } from 'date-fns'
+import { format, add, parseISO } from 'date-fns'
 import { mdiDeleteForever, mdiChevronLeft } from '@mdi/js'
 
 export default {
@@ -155,7 +153,7 @@ export default {
       this.onEnableBackBtn(true)
     }
   },
-  beforeCreate () {
+  beforeMount () {
 
     /** TODO: Need to run some checks looking for stale data.
               It's possible that a User fills out everything, with a specific
@@ -167,7 +165,20 @@ export default {
               Go back to the first Step that has clean data, and let the user know that there
               was old/stale data that needs to be reinput.
     */
-    //console.log('beforeCreate on App.vue')
+    if (this.flightDate !== '') {
+      //const earliestPossFlightDateISO = add(toDate(Date.now()), {days:+9})    // debug by hard coding the offset.
+      const earliestPossFlightDateISO = add(Date.now(), {days:this.$store.state._bookDaysOffset})
+
+      const flightDateISO = parseISO(this.$store.state.flightDate)
+      if (earliestPossFlightDateISO > flightDateISO) {
+        //console.log("Stale data, needs resetting of sorts! earliestPossFlightDateISO", earliestPossFlightDateISO, ". Stored flightDate: ", flightDateISO)
+        this.$store.dispatch('setFlightDate', '')
+        this.$store.dispatch('setFlight', '')
+        this.$store.dispatch('setWantsPhotos', false)
+        this.$store.dispatch('clearSlotsPassengers')
+      }
+    }
+    
   },
 
   updated () {
@@ -209,7 +220,6 @@ export default {
     onClearData: function () {
       if (this.$store.state._DEV !== true) return
       //console.log('Clear all data:')
-      //this.$store.dispatch('setNrPeople', 0)
       this.$store.dispatch('setFlightDate', '')
       this.$store.dispatch('setFlight', '')
       this.$store.dispatch('setWantsPhotos', false)
@@ -222,7 +232,9 @@ export default {
 
       this.$store.dispatch('clearSlotsPassengers')
 
-      this.$router.push('/') // return to step 1
+      if (this.$route.name !== 'Start') {
+        this.$router.push('/') // return to step 1
+      }
       window.location.reload()
     },
   },

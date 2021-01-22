@@ -147,30 +147,6 @@ export default {
     //   this.$refs.flightDateInput.focus()
     // }, 500)
 
-
-    // //await this.$store.dispatch('timeListDates').catch((err) => { console.error(err) })
-    // // Run code to see what the max nr of pilots available in a time slot for this day are.
-    // const maxAvailPilotsOnDay = this.getMaxPilotsForDay()
-    // // if Nr People chosen is over the above value, then display the too many pilots
-    // // message below the Nr People input.
-    // // If no Max nr of pilots yet available (User hasn't selected a date yet),
-    // // then this.getMaxPilotsForDay() returns 0, so treat that as valid.
-
-    // // If no User Date has been selected yet, then we can't know how many Max Pilots
-    // // are available for a given date. Just set the Info message to hidden and return.
-    // if ( this.$store.state.flightDate !== '' ) {
-    //   this.nrPeopleExceedsMaxPilots = false
-    //   return
-    // }
-
-
-    // if (maxAvailPilotsOnDay === 0 ) {
-    //   this.nrPeopleExceedsMaxPilots = false
-    // } else if  (maxAvailPilotsOnDay < this.nrPeople ) {
-    //   this.nrPeopleExceedsMaxPilots = true
-    // } else {
-    //   this.nrPeopleExceedsMaxPilots = false
-    // }
   },
 
 
@@ -184,39 +160,6 @@ export default {
     forWatchingBothFlightDateAndFlightType() {
       return `${this.flightDate}|${this.flightChosen}`;
     },
-
-    // new VueX store...
-    // Not used here anymore. Deprecated.
-    // nrPeople: {
-    //   get() {
-    //     return this.$store.getters.getTotalPassengers
-    //   },
-    //   set(nr) {
-
-    //     // If no User Date has been selected yet, then we can't know how many Max Pilots
-    //     // are available for a given date. Just set the Info message to hidden and return.
-    //     if ( this.$store.state.flightDate !== '' ) {
-          
-    //       // Run code to see what the max nr of pilots available in a time slot for this day are.
-    //       const maxAvailPilotsOnDay = this.getMaxPilotsForDay()
-    //       // if Nr People chosen is over the above value, then display the too many pilots
-    //       // message below the Nr People input.
-    //       if (maxAvailPilotsOnDay < nr) {
-    //         this.nrPeopleExceedsMaxPilots = true
-    //       } else {
-    //         this.nrPeopleExceedsMaxPilots = false
-    //       }
-
-    //     } else {
-    //         this.nrPeopleExceedsMaxPilots = false
-    //     }
-
-    //     return this.$store.dispatch('setNrPeople', nr)
-    //   }
-    // },
-    // getMaxPilots: function () {
-    //   return this.maxGroupSize
-    // },
 
     flightDate: {
       get() {
@@ -273,17 +216,6 @@ export default {
       return this.$store.state._flightsList
     },
 
-    // getMaxMessage: function () {
-    //   return "Maximum per Booking is: " + this.maxGroupSize
-    // },
-
-    // isValidNrPeople: function () {
-    //   // this needs to come out for new logic...
-    //   if (this.nrPeople > 0 && this.nrPeople <= this.maxGroupSize) {
-    //     return true
-    //   }
-    //   return false
-    // },
     isValidFlightDate: function () {
       if (this.flightDate !== '' && this.flightDate !== null) {
         return true
@@ -296,12 +228,7 @@ export default {
       }
       return false
     },
-    // areAllInputsValid: function () {
-    //   if (this.isValidNrPeople && this.isValidFlightDate && this.isValidFlightChosen) {
-    //     return true
-    //   }
-    //   return false
-    // },
+
     formatISODate: function () {
       if (this.flightDate === '') return '' // Guard against trying to parse an empty string as a Date.
       const myDate = parseISO(this.flightDate)
@@ -312,48 +239,6 @@ export default {
     }
   },
   methods: {
-
-    // async onFlightDateDialogClose() {
-
-    //   // Save the User's date value.
-    //   this.$refs.dialog.save(this.flightDate)
-
-    //   await this.$store.dispatch('timeListDates').catch((err) => { console.error(err); })
-    //   //console.log("Loaded Dates and Times for: " + this.flightDate)
-
-
-    //   // Run code to see what the max nr of pilots available in a time slot for this day are.
-    //   const maxAvailPilotsOnDay = this.getMaxPilotsForDay()
-    //   // if Nr People chosen is over the above value, then display the too many pilots
-    //   // message below the Nr People input.
-    //   if (maxAvailPilotsOnDay < this.nrPeople) {
-    //     this.nrPeopleExceedsMaxPilots = true
-    //   } else {
-    //     this.nrPeopleExceedsMaxPilots = false
-    //   }
-
-    // },
-
-    // // Look up the max number of avail pilots for the User's selected date.
-    // getMaxPilotsForDay: function () {
-      
-    //   if (this.$store.state._timeListDates === null) return 0
-
-    //   for (const [key, value] of Object.entries(this.$store.state._timeListDates)) {
-    //     //console.log(`${key}: ${value}`);
-    //     if (key === this.flightDate) {
-    //       // found it!
-    //       let maxNrPilotsFound = 0
-    //       // eslint-disable-next-line
-    //       for (const [key2, value2] of Object.entries(value)) {
-    //         if (value2 > maxNrPilotsFound) maxNrPilotsFound = value2
-    //       }
-    //       return maxNrPilotsFound
-    //     }
-    //   }
-
-    // },
-
 
     scrollToFormTop: function () {
       setTimeout(() => { this.$scrollTo('#chooseFlightDate', 500) }, 100)
@@ -389,12 +274,7 @@ export default {
       }
       return newFlightsList
     },
-    // onRule_whichFlight: function () {
-    //   console.log('Date has changed, run rules to check that "Which Flight?" is still valid. (if not, then set to empty)')
-    // },
-    // showBigGroupWarning: function () {
-    //   this.bigGroupDialog = true
-    // }
+
   },
 
   watch: {
@@ -422,14 +302,7 @@ export default {
       //this.nrPeopleEnabled = true
       console.log('Chosen Date: ' + this.flightDate)
     },
-    // bigGroupDialog: function (val) {
-    //   // set focus to Close button when the dialog is displayed.
-    //   if (val === true) {
-    //     setTimeout(() => {
-    //       this.$refs.closeBigGroupDialog.$el.focus()
-    //     })
-    //   }
-    // },
+
   },
 
 

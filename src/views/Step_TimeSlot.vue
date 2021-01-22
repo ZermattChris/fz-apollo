@@ -226,10 +226,6 @@
 
       timeListerHeaderStr: function () {
         if (this.isObjEmpty(this.$store.state._flightsList)) return
-        // Need to return the matching Flight Description from store.flightsList object.store.
-        //const userFlightKey = this.$store.state.selectedFlight
-        //console.log('userFlightKey in list?: ', this.$store.state._flightsList)
-        //const flightDesc = this.$store.state._flightsList[userFlightKey]
         return "2. How Many are Flying?"
       }
     },
@@ -250,7 +246,7 @@
       },
       
       onRowSelected: function () {
-      //clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
+        //clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
 
         // update the autoheight on Swiper to allow for TimeSlot height changes
         // when toggling passenger inputs. Needs a timeout to work.
@@ -258,23 +254,6 @@
           this.swiper.updateAutoHeight()
         }, 50)
 
-        
-        //this.swiper.update()
-
-        // chosenSlot is zero based.
-        //console.log('Step_TimeSlot -> clickedRow().  chosenDate', chosenDate, 'chosenSlot', chosenSlot, chosenSlotLabel)
-        //this.slotLabel = chosenSlotLabel
-        // this.$store.state.timeSlot = chosenSlot
-        // let payload = {'slot':chosenSlot, 'label':chosenSlotLabel}
-        // this.userSelectedSlot = payload
-        // // this.$store.state.flightDate = chosenDate
-        // this.usersCurrDate = chosenDate
-        // // Set 'Time' to true in the store _navList
-        // payload = {'Time': true}
-        // this.$store.dispatch('setNavListItem', payload)
-
-        // Push the TimeSlot Swiper to top of screen
-        //this.scrollToTimeSlotTop()
       },
 
       setUserDate: function (dateStr) {
@@ -284,23 +263,6 @@
       },
 
     },
-
-    // watch: {
-
-    //   forChangedNrPassengers() {
-    //     // const [oldPropertyA, oldProvertyB] = oldVal.split('|');
-    //     // const [newPropertyA, newProvertyB] = newVal.split('|');
-    //     //console.log('Both Flight Date and Type changed. PropA: ' + oldPropertyA + '!=' + newPropertyA + ' -- PropB: ' + oldProvertyB + '!=' + newProvertyB)
-        
-    //     // LOAD VueX - grab timesListDates from API.
-    //     // Only fire if the Which Flight? isn't empty.
-    //     if (this.flightChosen === '') return
-    //     //console.log('Flight Date + Flight Type chnged. Preload TLGroup')
-    //     this.$store.dispatch('timeListDates')
-    //     this.onValueChanged()
-    //   },
-        
-    // },
 
   }
 

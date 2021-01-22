@@ -52,14 +52,6 @@
       )
     },
 
-
-    // watch: {
-    //   '$store.state._currentStep': function() {
-    //     //console.log(this.$store.state._currentStep)
-    //     this.update()
-    //   }
-    // },
-
     methods: {
       // ! Issues here. route.name resolves to null ??
       // call to force the Continue button to enable/disable 

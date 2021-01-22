@@ -715,10 +715,6 @@
         //}
       },
 
-      // onPhoneKeyPress: function (ev) {
-      //   ev.target.value = this.stripPhoneJunkChars(ev.target.value)
-      // },
-
       stripPhoneJunkOnBlur: function (ev) {
         // kill off trailing spaces and replace multiple spaces with a single one.
         let cleanedStr = ev.target.value.replace(/[ ]+$/, '')
@@ -811,16 +807,7 @@
       },
 
       contactValid: function () {
-        // //console.log('contactValid changed', this.contactValid)
-        // if (this.contactValid === true && this.activePanelsList.length === 0) {
-        //   //console.log('open first expansion', this.contactValid)
-        //   this.activePanelsList = [0]
-        //   //this.$scrollTo('#expand-panels', 500)
-        //   // attempt to jump to opened Expansion panels if form valid.
-        //   //this.scrollToFirstUserIfValid()
-        // } else {
-        //   this.activePanelsList = []
-        // }
+
       },
 
     }
