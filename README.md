@@ -1,4 +1,5 @@
 # apollo
+[![Netlify Status](https://api.netlify.com/api/v1/badges/53661768-2891-4a91-aca6-905373c53da4/deploy-status)](https://app.netlify.com/sites/fz-apollo/deploys)
 
 ## Project setup
 ```
