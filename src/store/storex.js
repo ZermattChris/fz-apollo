@@ -39,25 +39,15 @@ const initPassengersInTimeSlot = function () {
 
   let slotPassObj = localStorage.slotPassengersObj ? JSON.parse(localStorage.slotPassengersObj) : {}
   let count = 0
-  // for (const slotObj of slotPassObj) {
-  //   if ( slotObj !== null) {
-  //     count = count + slotObj.passengers
-  //   }
-  // }
-
-  // for (const [key, value] of Object.entries(slotPassObj)) {
-  //   console.log(key, value.passengers)
-  // }
-
   let passengersCountList = slotPassObj.slotsList
-
-  for (const slotInfo of passengersCountList){
-    //console.log(slotInfo.passengers)
-    if ( slotInfo !== null) {
-      count = count + slotInfo.passengers
+  if (passengersCountList !== undefined && passengersCountList !== null) {
+    for (const slotInfo of passengersCountList){
+      //console.log(slotInfo.passengers)
+      if ( slotInfo !== null) {
+        count = count + slotInfo.passengers
+      }
     }
   }
-
   return count
 }
 
@@ -296,7 +286,7 @@ export default new Vuex.Store({
       for (const slot of state.slotPassengersObj.slotsList) {
         // Need to guard against 'unset' slots (ones with no entry set yet), 
         // as this resolves to 'undefined'. Just skip, should be okay.
-        if (slot !== undefined) {
+        if (slot !== undefined && slot !== null) {
           //console.log('time: ' + slot.timeString + '  passengers: ' + slot.passengers)
           count = count + slot.passengers
         }
@@ -309,8 +299,9 @@ export default new Vuex.Store({
     },
 
     RESET_PASSENGERS(state) {
+      state.totalPassengers = 0
       state.slotPassengersObj = rawSlotPassengers
-      state.slotPassengersObj.selectedDate = ''
+      localStorage.removeItem('slotPassengersObj')
     },
 
 
@@ -524,7 +515,7 @@ export default new Vuex.Store({
     clearSlotsPassengers(context) {
       //console.log('slotIndex: ' + payload.index + ' TimeStr: ' + payload.timeString + ' Passengers: ' + payload.passengers)
       context.commit("RESET_PASSENGERS")
-      localStorage.slotPassengersObj = JSON.stringify(context.state.slotPassengersObj)
+      localStorage.removeItem('slotPassengersObj')
     },
     setSlotPassengers(context, payload) {
       //console.log('slotIndex: ' + payload.index + ' TimeStr: ' + payload.timeString + ' Passengers: ' + payload.passengers)

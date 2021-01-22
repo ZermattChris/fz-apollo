@@ -380,6 +380,7 @@ export default {
         this.$store.dispatch('setFlightDate', dateStr)
         this.$store.dispatch('flightOptions')
         this.buildFlightList()
+        this.$store.dispatch('clearSlotsPassengers')
       }
     },
     flightChosen: {
