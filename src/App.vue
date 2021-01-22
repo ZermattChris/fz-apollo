@@ -220,6 +220,9 @@ export default {
       this.$store.dispatch('setContactPhone', '')
       this.$store.dispatch('setContactEmail', '')
       localStorage.passengerObjList = []
+
+      this.$store.dispatch('clearSlotsPassengers')
+
       this.$router.push('/') // return to step 1
       window.location.reload()
     },

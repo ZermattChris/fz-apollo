@@ -61,7 +61,7 @@ export default new Vuex.Store({
     passengerObjList: localStorage.passengerObjList ? JSON.parse(localStorage.passengerObjList) : [],
 
     // Holds a list of objects that relate to the chosen Time Slots on a given date.
-    slotPassengersObj: localStorage.SlotPassengers ? JSON.parse(localStorage.SlotPassengers) : rawSlotPassengers,
+    slotPassengersObj: localStorage.slotPassengersObj ? JSON.parse(localStorage.slotPassengersObj) : rawSlotPassengers,
 
     // Active Date is used by the TimeList / TimeSlot components
     // and is the date the user has clicked, but not made the FlightDate
@@ -251,10 +251,10 @@ export default new Vuex.Store({
       }
       state.slotPassengersObj.selectedDate = dateStr
     },
+
     NUMBER_PASSENGERS(state, payload) {
       //console.log("Mutating NUMBER_PASSENGERS", payload);
-      // If stored date and flightDate don't match, then clear slotPassengersObj
-      // TODO: This isn't clearing the old selected inputs properly when changing date!
+      // If stored date and flightDate don't match, then reinstanciate slotPassengersObj
       if (state.slotPassengersObj.selectedDate !== state.flightDate) {
         state.slotPassengersObj = rawSlotPassengers
         state.slotPassengersObj.selectedDate = state.flightDate
@@ -279,6 +279,11 @@ export default new Vuex.Store({
       // Need to add up all passengers and set this reactive property.
       state.totalPassengers = count
 
+    },
+
+    RESET_PASSENGERS(state) {
+      state.slotPassengersObj = rawSlotPassengers
+      state.slotPassengersObj.selectedDate = ''
     },
 
 
@@ -488,11 +493,19 @@ export default new Vuex.Store({
 
     // ---- TimeSlot Sets -----
 
+    // Need this to 'reset' localStorage for testing.
+    clearSlotsPassengers(context) {
+      //console.log('slotIndex: ' + payload.index + ' TimeStr: ' + payload.timeString + ' Passengers: ' + payload.passengers)
+      context.commit("RESET_PASSENGERS")
+      localStorage.slotPassengersObj = JSON.stringify(context.state.slotPassengersObj)
+    },
     setSlotPassengers(context, payload) {
       //console.log('slotIndex: ' + payload.index + ' TimeStr: ' + payload.timeString + ' Passengers: ' + payload.passengers)
-      context.commit("NUMBER_PASSENGERS", payload);
+      if (payload === null) {
+        console.log("Payload is null")
+      }
+      context.commit("NUMBER_PASSENGERS", payload)
       localStorage.slotPassengersObj = JSON.stringify(context.state.slotPassengersObj)
-      //savePassengerObjListToLocalStorage(context)
     },
 
 
@@ -514,7 +527,7 @@ export default new Vuex.Store({
       }
 
       let slotsList = state.slotPassengersObj.slotsList[slotIndex]
-      if (slotsList === undefined) {
+      if (slotsList === undefined || slotsList === null) {
         //console.log(' -> No passengers yet in this slot: ', slotIndex)
         return 0
       }

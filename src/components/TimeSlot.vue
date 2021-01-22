@@ -30,48 +30,41 @@
     <div id="passengerInputBox"
       :hidden="!isExpanded()"
     >
-      <!-- <NumberScrollerNew
-        :value="passengersInSlot"
-        :max="pilotsAvail"
-        @changed="onChangedNrPassengers"
-      /> -->
-          <div
-      class="addPassengersBox"
-    >
-      <v-btn
-        class="ml-7"
-        :class="(passengersInSlot == myMin) ? 'disabledButton' : ''"
-        color="pink"
-        dark
-        small
-        left
-        fab
-        absolute
-        @click="onMinus"
+      <div
+        class="addPassengersBox"
       >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
+        <v-btn
+          class="ml-7"
+          :class="(passengersInSlot == myMin) ? 'disabledButton' : ''"
+          color="pink"
+          dark
+          small
+          left
+          fab
+          absolute
+          @click="onMinus"
+        >
+          <v-icon>mdi-minus</v-icon>
+        </v-btn>
 
-      <span style="position:relative; top:8px; max-width: 100px;" class="">
-        Passengers {{passengersInSlot}}
-      </span>
+        <span style="position:relative; top:8px; max-width: 100px;" class="">
+          Passengers {{passengersInSlot}}
+        </span>
 
-      <v-btn
-        class="mr-7"
-        :class="(passengersInSlot == myMax) ? 'disabledButton' : ''"
-        color="pink"
-        dark
-        small
-        right
-        fab
-        absolute
-        @click="onPlus"
-      >
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
-
-
-    </div>
+        <v-btn
+          class="mr-7"
+          :class="(passengersInSlot == myMax) ? 'disabledButton' : ''"
+          color="pink"
+          dark
+          small
+          right
+          fab
+          absolute
+          @click="onPlus"
+        >
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </div>
     </div>
 
     <!-- Total number of passengers selected in this slot (hidden if 0) -->
@@ -143,8 +136,8 @@
       }
     },
 
-    // beforeUpdate() {
-    //   if (this.isSelected === false) this.passengersInSlot = 0
+    // created() {
+    //   this.$store.getters.getStoredPassengersInSlot(this.slotDate, this.index)
     // },
 
     computed: {
@@ -155,9 +148,6 @@
       placesFree () {
         return this.originalPilotsAvail - this.passengersInSlot
       },
-      // flightDate () {
-      //   return this.$store.flightDate
-      // },
 
 
       flightDateChanged () {
@@ -181,20 +171,20 @@
 
     methods: {
 
-    onMinus: function () {
-      if (this.passengersInSlot > this.myMin) {
-        this.passengersInSlot--
-        this.onChangedNrPassengers()
-      }
-      console.log('clicked minus. Val: ' + this.passengersInSlot)
-    },
-    onPlus: function () {
-      if (this.passengersInSlot < this.myMax) {
-        this.passengersInSlot++
-        this.onChangedNrPassengers()
-      }
-      console.log('clicked plus. Val: ' + this.passengersInSlot)
-    },
+      onMinus: function () {
+        if (this.passengersInSlot > this.myMin) {
+          this.passengersInSlot--
+          this.onChangedNrPassengers()
+        }
+        console.log('clicked minus. Val: ' + this.passengersInSlot)
+      },
+      onPlus: function () {
+        if (this.passengersInSlot < this.myMax) {
+          this.passengersInSlot++
+          this.onChangedNrPassengers()
+        }
+        console.log('clicked plus. Val: ' + this.passengersInSlot)
+      },
 
 
 
@@ -236,8 +226,6 @@
         return 'success darken-2'
       },
       getClockIcon: function () {
-        // TODO This needs to be updated when selecting a Slot works, to
-        // TODO show a clock icon when there are passengers on this slot.
         if (this.pilotsAvail == 0) return this.clockIconOutline
         return this.clockIcon
       },
