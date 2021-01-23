@@ -60,13 +60,16 @@ export default {
 
   // Lifecycle Hooks
   mounted () {
-    this.currentLangISO = this.getBroswerLangIfMatch()
- 
+
     const langKeys = Object.keys(this.$i18n.messages)
     langKeys.forEach((key) => {
       //console.log(key)
       this.langISOList.push(key)
     })
+
+    this.currentLangISO = this.getBroswerLangIfMatch()
+    this.$i18n.locale = this.currentLangISO
+    //console.log(this.currentLangISO)
 
   },
 
@@ -81,13 +84,14 @@ export default {
 
     getBroswerLangIfMatch: function () {
       const browserISO = this.getBrowserLocale({ countryCodeOnly: true })
+      //console.log('browserISO',browserISO)
       // See if we have a match in our lang list, otherwise default to 'en'
       const result = this.langISOList.includes(browserISO)
       if (result) return browserISO
       return 'en'   // default lang.
     },
     getBrowserLocale: function (options = {}) {
-      const defaultOptions = { countryCodeOnly: false }
+      const defaultOptions = { countryCodeOnly: true }
       const opt = { ...defaultOptions, ...options }
 
       const navigatorLocale =

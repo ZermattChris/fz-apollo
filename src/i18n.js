@@ -11,7 +11,7 @@ function loadLocaleMessages () {
     if (matched && matched.length > 1) {
       const locale = matched[1]
       messages[locale] = locales(key)
-      console.log(locale)
+      //console.log(locale)
     }
   })
   //console.log(messages)

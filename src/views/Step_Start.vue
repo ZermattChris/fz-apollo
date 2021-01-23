@@ -20,6 +20,8 @@
 
         <v-date-picker 
           v-model="flightDate" 
+          first-day-of-week="0"
+          :locale="$i18n.locale" 
           scrollable
           show-current
           elevation="4"
