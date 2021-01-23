@@ -1,0 +1,11 @@
+{
+  "step-info": {
+    "message": "hello i18n !!",
+    "title": "날짜 및 항공편",
+    "description": "This is the main screen..."
+  },
+  "step-timeslot": {
+    "title": "About screen",
+    "description": "That's what this is all about...."
+  }
+}
