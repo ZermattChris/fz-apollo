@@ -8,6 +8,7 @@
   >
     <template v-slot:activator>
       <v-btn
+        class="white--text text-uppercase"
         v-model="fabModel"
         fab
         small
@@ -20,7 +21,7 @@
       v-for="(lang, index) in langISOList"
       :key="index"
       :hidden="lang == currentLangISO"
-      class="primary--text"
+      class="primary--text text-uppercase"
       fab
       x-small
       color="white"
@@ -49,17 +50,55 @@ export default {
     return {
       
       fabModel: false,
-      currentLangISO: 'EN',
-      langISOList: ['EN','DE','FR','KR']
+
+      langISOList: ['en','de','fr','kr'],
+      // Sets default language to Browser lang (if a match)
+      currentLangISO: 'en',
 
     }
   },
+
+  // Lifecycle Hooks
+  mounted () {
+    this.currentLangISO = this.getBroswerLangIfMatch()
+    console.log('Loaded default lang: ', this.currentLangISO)
+  },
+
 
   methods: {
     onChooseLanguage: function (lang) {
       //console.log(lang)
       this.currentLangISO = lang
     },
+
+
+    getBroswerLangIfMatch: function () {
+      const browserISO = this.getBrowserLocale({ countryCodeOnly: true })
+      // See if we have a match in our lang list, otherwise default to 'en'
+      const result = this.langISOList.includes(browserISO)
+      if (result) return browserISO
+      return 'en'   // default lang.
+    },
+    getBrowserLocale: function (options = {}) {
+      const defaultOptions = { countryCodeOnly: false }
+      const opt = { ...defaultOptions, ...options }
+
+      const navigatorLocale =
+        navigator.languages !== undefined
+          ? navigator.languages[0]
+          : navigator.language
+
+      if (!navigatorLocale) {
+        return undefined
+      }
+
+      const trimmedLocale = opt.countryCodeOnly
+        ? navigatorLocale.trim().split(/-|_/)[0]
+        : navigatorLocale.trim()
+
+      return trimmedLocale
+    }
+
     
   },
 
