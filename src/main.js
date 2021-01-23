@@ -9,6 +9,7 @@ Vue.use(VueI18n)
 
 import Bugsnag from '@bugsnag/js'
 import BugsnagPluginVue from '@bugsnag/plugin-vue'
+import i18n from './i18n'
 Bugsnag.start({
   apiKey: 'cb57aa27093fb50e11a5f5c1873a8923',
   plugins: [new BugsnagPluginVue()]
@@ -41,6 +42,7 @@ new Vue({
   router,
   store,
   vuetify,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
 

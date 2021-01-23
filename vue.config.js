@@ -1,5 +1,6 @@
 module.exports = {
   transpileDependencies: ["vuetify"],
+
   chainWebpack: (config) => {
     config.module
       .rule("i18n")
@@ -9,7 +10,17 @@ module.exports = {
       .loader("@kazupon/vue-i18n-loader")
       .end();
   },
+
   configureWebpack: {
     devtool: "source-map",
   },
+
+  pluginOptions: {
+    i18n: {
+      locale: 'en',
+      fallbackLocale: 'en',
+      localeDir: 'locales',
+      enableInSFC: false
+    }
+  }
 };
