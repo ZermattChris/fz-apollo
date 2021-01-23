@@ -21,6 +21,9 @@
       hide-on-scroll
     >
 
+      <!-- Test i18n message. -->
+      <div>{{ $t('step-info.message') }}</div>
+
       <div 
         id="logo"
         class="d-flex align-center"

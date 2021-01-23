@@ -4,12 +4,13 @@ import router from './router'
 import store from "./store/storex"
 import vuetify from './plugins/vuetify'
 
-import VueI18n from 'vue-i18n'
-Vue.use(VueI18n)
+// import VueI18n from 'vue-i18n'
+// Vue.use(VueI18n)
+import i18n from './i18n'
 
 import Bugsnag from '@bugsnag/js'
 import BugsnagPluginVue from '@bugsnag/plugin-vue'
-import i18n from './i18n'
+
 Bugsnag.start({
   apiKey: 'cb57aa27093fb50e11a5f5c1873a8923',
   plugins: [new BugsnagPluginVue()]

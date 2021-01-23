@@ -1,7 +1,7 @@
 {
   "step-info": {
-    "message": "hello i18n !!",
-    "title": "Date & Flight",
+    "message": "Hallo i18n !!",
+    "title": "Datum & Flug",
     "description": "This is the main screen..."
   },
   "step-timeslot": {

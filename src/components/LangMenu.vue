@@ -51,7 +51,7 @@ export default {
       
       fabModel: false,
 
-      langISOList: ['en','de','fr','ko'],
+      langISOList: [],
       // Sets default language to Browser lang (if a match)
       currentLangISO: 'en',
 
@@ -61,7 +61,16 @@ export default {
   // Lifecycle Hooks
   mounted () {
     this.currentLangISO = this.getBroswerLangIfMatch()
-    console.log('Loaded default lang: ', this.currentLangISO)
+    //console.log('Loaded default lang: ', this.currentLangISO)
+    //console.log(this.$i18n.messages)
+
+    const langKeys = Object.keys(this.$i18n.messages)
+    
+    langKeys.forEach((key) => {
+      //console.log(key)
+      this.langISOList.push(key)
+    })
+
   },
 
 
@@ -69,6 +78,7 @@ export default {
     onChooseLanguage: function (lang) {
       //console.log(lang)
       this.currentLangISO = lang
+      this.$i18n.locale = lang
     },
 
 
