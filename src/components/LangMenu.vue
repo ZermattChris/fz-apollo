@@ -51,7 +51,7 @@ export default {
       
       fabModel: false,
 
-      langISOList: ['en','de','fr','kr'],
+      langISOList: ['en','de','fr','ko'],
       // Sets default language to Browser lang (if a match)
       currentLangISO: 'en',
 
