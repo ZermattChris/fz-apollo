@@ -1,7 +1,7 @@
 <template>
   <div class="page" id="step-start" ref="stepStart">
 
-    <PageHeader title="1. Get Started...">
+    <PageHeader title="1. Date and Flight">
       Why we ask you for all of this information?
       To help us make sure you get the best possible experience...
       To make sure that we provide the highest levels of safety..

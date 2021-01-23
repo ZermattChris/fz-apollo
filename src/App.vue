@@ -27,13 +27,78 @@
       >
         <v-img
           alt="FlyZermatt Logo"
-          class="shrink mr-2"
+          class="shrink ml-1"
           contain
           src="@/assets/FlyZermatt-logo-light.svg"
           transition="scale-transition"
           width="220"
         />
       </div>
+
+      <!-- Language Switch Menu -->
+      <LangMenu
+      
+      />
+      
+       <!-- <v-btn
+        id="language-menu"
+        fab
+        right
+        center
+        dark
+        small
+      >
+        {{ currentLangISO }}
+      </v-btn> -->
+
+
+
+
+
+    <!-- <v-speed-dial
+      id="language-menu"
+      v-model="fabModel"
+      direction="left"
+      :open-on-hover="hover"
+      :transition="transition"
+    >
+      <template v-slot:activator>
+        <v-btn
+          v-model="fabModel"
+          fab
+          small
+        >
+          {{ currentLangISO }}
+        </v-btn>
+      </template>
+      <v-btn
+        class="primary--text"
+        fab
+        small
+        color="white"
+      >
+        DE
+      </v-btn>
+      <v-btn
+        class="primary--text"
+        fab
+        small
+        color="white"
+      >
+        FR
+      </v-btn>
+      <v-btn
+        class="primary--text"
+        fab
+        small
+        color="white"
+      >
+        KR
+      </v-btn>
+    </v-speed-dial> -->
+
+
+
 
       <!-- TEMP clear data btn -->
       <!-- <v-btn v-if="_isDEV"
@@ -122,6 +187,7 @@
 
 <script>
 import NavButton from '@/components/NavButton.vue'
+import LangMenu from '@/components/LangMenu.vue'
 
 import { format, add, parseISO } from 'date-fns'
 import { mdiDeleteForever, mdiChevronLeft } from '@mdi/js'
@@ -131,8 +197,20 @@ export default {
 
   components: {
     NavButton,
+    LangMenu,
   },
 
+  // Reactive data
+  data: () => ({
+    overlay: false,     // blocks UI until Settings API JSON returns.
+    overlayDelay: 500,  // Milliseconds before loading block is shown...
+
+    iconPrevChevron: mdiChevronLeft,
+    iconGarbageBin: mdiDeleteForever,
+    
+    canGoBack:   false,
+
+  }),
   // Lifecycle Hooks
   async mounted () {
     try {
@@ -188,18 +266,6 @@ export default {
     this.$refs.ContinueBtn.update()
   },
 
-  // Reactive data
-  data: () => ({
-    overlay: false,     // blocks UI until Settings API JSON returns.
-    overlayDelay: 500,  // Milliseconds before loading block is shown...
-
-    iconPrevChevron: mdiChevronLeft,
-    iconGarbageBin: mdiDeleteForever,
-    
-    canGoBack:   false,
-    // canContinue: false,
-
-  }),
 
   // Methods
   methods: {
@@ -325,5 +391,10 @@ h3 > .v-icon {
   visibility: hidden;
 }
 
+#language-menu {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+}
 
 </style>
