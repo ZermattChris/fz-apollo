@@ -2,9 +2,7 @@
   <div class="page" id="step-start" ref="stepStart">
 
     <PageHeader :title="'1. ' + $t('step-info.title')">
-      Why we ask you for all of this information?
-      To help us make sure you get the best possible experience...
-      To make sure that we provide the highest levels of safety..
+      {{$t('step-info.description')}}
     </PageHeader>
 
     <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12 pt-sm-2" style="max-width:600px;">
@@ -13,7 +11,7 @@
          <!-- ***************** Flight Date ******************** -->
       <h3 id="chooseFlightDate" class="disable-select">
         <v-icon :color="flightDate ? 'success' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
-        Flight Date
+        {{$t('step-info.flightdate')}}
       </h3>
       
       <div class="controls mb-0 mb-sm-2 mb-md-4">
@@ -41,7 +39,7 @@
         <v-icon  
           :color="flightChosen ? 'success' : 'primary'">{{ flightOptionsDropMenuList ? stepIconCompleted : stepIcon }}
         </v-icon>
-        Which Flight?
+        {{$t('step-info.whichflight')}}
       </h3>
       <div class="controls mb-0 mb-sm-6 mb-md-10">
         <v-select
@@ -66,7 +64,7 @@
       <!-- ***************** Photos + Videos ******************** -->
       <h3>
         <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
-        Photos + Videos (optional)
+        {{$t('step-info.photosvideos')}}
       </h3>
       <div class="controls mb-0 mb-sm-6">
         <!-- Photos and Videos included? -->
@@ -76,7 +74,7 @@
           class="ml-10"
           color="success"
           inset 
-          :label="`Filmed with GoPros on specially built sticks for some great memories!`"
+          :label="$t('step-info.photosvideos-description')"
         ></v-switch>
       </div>
 

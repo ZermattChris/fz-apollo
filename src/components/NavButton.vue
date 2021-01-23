@@ -7,7 +7,7 @@
       :disabled="isDisabled"
       @click="navigate"
     >
-      Continue
+      {{$t('nav.continue')}}
       <v-icon right>{{iconNextArrow}}</v-icon>
     </v-btn>
 
