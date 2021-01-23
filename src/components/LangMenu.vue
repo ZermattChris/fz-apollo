@@ -61,11 +61,8 @@ export default {
   // Lifecycle Hooks
   mounted () {
     this.currentLangISO = this.getBroswerLangIfMatch()
-    //console.log('Loaded default lang: ', this.currentLangISO)
-    //console.log(this.$i18n.messages)
-
+ 
     const langKeys = Object.keys(this.$i18n.messages)
-    
     langKeys.forEach((key) => {
       //console.log(key)
       this.langISOList.push(key)
