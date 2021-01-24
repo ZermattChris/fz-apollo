@@ -1,6 +1,7 @@
 {
   "nav": {
-    "continue": "계속하다"
+    "continue": "계속하다",
+    "back": "반환"
   },
   "step-info": {
     "test": "hello i18n !!",
@@ -12,7 +13,13 @@
     "photosvideos-description": "특별한 추억을 위해 특별히 제작 된 스틱에 GoPro로 촬영했습니다!"
   },
   "step-timeslot": {
-    "title": "About screen",
-    "description": "That's what this is all about...."
+    "title": "얼마나 많은 사람들이 날고 있습니까?",
+    "description": "비행 할 승객 수를 선택하려면 시간을 클릭하십시오.",
+    "large-group-tip": "팁 : 더 큰 그룹은 두 번 이상으로 분할 될 수 있습니다.",
+    "total-passengers": "총 승객 | 총 승객",
+    "jump-original-date": "오리가 날 날짜로 이동",
+    "selected-date": "선택한 날짜",
+    "places-free": "{n} 개소 무료",
+    "passengers": "승객"
   }
 }

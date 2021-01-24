@@ -1,6 +1,7 @@
 {
   "nav": {
-    "continue": "Continue"
+    "continue": "Continue",
+    "back": "Back"
   },
   "step-info": {
     "test": "hello i18n !!",
@@ -12,7 +13,13 @@
     "photosvideos-description": "Filmed with GoPros on specially built sticks for some great memories!"
   },
   "step-timeslot": {
-    "title": "About screen",
-    "description": "That's what this is all about...."
+    "title": "How Many are Flying?",
+    "description": "Click on a Time to choose how many passengers would like to fly. ",
+    "large-group-tip": "Tip: Larger groups can be split into more than one time.",
+    "total-passengers": "Passenger in total | Passengers in total",
+    "jump-original-date": "Jump to Origanal Date",
+    "selected-date": "Selected Date",
+    "places-free": "{n} Places free",
+    "passengers": "Passengers"
   }
 }

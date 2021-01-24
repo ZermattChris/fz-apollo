@@ -21,7 +21,7 @@
           <v-chip
             class="availability" 
             :color="getSelectedColour()"
-            v-html="placesFree + ' Places free'"
+            v-html="$tc('step-timeslot.places-free', placesFree)"
             outlined
           />
       </v-list-item-title>
@@ -48,7 +48,7 @@
         </v-btn>
 
         <span style="position:relative; top:8px; max-width: 100px;" class="">
-          Passengers {{passengersInSlot}}
+          {{$t('step-timeslot.passengers') + ' ' + passengersInSlot}}
         </span>
 
         <v-btn

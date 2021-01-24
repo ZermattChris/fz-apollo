@@ -1,10 +1,10 @@
 <template>
   <div class="timeSlot">
-    <PageHeader :title="timeListerHeaderStr">
+    <PageHeader :title="'2. ' + $t('step-timeslot.title')">
 
-      Click on a Time to choose how many passengers would like to fly.
+      {{$t('step-timeslot.description')}}
       <br /><br />
-        ( <v-icon color="orange">{{iconIdea}}</v-icon> Tip: Larger groups can be split into more than one time.)
+        ( <v-icon color="orange">{{iconIdea}}</v-icon> {{$t('step-timeslot.large-group-tip')}} )
 
       <br />
       <br />
@@ -19,7 +19,7 @@
         >
           {{ passengerTotal }}
         </v-btn>
-        <span id="passenger-text" class="font-weight-bold">Passengers in total</span>
+        <span id="passenger-text" class="font-weight-bold">{{$tc('step-timeslot.total-passengers', passengerTotal)}}</span>
       </span>
 
 
@@ -43,7 +43,7 @@
               <v-icon small>{{iconArrowDown}}</v-icon>
             </v-btn>
           </template>
-          <span>Jump to Origanal Date</span>
+          <span>{{$t('step-timeslot.jump-original-date')}}</span>
         </v-tooltip>
       </span>
 
@@ -80,7 +80,6 @@
           :date="key"
           :timesObj="timeListerObj"
           @row-selected="onRowSelected"
-          @click="console.log('Clicked a Swiper Slide')"
         ></TimeList>
 
         <div class="vSpacerForFooter" ></div>
@@ -224,10 +223,10 @@
         return this.$store.state.flightDate
       },
 
-      timeListerHeaderStr: function () {
-        if (this.isObjEmpty(this.$store.state._flightsList)) return
-        return "2. How Many are Flying?"
-      }
+      // timeListerHeaderStr: function () {
+      //   if (this.isObjEmpty(this.$store.state._flightsList)) return
+      //   return "2. How Many are Flying?"
+      // }
     },
 
     methods: {

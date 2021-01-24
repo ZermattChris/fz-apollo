@@ -36,7 +36,7 @@
             >{{iconCalendar}}</v-icon>
           </v-avatar>
         </template>
-        <span>Selected Date</span>
+        <span>{{$t('step-timeslot.selected-date')}}</span>
       </v-tooltip>
 
     </div>

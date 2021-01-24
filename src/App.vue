@@ -155,7 +155,7 @@
         @click="onBackBtnClick"
       >
         <v-icon left>{{iconPrevChevron}}</v-icon>
-        Back
+        {{$t('nav.back')}}
       </v-btn>
 
       <!-- Continue Btn -->
