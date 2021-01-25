@@ -122,8 +122,8 @@
         clockIcon: mdiClockOutline,
         clockIconOutline: mdiMinusCircleOutline,
         clockIconSelected: mdiClockCheck,
-      iconPlus:  mdiPlusCircleOutline,
-      iconMinus: mdiMinusCircleOutline,
+        iconPlus:  mdiPlusCircleOutline,
+        iconMinus: mdiMinusCircleOutline,
 
         // Data
         originalPilotsAvail: this.pilotsAvail,

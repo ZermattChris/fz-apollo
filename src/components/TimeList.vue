@@ -10,6 +10,7 @@
     >
       <h3 :class="getHeaderCSSClassName">
         {{titleDate.abbreviation}}
+        <!-- {{$t('date-time.day-short.' + titleDate.abbreviation)}} -->
       </h3>
       <div
         :class="getHeaderCSSClassName"
@@ -72,7 +73,7 @@
 </template>
 
 <script>
-  import { parseISO, format } from 'date-fns'
+  import { parseISO } from 'date-fns'
   import { mdiClockOutline, mdiMinusCircleOutline, mdiClockCheck, mdiCalendarCheck } from '@mdi/js'
 
   import TimeSlot from "@/components/TimeSlot.vue"
@@ -128,10 +129,18 @@
       titleDate: function () {
         // replace with an API call when its live.
         //console.log(this.date)
-        const myDate = parseISO(this.date)
+        //const myDate = parseISO(this.date)
         //console.log(myDate)
-        const dayAbrvStr = format(myDate, 'ccc')
-        const fullDateStr = format(myDate, 'PPP')
+        //const dayAbrvStr = format(myDate, 'ccc')
+        //const fullDateStr = format(myDate, 'PPP')
+
+        const myDate = parseISO(this.date)
+
+        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+        const fullDateStr = new Intl.DateTimeFormat(this.$i18n.locale, options).format(myDate)
+        options = { weekday: 'short' }
+        const dayAbrvStr = new Intl.DateTimeFormat(this.$i18n.locale, options).format(myDate)
+
         return {abbreviation: dayAbrvStr, fullDate: fullDateStr}
       },
       
