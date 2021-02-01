@@ -1,15 +1,4 @@
 {
-  "date-time": {
-    "day-short": {
-      "sunday": "So",
-      "monday": "Mo",
-      "tuesday": "Di",
-      "wednesday": "Mi",
-      "thursday": "Do",
-      "friday": "Fr",
-      "saturday": "Sa"
-    }
-  },
   "nav": {
     "continue": "Weiter",
     "back": "Zurück"

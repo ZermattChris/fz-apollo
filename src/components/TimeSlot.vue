@@ -4,6 +4,7 @@
     id="slotContainer"
     @click="onClickedRow"
   >
+  
     <!-- Clock Icon -->
     <v-list-item-icon>
       <v-icon 
@@ -76,7 +77,8 @@
     >
       {{ passengersInSlot }}
     </v-btn>
-    
+
+
   </div>
 
 </template>

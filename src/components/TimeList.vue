@@ -42,7 +42,10 @@
 
     </div>
 
-    <v-list flat class="pa-0">
+    <v-list 
+      flat 
+      class="pa-0"
+    >
       <v-list-item-group 
         flat
         v-model="selectedSlot"
@@ -64,6 +67,14 @@
             :timeStr="timeStr"
             @selected="onClikedTimeSlot"
           />
+
+          <!-- <v-skeleton-loader
+            class=""
+            width="100%"
+            type="list-item-avatar"
+          ></v-skeleton-loader> -->
+
+    
         </v-list-item>
       </v-list-item-group>
     </v-list>
@@ -85,6 +96,10 @@
     },
 
     props: {
+      // visible: {
+      //   type: Boolean,
+      //   default: false
+      // },
       date: {
         type: String,
         required: true,
@@ -102,13 +117,14 @@
         clockIconSelected: mdiClockCheck,
         iconCalendar: mdiCalendarCheck,
 
+        // isVisible: this.visible,
+
         items: this.timesObj,
         selectedSlot: -1,   // keeps track of the currently open TimeSlot if there is one.
       }
     },
 
     computed: {
-
 
       usersDate() {
         return this.$store.state.flightDate
@@ -181,6 +197,8 @@
       },
 
     },
+
+    
 
   }
 

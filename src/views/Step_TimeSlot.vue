@@ -71,12 +71,14 @@
       :options="swiperOptions"
     >
       <swiper-slide 
-        v-for="(timeListerObj, key) in daysVisibleList" 
+        v-for="(timeListerObj, key, index) in daysVisibleList" 
         :key="key"
         class="pb-2"
+        :id="'SwiperSlide_' + index"
       >
+      <!-- {{visibleSwiperSlidesList + ' Key: ' + key}} -->
         <TimeList
-          class=""
+          :id="'TimeList_' + index"
           :date="key"
           :timesObj="timeListerObj"
           @row-selected="onRowSelected"
@@ -118,7 +120,7 @@
     data () {
       //var self = this;
       return {
-        //totalPassengers: 0,
+        // visibleSwiperSlidesList: [],
 
         iconIdea: mdiLightbulbOnOutline,
         iconArrowDown: mdiArrowDownCircle,
@@ -172,12 +174,23 @@
       // Keep track of User's step 1 selected date.
       this.usersStep1Date = this.$store.state.flightDate
 
-      //this.totalPassengers = this.$store.getters.totalPassengerNumber
+      // // Initialize the xxxx to have an entry for each Slide.
+      // const len = Object.keys(this.daysVisibleList).length
+      // for (let x = 0; x < len; x++) {
+      //   this.visibleSwiperSlidesList['SwiperSlide_' + x] = true
+      //   //console.log(key, i)
+      // }
+
     },
     beforeUpdate() {
+
     },
     
     computed: {
+
+      // test: function () {
+      //   return this.visibleSwiperSlidesList
+      // },
 
       passengerTotal() {
         const totalP = this.$store.state.totalPassengers
@@ -229,7 +242,37 @@
       // }
     },
 
+    // watch: {
+
+    //   // 
+    //   test: function() {
+    //     console.log('Changed!: ',this.visibleSwiperSlidesList)
+    //   }
+
+    // },
+
     methods: {
+
+      // isTimeListVisible (parentSwiperSlideId) {
+      //   console.log(parentSwiperSlideId, this.visibleSwiperSlidesList[parentSwiperSlideId])
+      //   return this.visibleSwiperSlidesList[parentSwiperSlideId]
+      // },
+      
+      // onIntersect (entries) {
+      //   //console.log(entries, observer)
+      //   // More information about these options
+      //   // is located here: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+      //   //this.isIntersecting = entries[0].isIntersecting
+
+      //   // Need to see if entries[0].isIntersecting is true or false. Set visible for this element.
+      //   //if (entries[0].isIntersecting) {
+      //     //console.log(entries[0].target.id, entries[0].isIntersecting)
+      //   //}
+
+      //   this.visibleSwiperSlidesList[entries[0].target.id] = entries[0].isIntersecting
+
+      //   console.log(this.visibleSwiperSlidesList)
+      // },
   
       onToOrigDateClick: function () {
         // scroll Swiper to the currently selected date.

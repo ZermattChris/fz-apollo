@@ -407,9 +407,9 @@
             </v-simple-table>
 
 
-                <div class="mt-8">
+                <!-- <div class="mt-8">
                   TODO: How to handle passengers spread over multiple time slots??
-                </div>
+                </div> -->
 
 
           </template>
@@ -439,7 +439,7 @@
             rounded
             large
             class="px-4 mx-auto"
-            @click="confirmDetailsDialog = false"
+            @click="confirmDetailsDialog = false; goToNextStep()"
           >
             Confirm
             <v-icon right>{{iconNextArrow}}</v-icon>
@@ -636,6 +636,15 @@
     },
 
     methods: {
+
+      goToNextStep: function () {
+        this.$store.dispatch('hasReviewedData', true)    // This store value triggers NavBtn to go to next step.
+        const targetStep = 'Next'
+        console.log('Nav to:', targetStep)
+        this.$router.push({
+          path: targetStep
+        })
+      },
       
       weight: function (id) {
         return this.$store.getters.getWeightById(id)
