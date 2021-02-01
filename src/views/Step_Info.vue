@@ -603,9 +603,6 @@
         //console.log(this.$store.state.timeSlotLabel)
         //return this.$store.state.timeSlotLabel
 
-
-
-
         return localStorage.selectedTimeslotLabel
       },
       bookingFlight: function () {

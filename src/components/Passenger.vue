@@ -332,9 +332,23 @@
         return "Speed: " + msg    
       },
 
+
+      // Setup a computed prop that aggragates all of the user's inputs, so we can watch
+      // for any change and set the this.$store.dispatch('hasReviewedData', false), which
+      // will re-show the Dialog box before going to the next step.
+      forWatchAnyPassengerInfoChange() {
+        return `${this.sex}|${this.age}|${this.name}|${this.speed}|${this.weight}`
+      },
+
     },
 
     watch: {
+
+
+      // See above computed prop for description.
+      forWatchAnyPassengerInfoChange: function () {
+        this.$store.dispatch('hasReviewedData', false)
+      },
 
       '$store.state._currentStep': function() {
         this.update()
