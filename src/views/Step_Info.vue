@@ -639,7 +639,7 @@
 
       goToNextStep: function () {
         this.$store.dispatch('hasReviewedData', true)    // This store value triggers NavBtn to go to next step.
-        const targetStep = 'Next'
+        const targetStep = 'Pay'
         console.log('Nav to:', targetStep)
         this.$router.push({
           path: targetStep
