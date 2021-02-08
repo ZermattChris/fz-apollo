@@ -530,6 +530,9 @@
 
     computed: {
 
+      getAllPassengersValid: function () {
+        return this.$store.getters.getAllPassengersValid
+      },
 
       passengersList: function () {
         return this.$store.getters.getPassengersList
@@ -802,9 +805,9 @@
 
     watch: {
       
-      // stepxCompleted: function () {
-      //   //console.log('Step3 Completed? ' + newVal)
-      // },
+      getAllPassengersValid: function () {
+        //console.log('Step3 Completed? ' + newVal)
+      },
 
       // This triggers the update of the NavButton component by causing the
       // computed stepCompleted to be triggered, updating the NavList in Store.

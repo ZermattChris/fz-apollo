@@ -82,6 +82,7 @@
             break
           case 'Info': 
             //console.log('Send the Info page an event that opens the Review your Booking dialog.')
+            // TODO something hangs here at times, needs to be researched...
             if (this.$store.state._hasReviewedData === false) {
               this.$store.dispatch('showReviewDialog', true)
               return
