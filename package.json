@@ -13,7 +13,6 @@
   "dependencies": {
     "@bugsnag/js": "^7.4.0",
     "@bugsnag/plugin-vue": "^7.3.5",
-    "@vue-stripe/vue-stripe": "^4.1.1",
     "axios": ">=0.21.1",
     "core-js": "^3.6.5",
     "date-fns": "^2.14.0",
