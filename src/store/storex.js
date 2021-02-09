@@ -732,3 +732,4 @@ function generateFlightsDates (usersFlightDate) {
 
   return flightsdates;
 }
+
