@@ -3,6 +3,8 @@
     
     <PageHeader title="5. Payment Gateway">
       This module will be added once we get our process fine tuned.
+
+      <v-btn id="checkout-button">Test Checkout</v-btn>
       
     </PageHeader>
 
@@ -29,6 +31,16 @@
 
 
     },
+    mounted() {
+      // "https://js.stripe.com/v3/"
+      const plugin = document.createElement("script");
+      plugin.setAttribute(
+      "src",
+      "https://js.stripe.com/v3/"
+      );
+      plugin.async = true;
+      document.head.appendChild(plugin);
+    },
 
 
     computed: {
@@ -43,6 +55,10 @@
     },
 
     methods: {
+      onTestClick: function () {
+
+      },
+
       setUserDate: function (dateStr) {
         //console.log(dateStr)
         this.userTimeSlot = dateStr
