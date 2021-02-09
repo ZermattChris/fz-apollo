@@ -531,6 +531,9 @@
 
     computed: {
 
+      getAllPassengersValid: function () {
+        return this.$store.getters.getAllPassengersValid
+      },
 
       passengersList: function () {
         return this.$store.getters.getPassengersList
@@ -637,7 +640,7 @@
 
       goToNextStep: function () {
         this.$store.dispatch('hasReviewedData', true)    // This store value triggers NavBtn to go to next step.
-        const targetStep = 'Next'
+        const targetStep = 'Pay'
         console.log('Nav to:', targetStep)
         this.$router.push({
           path: targetStep
@@ -803,9 +806,9 @@
 
     watch: {
       
-      // stepxCompleted: function () {
-      //   //console.log('Step3 Completed? ' + newVal)
-      // },
+      getAllPassengersValid: function () {
+        //console.log('Step3 Completed? ' + newVal)
+      },
 
       // This triggers the update of the NavButton component by causing the
       // computed stepCompleted to be triggered, updating the NavList in Store.

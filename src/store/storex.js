@@ -583,7 +583,7 @@ export default new Vuex.Store({
       let isValid = true
       
       for (let i = 0; i < state.totalPassengers; i++) {
-        if (state.passengerObjList[i].valid !== true) {
+        if (state.passengerObjList[i] === undefined || state.passengerObjList[i].valid !== true) {
           isValid = false
           break
         }

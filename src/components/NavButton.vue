@@ -86,12 +86,12 @@
               this.$store.dispatch('showReviewDialog', true)
               return
             }
-            this.$store.dispatch('setCurrentStep', 'Next')
-            break
-          case 'Next': 
-            //console.log('Leaving Next')
             this.$store.dispatch('setCurrentStep', 'Pay')
             break
+          // case 'Next': 
+          //   //console.log('Leaving Next')
+          //   this.$store.dispatch('setCurrentStep', 'Pay')
+          //   break
           case 'Pay': 
             //console.log('Leaving Pay')
             this.$store.dispatch('setCurrentStep', 'Thanks')
