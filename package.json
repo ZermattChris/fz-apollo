@@ -18,9 +18,6 @@
     "date-fns": "^2.14.0",
     "es6-promise": "^4.2.8",
     "mobile-device-detect": "^0.3.3",
-    "node": "^11.10.0",
-    "node-addon-api": "^3.1.0",
-    "node-gyp": "^7.1.2",
     "npm": "^6.14.8",
     "swiper": "^5.4.5",
     "vue": "^2.6.11",
@@ -32,6 +29,7 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@intlify/vue-i18n-loader": "^1.0.0",
     "@kazupon/vue-i18n-loader": "^0.5.0",
     "@mdi/font": "^5.3.45",
     "@mdi/js": "^5.6.55",
