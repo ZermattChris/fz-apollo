@@ -365,7 +365,7 @@
                       Age
                     </th>
                     <th class="text-left">
-                      Speed
+                      Confidence
                     </th>
                     <th class="text-left">
                       Kg
@@ -425,6 +425,7 @@
             outlined
             large
             class="px-4 mx-auto"
+            style="background-color:white;"
             @click="confirmDetailsDialog = false"
           >
             Cancel
@@ -654,22 +655,22 @@
         let msg = "Bad Value"
         switch (speedString) {
           case 0:
-            msg = "Assistance Req."
+            msg = "Assistance*"
             break
           case 2:
-            msg = "Slow"
+            msg = "Low"
             break
           case 4:
-            msg = "Slow-ish"
+            msg = "Nervous"
             break
           case 6:
-            msg = "Average"
+            msg = "Okay-ish"
             break
           case 8:
-            msg = "Quick"
+            msg = "Confident"
             break
           case 10:
-            msg = "Fast"
+            msg = "Very Confident!"
             break
         }
         return msg  

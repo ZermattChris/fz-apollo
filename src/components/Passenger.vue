@@ -77,7 +77,7 @@
 
     <!-- Speed/fitness slider -->
     <v-row style="position:relative;">
-      <div class="pt-1 pl-3 font-weight-light">Running Ability:</div>
+      <div class="pt-1 pl-3 font-weight-light">Confidence &amp; Running Ability:</div>
       <div class="speed pt-0 font-weight-thin">{{runningDesc}}</div>
       <v-col cols="12">
         <v-btn-toggle
@@ -159,9 +159,9 @@
           </v-btn>
         </v-btn-toggle>
 
-  <span v-if="myFormValid" >
-    <!-- This empty span is req to get the Passenger form to update it's validity to LocalStorage properly... -->
-  </span>
+        <span v-if="myFormValid" >
+          <!-- This empty span is req to get the Passenger form to update it's validity to LocalStorage properly... -->
+        </span>
       </v-col>
     </v-row>
 
@@ -314,22 +314,22 @@
             msg = "Assistance Required*"
             break
           case 2:
-            msg = "Slow"
+            msg = "Minimal Confidence - Speed Slow"
             break
           case 4:
-            msg = "Slow-ish"
+            msg = "A bit nerverous - Speed Slow-ish"
             break
           case 6:
-            msg = "Average"
+            msg = "Confidence Okay - Speed okay"
             break
           case 8:
-            msg = "Quick"
+            msg = "Quite Confident - Speed Quick"
             break
           case 10:
-            msg = "Fast"
+            msg = "Totally Confident! - Speed Fast"
             break
         }
-        return "Speed: " + msg    
+        return msg   
       },
 
 
