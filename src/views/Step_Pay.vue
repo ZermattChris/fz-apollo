@@ -5,19 +5,14 @@
       This module will be added once we get our process fine tuned.
     </PageHeader>
 
-  
+    <v-btn 
+      id="checkout-button"
+      @click="onTestClick"
+    >Test Checkout</v-btn>
 
-    <stripe-checkout
-      ref="checkoutRef"
-      mode="payment"
-      :pk="publishableKey"
-      :line-items="lineItems"
-      :success-url="successURL"
-      :cancel-url="cancelURL"
-      @loading="v => loading = v"
-    />
-
-    <v-btn id="checkout-button">Test Checkout</v-btn>
+    <div class="mt-6">
+      {{message}}
+    </div>
 
   </div>
 </template>
@@ -33,28 +28,17 @@
 <script>
   import PageHeader from '@/components/PageHeader.vue'
 
-  import { StripeCheckout } from '@vue-stripe/vue-stripe'
 
   export default {
     name: "Step_Pay",
   
     components: {
-      PageHeader,
-      StripeCheckout
+      PageHeader
     },
 
     data () {
-      this.publishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
       return {
-      loading: false,
-      lineItems: [
-        {
-          price: 'some-price-id', // The id of the one-time price you created in your Stripe dashboard
-          quantity: 1,
-        },
-      ],
-      successURL: 'your-success-url',
-      cancelURL: 'your-cancel-url',
+        message: ' - - '
       }
     },
 
@@ -88,9 +72,7 @@
 
     methods: {
       onTestClick: function () {
-        // You will be redirected to Stripe's secure checkout page
-        this.$refs.checkoutRef.redirectToCheckout();
-
+        this.message = 'Clicked the Test Checkout button.'
       },
 
       // setUserDate: function (dateStr) {
