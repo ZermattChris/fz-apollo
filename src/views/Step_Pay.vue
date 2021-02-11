@@ -5,7 +5,7 @@
       This module will be added once we get our process fine tuned.
     </PageHeader>
 
-
+  
 
     <stripe-checkout
       ref="checkoutRef"
