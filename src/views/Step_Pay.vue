@@ -28,16 +28,18 @@
 <script>
   import PageHeader from '@/components/PageHeader.vue'
 
+  import {loadStripe} from '@stripe/stripe-js'
 
   export default {
     name: "Step_Pay",
   
     components: {
-      PageHeader
+      PageHeader,
     },
 
     data () {
       return {
+        stripe: null,
         message: ' - - '
       }
     },
@@ -46,16 +48,11 @@
 
 
     },
-    mounted() {
-      // // Install Stripe.
-      // // "https://js.stripe.com/v3/"
-      // const plugin = document.createElement("script");
-      // plugin.setAttribute(
-      // "src",
-      // "https://js.stripe.com/v3/"
-      // );
-      // plugin.async = true;
-      // document.head.appendChild(plugin);
+    async mounted() {
+
+      this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
+      this.createAndMountFormElements()
+
     },
 
 
@@ -71,6 +68,12 @@
     },
 
     methods: {
+
+      createAndMountFormElements() {
+
+      },
+
+
       onTestClick: function () {
         this.message = 'Clicked the Test Checkout button.'
       },
