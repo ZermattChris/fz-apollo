@@ -1,13 +1,37 @@
 <template>
   <div class="stepPay">
     
-    <PageHeader title="5. Payment Gateway">
-      This module will be added once we get our process fine tuned.
+    <PageHeader title="4. Place Order">
+      Using Stripe Elements to handle our online payments here. This is currently just a test environment.
     </PageHeader>
 
-    <div ref="card"></div>
+    <h4 class="mb-0"> There will be a simple line item listing of flights + photos and prices here.</h4>
+    <v-skeleton-loader
+      type="list-item-three-line"
+    ></v-skeleton-loader>
+    <v-skeleton-loader
+      class="mt-n4 mb-6"
+      type="list-item-three-line"
+    ></v-skeleton-loader>
 
 
+
+
+    <div id="card" ref="card"></div>
+    <div id="card-errors" ref="card-errors"></div>
+
+    <div id="payment-button-box" style="text-align:center;">
+      <v-btn id="payment-button" ref="payment-button" type="submit"
+        class="mt-8"
+        @click="placeOrder"
+      >
+        Pay
+      </v-btn>
+    </div>
+
+    <div class="mt-6 orange--text">
+      {{message}}
+    </div>
 
 
     <!-- <v-btn 
@@ -72,7 +96,7 @@
 
       createAndMountFormElements() {
 
-        let elements = this.stripe.elements()
+        let elements = this.stripe.elements({locale: 'auto'})
 
         // works a charme!
         let card = elements.create('card')
@@ -80,57 +104,14 @@
 
       },
 
-
-
-  //  handleClick = async (event) => {
-  //   // Get Stripe.js instance
-  //   const stripe = await stripePromise;
-
-  //   // Call your backend to create the Checkout Session
-  //   const response = await fetch('/create-checkout-session', { method: 'POST' });
-
-  //   const session = await response.json();
-
-  //   // When the customer clicks on the button, redirect them to Checkout.
-  //   const result = await stripe.redirectToCheckout({
-  //     sessionId: session.id,
-  //   });
-
-  //   if (result.error) {
-  //     // If `redirectToCheckout` fails due to a browser or network
-  //     // error, display the localized error message to your customer
-  //     // using `result.error.message`.
-  //   }
-  // }
-
-
-
-      
-      onTestClick: async function () {
-        this.message = 'Clicked the Test Checkout button.'
-        
-        // // Get Stripe.js instance
-        // const stripe = await stripePromise;
-
-        // // Call your backend to create the Checkout Session
-        // const response = await fetch('/create-checkout-session', { method: 'POST' });
-
-        // const session = await response.json();
-
-        // // When the customer clicks on the button, redirect them to Checkout.
-        // const result = await stripe.redirectToCheckout({
-        //   sessionId: session.id,
-        // });
-
-        // if (result.error) {
-        //   // If `redirectToCheckout` fails due to a browser or network
-        //   // error, display the localized error message to your customer
-        //   // using `result.error.message`.
-        // }
+      placeOrder: async function () {
+        this.message = "TODO: Send payment request via our internal payment handler to Stripe servers"
       },
 
     },
   }
+
+
 
 </script>
 
@@ -142,6 +123,10 @@
   text-align: center;
   margin: 0 auto;
 }
+
+
+
+
 
 
 </style>
