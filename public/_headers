@@ -2,7 +2,7 @@
 
 # /* is for every file served on site.
 /*
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; connect-src https://*.simpleitsolutions.ch https://sessions.bugsnag.com; font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com; frame-src https://js.stripe.com; img-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com/v3; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/ https://fonts.googleapis.com/;
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; script-src https://js.stripe.com https://checkout.stripe.com; connect-src https://checkout.stripe.com https://api.stripe.com https://*.simpleitsolutions.ch https://sessions.bugsnag.com; font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com; frame-src https://checkout.stripe.com https://js.stripe.com, https://hooks.stripe.com; img-src 'self' https://*.stripe.com; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com/v3; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/ https://fonts.googleapis.com/;
   X-Frame-Options: deny
   X-Content-Type-Options: nosniff
   X-XSS-Protection: 1; mode=block
