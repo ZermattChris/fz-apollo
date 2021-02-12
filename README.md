@@ -49,4 +49,4 @@ secure.flyzermatt.com
 Use the Mozilla Laboratory Firefox plugin to help generate. Video on how to use it:
 [YouTube](https://youtu.be/Oan4J9kfy44)
 
-default-src 'self'; connect-src https://*.simpleitsolutions.ch https://sessions.bugsnag.com; font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com; frame-src https://js.stripe.com; img-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com/v3; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/ https://fonts.googleapis.com/
+[Mozilla Observatory test](https://observatory.mozilla.org/)
