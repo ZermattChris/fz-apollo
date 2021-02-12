@@ -1,0 +1,11 @@
+# Netlify custom headers defined here. Use for pesky CSP, etc.
+
+# /* is for every file served on site.
+/*
+  default-src 'self'; 
+  connect-src https://*.simpleitsolutions.ch https://sessions.bugsnag.com; 
+  font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com; 
+  frame-src https://js.stripe.com; 
+  img-src 'self'; 
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com/v3; 
+  style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/ https://fonts.googleapis.com/;
