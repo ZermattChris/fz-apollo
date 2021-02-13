@@ -13,22 +13,26 @@
 
 
 
-    <v-sheet id="payment-inputs-box" class="py-2 px-1 rounded" style="text-align:center; background-color:rgb(240,240,240); border: 1px rgb(220,220,220) solid;" elevation="0" >
-      <div id="card" ref="card" style="width:98%; margin:0 auto; background-color:white"></div>
+    <v-sheet id="payment-inputs-box" class="mt-2 py-2 px-2 rounded" style="position:relative; text-align:center; background-color:#f7f7f7; border: 1px rgb(220,220,220) solid;" elevation="0" >
+      <label for="card" style="font-size:0.7em; position:absolute; top:-15px; left:0px;">
+        Credit or Debit card
+      </label>
+      <div id="card" ref="card" style="width:98%;"></div>
       <div id="card-errors" ref="card-errors"></div>
     </v-sheet>
-    <p class="font-weight-thin" style="font-size:0.6em;">Payments by Stripe</p>
+    <p class="font-weight-thin" style="font-size:0.6em; text-align:right; padding-right:5px;">Payments by Stripe</p>
 
     <div id="payment-button-box" style="text-align:center;">
       <v-btn id="payment-button" ref="payment-button" type="submit"
-        class="mt-8"
+        class="mt-0"
+        :disabled="hasCardErrors"
         @click="placeOrder"
       >
         Pay
       </v-btn>
     </div>
 
-    <div class="mt-6 warning--text">
+    <div class="mt-4 warning--text" style="font-size:0.6em;">
       {{message}}
     </div>
 
@@ -95,8 +99,10 @@
     data () {
       return {
         stripe: null,
+        hasCardErrors: false,
         message: ' - - ',
 
+        elements: undefined,
         card: undefined,
       }
     },
@@ -115,23 +121,26 @@
 
 
     computed: {
-      
+
+      myLocale: function () {
+        return this.$i18n.locale
+      },
+
     },
 
     methods: {
 
       createAndMountFormElements() {
 
-        let elements = this.stripe.elements({locale: 'auto'})
+        this.elements = this.stripe.elements({locale: this.myLocale})
 
         // Create and display the Card input field from Stripe.
-        this.card = elements.create('card', cardStyle)
+        this.card = this.elements.create('card', cardStyle)
         this.card.mount(this.$refs.card)
 
       },
 
       placeOrder() {
-        this.message = "Create Token..."
         let me = this
         this.stripe.createToken(this.card).then(function(result) {
           // Access the token with result.token
@@ -142,11 +151,29 @@
             return
           }
           // Call our API to handle token
+          me.message = "Created Token: " + result.token
           console.log(result.token)
         })
       },
 
     },
+
+
+
+
+    watch: {
+
+      myLocale: function () {
+        // this.elements = this.stripe.elements({locale: this.myLocale})
+        //this.message = "Changed lang: " + this.myLocale
+        this.createAndMountFormElements()
+        // this.stripe.$forceUpdate() 
+      },
+
+
+    },
+
+
   }
 
 
