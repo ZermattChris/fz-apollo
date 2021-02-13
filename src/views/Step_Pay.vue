@@ -17,18 +17,23 @@
       <label for="card" style="font-size:0.7em; position:absolute; top:-15px; left:0px;">
         Credit or Debit card
       </label>
-      <div id="card" ref="card" style="width:98%;"></div>
-      <div id="card-errors" ref="card-errors"></div>
+      <div 
+        id="card" 
+        ref="card" 
+        style="width:98%;"
+      ></div>
     </v-sheet>
+
     <p class="font-weight-thin" style="font-size:0.6em; text-align:right; padding-right:5px;">Payments by Stripe</p>
 
     <div id="payment-button-box" style="text-align:center;">
-      <v-btn id="payment-button" ref="payment-button" type="submit"
+      <v-btn id="payment-button" ref="paymentButton" type="submit"
         class="mt-0"
-        :disabled="hasCardErrors"
-        @click="placeOrder"
+        :loading="payLoading"
+        :disabled="!payEnabled"
+        @click="onPlaceOrder"
       >
-        Pay
+        Pay Now
       </v-btn>
     </div>
 
@@ -100,6 +105,8 @@
       return {
         stripe: null,
         hasCardErrors: false,
+        payEnabled: false,
+        payLoading: false,
         message: ' - - ',
 
         elements: undefined,
@@ -138,9 +145,20 @@
         this.card = this.elements.create('card', cardStyle)
         this.card.mount(this.$refs.card)
 
+        // Need to setup event handler on the elements.card as can't access directly.
+        this.card.on("change", this.onChange)
       },
 
-      placeOrder() {
+
+      // Check to see if we should enable the Pay button or not.
+      onChange(ev) {
+        this.payEnabled = ev.complete
+      },
+
+
+      onPlaceOrder(ev) {
+        ev.preventDefault()
+        this.payLoading = true
         let me = this
         this.stripe.createToken(this.card).then(function(result) {
           // Access the token with result.token
@@ -148,12 +166,37 @@
             me.message = result.error.message
             me.hasCardErrors = true
             me.$forceUpdate()    // Forcing the DOM to update so the Stripe Element can update.
+            me.payLoading = false
             return
           }
           // Call our API to handle token
-          me.message = "Created Token: " + result.token
+          console.log("Created Token: " + result.token)
+          me.message = "Created Token: " + result.token.id
+          me.payLoading = false
+          me.payEnabled = false     // disable Pay button, to stop multiple clicks... Ronnie...
           console.log(result.token)
+
         })
+
+
+        // stripe.confirmCardSetup(
+        //   clientSecret,
+        //   {
+        //     payment_method: {
+        //       card: cardElement,
+        //       billing_details: {
+        //         name: cardholderName.value,
+        //       },
+        //     },
+        //   }
+        // ).then(function(result) {
+        //   if (result.error) {
+        //     // Display error.message in your UI.
+        //   } else {
+        //     // The setup has succeeded. Display a success message.
+        //   }
+        // })
+
       },
 
     },
