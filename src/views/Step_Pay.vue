@@ -28,12 +28,12 @@
         ref="card" 
         style="width:98%; margin:0 auto;"
       ></div>
+      <p class="font-weight-thin" style="font-size:0.7em; text-align:right; position:absolute; right:5px; bottom:-33px;">Payments by Stripe</p>
     </v-sheet>
-    <p class="font-weight-thin" style="font-size:0.6em; text-align:right; padding-right:5px;">Payments by Stripe</p>
 
     <div id="payment-button-box" style="text-align:center;">
       <v-btn id="payment-button" ref="paymentButton" type="submit"
-        class="mt-0"
+        class="mt-4"
         :loading="payLoading"
         :disabled="!payEnabled"
         @click="onPlaceOrder"
