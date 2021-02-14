@@ -2,6 +2,6 @@
 
 # /* is for every file served on site.
 /*
-  Content-Security-Policy: default-src 'self';   base-uri 'self';   object-src 'none';   connect-src https://*.simpleitsolutions.ch https://sessions.bugsnag.com;   font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com;   frame-src https://js.stripe.com; img-src 'self';   script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com/v3;   style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/ https://fonts.googleapis.com/;   worker-src 'none'; 
+  Content-Security-Policy: default-src 'self';   base-uri 'self';   object-src 'none';   connect-src https://*.simpleitsolutions.ch https://sessions.bugsnag.com;   font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com;   frame-src https://js.stripe.com; img-src 'self';   script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com/v3;   style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/ https://fonts.googleapis.com/;   worker-src 'none';   child-src 'none'; 
   X-Frame-Options: deny
   X-Content-Type-Options: nosniff
