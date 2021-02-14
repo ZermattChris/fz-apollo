@@ -13,22 +13,27 @@
 
 
 
-    <v-sheet id="payment-inputs-box" class="mt-2 py-2 px-2 rounded" style="position:relative; text-align:center; background-color:#f7f7f7; border: 1px rgb(220,220,220) solid;" elevation="0" >
+    <!-- Credit Card input - Stripe -->
+    <v-sheet 
+      id="payment-inputs-box" 
+      class="mt-2 py-2 px-2 rounded" 
+      style="position:relative; margin:0 auto; max-width:450px; text-align:center; background-color:#f7f7f7; border: 1px rgb(220,220,220) solid;" 
+      elevation="0" 
+    >
       <label for="card" style="font-size:0.7em; position:absolute; top:-15px; left:0px;">
         Credit or Debit card
       </label>
       <div 
         id="card" 
         ref="card" 
-        style="width:98%;"
+        style="width:98%; margin:0 auto;"
       ></div>
+      <p class="font-weight-thin" style="font-size:0.7em; text-align:right; position:absolute; right:5px; bottom:-33px;">Payments by Stripe</p>
     </v-sheet>
-
-    <p class="font-weight-thin" style="font-size:0.6em; text-align:right; padding-right:5px;">Payments by Stripe</p>
 
     <div id="payment-button-box" style="text-align:center;">
       <v-btn id="payment-button" ref="paymentButton" type="submit"
-        class="mt-0"
+        class="mt-4"
         :loading="payLoading"
         :disabled="!payEnabled"
         @click="onPlaceOrder"
@@ -40,7 +45,6 @@
     <div class="mt-4 warning--text" style="font-size:0.6em;">
       {{message}}
     </div>
-
 
     <!-- <v-btn 
       id="checkout-button"
