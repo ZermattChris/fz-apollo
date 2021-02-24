@@ -33,21 +33,12 @@
 
     computed: {
       
-      userFlightDate: function () {
-        return this.$store.state.flightDate
-      },
-      usersGroupSize: function () {
-        return this.$store.getters.getTotalPassengers
-      },
+ 
       
     },
 
     methods: {
-      setUserDate: function (dateStr) {
-        //console.log(dateStr)
-        this.userTimeSlot = dateStr
-        return dateStr
-      }
+      
     },
   }
 
