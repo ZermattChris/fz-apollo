@@ -140,6 +140,9 @@
     methods: {
 
       onOrderBtn() {
+
+        let me = this
+
         fetch("https://gateway.flyzermatt.com/create-checkout", {
           method: "POST",
         })
@@ -147,7 +150,7 @@
             return response.json();
           })
           .then(function (session) {
-            return this.stripe.redirectToCheckout({ sessionId: session.id });
+            return me.stripe.redirectToCheckout({ sessionId: session.id });
           })
           .then(function (result) {
             // If redirectToCheckout fails due to a browser or network
