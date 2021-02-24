@@ -122,9 +122,7 @@
     },
     async mounted() {
 
-      //this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
-      
-      // this.createAndMountFormElements()
+        this.stripe = Stripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
 
     },
 
@@ -142,7 +140,6 @@
       onOrderBtn() {
 
         let me = this
-        this.stripe = Stripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
 
         fetch("https://gateway.flyzermatt.com/create-checkout", {
           method: "POST",
