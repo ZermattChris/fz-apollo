@@ -67,7 +67,7 @@
 <script>
   import PageHeader from '@/components/PageHeader.vue'
 
-  import {loadStripe} from '@stripe/stripe-js'
+  import {Stripe} from '@stripe/stripe-js'
 
 
   // // ----------- Card custom style ----------
@@ -122,7 +122,7 @@
     },
     async mounted() {
 
-      this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
+      //this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
       
       // this.createAndMountFormElements()
 
@@ -142,6 +142,7 @@
       onOrderBtn() {
 
         let me = this
+        this.stripe = Stripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
 
         fetch("https://gateway.flyzermatt.com/create-checkout", {
           method: "POST",
