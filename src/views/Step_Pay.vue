@@ -122,7 +122,7 @@
     },
     async mounted() {
 
-        this.stripe = loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
+        this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
 
     },
 
