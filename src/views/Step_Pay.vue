@@ -67,7 +67,7 @@
 <script>
   import PageHeader from '@/components/PageHeader.vue'
 
-  import {Stripe} from '@stripe/stripe-js'
+  import {loadStripe} from '@stripe/stripe-js'
 
 
   // // ----------- Card custom style ----------
@@ -122,7 +122,7 @@
     },
     async mounted() {
 
-        this.stripe = Stripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
+        this.stripe = loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
 
     },
 
@@ -159,6 +159,7 @@
             }
           })
           .catch(function (error) {
+            console.log("Getting an error back in the 'catch'")
             console.error("Error:", error);
           });           
       },
