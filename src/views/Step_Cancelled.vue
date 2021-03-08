@@ -2,7 +2,8 @@
   <div class="stepThanks">
     
     <PageHeader title="Payment Cancelled">
-      Not sure if this page is needed yet, just a placeholder
+      Payment didn't work for whatever reason. Give a message and probably just go back to
+      the normal payment page... (let them try a different payment method)
     </PageHeader>
 
   </div>
