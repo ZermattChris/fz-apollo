@@ -53,14 +53,18 @@
       {{message}}
     </div> -->
 
+<br/><br/>
 
+  <p>
+    Copy one of the numbers below to test payment on the Stripe page. <br/> <br/>
+    Use any email, card date (in future), CVC and Name on card.
+  </p>
 
     <ul>
       <li>Visa standard card with success: 4000007560000009 <br/></li>
       <li>3D Secure with success: 4000002500003155</li>
       <li>Fail, insuffecient funds: 4000000000009995</li>
       <li>Fail, card has expired: 4000000000000069</li>
-      <li>Fail, bad address and ZIP: 4000000000000010</li>
     </ul>
 
   </div>
