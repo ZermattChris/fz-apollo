@@ -96,6 +96,7 @@
     },
 
     props: {
+      // Using this to do virtual rendering. Only true if the component is visible in the scrolling Swiper.
       // visible: {
       //   type: Boolean,
       //   default: false
@@ -117,7 +118,6 @@
         clockIconSelected: mdiClockCheck,
         iconCalendar: mdiCalendarCheck,
 
-        // isVisible: this.visible,
 
         items: this.timesObj,
         selectedSlot: -1,   // keeps track of the currently open TimeSlot if there is one.
