@@ -69,12 +69,14 @@
       class="swiperBox steps-controls"
       ref="mySwiper"
       :options="swiperOptions"
+      virtual
     >
       <swiper-slide 
         v-for="(timeListerObj, key, index) in daysVisibleList" 
         :key="key"
         class="pb-2"
         :id="'SwiperSlide_' + index"
+        :virtualIndex="index"
       >
       <!-- {{visibleSwiperSlidesList + ' Key: ' + key}} -->
         <TimeList
