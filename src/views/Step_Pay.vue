@@ -2,7 +2,7 @@
   <div class="stepPay">
     
     <PageHeader title="4. Place Order">
-      Using Stripe Elements to handle our online payments here. This is currently just a test environment.
+      Using Stripe checkout to handle our online payments here. This is currently just a test environment.
     </PageHeader>
 
     <h4 class="mb-0">Line item of flights + photos prices</h4>
