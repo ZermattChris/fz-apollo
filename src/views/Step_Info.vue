@@ -5,7 +5,9 @@
 
 
     <PageHeader :title="timeListerHeaderStr">
-      [TODO] Explain why we need all of this info – safer flights, etc.
+      We only ask for the passenger information that we need to help 
+      make your flight fun, easy and enjoyable. We never share any 
+      information with 3rd parties.
       <br>
     </PageHeader>
 
