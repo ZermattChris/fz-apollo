@@ -259,19 +259,37 @@ export default {
       this.$store.dispatch('setNavListItem', payload)
     },
 
+    /**
+     * Reads in flights available for chosen User date from Tommy's API, or
+     * until he finishes that, a dummy text file "flightdata.js". Both return
+     * a json object with flight ids, names and prices.
+     */
     buildFlightList: function () {
       const obj = this.$store.state._flightsList
-      //console.log('build flight list for drop menu', obj)
+      console.log('build flight list for drop menu', obj)
       if (this.isObjEmpty(obj)) return
+
       let newFlightsList = []
-      for (let [key, value] of Object.entries(obj)) {
-        //console.log(`${key}: ${value}`);
-        const listItem = {id:`${key}`, name:`${value}`}
-        // item-text="name"
-        // item-value="id"
+
+      for (const [key, value] of Object.entries(obj)) {
+        console.log(key, value['name'], value['price_CHF'])
+        const namePrice = value['name'] + ' ' + value['price_CHF'] + '.- CHF'
+        const listItem = {id:key, name:namePrice}
         newFlightsList.push(listItem)
       }
+
       return newFlightsList
+
+      // Old, orginal way of building flights. Awaiting Tommy to finish API
+      // let newFlightsList = []
+      // for (let [key, value] of Object.entries(obj)) {
+      //   //console.log(`${key}: ${value}`);
+      //   const listItem = {id:`${key}`, name:`${value}`}
+      //   // item-text="name"
+      //   // item-value="id"
+      //   newFlightsList.push(listItem)
+      // }
+      // return newFlightsList
     },
 
   },

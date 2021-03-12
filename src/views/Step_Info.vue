@@ -69,7 +69,7 @@
             v-model="contactValid"
           >
             <v-row v-if="i === 0"
-              class="py-2 px-4"
+              class="py-4 px-4"
             >
               <v-col
                 cols="12"

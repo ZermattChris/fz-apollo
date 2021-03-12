@@ -1,4 +1,4 @@
-const flightData = [
+const flightData = 
   {
     "100": {
       "name": "Classic High",
@@ -13,6 +13,5 @@ const flightData = [
       "price_CHF": "380"
     }
   }
-]
-
-export default flightData
+  
+  export default flightData
