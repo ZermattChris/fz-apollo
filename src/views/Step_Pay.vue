@@ -159,8 +159,14 @@
 
         let me = this
 
+        const data = { email: this.$store.state.contactEmail }
+
         fetch("https://gateway.flyzermatt.com/create-checkout", {
-          method: "POST",
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
         })
           .then(function (response) {
             return response.json();
@@ -181,8 +187,6 @@
             console.error("Error:", error);
           });           
       },
-
-      
 
     },
 
