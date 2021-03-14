@@ -37,7 +37,13 @@ const routes = [
     path: '/pay',
     name: 'Pay',
     component: () => import(/* webpackChunkName: "Pay" */ '@/views/Step_Pay.vue'),
-    meta: { title: 'Payment Gateway' },
+    meta: { title: 'Payment' },
+  },
+  {
+    path: '/canceled',
+    name: 'Canceled',
+    component: () => import(/* webpackChunkName: "Pay" */ '@/views/Step_Cancelled.vue'),
+    meta: { title: 'Payment Cancelled' },
   },
   {
     path: '/thanks',

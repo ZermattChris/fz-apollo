@@ -2,45 +2,77 @@
   <div class="stepPay">
     
     <PageHeader title="4. Place Order">
-      Using Stripe Elements to handle our online payments here. This is currently just a test environment.
+      Using Stripe checkout to handle our online payments here. This is currently just a test environment.
     </PageHeader>
 
-    <h4 class="mb-0">Line item of flights + photos prices</h4>
-    <v-skeleton-loader
+    <!-- <h4 class="mb-0">Line item of flights + photos prices</h4> -->
+    <!-- <v-skeleton-loader
       type="list-item-three-line"
-    ></v-skeleton-loader>
+    ></v-skeleton-loader> -->
 
 
+    <!-- {{orderLineItems}} -->
+
+    <template>
+      <v-simple-table 
+        dense
+        class="elevation-1"
+      >
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">
+                Qty
+              </th>
+              <th class="text-left">
+                Description
+              </th>
+              <th class="text-left">
+                Price in CHF
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2</td>
+              <td>{{ orderLineItems.name }} Flight</td>
+              <td>{{ orderLineItems.price_CHF }}.-</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Photos &amp; Videos</td>
+              <td>40.-</td>
+            </tr>
+            <tr>
+              <td 
+                colspan="3"
+                class="grey--text text-caption"
+                style="text-align:center;"
+              >
+                This row will display total prices
+              </td>
+            </tr>
+          </tbody>
+
+        </template>
+
+      </v-simple-table>
+    </template>
 
 
-    <v-sheet id="payment-inputs-box" class="mt-2 py-2 px-2 rounded" style="position:relative; text-align:center; background-color:#f7f7f7; border: 1px rgb(220,220,220) solid;" elevation="0" >
-      <label for="card" style="font-size:0.7em; position:absolute; top:-15px; left:0px;">
-        Credit or Debit card
-      </label>
-      <div 
-        id="card" 
-        ref="card" 
-        style="width:98%;"
-      ></div>
-    </v-sheet>
-
-    <p class="font-weight-thin" style="font-size:0.6em; text-align:right; padding-right:5px;">Payments by Stripe</p>
-
-    <div id="payment-button-box" style="text-align:center;">
+    <div id="payment-button-box" class="mt-4" style="text-align:center;">
       <v-btn id="payment-button" ref="paymentButton" type="submit"
-        class="mt-0"
-        :loading="payLoading"
-        :disabled="!payEnabled"
-        @click="onPlaceOrder"
+        color="warning darken-1"
+        class="mt-4"
+        @click="onOrderBtn"
       >
         Pay Now
       </v-btn>
     </div>
 
-    <div class="mt-4 warning--text" style="font-size:0.6em;">
+    <!-- <div class="mt-4 warning--text" style="font-size:0.6em;">
       {{message}}
-    </div>
-
+    </div> -->
 
     <!-- <v-btn 
       id="checkout-button"
@@ -50,6 +82,20 @@
     <div class="mt-6">
       {{message}}
     </div> -->
+
+<br/><br/>
+
+  <p>
+    Copy one of the numbers below to test payment on the Stripe page. <br/> <br/>
+    Use any email, card date (in future), CVC and Name on card.
+  </p>
+
+    <ul>
+      <li>Visa standard card with success: 4000007560000009 <br/></li>
+      <li>3D Secure with success: 4000002500003155</li>
+      <li>Fail, insuffecient funds: 4000000000009995</li>
+      <li>Fail, card has expired: 4000000000000069</li>
+    </ul>
 
   </div>
 </template>
@@ -67,32 +113,6 @@
 
   import {loadStripe} from '@stripe/stripe-js'
 
-
-  // ----------- Card custom style ----------
-  let cardStyle = {
-    style: {
-      base: {
-        iconColor: '#464646',
-        color: 'black',
-        backgroundColor: '#f7f7f7',
-        fontWeight: '500',
-        fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
-        fontSize: '14px',
-        fontSmoothing: 'antialiased',
-        ':-webkit-autofill': {
-          color: '#fce883',
-        },
-        '::placeholder': {
-          color: '#43097d',
-        },
-      },
-      invalid: {
-        iconColor: 'maroon',
-        color: 'maroon',
-      },
-    },
-    iconStyle: 'solid'
-  }
 
   export default {
     name: "Step_Pay",
@@ -120,83 +140,52 @@
     },
     async mounted() {
 
-      this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
-      
-      this.createAndMountFormElements()
+        this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
 
     },
 
 
     computed: {
 
-      myLocale: function () {
-        return this.$i18n.locale
+      orderLineItems: function () {
+        return this.$store.getters.getFlightFromID(300)
       },
 
     },
 
     methods: {
 
-      createAndMountFormElements() {
+      onOrderBtn() {
 
-        this.elements = this.stripe.elements({locale: this.myLocale})
-
-        // Create and display the Card input field from Stripe.
-        this.card = this.elements.create('card', cardStyle)
-        this.card.mount(this.$refs.card)
-
-        // Need to setup event handler on the elements.card as can't access directly.
-        this.card.on("change", this.onChange)
-      },
-
-
-      // Check to see if we should enable the Pay button or not.
-      onChange(ev) {
-        this.payEnabled = ev.complete
-      },
-
-
-      onPlaceOrder(ev) {
-        ev.preventDefault()
-        this.payLoading = true
         let me = this
-        this.stripe.createToken(this.card).then(function(result) {
-          // Access the token with result.token
-          if (result.error) {
-            me.message = result.error.message
-            me.hasCardErrors = true
-            me.$forceUpdate()    // Forcing the DOM to update so the Stripe Element can update.
-            me.payLoading = false
-            return
-          }
-          // Call our API to handle token
-          console.log("Created Token: " + result.token)
-          me.message = "Created Token: " + result.token.id
-          me.payLoading = false
-          me.payEnabled = false     // disable Pay button, to stop multiple clicks... Ronnie...
-          console.log(result.token)
 
+        const data = { email: this.$store.state.contactEmail }
+
+        fetch("https://gateway.flyzermatt.com/create-checkout", {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
         })
-
-
-        // stripe.confirmCardSetup(
-        //   clientSecret,
-        //   {
-        //     payment_method: {
-        //       card: cardElement,
-        //       billing_details: {
-        //         name: cardholderName.value,
-        //       },
-        //     },
-        //   }
-        // ).then(function(result) {
-        //   if (result.error) {
-        //     // Display error.message in your UI.
-        //   } else {
-        //     // The setup has succeeded. Display a success message.
-        //   }
-        // })
-
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (session) {
+            return me.stripe.redirectToCheckout({ sessionId: session.id });
+          })
+          .then(function (result) {
+            // If redirectToCheckout fails due to a browser or network
+            // error, you should display the localized error message to your
+            // customer using error.message.
+            if (result.error) {
+              alert(result.error.message);
+            }
+          })
+          .catch(function (error) {
+            console.log("Getting an error back in the 'catch'")
+            console.error("Error:", error);
+          });           
       },
 
     },
@@ -206,12 +195,12 @@
 
     watch: {
 
-      myLocale: function () {
-        // this.elements = this.stripe.elements({locale: this.myLocale})
-        //this.message = "Changed lang: " + this.myLocale
-        this.createAndMountFormElements()
-        // this.stripe.$forceUpdate() 
-      },
+      // myLocale: function () {
+      //   // this.elements = this.stripe.elements({locale: this.myLocale})
+      //   //this.message = "Changed lang: " + this.myLocale
+      //   this.createAndMountFormElements()
+      //   // this.stripe.$forceUpdate() 
+      // },
 
 
     },

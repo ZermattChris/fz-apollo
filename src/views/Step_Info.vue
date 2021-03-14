@@ -5,7 +5,9 @@
 
 
     <PageHeader :title="timeListerHeaderStr">
-      [TODO] Explain why we need all of this info – safer flights, etc.
+      We only ask for the passenger information that we need to help 
+      make your flight fun, easy and enjoyable. We never share any 
+      information with 3rd parties.
       <br>
     </PageHeader>
 
@@ -67,7 +69,7 @@
             v-model="contactValid"
           >
             <v-row v-if="i === 0"
-              class="py-2 px-4"
+              class="py-4 px-4"
             >
               <v-col
                 cols="12"

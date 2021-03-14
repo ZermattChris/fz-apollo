@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from "axios"
 
+// Temp dev json data unitl Tommy gets his API working.
+import flightdata from '@/store/flightdata.js'
+
 // Dev only - remove once API is up.
 // import tmp from "./temp3.json"
 //const tempData = require("./flightsdates.js");
@@ -90,7 +93,8 @@ export default new Vuex.Store({
     _bookDaysOffset: 0,
     _bookMonthsOffset: 0,
     _videoPrice: -1,
-    _flightsList: null,
+    //_flightsList: null,
+    _flightsList: localStorage._flightsList ? JSON.parse(localStorage._flightsList) : {},
 
     // EasyJet style of choosing a Date's Timeslot.
     //_timeListDates: null, // List of dates obj with time slots
@@ -186,7 +190,8 @@ export default new Vuex.Store({
     // Local Storage Cached
     FLIGHTS_LIST(state, obj) {
       //console.log("Flight Options for ", obj);
-      state._flightsList = obj;
+      state._flightsList = obj
+      localStorage._flightsList = JSON.stringify(state._flightsList)
     },
 
     // Navigation 
@@ -296,12 +301,45 @@ export default new Vuex.Store({
 
   },  // END MUTATIONS
 
+
+
+
+
+
+
+
+  /** ========================================================================================================== 
+   * ACTIONS.
+   * 
+   * 
+   * ==========================================================================================================*/
   actions: {
+   
     // API CALLS.
 
-
-
-
+    // ******************** API: Flight Options ********************
+    // This needs to return a json object listing each flight's id, name and price in CHF.
+    async flightOptions(context) {
+      // Return if the date is not set/valid.
+      const flDate = context.state.flightDate;
+      if (flDate === '') return
+      context.commit("FLIGHTSLIST_LOADING", true);
+      //console.log("Loading Flight Options for drop menu Step 1 ->", flDate);
+      return axios.get("https://xxxxfz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/" + flDate)
+        .then(response => {
+          let data = response.data;
+          context.commit("FLIGHTS_LIST", data);
+        })
+        .catch(error => {
+          if (context.state._DEV) {
+            console.log('Temp dev Flight name and price data being generated -> flightOptions(). ', error)
+            context.commit("FLIGHTS_LIST", generateFlightsOptions())  // only loads temp.json data while in dev mode.
+          } else {
+            console.log(error)
+          }
+        })
+        .finally(() => context.commit("FLIGHTSLIST_LOADING", false))
+    },
 
 
     // ******************** API: TimeList Dates ********************
@@ -325,17 +363,14 @@ export default new Vuex.Store({
           if (context.state._DEV) {
             console.log('Temp dev data being generated for FlightDates in store -> timeListDates(). ', error)
             context.commit("TIMELIST_DATES", generateFlightsDates(flDate))  // only loads temp.json data while in dev mode.
+          } else {
+            console.log(error)
           }
         })
         .finally(() => 
           context.commit("TIMELIST_LOADING", false),
         )
     },
-
-
-
-
-
 
 
 
@@ -357,24 +392,8 @@ export default new Vuex.Store({
         })
         .finally(() => context.commit("APP_LOADING", false)) // Loading UI OFF (starts off ON)
     },
-    // ******************** API: Flight Options ********************
-    async flightOptions(context) {
-      // Return if the date is not set/valid.
-      const flDate = context.state.flightDate;
-      if (flDate === '') return
-      context.commit("FLIGHTSLIST_LOADING", true);
-      //console.log("Loading Flight Options for drop menu Step 1 ->", flDate);
-      return axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/" + flDate)
-        .then(response => {
-          let data = response.data;
-          context.commit("FLIGHTS_LIST", data);
-        })
-        .catch(error => {
-          console.log(error)
-        })
-        .finally(() => context.commit("FLIGHTSLIST_LOADING", false))
-    },
 
+    
 
     setFlightsList(context, flightsListObj) {
       context.commit("FLIGHTS_LIST", flightsListObj)
@@ -510,6 +529,33 @@ export default new Vuex.Store({
   },  // END ACTIONS
   
   getters: {
+
+
+    /**
+     * Pass in a flight ID and get the name and price returned as an object.
+     * "100": {
+     *   "name": "Classic High",
+     *   "price_CHF": "220"
+     * }
+     * @param {integer} id 
+     * @returns object
+     */
+    getFlightFromID: (state) => (id) => {
+
+      if (isObjEmpty(state._flightsList)) return {}
+
+      let flightDetailsObj = {}
+      for (const [key, value] of Object.entries(state._flightsList)) {
+        if (key == id) {
+          console.log(key, id, value)
+          return flightDetailsObj = value
+        }
+      }
+
+      return flightDetailsObj
+      
+    },
+
 
     getStoredPassengersInSlot: (state) => (slotDate, slotIndex) => {
 
@@ -678,6 +724,18 @@ function savePassengerObjListToLocalStorage (context) {
 }
 
 
+
+// *****************************************************************
+// TEMP: this is a temp helper function to build fake dates based upon 
+// the user's chosen date, until Tommy has his backend API working.
+// *****************************************************************
+function generateFlightsOptions () {
+  return flightdata   // imported from flightdata.js
+}
+
+
+
+
 // *****************************************************************
 // TEMP: this is a temp helper function to build fake dates based upon 
 // the user's chosen date, until Tommy has his backend API working.
@@ -733,3 +791,14 @@ function generateFlightsDates (usersFlightDate) {
   return flightsdates;
 }
 
+
+// *****************************************************************
+// TEMP: this is a temp helper function to build fake dates based upon 
+// the user's chosen date, until Tommy has his backend API working.
+// *****************************************************************
+function isObjEmpty (obj) {
+  //console.log('Object empty test: ', Object.keys(obj).length)
+  if (obj == null) return true
+  if (Object.keys(obj).length > 0) return false
+  return true
+}

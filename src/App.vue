@@ -39,80 +39,14 @@
       </div>
 
       <!-- Language Switch Menu -->
-      <LangMenu
+      <LangMenu />
       
-      />
-      
-       <!-- <v-btn
-        id="language-menu"
-        fab
-        right
-        center
-        dark
-        small
-      >
-        {{ currentLangISO }}
-      </v-btn> -->
-
-
-
-
-
-    <!-- <v-speed-dial
-      id="language-menu"
-      v-model="fabModel"
-      direction="left"
-      :open-on-hover="hover"
-      :transition="transition"
-    >
-      <template v-slot:activator>
-        <v-btn
-          v-model="fabModel"
-          fab
-          small
-        >
-          {{ currentLangISO }}
-        </v-btn>
-      </template>
-      <v-btn
-        class="primary--text"
-        fab
-        small
-        color="white"
-      >
-        DE
-      </v-btn>
-      <v-btn
-        class="primary--text"
-        fab
-        small
-        color="white"
-      >
-        FR
-      </v-btn>
-      <v-btn
-        class="primary--text"
-        fab
-        small
-        color="white"
-      >
-        KR
-      </v-btn>
-    </v-speed-dial> -->
-
-
-
-
-      <!-- TEMP clear data btn -->
-      <!-- <v-btn v-if="_isDEV"
-        class="text-uppercase "
-        style="position:absolute; right:5px;"
-        text
-        @click="onClearData"
-      >
-        <v-icon left>{{iconGarbageBin}}</v-icon>
-        Reset
-      </v-btn> -->
+      <v-progress-linear
+        id="progressbar"
+        :value="progressBarPercent"
+        rounded
+        color="deep-purple"
+      ></v-progress-linear>
 
     </v-app-bar>
 
@@ -282,6 +216,7 @@ export default {
       this.$router.go(-1)
     },
 
+
     // ************************** Storage workers **************************. 
     // This is just a _DEV function for quick testing
     // Is called by the < Clear button on header.
@@ -309,6 +244,34 @@ export default {
   },
 
   computed: {
+
+    progressBarPercent: function () {
+
+      // This is a wee bit of a quick hack, needs manual updating to reflect
+      // any changes in the way navigation works.
+      const totalNrSteps = 4
+      const currentStepString = this.$store.state._currentStep.toLowerCase()
+
+      let counter = 0
+      switch (currentStepString) {
+        case 'start':
+          counter = 1
+          break
+        case 'time':
+          counter = 2
+          break
+        case 'info':
+          counter = 3
+          break
+        case 'pay':
+          counter = 4
+          break
+        default:
+          console.error(`Invalid Step name for progress bar in App.vue ${currentStepString}.`)
+      }
+
+      return counter * (100 / totalNrSteps)
+    },
 
     _isDEV: function () {
       return this.$store.state._DEV
@@ -398,6 +361,13 @@ h3 > .v-icon {
   position: absolute;
   right: 10px;
   top: 7px;
+}
+
+#progressbar {
+  position: absolute;
+  height: 8px;
+  bottom: -10px;
+  width: 93%
 }
 
 </style>

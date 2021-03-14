@@ -69,6 +69,7 @@
       class="swiperBox steps-controls"
       ref="mySwiper"
       :options="swiperOptions"
+      @slideChange="onSlideChanged"
     >
       <swiper-slide 
         v-for="(timeListerObj, key, index) in daysVisibleList" 
@@ -120,7 +121,6 @@
     data () {
       //var self = this;
       return {
-        // visibleSwiperSlidesList: [],
 
         iconIdea: mdiLightbulbOnOutline,
         iconArrowDown: mdiArrowDownCircle,
@@ -129,8 +129,8 @@
         // offer them a UI to return to that date easily.
         usersStep1Date: '',
 
-        //getUsersTimeListerDay: 0,
-        //swiper: null,
+        visibleSlides: [],
+
         swiperOptions: {
           centeredSlides: true,
           initialSlide: this.usersDayIndex(),
@@ -152,10 +152,6 @@
               spaceBetween: 20
             },
             700: {
-              slidesPerView: 2,
-              spaceBetween: 30
-            },
-            220: {
               slidesPerView: 1,
               spaceBetween: 10
             }
@@ -174,14 +170,14 @@
       // Keep track of User's step 1 selected date.
       this.usersStep1Date = this.$store.state.flightDate
 
-      // // Initialize the xxxx to have an entry for each Slide.
-      // const len = Object.keys(this.daysVisibleList).length
-      // for (let x = 0; x < len; x++) {
-      //   this.visibleSwiperSlidesList['SwiperSlide_' + x] = true
-      //   //console.log(key, i)
-      // }
-
     },
+
+
+    mounted() {
+      // console.log("Swiper Init() ")
+      // this.updateVirtualSlides()
+    },
+
     beforeUpdate() {
 
     },
@@ -249,13 +245,43 @@
     //     console.log('Changed!: ',this.visibleSwiperSlidesList)
     //   }
 
-    // },
+    // }, []
 
     methods: {
 
-      // isTimeListVisible (parentSwiperSlideId) {
-      //   console.log(parentSwiperSlideId, this.visibleSwiperSlidesList[parentSwiperSlideId])
-      //   return this.visibleSwiperSlidesList[parentSwiperSlideId]
+      onSlideChanged: function () {
+        // scroll Swiper to the currently selected date.
+        // console.log("Slide changed ")
+        // this.updateVirtualSlides()
+      },
+
+      // updateVirtualSlides: function () {
+      //   console.log("- Update Slides", this.swiper.activeIndex, " Container Width:", this.swiper.width)
+      //   // const myTimelist = "TimeList_" + this.swiper.activeIndex
+      //   // this.$refs[myTimelist].show()
+
+      //   const currSlideIndex = this.swiper.activeIndex
+      //   const swiperWidth = this.swiper.width
+      //   let renderSlideOffset = 1
+      //   this.visibleSlides = []
+
+      //   if (swiperWidth >= 700 && swiperWidth < 1260)  {
+      //     renderSlideOffset = 2
+      //   } else if (swiperWidth >= 1260)  {
+      //     renderSlideOffset = 3
+      //   } 
+
+      //   for (
+      //     let x = (currSlideIndex - renderSlideOffset); 
+      //     x < (currSlideIndex + renderSlideOffset); 
+      //     x++
+      //   ) {
+      //     this.visibleSlides.push(x)
+      //   }
+
+      //   //this.visibleSlides
+
+
       // },
       
       // onIntersect (entries) {
