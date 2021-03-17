@@ -129,7 +129,7 @@
         // offer them a UI to return to that date easily.
         usersStep1Date: '',
 
-        visibleSlides: [],
+        visibleSlidesData: [],
 
         swiperOptions: {
           centeredSlides: true,
@@ -175,7 +175,7 @@
 
     mounted() {
       // console.log("Swiper Init() ")
-      // this.updateVirtualSlides()
+      this.loadVisibleSlides()
     },
 
     beforeUpdate() {
@@ -253,6 +253,43 @@
         // scroll Swiper to the currently selected date.
         // console.log("Slide changed ")
         // this.updateVirtualSlides()
+      },
+      
+      
+      loadVisibleSlides: function () {
+
+        This bit is all rather wrong and poorly thought through. Must plan and redo properly
+
+        console.log("- Update Slides. Active slide index: ", this.swiper.activeIndex, " Container Width:", this.swiper.width)
+        // const myTimelist = "TimeList_" + this.swiper.activeIndex
+        // this.$refs[myTimelist].show()
+
+        const currSlideIndex = this.swiper.activeIndex
+        const swiperWidth = this.swiper.width
+
+        let renderSlideOffset = 1
+        let visibleSlidesIndexes = [currSlideIndex]
+        this.visibleSlidesData = []
+
+        if (swiperWidth >= 700 && swiperWidth < 1260)  {
+          renderSlideOffset = 1
+        } else if (swiperWidth >= 1260)  {
+          renderSlideOffset = 2
+        } 
+
+        if (swiperWidth >= 700)  {
+          visibleSlidesIndexes = [] // clear.
+          for (
+            let x = (currSlideIndex - renderSlideOffset); 
+            x < (currSlideIndex + renderSlideOffset); 
+            x++
+          ) {
+            visibleSlidesIndexes.push(x)
+          }
+        }
+
+        console.log("-> Visible slide Indexes: " + visibleSlidesIndexes)
+
       },
 
       // updateVirtualSlides: function () {
