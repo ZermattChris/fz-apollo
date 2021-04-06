@@ -258,7 +258,7 @@
       
       loadVisibleSlides: function () {
 
-        This bit is all rather wrong and poorly thought through. Must plan and redo properly
+        // This bit is all rather wrong and poorly thought through. Must plan and redo properly
 
         console.log("- Update Slides. Active slide index: ", this.swiper.activeIndex, " Container Width:", this.swiper.width)
         // const myTimelist = "TimeList_" + this.swiper.activeIndex
