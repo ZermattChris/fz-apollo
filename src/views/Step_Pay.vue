@@ -159,7 +159,7 @@
 
         let me = this
 
-        // was failing without quotes around "email": 
+        // was failing without quotes around "email":       
         const data = { "email": this.$store.state.contactEmail }
 
         fetch("https://gateway.flyzermatt.com/create-checkout", {
