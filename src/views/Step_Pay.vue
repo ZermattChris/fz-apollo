@@ -165,9 +165,9 @@
         fetch("https://gateway.flyzermatt.com/create-checkout", {
           method: 'POST', // or 'PUT'
           headers: {
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Headers':'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-            'Access-Control-Allow-Credentials' : true,
+            // 'Access-Control-Allow-Origin' : '*',
+            // 'Access-Control-Allow-Headers':'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+            // 'Access-Control-Allow-Credentials' : true,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
