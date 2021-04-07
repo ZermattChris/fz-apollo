@@ -15,5 +15,5 @@
   X-Frame-Options: deny
   X-Content-Type-Options: nosniff
 
-  # Doh! This is on Tommy's server, not Netlify... Need to move to Tommy's
-  # Access-Control-Allow-Origin: https://secure.flyzermatt.com
+  # We need access to our payment gateway.
+  Access-Control-Allow-Origin: https://gateway.flyzermatt.com
