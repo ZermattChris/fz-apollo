@@ -17,3 +17,4 @@
 
   # We need access to our payment gateway.
   Access-Control-Allow-Origin: 'https://gateway.flyzermatt.com'
+  Access-Control-Allow-Headers: "Origin, X-Requested-With, Content-Type, Accept"
