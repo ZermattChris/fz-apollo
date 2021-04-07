@@ -1,10 +1,13 @@
 <template>
   <div class="stepThanks">
     
-    <PageHeader title="6. Thank you!">
-      Thanks for making a booking with FlyZermatt...
-      
+    <PageHeader title="Thank you!">
+      Your payment succeeded.
     </PageHeader>
+
+    <p>
+      Please check your inbox for your order and payment confirmations.
+    </p>
 
     <ul>
       <li>Reset booking vars</li>
