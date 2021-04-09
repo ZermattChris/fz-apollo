@@ -2,13 +2,20 @@
   <div class="stepThanks">
     
     <PageHeader title="Thank you!">
-      Your payment succeeded.
+      Your payment succeeded &amp; your order is complete.
     </PageHeader>
 
     <p>
       Please check your inbox for your order and payment confirmations.
+      <br><br>
+      (Don't forget to check your Spam/Junk folders too!)
     </p>
 
+
+    <p>
+      <br><br>
+      Still TODO:
+    </p>
     <ul>
       <li>Reset booking vars</li>
       <li>Provide a way to review previous bookings (link in Email??)</li>
