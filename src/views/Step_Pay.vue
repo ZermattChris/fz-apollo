@@ -164,7 +164,7 @@
         const data = { 
           "email": this.$store.state.contactEmail,
           "orderId": this.$store.state.orderID,
-          "flightId": 100,
+          "flightId": this.$store.state.selectedFlight,
           "photos": this.$store.state.wantsPhotos,
 
         }
@@ -174,12 +174,17 @@
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(data),   // 1. Passing in 'data' to 'create-checkout'
         })
           .then(function (response) {
             return response.json();
           })
-          .then(function (session) {
+          .then(function (session) {    // 2. Getting data in response in 'session' var.
+
+            // Update the returned OrderId in StoreX
+            this.$store.dispatch('setOrderId', session.orderId)
+
+
             return me.stripe.redirectToCheckout({ sessionId: session.id });
           })
           .then(function (result) {
