@@ -63,6 +63,8 @@ export default new Vuex.Store({
 
     // User inputs.
     // Cached in browser's localStorage.
+    orderID:     localStorage.orderID || "",        // Connects to our db for this order. Created by the 'create-checkout' call to the Gateway.
+
     totalPassengers: initPassengersInTimeSlot(),     // This is to replace nrPeople below, as using multiple inputs over slots
 
     //nrPeople:      +localStorage.nrPeople || 0,   // deprecated. Use: totalPassengers
@@ -188,6 +190,11 @@ export default new Vuex.Store({
     
 
     // Local Storage Cached
+    ORDER_ID(state, id) {
+      state.orderID = id
+      localStorage.orderID = JSON.stringify(state.orderID)
+    },
+
     FLIGHTS_LIST(state, obj) {
       //console.log("Flight Options for ", obj);
       state._flightsList = obj
@@ -407,6 +414,11 @@ export default new Vuex.Store({
       context.commit("SHOW_REVIEW_DIALOG", showBool)
     },
     
+    // Database connector id.
+    setOrderId(context, id) {
+      context.commit("ORDER_ID", id)
+    },
+
 
     // --- USER INPUTS ---
 

@@ -11,6 +11,10 @@ const flightData =
     "300": {
       "name": "Elite",
       "price_CHF": "380"
+    },
+    "0": {
+      "name": "Stripe Test Flight",
+      "price_CHF": "1"
     }
   }
   
