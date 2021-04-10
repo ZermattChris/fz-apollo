@@ -159,9 +159,9 @@
         // order being sent to Stripe, using real data from Tommy's backend.
         const data = { 
           "email": this.$store.state.contactEmail,
-          "orderId": this.$store.state.orderID,
-          "flightId": this.$store.state.selectedFlight,
-          "photos": this.$store.state.wantsPhotos,
+          //"orderId": this.$store.state.orderID,
+          //"flightId": this.$store.state.selectedFlight,
+          //"photos": this.$store.state.wantsPhotos,
 
         }
 
