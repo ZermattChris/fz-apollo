@@ -178,7 +178,7 @@
           .then(function (session) {    // 2. Getting data in response in 'session' var.
 
             // Update the returned OrderId in StoreX
-            me.$store.dispatch('setOrderId', session.orderId)
+            //me.$store.dispatch('setOrderId', session.orderId)
 
 
             return me.stripe.redirectToCheckout({ sessionId: session.id });
