@@ -158,11 +158,10 @@
         // Here we can pass required data to the backend to create the actual
         // order being sent to Stripe, using real data from Tommy's backend.
         const data = { 
-          "email": this.$store.state.contactEmail
-          //"orderId": this.$store.state.orderID,
-          //"flightId": this.$store.state.selectedFlight,
-          //"photos": this.$store.state.wantsPhotos,
-
+          "email": this.$store.state.contactEmail,
+          "orderId": this.$store.state.orderID,
+          "flightId": this.$store.state.selectedFlight,
+          "photos": this.$store.state.wantsPhotos
         }
 
         fetch("https://gateway.flyzermatt.com/create-checkout", {
@@ -178,7 +177,7 @@
           .then(function (session) {    // 2. Getting data in response in 'session' var.
 
             // Update the returned OrderId in StoreX
-            //me.$store.dispatch('setOrderId', session.orderId)
+            me.$store.dispatch('setOrderId', session.orderId)
 
 
             return me.stripe.redirectToCheckout({ sessionId: session.id });
