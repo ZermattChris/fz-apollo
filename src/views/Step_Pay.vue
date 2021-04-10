@@ -159,8 +159,14 @@
 
         let me = this
 
-        // was failing without quotes around "email": 
-        const data = { "email": this.$store.state.contactEmail }
+        // Here we can pass required data to the backend to create the actual
+        // order being sent to Stripe, using real data from Tommy's backend.
+        const data = { 
+          "email": this.$store.state.contactEmail,
+          "flightId": 100,
+          "photos": "true",
+
+        }
 
         fetch("https://gateway.flyzermatt.com/create-checkout", {
           method: 'POST', // or 'PUT'
