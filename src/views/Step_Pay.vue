@@ -100,13 +100,6 @@
   </div>
 </template>
 
-// Use this, other stuff old, or odd...
-// https://stripe.com/docs/checkout/integration-builder
-
-// https://vuestripe.com/stripe-elements/getting-started
-// https://codesandbox.io/s/7j4kj488yx?file=/src/App.vue
-// https://testdriven.io/blog/accepting-payments-with-stripe-vuejs-and-flask/
-
 
 <script>
   import PageHeader from '@/components/PageHeader.vue'
@@ -182,7 +175,7 @@
           .then(function (session) {    // 2. Getting data in response in 'session' var.
 
             // Update the returned OrderId in StoreX
-            this.$store.dispatch('setOrderId', session.orderId)
+            me.$store.dispatch('setOrderId', session.orderId)
 
 
             return me.stripe.redirectToCheckout({ sessionId: session.id });
