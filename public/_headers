@@ -2,10 +2,8 @@
 
 # /* is for every file served on site.
 /*
-  Content-Security-Policy: default-src 'self';   base-uri 'self';   object-src 'none';   connect-src https://*.simpleitsolutions.ch https://gateway.flyzermatt.com https://*.bugsnag.com;   font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com;   frame-src https://js.stripe.com;    img-src 'self';   script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com  https://polyfill.io;   style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/ https://fonts.googleapis.com/;   worker-src 'none';   child-src 'none';   form-action 'self';   frame-ancestors 'self';   upgrade-insecure-requests;
-
-  #Content-Security-Policy-Report-Only: default-src https:; report-uri https://gateway.flyzermatt.com/report
-
+  
+  Content-Security-Policy: default-src 'self';   base-uri 'self';   object-src 'none';   connect-src https://*.simpleitsolutions.ch https://gateway.flyzermatt.com https://*.bugsnag.com;   font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com;   frame-src https://js.stripe.com;    img-src 'self';   script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com/v3 https://polyfill.io/v3/polyfill.min.js;   style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/ https://fonts.googleapis.com/;   worker-src 'none';   child-src 'none';   form-action 'self';   frame-ancestors 'self';   upgrade-insecure-requests;
 
   Referrer-Policy: strict-origin
   
