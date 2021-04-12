@@ -157,6 +157,7 @@
 
         // Here we can pass required data to the backend to create the actual
         // order being sent to Stripe, using real data from Tommy's backend.
+        // TODO: add remaining fields here, for new Order in db.
         const data = { 
           "email": this.$store.state.contactEmail,
           "orderId": this.$store.state.orderID,
