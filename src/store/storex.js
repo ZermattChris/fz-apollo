@@ -63,13 +63,13 @@ export default new Vuex.Store({
 
     // User inputs.
     // Cached in browser's localStorage.
-    orderID:     localStorage.orderID || "",        // Connects to our db for this order. Created by the 'create-checkout' call to the Gateway.
+    orderID:     +localStorage.orderID || "",        // Connects to our db for this order. Created by the 'create-checkout' call to the Gateway.
 
     totalPassengers: initPassengersInTimeSlot(),     // This is to replace nrPeople below, as using multiple inputs over slots
 
     //nrPeople:      +localStorage.nrPeople || 0,   // deprecated. Use: totalPassengers
     flightDate:     localStorage.flightDate || "",
-    selectedFlight: localStorage.selectedFlight || "",
+    selectedFlight: localStorage.selectedFlight || "",    // Flight ID from Tommy.
     wantsPhotos:    localStorage.wantsPhotos ? JSON.parse(localStorage.wantsPhotos) : false,  // convert to bool if not undefined.
     
     timeSlot:      +localStorage.selectedTimeslot || -1,

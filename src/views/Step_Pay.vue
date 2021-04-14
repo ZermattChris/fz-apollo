@@ -129,6 +129,70 @@
 
     created() {
 
+        let me = this
+
+        console.log("TODO: take a close looks at OrderId passing and updating...")
+
+        // Create a new (or update an existing) Order in the db.
+            // 'order_id' => '102158',
+            // 'is_test' => '1',
+            // 'created_stamp' => '2021-04-14 14:11:47',
+            // 'status' => 'deleted',
+            // 'email' => NULL,
+            // 'phone' => NULL,
+            // 'first' => 'John',
+            // 'last' => 'Doe',
+            // 'total_passengers' => '0',
+            // 'flight_date' => NULL,
+            // 'flight_id' => NULL,
+            // 'photos' => NULL,
+            // 'passenger_json' => NULL,
+            // 'slot_json' => NULL,
+            // 'payment_stamp' => NULL,
+            // 'payment_intent' => NULL
+
+        // 0 -> Contact passenger's name.
+        let fullPassengerName = this.$store.getters.getSexById(0) + ' ' + this.$store.getters.getNameById(0)
+        let id = this.$store.state.orderID
+        console.log(id)
+        if (id === '' || id === undefined)  id = null
+
+        const data = { 
+          "orderId": id,
+          "isTest": true,                             // Change this for produciton!
+          "email": this.$store.state.contactEmail,
+          "phone": this.$store.state.contactPhone,
+          "name": fullPassengerName,   
+          "totalPassengers": this.$store.getters.getTotalPassengers,
+          "flightDate": this.$store.state.flightDate,
+          "flightId": this.$store.state.selectedFlight,
+          "photos": this.$store.state.wantsPhotos,
+          "passengerJSON": this.$store.state.passengerObjList,
+          "slotJSON": this.$store.state.slotPassengersObj
+        }
+
+        fetch("https://gateway.flyzermatt.com/new-order", {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),   // 1. Passing in 'data' to 'create-checkout'
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (returnedJSON) {    // 2. Getting data in response in 'session' var.
+            //console.log("Result of calling https://gateway.flyzermatt.com/new-order")
+            //console.log(returnedJSON)
+            me.$store.dispatch('setOrderId', returnedJSON.orderID)
+          })
+          .catch(function (error) {
+            console.log("Getting an error back from fetch: https://gateway.flyzermatt.com/new-order")
+            console.error("Error:", error);
+          }); 
+
+
+
 
     },
     async mounted() {
@@ -153,48 +217,40 @@
 
       onOrderBtn() {
 
-        let me = this
+        // let me = this
 
-        // Here we can pass required data to the backend to create the actual
-        // order being sent to Stripe, using real data from Tommy's backend.
-        // TODO: add remaining fields here, for new Order in db.
-        const data = { 
-          "email": this.$store.state.contactEmail,
-          "orderId": this.$store.state.orderID,
-          "flightId": this.$store.state.selectedFlight,
-          "photos": this.$store.state.wantsPhotos
-        }
+        // // Set up the Order button to send user to Stripe when clicked.
 
-        fetch("https://gateway.flyzermatt.com/create-checkout", {
-          method: 'POST', // or 'PUT'
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),   // 1. Passing in 'data' to 'create-checkout'
-        })
-          .then(function (response) {
-            return response.json();
-          })
-          .then(function (session) {    // 2. Getting data in response in 'session' var.
+        // fetch("https://gateway.flyzermatt.com/create-checkout", {
+        //   method: 'POST', // or 'PUT'
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify(data),   // 1. Passing in 'data' to 'create-checkout'
+        // })
+        //   .then(function (response) {
+        //     return response.json();
+        //   })
+        //   .then(function (session) {    // 2. Getting data in response in 'session' var.
 
-            // Update the returned OrderId in StoreX
-            me.$store.dispatch('setOrderId', session.orderId)
+        //     // Update the returned OrderId in StoreX
+        //     me.$store.dispatch('setOrderId', session.orderId)
 
 
-            return me.stripe.redirectToCheckout({ sessionId: session.id });
-          })
-          .then(function (result) {
-            // If redirectToCheckout fails due to a browser or network
-            // error, you should display the localized error message to your
-            // customer using error.message.
-            if (result.error) {
-              alert(result.error.message);
-            }
-          })
-          .catch(function (error) {
-            console.log("Getting an error back in the 'catch'")
-            console.error("Error:", error);
-          });           
+        //     return me.stripe.redirectToCheckout({ sessionId: session.id });
+        //   })
+        //   .then(function (result) {
+        //     // If redirectToCheckout fails due to a browser or network
+        //     // error, you should display the localized error message to your
+        //     // customer using error.message.
+        //     if (result.error) {
+        //       alert(result.error.message);
+        //     }
+        //   })
+        //   .catch(function (error) {
+        //     console.log("Getting an error back in the 'catch'")
+        //     console.error("Error:", error);
+        //   });           
       },
 
     },
