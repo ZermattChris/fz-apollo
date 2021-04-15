@@ -131,7 +131,7 @@
 
         let me = this
 
-        console.log("TODO: take a close looks at OrderId passing and updating...")
+        //console.log("TODO: take a close looks at OrderId passing and updating...")
 
         // Create a new (or update an existing) Order in the db.
             // 'order_id' => '102158',
@@ -151,18 +151,18 @@
             // 'payment_stamp' => NULL,
             // 'payment_intent' => NULL
 
-        // 0 -> Contact passenger's name.
-        let fullPassengerName = this.$store.getters.getSexById(0) + ' ' + this.$store.getters.getNameById(0)
+        
         let id = this.$store.state.orderID
         console.log(id)
         if (id === '' || id === undefined)  id = null
 
         const data = { 
           "orderId": id,
-          "isTest": true,                             // Change this for produciton!
+          "isTest": true,                             // TODO Change this for produciton!
           "email": this.$store.state.contactEmail,
           "phone": this.$store.state.contactPhone,
-          "name": fullPassengerName,   
+          "gender": this.$store.getters.getSexById(0), 
+          "name": this.$store.getters.getNameById(0),    // 0 -> Contact passenger's name.
           "totalPassengers": this.$store.getters.getTotalPassengers,
           "flightDate": this.$store.state.flightDate,
           "flightId": this.$store.state.selectedFlight,
@@ -179,17 +179,22 @@
           body: JSON.stringify(data),   // 1. Passing in 'data' to 'create-checkout'
         })
           .then(function (response) {
-            return response.json();
+            return response.json()
           })
           .then(function (returnedJSON) {    // 2. Getting data in response in 'session' var.
             //console.log("Result of calling https://gateway.flyzermatt.com/new-order")
             //console.log(returnedJSON)
-            me.$store.dispatch('setOrderId', returnedJSON.orderID)
+            // I think if the db record already exists, we're getting an id of 'zero' back.
+            // Don't update the order id locally if this is the case, as it causes a new 
+            // record to be created.
+            if (returnedJSON.orderID > 0) {
+              me.$store.dispatch('setOrderId', returnedJSON.orderID)
+            }
           })
           .catch(function (error) {
             console.log("Getting an error back from fetch: https://gateway.flyzermatt.com/new-order")
-            console.error("Error:", error);
-          }); 
+            console.error("Error:", error)
+          });
 
 
 
@@ -217,40 +222,39 @@
 
       onOrderBtn() {
 
-        // let me = this
+        let me = this
 
-        // // Set up the Order button to send user to Stripe when clicked.
+        // Set up the Order button to send user to Stripe when clicked.
 
-        // fetch("https://gateway.flyzermatt.com/create-checkout", {
-        //   method: 'POST', // or 'PUT'
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify(data),   // 1. Passing in 'data' to 'create-checkout'
-        // })
-        //   .then(function (response) {
-        //     return response.json();
-        //   })
-        //   .then(function (session) {    // 2. Getting data in response in 'session' var.
-
-        //     // Update the returned OrderId in StoreX
-        //     me.$store.dispatch('setOrderId', session.orderId)
-
-
-        //     return me.stripe.redirectToCheckout({ sessionId: session.id });
-        //   })
-        //   .then(function (result) {
-        //     // If redirectToCheckout fails due to a browser or network
-        //     // error, you should display the localized error message to your
-        //     // customer using error.message.
-        //     if (result.error) {
-        //       alert(result.error.message);
-        //     }
-        //   })
-        //   .catch(function (error) {
-        //     console.log("Getting an error back in the 'catch'")
-        //     console.error("Error:", error);
-        //   });           
+        fetch("https://gateway.flyzermatt.com/create-checkout", {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "email": this.$store.state.contactEmail,
+            "orderId": this.$store.state.orderID
+            }),   // 1. Passing in 'data' to 'create-checkout'
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (session) {    // 2. Getting data in response in 'session' var.
+            // Send user to the Stripe Checkout page.
+            return me.stripe.redirectToCheckout({ sessionId: session.id });
+          })
+          .then(function (result) {
+            // If redirectToCheckout fails due to a browser or network
+            // error, you should display the localized error message to your
+            // customer using error.message.
+            if (result.error) {
+              alert(result.error.message);
+            }
+          })
+          .catch(function (error) {
+            console.log("Getting an error back in the 'catch'")
+            console.error("Error:", error);
+          });           
       },
 
     },
