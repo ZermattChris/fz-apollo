@@ -77,6 +77,7 @@ export default new Vuex.Store({
 
     contactPhone:   sessionStorage.contactPhone || "",
     contactEmail:   sessionStorage.contactEmail || "",
+    orderMessage:   sessionStorage.orderMessage || "",
 
     // Contains a list of (cloned) rawPassengerObj's -- one for each Passenger.
     passengerObjList: localStorage.passengerObjList ? JSON.parse(localStorage.passengerObjList) : [],
@@ -185,6 +186,10 @@ export default new Vuex.Store({
     },
     CONTACT_EMAIL(state, email) {
       state.contactEmail = email
+    },
+    
+    ORDER_MESSAGE(state, msg) {
+      state.orderMessage = msg
     },
     
     
@@ -457,31 +462,32 @@ export default new Vuex.Store({
 
     // Nav Action.
     clearNavList(context) {
-      //console.log('NAV_LIST', payload)
       context.commit("CLEAR_NAV_LIST")
       localStorage._navList = JSON.stringify(context.state._navList)
     },
     setNavListItem(context, payload) {
-      //console.log('NAV_LIST', payload)
       context.commit("NAV_LIST", payload)
       localStorage._navList = JSON.stringify(context.state._navList)
     },
     setCurrentStep(context, stepName) {
-      //console.log('NAV_LIST', payload)
       context.commit("CURRENT_STEP", stepName)
       localStorage._currentStep = stepName
     },
 
     setContactPhone(context, phoneNr) {
-      //console.log('NAV_LIST', payload)
       context.commit("CONTACT_PHONE", phoneNr)
       sessionStorage.contactPhone = phoneNr
     },
     setContactEmail(context, email) {
-      //console.log('NAV_LIST', payload)
       context.commit("CONTACT_EMAIL", email)
       sessionStorage.contactEmail = email
     },
+    setOrderMessage(context, msg) {
+      context.commit("ORDER_MESSAGE", msg)
+      sessionStorage.orderMessage = msg
+    },
+
+    
 
     // ---- Passenger Sets -----
 

@@ -59,8 +59,20 @@
       </v-simple-table>
     </template>
 
+    <v-textarea
+      class="mt-6 mx-auto"
+      style="max-width:600px;"
+      v-model="message"
+      name="booking-message"
+      outlined
+      label="Booking Message"
+      auto-grow
+      hint="Enter extra passenger infos or questions here."
+      @blur="onMessageBlur"
+    ></v-textarea>
 
-    <div id="payment-button-box" class="mt-4" style="text-align:center;">
+
+    <div id="payment-button-box" class="" style="text-align:center;">
       <v-btn id="payment-button" ref="paymentButton" type="submit"
         color="warning darken-1"
         class="mt-4"
@@ -83,13 +95,12 @@
       {{message}}
     </div> -->
 
-<br/><br/>
+    <br/><br/>
 
-  <p>
-    Copy one of the numbers below to test payment on the Stripe page. <br/> <br/>
-    Use any email, card date (in future), CVC and Name on card.
-  </p>
-
+    <p>
+      Copy one of the numbers below to test payment on the Stripe page. <br/> <br/>
+      Use any email, card date (in future), CVC and Name on card.
+    </p>
     <ul>
       <li>Visa standard card with success: 4000007560000009 <br/></li>
       <li>3D Secure with success: 4000002500003155</li>
@@ -120,7 +131,7 @@
         hasCardErrors: false,
         payEnabled: false,
         payLoading: false,
-        message: ' - - ',
+        message: this.$store.state.orderMessage,
 
         elements: undefined,
         card: undefined,
@@ -203,9 +214,6 @@
     async mounted() {
 
         this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
-        //this.stripe = await loadStripe('pk_test_51IGntPLZ4REFUmfdjQL7LCGwclVtgzurrVvVhr5P8htOMohzdfAQke3p0Dd3zFsKcLuWtiFXK2x2RnXOCRQt1x8j00XqKkjnx2')
-
-        
 
     },
 
@@ -220,12 +228,16 @@
 
     methods: {
 
+      onMessageBlur() {
+        console.log('message: ', this.message)
+        this.$store.dispatch('setOrderMessage', this.message)
+      },
+
       onOrderBtn() {
 
         let me = this
 
         // Set up the Order button to send user to Stripe when clicked.
-
         fetch("https://gateway.flyzermatt.com/create-checkout", {
           method: 'POST', // or 'PUT'
           headers: {
@@ -233,7 +245,9 @@
           },
           body: JSON.stringify({
             "email": this.$store.state.contactEmail,
-            "orderId": this.$store.state.orderID
+            "orderId": this.$store.state.orderID,
+            "orderMessage": this.$store.state.orderMessage,
+
             }),   // 1. Passing in 'data' to 'create-checkout'
         })
           .then(function (response) {
