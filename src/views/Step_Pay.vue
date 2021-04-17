@@ -65,7 +65,7 @@
       v-model="message"
       name="booking-message"
       outlined
-      label="Booking Message"
+      label="Booking Message (optional)"
       auto-grow
       hint="Enter extra passenger infos or questions here."
       @blur="onMessageBlur"
