@@ -272,24 +272,14 @@ export default {
       let newFlightsList = []
 
       for (const [key, value] of Object.entries(obj)) {
-        console.log(key, value['name'], value['price_CHF'])
-        const namePrice = value['name'] + ' ' + value['price_CHF'] + '.- CHF'
-        const listItem = {id:key, name:namePrice}
+        console.log(key, value['id'], value['name'], value['price'])
+        const namePrice = value['name'] + ' ' + value['price'] + '.- CHF'
+        const listItem = {id:value['id'], name:namePrice}
         newFlightsList.push(listItem)
       }
 
       return newFlightsList
 
-      // Old, orginal way of building flights. Awaiting Tommy to finish API
-      // let newFlightsList = []
-      // for (let [key, value] of Object.entries(obj)) {
-      //   //console.log(`${key}: ${value}`);
-      //   const listItem = {id:`${key}`, name:`${value}`}
-      //   // item-text="name"
-      //   // item-value="id"
-      //   newFlightsList.push(listItem)
-      // }
-      // return newFlightsList
     },
 
   },

@@ -337,10 +337,45 @@ export default new Vuex.Store({
       if (flDate === '') return
       context.commit("FLIGHTSLIST_LOADING", true);
       //console.log("Loading Flight Options for drop menu Step 1 ->", flDate);
-      return axios.get("https://xxxxfz-backend.simpleitsolutions.ch/onlinebooking/api/flightoptions/" + flDate)
+      return axios.get("https://bookings-dev.simpleitsolutions.ch/api/flightoptions/" + flDate)
         .then(response => {
           let data = response.data;
           context.commit("FLIGHTS_LIST", data);
+
+          // TODO: Write a bridge to convert to our existing format.
+
+          // New format.
+          // _flightsList: [
+          //   {"id":1,"name":"Classic High Flight (Rothorn)","price":"220.00"},
+          //   {"id":2,"name":"Elite Flight (Klein Matterhorn)","price":"380.00"},
+          //   {"id":5,"name":"Scenic Flight (Riffelberg)","price":"170.00"},
+          //   {"id":7,"name":"Scenic Flight (Blauherd)","price":"170.00"},
+          //   {"id":9,"name":"Glacier Flight (Gornergrat)","price":"220.00"}
+          // ]
+
+          // Old format.
+          // {
+          //   "0": {
+          //     "name": "Stripe Test Flight",
+          //     "price_CHF": "1"
+          //   },
+          //   "100": {
+          //     "name": "Classic High",
+          //     "price_CHF": "220"
+          //   },
+          //   "200": {
+          //     "name": "Scenic",
+          //     "price_CHF": "170"
+          //   },
+          //   "300": {
+          //     "name": "Elite",
+          //     "price_CHF": "380"
+          //   }
+          // }
+          
+          //console.log("Old JSON format: ", generateFlightsOptions())
+
+
         })
         .catch(error => {
           if (context.state._DEV) {
@@ -388,9 +423,7 @@ export default new Vuex.Store({
 
     // ******************** API: init App ********************
     async init(context) {
-      // var result = await axios.get("http://localhost:3000/init");   // local JSON server for dev.
-      // return axios.get("https://fz-backend.simpleitsolutions.ch/onlinebooking/api/init")
-      return axios.get("https://bookings-dev.simpleitsolutions.ch/onlinebooking/init")
+      return axios.get("https://bookings-dev.simpleitsolutions.ch/api/init")
         .then(response => {
           let data = response.data;
           // Note to future self:
