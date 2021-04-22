@@ -186,7 +186,7 @@ export default {
         return this.$store.state.selectedFlight
       },
       set(flightStr) {
-        //console.log('Set chosen flight', flightStr)
+        console.log('Set chosen flight', flightStr)
         return this.$store.dispatch('setFlight', flightStr)
       }
     },
@@ -266,13 +266,14 @@ export default {
      */
     buildFlightList: function () {
       const obj = this.$store.state._flightsList
-      console.log('build flight list for drop menu', obj)
+      //console.log('build flight list for drop menu', obj)
       if (this.isObjEmpty(obj)) return
 
       let newFlightsList = []
 
+      // eslint-disable-next-line no-unused-vars
       for (const [key, value] of Object.entries(obj)) {
-        console.log(key, value['id'], value['name'], value['price'])
+        //console.log(key, value['id'], value['name'], value['price'])
         const namePrice = value['name'] + ' ' + value['price'] + '.- CHF'
         const listItem = {id:value['id'], name:namePrice}
         newFlightsList.push(listItem)

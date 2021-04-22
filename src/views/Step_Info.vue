@@ -612,7 +612,9 @@
         return localStorage.selectedTimeslotLabel
       },
       bookingFlight: function () {
-        return this.$store.state.selectedFlight
+        const flightObj = this.$store.getters.getFlightObjById()
+        if (flightObj === undefined) return
+        return flightObj.name + " " + flightObj.price + " CHF"
       },
       bookingPhotosOption: function () {
         const wantsFotos = this.$store.state.wantsPhotos

@@ -341,41 +341,6 @@ export default new Vuex.Store({
         .then(response => {
           let data = response.data;
           context.commit("FLIGHTS_LIST", data);
-
-          // TODO: Write a bridge to convert to our existing format.
-
-          // New format.
-          // _flightsList: [
-          //   {"id":1,"name":"Classic High Flight (Rothorn)","price":"220.00"},
-          //   {"id":2,"name":"Elite Flight (Klein Matterhorn)","price":"380.00"},
-          //   {"id":5,"name":"Scenic Flight (Riffelberg)","price":"170.00"},
-          //   {"id":7,"name":"Scenic Flight (Blauherd)","price":"170.00"},
-          //   {"id":9,"name":"Glacier Flight (Gornergrat)","price":"220.00"}
-          // ]
-
-          // Old format.
-          // {
-          //   "0": {
-          //     "name": "Stripe Test Flight",
-          //     "price_CHF": "1"
-          //   },
-          //   "100": {
-          //     "name": "Classic High",
-          //     "price_CHF": "220"
-          //   },
-          //   "200": {
-          //     "name": "Scenic",
-          //     "price_CHF": "170"
-          //   },
-          //   "300": {
-          //     "name": "Elite",
-          //     "price_CHF": "380"
-          //   }
-          // }
-          
-          //console.log("Old JSON format: ", generateFlightsOptions())
-
-
         })
         .catch(error => {
           if (context.state._DEV) {
@@ -394,20 +359,17 @@ export default new Vuex.Store({
       context.commit("TIMELIST_LOADING", true); // Loading UI ON
 
       // Return if the date is not set/valid.
-      const flDate = context.state.flightDate;
+      const flDate = context.state.flightDate
+      const flightId = context.state.selectedFlight
       //console.log(flDate)
-      // if (flDate === '') {
-      //   console.log('flDate is empty, not pulling flights/date data from timeListDates() API')
-      //   return
-      // }
-      // Temporarily disable the call to backend until Tommy builds it properly.
-      return axios.get("https://XXXXXXXXX-bookings-dev.simpleitsolutions.ch/onlinebooking/flightschedules/" + flDate)
+      return axios.get("https://bookings-dev.simpleitsolutions.ch/api/flightsavailable/" + flightId + "/" + flDate)
         .then(response => {
           let data = response.data;
           context.commit("TIMELIST_DATES", data)
         })
         .catch(error => {
           if (context.state._DEV) {
+            // TODO Prob don't need this anymore. remove at some point.
             console.log('Temp dev data being generated for FlightDates in store -> timeListDates(). ', error)
             context.commit("TIMELIST_DATES", generateFlightsDates(flDate))  // only loads temp.json data while in dev mode.
           } else {
@@ -742,6 +704,12 @@ export default new Vuex.Store({
       //this.swiper.slideTo(foundIndx, 500, false)
       return foundIndx
 
+    },
+
+    // Return the matching flight object, otherwise 'undefined'
+    getFlightObjById: (state) => () => {
+      let flightObj = state._flightsList.find(_flightsList => _flightsList.id === state.selectedFlight)
+      return flightObj
     },
 
   }  // END GETTERS
