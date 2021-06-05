@@ -253,7 +253,7 @@
         let me = this
 
         let id = this.$store.state.orderID
-        console.log(id)
+        //console.log(id)
         if (id === '' || id === undefined)  id = null
 
         const data = { 
@@ -261,8 +261,8 @@
           "isTest": true,                             // TODO Change this for produciton!
           "email": this.$store.state.contactEmail,
           "phone": this.$store.state.contactPhone,
-          "gender": this.$store.getters.getSexById(0), 
-          "name": this.$store.getters.getNameById(0),    // 0 -> Contact passenger's name.
+          //"gender": this.$store.getters.getSexById(0), 
+          //"name": this.$store.getters.getNameById(0),    // 0 -> Contact passenger's name.
           "totalPassengers": this.$store.getters.getTotalPassengers,
           "flightDate": this.$store.state.flightDate,
           "flightId": this.$store.state.selectedFlight,
@@ -286,12 +286,12 @@
           .then(function (response) {
             return response.json();
           })
-          .then(function (session) {    // 2. Getting data in response in 'session' var.
-            // Send user to the Stripe Checkout page.
-            // Save the returned OrderId.
-            if (session.stripeSessionId > 0) {
-              me.$store.dispatch('setOrderId', session.stripeSessionId)
+          .then(function (session) {
+            // Save Tommy's OrderId
+            if (session.orderId > 0) {
+              me.$store.dispatch('setOrderId', session.orderId)
             }
+            // Send user to the Stripe Checkout page.
             return me.stripe.redirectToCheckout({ sessionId: session.stripeSessionId });
           })
           .then(function (result) {
