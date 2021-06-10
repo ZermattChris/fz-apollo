@@ -75,9 +75,9 @@ export default new Vuex.Store({
     timeSlot:      +localStorage.selectedTimeslot || -1,
     timeSlotLabel:  localStorage.selectedTimeslotLabel || "",
 
-    contactPhone:   sessionStorage.contactPhone || "",
-    contactEmail:   sessionStorage.contactEmail || "",
-    orderMessage:   sessionStorage.orderMessage || "",
+    contactPhone:   localStorage.contactPhone || "",
+    contactEmail:   localStorage.contactEmail || "",
+    orderMessage:   localStorage.orderMessage || "",
 
     // Contains a list of (cloned) rawPassengerObj's -- one for each Passenger.
     passengerObjList: localStorage.passengerObjList ? JSON.parse(localStorage.passengerObjList) : [],
@@ -471,15 +471,15 @@ export default new Vuex.Store({
 
     setContactPhone(context, phoneNr) {
       context.commit("CONTACT_PHONE", phoneNr)
-      sessionStorage.contactPhone = phoneNr
+      localStorage.contactPhone = phoneNr
     },
     setContactEmail(context, email) {
       context.commit("CONTACT_EMAIL", email)
-      sessionStorage.contactEmail = email
+      localStorage.contactEmail = email
     },
     setOrderMessage(context, msg) {
       context.commit("ORDER_MESSAGE", msg)
-      sessionStorage.orderMessage = msg
+      localStorage.orderMessage = msg
     },
 
     
