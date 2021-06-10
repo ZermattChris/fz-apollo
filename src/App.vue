@@ -39,13 +39,15 @@
       </div>
 
       <!-- Language Switch Menu -->
-      <LangMenu />
+      <!-- Take the style out as soon as we want to activate the Lang menu again. -->
+      <LangMenu style="display:none;" />
       
       <v-progress-linear
         id="progressbar"
         :value="progressBarPercent"
         rounded
         color="deep-purple"
+        height="7"
       ></v-progress-linear>
 
     </v-app-bar>
@@ -366,7 +368,7 @@ h3 > .v-icon {
 #progressbar {
   position: absolute;
   height: 8px;
-  bottom: -10px;
+  bottom: -15px;
   width: 93%
 }
 

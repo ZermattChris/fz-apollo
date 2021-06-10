@@ -13,6 +13,8 @@
 
     <!-- {{orderLineItems}} -->
 
+    <p>Flight Date, Number of Passengers here...</p>
+
     <template>
       <v-simple-table 
         dense
