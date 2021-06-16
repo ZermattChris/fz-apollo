@@ -267,6 +267,7 @@
           //"name": this.$store.getters.getNameById(0),    // 0 -> Contact passenger's name.
           "totalPassengers": this.$store.getters.getTotalPassengers,
           "flightDate": this.$store.state.flightDate,
+          "dateRange": {"start": "1970-01-01", "end": "1970-01-01"},
           "flightId": this.$store.state.selectedFlight,
           "photos": this.$store.state.wantsPhotos,
           "passengerJSON": this.$store.state.passengerObjList,

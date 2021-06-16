@@ -42,14 +42,13 @@
       <!-- Take the style out as soon as we want to activate the Lang menu again. -->
       <LangMenu style="display:none;" />
       
-      <v-progress-linear
-        id="progressbar"
-        :value="progressBarPercent"
-        rounded
-        color="deep-purple"
-        height="7"
-      ></v-progress-linear>
-
+        <v-progress-linear
+          id="progressbar"
+          :value="progressBarPercent"
+          rounded
+          color="deep-purple"
+          height="7"
+        ></v-progress-linear>
     </v-app-bar>
 
     <v-main>
@@ -369,7 +368,8 @@ h3 > .v-icon {
   position: absolute;
   height: 8px;
   bottom: -15px;
-  width: 93%
+  width: 93%;
+  z-index: -1;
 }
 
 </style>
