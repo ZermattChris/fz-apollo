@@ -14,9 +14,9 @@ const data = {
   "selectedFlight":     "2",
   "wantsPhotos":        true,
   // The passenger with the id == 0 is the "Contact Passenger". Should be listed together with phone and email.
-  "passengerObjList":   "[{"id":0,"valid":true,"sex":"male","age":"57","name":"Chris Banford","speed":10,"weightKg":100},{"id":1,"valid":true,"sex":"female","age":"31","name":"Mirji","speed":6,"weightKg":60},{"id":2,"valid":true,"sex":"male","age":"53","name":"Ronnie","speed":10,"weightKg":60}]",
+  "passengerObjList":   [{"id":0,"valid":true,"sex":"male","age":"57","name":"Chris Banford","speed":10,"weightKg":100},{"id":1,"valid":true,"sex":"female","age":"31","name":"Mirji","speed":6,"weightKg":60},{"id":2,"valid":true,"sex":"male","age":"53","name":"Ronnie","speed":10,"weightKg":60}],
   // Passengers are not assigned a specific slot/time. Just add them in the order they appear above.
-  "slotPassengersObj":  "{"selectedDate":"2021-06-23","slotsList":[{"timeString":"09:00","passengers":2},{"timeString":"11:00","passengers":1}]}",
+  "slotPassengersObj":  {"selectedDate":"2021-06-23","slotsList":[{"timeString":"09:00","passengers":2},{"timeString":"11:00","passengers":1}]},
   "orderMessage":       "Test message for booking, i.e. I want to fly Scenic from Riffelberg and meet on the mountain."
 }
 
