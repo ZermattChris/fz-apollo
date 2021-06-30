@@ -140,92 +140,11 @@
       }
     },
 
-
-    /**
-     * 1. Create the user's data in a 'Payload' json object.
-     * 2. On orderBtn click, call Tommy's API with Payload, 
-     *    returns a Stripe session id.
-     */
-
-
-
-
-
-
-    created() {
-
-        // let me = this
-
-        //console.log("TODO: take a close looks at OrderId passing and updating...")
-
-        // Create a new (or update an existing) Order in the db.
-            // 'order_id' => '102158',
-            // 'is_test' => '1',
-            // 'created_stamp' => '2021-04-14 14:11:47',
-            // 'status' => 'deleted',
-            // 'email' => NULL,
-            // 'phone' => NULL,
-            // 'first' => 'John',
-            // 'last' => 'Doe',
-            // 'total_passengers' => '0',
-            // 'flight_date' => NULL,
-            // 'flight_id' => NULL,
-            // 'photos' => NULL,
-            // 'passenger_json' => NULL,
-            // 'slot_json' => NULL,
-            // 'payment_stamp' => NULL,
-            // 'payment_intent' => NULL
-
-        
-        // let id = this.$store.state.orderID
-        // console.log(id)
-        // if (id === '' || id === undefined)  id = null
-
-        // const data = { 
-        //   "orderId": id,
-        //   "isTest": true,                             // TODO Change this for produciton!
-        //   "email": this.$store.state.contactEmail,
-        //   "phone": this.$store.state.contactPhone,
-        //   "gender": this.$store.getters.getSexById(0), 
-        //   "name": this.$store.getters.getNameById(0),    // 0 -> Contact passenger's name.
-        //   "totalPassengers": this.$store.getters.getTotalPassengers,
-        //   "flightDate": this.$store.state.flightDate,
-        //   "flightId": this.$store.state.selectedFlight,
-        //   "photos": this.$store.state.wantsPhotos,
-        //   "passengerJSON": this.$store.state.passengerObjList,
-        //   "slotJSON": this.$store.state.slotPassengersObj
-        // }
-
-        // fetch("https://gateway.flyzermatt.com/new-order", {
-        //   method: 'POST', // or 'PUT'
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify(data),   // 1. Passing in 'data' to 'create-checkout'
-        // })
-        //   .then(function (response) {
-        //     return response.json()
-        //   })
-        //   .then(function (returnedJSON) {    // 2. Getting data in response in 'session' var.
-        //     //console.log("Result of calling https://gateway.flyzermatt.com/new-order")
-        //     //console.log(returnedJSON)
-        //     // I think if the db record already exists, we're getting an id of 'zero' back.
-        //     // Don't update the order id locally if this is the case, as it causes a new 
-        //     // record to be created.
-        //     if (returnedJSON.orderID > 0) {
-        //       me.$store.dispatch('setOrderId', returnedJSON.orderID)
-        //     }
-        //   })
-        //   .catch(function (error) {
-        //     console.log("Getting an error back from fetch: https://gateway.flyzermatt.com/new-order")
-        //     console.error("Error:", error)
-        //   })
-
-
-
-
-    },
     async mounted() {
+
+      // TODO Swap out the test key for the live key when ready.
+      // VUE_APP_STRIPE_PUBLIC_KEY_TEST
+      // VUE_APP_STRIPE_PUBLIC_KEY_LIVE
 
         this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
 
@@ -311,61 +230,7 @@
           })
 
 
-
-
-
-        // let me = this
-
-        // // Set up the Order button to send user to Stripe when clicked.
-        // fetch("https://gateway.flyzermatt.com/create-checkout", {
-        //   method: 'POST', // or 'PUT'
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({
-        //     "email": this.$store.state.contactEmail,
-        //     "orderId": this.$store.state.orderID,
-        //     "orderMessage": this.$store.state.orderMessage,
-
-        //     }),   // 1. Passing in 'data' to 'create-checkout'
-        // })
-        //   .then(function (response) {
-        //     return response.json();
-        //   })
-        //   .then(function (session) {    // 2. Getting data in response in 'session' var.
-        //     // Send user to the Stripe Checkout page.
-        //     return me.stripe.redirectToCheckout({ sessionId: session.id });
-        //   })
-        //   .then(function (result) {
-        //     // If redirectToCheckout fails due to a browser or network
-        //     // error, you should display the localized error message to your
-        //     // customer using error.message.
-        //     if (result.error) {
-        //       alert(result.error.message);
-        //     }
-        //   })
-        //   .catch(function (error) {
-        //     console.log("Getting an error back in the 'catch'")
-        //     console.error("Error:", error);
-        //   })
-          
-          
       },
-
-    },
-
-
-
-
-    watch: {
-
-      // myLocale: function () {
-      //   // this.elements = this.stripe.elements({locale: this.myLocale})
-      //   //this.message = "Changed lang: " + this.myLocale
-      //   this.createAndMountFormElements()
-      //   // this.stripe.$forceUpdate() 
-      // },
-
 
     },
 
