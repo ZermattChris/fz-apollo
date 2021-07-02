@@ -3,13 +3,13 @@ import Vuex from 'vuex'
 import axios from "axios"
 
 // Temp dev json data unitl Tommy gets his API working.
-import flightdata from '@/store/flightdata.js'
+// import flightdata from '@/store/flightdata.js'
 
 // Dev only - remove once API is up.
 // import tmp from "./temp3.json"
 //const tempData = require("./flightsdates.js");
 //var faker = require("faker")    //temp
-var dateUtils = require('date-fns')     // temp
+// var dateUtils = require('date-fns')     // temp
 
 
 Vue.use(Vuex)
@@ -68,7 +68,9 @@ export default new Vuex.Store({
     totalPassengers: initPassengersInTimeSlot(),     // This is to replace nrPeople below, as using multiple inputs over slots
 
     //nrPeople:      +localStorage.nrPeople || 0,   // deprecated. Use: totalPassengers
+    arriveDate:     localStorage.arriveDate || "",
     flightDate:     localStorage.flightDate || "",
+    departDate:     localStorage.departDate || "",
     selectedFlight: localStorage.selectedFlight || "",    // Flight ID from Tommy.
     wantsPhotos:    localStorage.wantsPhotos ? JSON.parse(localStorage.wantsPhotos) : false,  // convert to bool if not undefined.
     
@@ -191,6 +193,14 @@ export default new Vuex.Store({
     ORDER_MESSAGE(state, msg) {
       state.orderMessage = msg
     },
+
+    ARRIVE_DATE(state, dateStr) {
+      state.arriveDate = dateStr
+    },
+    DEPART_DATE(state, dateStr) {
+      state.departDate = dateStr
+    },
+    
     
     
 
@@ -337,18 +347,19 @@ export default new Vuex.Store({
       if (flDate === '') return
       context.commit("FLIGHTSLIST_LOADING", true);
       //console.log("Loading Flight Options for drop menu Step 1 ->", flDate);
-      return axios.get("https://bookings-dev.simpleitsolutions.ch/api/flightoptions/" + flDate)
+      return axios.get("https://bookings.simpleitsolutions.ch/api/flightoptions/" + flDate)
         .then(response => {
           let data = response.data;
           context.commit("FLIGHTS_LIST", data);
         })
         .catch(error => {
-          if (context.state._DEV) {
-            console.log('Temp dev Flight name and price data being generated -> flightOptions(). ', error)
-            context.commit("FLIGHTS_LIST", generateFlightsOptions())  // only loads temp.json data while in dev mode.
-          } else {
-            console.log(error)
-          }
+          // if (context.state._DEV) {
+          //   console.log('Temp dev Flight name and price data being generated -> flightOptions(). ', error)
+          //   context.commit("FLIGHTS_LIST", generateFlightsOptions())  // only loads temp.json data while in dev mode.
+          // } else {
+          //   console.log(error)
+          // }
+          console.log(error)
         })
         .finally(() => context.commit("FLIGHTSLIST_LOADING", false))
     },
@@ -368,13 +379,14 @@ export default new Vuex.Store({
           context.commit("TIMELIST_DATES", data)
         })
         .catch(error => {
-          if (context.state._DEV) {
-            // TODO Prob don't need this anymore. remove at some point.
-            console.log('Temp dev data being generated for FlightDates in store -> timeListDates(). ', error)
-            context.commit("TIMELIST_DATES", generateFlightsDates(flDate))  // only loads temp.json data while in dev mode.
-          } else {
-            console.log(error)
-          }
+          // if (context.state._DEV) {
+          //   // TODO Prob don't need this anymore. remove at some point.
+          //   console.log('Temp dev data being generated for FlightDates in store -> timeListDates(). ', error)
+          //   context.commit("TIMELIST_DATES", generateFlightsDates(flDate))  // only loads temp.json data while in dev mode.
+          // } else {
+          //   console.log(error)
+          // }
+          console.log(error)
         })
         .finally(() => 
           context.commit("TIMELIST_LOADING", false),
@@ -385,7 +397,7 @@ export default new Vuex.Store({
 
     // ******************** API: init App ********************
     async init(context) {
-      return axios.get("https://bookings-dev.simpleitsolutions.ch/api/init")
+      return axios.get("https://bookings.simpleitsolutions.ch/api/init")
         .then(response => {
           let data = response.data;
           // Note to future self:
@@ -422,6 +434,14 @@ export default new Vuex.Store({
 
     // --- USER INPUTS ---
 
+    setArriveDate(context, dateStr) {
+      context.commit("ARRIVE_DATE", dateStr)
+      localStorage.arriveDate = dateStr
+    },
+    setDepartDate(context, dateStr) {
+      context.commit("DEPART_DATE", dateStr)
+      localStorage.departDate = dateStr
+    },
     setFlightDate(context, dateStr) {
       context.commit("CHOSEN_DATE", dateStr)
       localStorage.flightDate = dateStr
@@ -744,71 +764,71 @@ function savePassengerObjListToLocalStorage (context) {
 
 
 
-// *****************************************************************
-// TEMP: this is a temp helper function to build fake dates based upon 
-// the user's chosen date, until Tommy has his backend API working.
-// *****************************************************************
-function generateFlightsOptions () {
-  return flightdata   // imported from flightdata.js
-}
+// // *****************************************************************
+// // TEMP: this is a temp helper function to build fake dates based upon 
+// // the user's chosen date, until Tommy has his backend API working.
+// // *****************************************************************
+// function generateFlightsOptions () {
+//   return flightdata   // imported from flightdata.js
+// }
 
 
 
 
-// *****************************************************************
-// TEMP: this is a temp helper function to build fake dates based upon 
-// the user's chosen date, until Tommy has his backend API working.
-// *****************************************************************
-function generateFlightsDates (usersFlightDate) {
+// // *****************************************************************
+// // TEMP: this is a temp helper function to build fake dates based upon 
+// // the user's chosen date, until Tommy has his backend API working.
+// // *****************************************************************
+// function generateFlightsDates (usersFlightDate) {
 
-  //console.log('targetDate: ', targetDate)
-  const nrDaysToGen = 14
+//   //console.log('targetDate: ', targetDate)
+//   const nrDaysToGen = 14
   
-  let prevDaysToShow = 7
-  // users date minus today. if less than prevDaysToShow, then update.
-  let testDateInt = dateUtils.differenceInDays(new Date(usersFlightDate), new Date() )
-  //console.log('testDateInt: ', testDateInt)
-  if (testDateInt < prevDaysToShow) {
-    prevDaysToShow = testDateInt
-  }
+//   let prevDaysToShow = 7
+//   // users date minus today. if less than prevDaysToShow, then update.
+//   let testDateInt = dateUtils.differenceInDays(new Date(usersFlightDate), new Date() )
+//   //console.log('testDateInt: ', testDateInt)
+//   if (testDateInt < prevDaysToShow) {
+//     prevDaysToShow = testDateInt
+//   }
   
-  let dateObj = dateUtils.sub(new Date(usersFlightDate), { days: prevDaysToShow })
+//   let dateObj = dateUtils.sub(new Date(usersFlightDate), { days: prevDaysToShow })
 
-  let flightsdates = {}
+//   let flightsdates = {}
 
-  for (let id = 0; id < nrDaysToGen; id++) {
+//   for (let id = 0; id < nrDaysToGen; id++) {
 
-    // console.log('Raw date string: ', dateObj)
+//     // console.log('Raw date string: ', dateObj)
 
-    let currDayKey = dateUtils.format(dateObj, 'yyyy-MM-dd')    // this is fucking up! Working now, changed year from 'Y' to 'yyyy'
-    // console.log('Formatted date string: ', currDayKey)
+//     let currDayKey = dateUtils.format(dateObj, 'yyyy-MM-dd')    // this is fucking up! Working now, changed year from 'Y' to 'yyyy'
+//     // console.log('Formatted date string: ', currDayKey)
 
-    let timesList = [
-      "08:30",
-      "10:15",
-      "11:45",
-      "13:15",
-      "14:45",
-      "16:15",
-      "17:00",
-      "19:00"
-    ];
-    let timeslots = {};
+//     let timesList = [
+//       "08:30",
+//       "10:15",
+//       "11:45",
+//       "13:15",
+//       "14:45",
+//       "16:15",
+//       "17:00",
+//       "19:00"
+//     ];
+//     let timeslots = {};
     
-    // Loop and build this day's timeslots.
-    timesList.forEach(function(time) {
-      let slotAvail = Math.floor(Math.random() * 7)
-      timeslots[time] = slotAvail
-    })
+//     // Loop and build this day's timeslots.
+//     timesList.forEach(function(time) {
+//       let slotAvail = Math.floor(Math.random() * 7)
+//       timeslots[time] = slotAvail
+//     })
     
-    flightsdates[currDayKey] = timeslots
+//     flightsdates[currDayKey] = timeslots
 
-    dateObj = dateUtils.add(dateObj, { days: 1 })
+//     dateObj = dateUtils.add(dateObj, { days: 1 })
 
-  }
+//   }
 
-  return flightsdates;
-}
+//   return flightsdates;
+// }
 
 
 // *****************************************************************

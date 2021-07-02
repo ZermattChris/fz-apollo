@@ -16,7 +16,90 @@
       
       <div class="controls mb-0 mb-sm-2 mb-md-4">
 
+
+
+        <v-menu
+          v-model="arriveMenu"
+          :nudge-right="0"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              :value="formatArriveDate"
+              label="When do you arrive in Zermatt?"
+              prepend-icon="mdi-calendar"
+              class="ml-10 mt-4"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="arriveDate"
+            first-day-of-week="0"
+            :locale="$i18n.locale" 
+            :min="todaysDate"
+            :max="flightDate"
+            color="green"
+            @input="arriveMenu = false"
+          ></v-date-picker>
+        </v-menu>
+
+
+
+
         <v-date-picker 
+          v-model="flightDate" 
+          first-day-of-week="0"
+          :locale="$i18n.locale" 
+          show-current
+          elevation="4"
+          color="green"
+          header-color="primary"
+          :min="flightMinDate"
+          :max="flightMaxDate"
+          class="ml-10 mb-6 mb-sm-8 mb-md-10"
+          width=""
+          style="min-width:240px;"
+        >
+        </v-date-picker>
+
+
+
+        <v-menu
+          v-model="departMenu"
+          :nudge-right="50"
+          :nudge-bottom="-50"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="formatDepartDate"
+              label="When are you leaving Zermatt?"
+              prepend-icon="mdi-calendar"
+              class="ml-10 mt-n2 mb-6"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="departDate"
+            first-day-of-week="0"
+            :locale="$i18n.locale" 
+            :min="flightDate"
+            :max="flightMaxDate"
+          color="green"
+            @input="departMenu = false"
+          ></v-date-picker>
+        </v-menu>
+
+
+        <!-- <v-date-picker 
           v-model="flightDate" 
           first-day-of-week="0"
           :locale="$i18n.locale" 
@@ -28,7 +111,7 @@
           width=""
           style="min-width:240px;"
         >
-        </v-date-picker>
+        </v-date-picker> -->
 
       </div>
 
@@ -87,7 +170,7 @@
 <script>
 // @ is an alias to /src
 
-import { format, add, parseISO } from 'date-fns'
+import { format, add, parseISO, isAfter, isBefore } from 'date-fns'
 import { mdiInformation, mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud, mdiCalendarMonth } from '@mdi/js'
 
 import PageHeader from '@/components/PageHeader.vue'
@@ -125,7 +208,11 @@ export default {
 
       bigGroupDialog: false,
 
-      isPageValid: this.$store.getters.step_startValid
+      isPageValid: this.$store.getters.step_startValid,
+
+      // overlay: false,
+      arriveMenu: false,
+      departMenu: false
     }
   },
 
@@ -235,9 +322,51 @@ export default {
       const myFormat = format(myDate, 'PPPP') // had some weird format issues here, this works.
       //console.log(myFormat)
       return myFormat
-    }
+    },
+
+
+    todaysDate: function () {
+      return format(parseISO(new Date().toISOString()), 'yyyy-MM-dd')
+    },
+    formatArriveDate: function () {
+      if (isAfter(parseISO(this.arriveDate), parseISO(this.flightDate))) {
+        // return 'Arrival date must be on or before your Flight Date'
+        return ''
+      }
+      return this.arriveDate ? format(parseISO(this.arriveDate), 'EEEE, MMMM do yyyy') : ''
+    },
+    arriveDate: {
+      get() {
+        return this.$store.state.arriveDate
+      },
+      set(dateStr) {
+        this.$store.dispatch('setArriveDate', dateStr)
+      }
+    },
+
+    formatDepartDate: function () {
+      if (isBefore(parseISO(this.departDate), parseISO(this.flightDate))) {
+        // return 'Arrival date must be on or after your Flight Date'
+        return ''
+      }
+      return this.departDate ? format(parseISO(this.departDate), 'EEEE, MMMM do yyyy') : ''
+    },
+    departDate: {
+      get() {
+        return this.$store.state.departDate
+      },
+      set(dateStr) {
+        this.$store.dispatch('setDepartDate', dateStr)
+      }
+    },
+
+
+
+
+
   },
   methods: {
+
 
     scrollToFormTop: function () {
       setTimeout(() => { this.$scrollTo('#chooseFlightDate', 500) }, 100)
@@ -266,7 +395,10 @@ export default {
      */
     buildFlightList: function () {
       const obj = this.$store.state._flightsList
-      //console.log('build flight list for drop menu', obj)
+      console.log('build flight list for drop menu', obj)
+
+      // TODO This should throw an error and send us an email to let
+      // TODO us know that there's no valid schedule set for this requested date.
       if (this.isObjEmpty(obj)) return
 
       let newFlightsList = []
