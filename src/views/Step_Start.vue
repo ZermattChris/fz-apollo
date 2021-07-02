@@ -81,7 +81,7 @@
               v-model="formatDepartDate"
               label="When are you leaving Zermatt?"
               prepend-icon="mdi-calendar"
-              class="ml-10 mt-n4 mb-6"
+              class="ml-10 mt-n8 mb-6"
               readonly
               v-bind="attrs"
               v-on="on"
