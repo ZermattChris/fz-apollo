@@ -2,7 +2,7 @@
   <div class="stepPay">
     
     <PageHeader title="4. Place Order">
-      Using Stripe checkout to handle our online payments here. This is currently just a test environment.
+      Add any other information or questions to the Booking Message and place your order.
     </PageHeader>
 
     <!-- <h4 class="mb-0">Line item of flights + photos prices</h4> -->
@@ -12,6 +12,9 @@
 
 
     <!-- {{flightDetails}} -->
+
+  <div style="max-width:600px; margin:0 auto;">
+
 
     <p>
       <v-chip
@@ -49,7 +52,7 @@
             <!-- List flights -->
             <tr>
               <td>{{ totalPassengers }}</td>
-              <td><span style="font-weight:bold;">{{ flightDetails.name }} Flight</span> @ {{ flightDetails.price }}&nbsp;CHF</td>
+              <td><span style="font-weight:bold;">{{ flightDetails.name }} Flight</span> @ {{ flightDetails.price }}{{'\xa0'}}CHF</td>
               <td class="text-right">{{ totalPassengers * flightDetails.price }}.00</td>
               <td></td>
             </tr>
@@ -58,7 +61,7 @@
               v-if="wantsPhotos"
             >
               <td>{{ totalPassengers }}</td>
-              <td><span style="font-weight:bold;">Photos &amp; Videos</span> @ {{ videoPrice}}.00&nbsp;CHF</td>
+              <td><span style="font-weight:bold;">Photos &amp; Videos</span> @ {{ videoPrice}}.00{{'\xa0'}}CHF</td>
               <td class="text-right">{{ totalPassengers * videoPrice }}.00</td>
               <td></td>
             </tr>
@@ -75,6 +78,13 @@
 
       </v-simple-table>
     </template>
+
+
+    <p class="text-caption mt-4 mx-4">
+      TODO: We need a (collapsable?) message telling the user to let us know
+      if they want to meet on the mountain instead of at the office, etc.
+    </p>
+
 
     <v-textarea
       class="mt-6 mx-auto"
@@ -126,6 +136,9 @@
     </ul>
 
   </div>
+
+
+    </div>
 </template>
 
 
@@ -175,7 +188,7 @@
     computed: {
 
       flightDate: function () {
-        return format(parseISO(this.$store.state.flightDate), 'EEEE, MMMM do, yyyy')
+        return format(parseISO(this.$store.state.flightDate), 'EE, MMMM do, yyyy')
       },
 
     },
@@ -183,7 +196,7 @@
     methods: {
 
       onMessageBlur() {
-        console.log('message: ', this.message)
+        //console.log('message: ', this.message)
         this.$store.dispatch('setOrderMessage', this.message)
       },
 

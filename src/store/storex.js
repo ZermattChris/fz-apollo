@@ -577,7 +577,7 @@ export default new Vuex.Store({
     getFlightFromID: (state) => (id) => {
 
       if (isObjEmpty(state._flightsList)) {
-        console.log('empty flight list')
+        //console.log('empty flight list')
         return {}
       }
 
@@ -590,7 +590,7 @@ export default new Vuex.Store({
       // }
 
       for (const prop in state._flightsList) {
-        console.log(state._flightsList[prop].id, id)
+        //console.log(state._flightsList[prop].id, id)
         if (state._flightsList[prop].id === id) {
           return flightDetailsObj = state._flightsList[prop]
         }
