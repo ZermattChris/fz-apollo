@@ -24,6 +24,7 @@
           transition="scale-transition"
           offset-y
           min-width="auto"
+          max-width="300"
         >
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
@@ -77,6 +78,7 @@
           transition="scale-transition"
           offset-y
           min-width="auto"
+          max-width="300"
         >
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
@@ -119,7 +121,7 @@
       </div>
 
 
-      <!-- ***************** Which Flight? ******************** -->
+      <!-- ***************** Which Flight? Flight List ******************** -->
       <h3 class="disable-select" >
         <v-icon  
           :color="flightChosen ? 'success' : 'primary'">{{ flightOptionsDropMenuList ? stepIconCompleted : stepIcon }}
@@ -273,10 +275,10 @@ export default {
     },
     flightChosen: {
       get() {
-        return this.$store.state.selectedFlight
+        return parseInt(this.$store.state.selectedFlight)
       },
       set(flightStr) {
-        console.log('Set chosen flight', flightStr)
+        //console.log('Set chosen flight', flightStr)
         return this.$store.dispatch('setFlight', flightStr)
       }
     },
