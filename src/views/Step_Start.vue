@@ -18,7 +18,7 @@
 
 
 
-        <v-menu
+        <v-dialog
           v-model="arriveMenu"
           :nudge-right="0"
           transition="scale-transition"
@@ -43,9 +43,10 @@
             :min="todaysDate"
             :max="flightDate"
             color="green"
+            elevation="15"
             @input="arriveMenu = false"
           ></v-date-picker>
-        </v-menu>
+        </v-dialog>
 
 
 
@@ -63,15 +64,16 @@
           class="ml-10 mb-6 mb-sm-8 mb-md-10"
           width=""
           style="min-width:240px;"
+          :events="calendarTripLength"
         >
         </v-date-picker>
 
 
 
-        <v-menu
+        <v-dialog
           v-model="departMenu"
           :nudge-right="0"
-          :nudge-bottom="-150"
+          :nudge-bottom="0"
           transition="scale-transition"
           offset-y
           min-width="auto"
@@ -93,10 +95,11 @@
             :locale="$i18n.locale" 
             :min="flightDate"
             :max="flightMaxDate"
+            elevation="15"
           color="green"
             @input="departMenu = false"
           ></v-date-picker>
-        </v-menu>
+        </v-dialog>
 
 
         <!-- <v-date-picker 
@@ -170,7 +173,7 @@
 <script>
 // @ is an alias to /src
 
-import { format, add, parseISO, isAfter, isBefore } from 'date-fns'
+import { format, add, sub, parseISO, isAfter, isBefore } from 'date-fns'
 import { mdiInformation, mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud, mdiCalendarMonth } from '@mdi/js'
 
 import PageHeader from '@/components/PageHeader.vue'
@@ -367,6 +370,17 @@ export default {
   },
   methods: {
 
+    // sub(parseISO(this.arriveDate), {days: 1})
+
+    calendarTripLength (date) {
+      if ( 
+        (isAfter( parseISO(date), sub(parseISO(this.arriveDate), {days: 1}) ) ) 
+        &&
+        (isBefore( parseISO(date), add(parseISO(this.departDate), {days: 1}) ) ) 
+      ) {
+        return ['yellow']
+      }
+    },
 
     scrollToFormTop: function () {
       setTimeout(() => { this.$scrollTo('#chooseFlightDate', 500) }, 100)
