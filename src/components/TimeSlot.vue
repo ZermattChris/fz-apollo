@@ -20,11 +20,20 @@
       <v-list-item-title>
           <span class="time" v-html="formatTime(timeStr)"></span>
           <v-chip
+            v-if="placesFree > -1"
             class="availability" 
             :color="getSelectedColour()"
             v-html="$tc('step-timeslot.places-free', placesFree)"
             outlined
           />
+          <v-chip
+            v-if="placesFree < 0"
+            class="availability" 
+            color="silver"
+            outlined
+          >
+            <span style="color:grey;">Flight not available</span>
+          </v-chip>
       </v-list-item-title>
     </v-list-item-content>  
 
@@ -198,6 +207,7 @@
 
 
       onClickedRow: function (ev) {
+        console.log(ev)
         // fire event that TimeList can listen for that deselects all of the other TimeSlots
         this.$emit('selected', this.index)
         ev.stopPropagation()   // Needed this otherwise the event was being swallowed by the TimeList.

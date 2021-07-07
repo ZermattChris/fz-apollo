@@ -411,7 +411,7 @@ export default {
       const obj = this.$store.state._flightsList
       //console.log('build flight list for drop menu', obj)
 
-      if (this.isObjEmpty(obj)) return ["No flights available for this date. Please call us."]
+      if (this.isObjEmpty(obj)) return [{id:-1, name:"No flights available for this date. Please call us." }]
 
       let newFlightsList = []
 

@@ -347,7 +347,7 @@ export default new Vuex.Store({
       if (flDate === '') return
       context.commit("FLIGHTSLIST_LOADING", true);
       //console.log("Loading Flight Options for drop menu Step 1 ->", flDate);
-      return axios.get("https://bookings-dev.simpleitsolutions.ch/api/flightoptions/" + flDate)
+      return axios.get("https://bookings.simpleitsolutions.ch/api/flightoptions/" + flDate)
         .then(response => {
           let data = response.data;
           context.commit("FLIGHTS_LIST", data);
