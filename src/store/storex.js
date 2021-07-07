@@ -71,7 +71,7 @@ export default new Vuex.Store({
     arriveDate:     localStorage.arriveDate || "",
     flightDate:     localStorage.flightDate || "",
     departDate:     localStorage.departDate || "",
-    selectedFlight: localStorage.selectedFlight || "",    // Flight ID from Tommy.
+    selectedFlight: +localStorage.selectedFlight || "",    // Flight ID from Tommy.
     wantsPhotos:    localStorage.wantsPhotos ? JSON.parse(localStorage.wantsPhotos) : false,  // convert to bool if not undefined.
     
     timeSlot:      +localStorage.selectedTimeslot || -1,

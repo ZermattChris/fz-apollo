@@ -613,6 +613,7 @@
       },
       bookingFlight: function () {
         const flightObj = this.$store.getters.getFlightObjById()
+        console.log(flightObj)
         if (flightObj === undefined) return
         return flightObj.name + " " + flightObj.price + " CHF"
       },
