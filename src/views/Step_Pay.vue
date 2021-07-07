@@ -11,9 +11,18 @@
     ></v-skeleton-loader> -->
 
 
-    <!-- {{orderLineItems}} -->
+    <!-- {{flightDetails}} -->
 
-    <p>Flight Date, Number of Passengers here...</p>
+    <p>
+      <v-chip
+        color="deep-orange"
+        class="pl-4 pr-6"
+        id="passenger-btn"
+      >
+        {{ totalPassengers }}
+      </v-chip>
+      {{ totalPassengers == 1 ? 'Person' : 'People' }} flying - {{ flightDate }}
+    </p>
 
     <template>
       <v-simple-table 
@@ -22,37 +31,43 @@
       >
         <template v-slot:default>
           <thead>
-            <tr>
+            <tr class="grey lighten-3">
               <th class="text-left">
                 Qty
               </th>
               <th class="text-left">
                 Description
               </th>
+              <th class="text-right">
+                Subtotal in CHF
+              </th>
               <th class="text-left">
-                Price in CHF
               </th>
             </tr>
           </thead>
           <tbody>
+            <!-- List flights -->
             <tr>
-              <td>2</td>
-              <td>{{ orderLineItems.name }} Flight</td>
-              <td>{{ orderLineItems.price_CHF }}.-</td>
+              <td>{{ totalPassengers }}</td>
+              <td><span style="font-weight:bold;">{{ flightDetails.name }} Flight</span> @ {{ flightDetails.price }}&nbsp;CHF</td>
+              <td class="text-right">{{ totalPassengers * flightDetails.price }}.00</td>
+              <td></td>
             </tr>
-            <tr>
-              <td>2</td>
-              <td>Photos &amp; Videos</td>
-              <td>40.-</td>
+            <!-- List Photos and Videos -->
+            <tr
+              v-if="wantsPhotos"
+            >
+              <td>{{ totalPassengers }}</td>
+              <td><span style="font-weight:bold;">Photos &amp; Videos</span> @ {{ videoPrice}}.00&nbsp;CHF</td>
+              <td class="text-right">{{ totalPassengers * videoPrice }}.00</td>
+              <td></td>
             </tr>
-            <tr>
-              <td 
-                colspan="3"
-                class="grey--text text-caption"
-                style="text-align:center;"
-              >
-                This row will display total prices
-              </td>
+
+            <tr class="grey lighten-3">
+              <td></td>
+              <td style="text-align:right; font-weight:bold;">Total CHF</td>
+              <td class="text-right"><span style="font-weight:bold;">{{ (totalPassengers * flightDetails.price) + (totalPassengers * videoPrice) }}.00</span></td>
+              <td></td>
             </tr>
           </tbody>
 
@@ -117,6 +132,7 @@
 <script>
   import PageHeader from '@/components/PageHeader.vue'
 
+  import { format, parseISO } from 'date-fns'  
   import {loadStripe} from '@stripe/stripe-js'
 
 
@@ -137,6 +153,11 @@
 
         elements: undefined,
         card: undefined,
+
+        flightDetails: this.$store.getters.getFlightFromID(this.$store.state.selectedFlight),
+        totalPassengers: this.$store.state.totalPassengers,
+        wantsPhotos: this.$store.state.wantsPhotos,
+        videoPrice: this.$store.state._videoPrice,
       }
     },
 
@@ -153,8 +174,8 @@
 
     computed: {
 
-      orderLineItems: function () {
-        return this.$store.getters.getFlightFromID(300)
+      flightDate: function () {
+        return format(parseISO(this.$store.state.flightDate), 'EEEE, MMMM do, yyyy')
       },
 
     },
@@ -184,9 +205,9 @@
           "phone": this.$store.state.contactPhone,
           //"gender": this.$store.getters.getSexById(0), 
           //"name": this.$store.getters.getNameById(0),    // 0 -> Contact passenger's name.
-          "totalPassengers": this.$store.getters.getTotalPassengers,
+          "totalPassengers": this.totalPassengers,
           "flightDate": this.$store.state.flightDate,
-          "dateRange": {"start": "1970-01-01", "end": "1970-01-01"},
+          "dateRange": {"start": this.$store.state.arriveDate, "end": this.$store.state.departDate},
           "flightId": this.$store.state.selectedFlight,
           "photos": this.$store.state.wantsPhotos,
           "passengerJSON": this.$store.state.passengerObjList,
@@ -250,6 +271,20 @@
   margin: 0 auto;
 }
 
+#passenger-btn {
+  height: 24px;
+  width: 24px;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: white !important;
+  border-color: rgb(255, 255, 255) !important;
+  border-width: 3px !important;
+  cursor: default;
+  text-shadow: 0 0 3px black !important;
+  text-align: center;
+  margin-top: -4px;
+  position: relative;
+}
 
 
 

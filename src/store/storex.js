@@ -97,7 +97,7 @@ export default new Vuex.Store({
     //_maxPilots: -1,
     _bookDaysOffset: 0,
     _bookMonthsOffset: 0,
-    _videoPrice: -1,
+    _videoPrice: +localStorage._videoPrice || -1,
     //_flightsList: null,
     _flightsList: localStorage._flightsList ? JSON.parse(localStorage._flightsList) : {},
 
@@ -160,7 +160,8 @@ export default new Vuex.Store({
       state._bookMonthsOffset = monthsOffset;
     },
     VIDEO_PRICE(state, price) {
-      state._videoPrice = price;
+      state._videoPrice = price
+      localStorage._videoPrice = JSON.stringify(state._videoPrice)
     },
 
     ACTIVE_DATE(state, dateStr) {
@@ -575,13 +576,23 @@ export default new Vuex.Store({
      */
     getFlightFromID: (state) => (id) => {
 
-      if (isObjEmpty(state._flightsList)) return {}
+      if (isObjEmpty(state._flightsList)) {
+        console.log('empty flight list')
+        return {}
+      }
 
       let flightDetailsObj = {}
-      for (const [key, value] of Object.entries(state._flightsList)) {
-        if (key == id) {
-          console.log(key, id, value)
-          return flightDetailsObj = value
+      // for (const [key, value] of Object.entries(state._flightsList)) {
+      //   if (key == id) {
+      //     console.log(key, id, value)
+      //     return flightDetailsObj = value
+      //   }
+      // }
+
+      for (const prop in state._flightsList) {
+        console.log(state._flightsList[prop].id, id)
+        if (state._flightsList[prop].id === id) {
+          return flightDetailsObj = state._flightsList[prop]
         }
       }
 
