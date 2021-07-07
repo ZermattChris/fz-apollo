@@ -196,7 +196,7 @@
 
 
 
-        fetch("https://bookings-dev.simpleitsolutions.ch/api/createcheckout", {
+        fetch("https://bookings.simpleitsolutions.ch/api/createcheckout", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
