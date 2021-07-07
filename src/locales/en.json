@@ -5,7 +5,7 @@
   },
   "step-info": {
     "test": "hello i18n !!",
-    "title": "Date & Flight",
+    "title": "Dates & Flight",
     "description": "Why we ask you for all of this information? To help us make sure you get the best possible experience... To make sure that we provide the highest levels of safety..",
     "flightdate": "Flight Date",
     "whichflight": "Which Flight?",

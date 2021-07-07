@@ -70,8 +70,8 @@
 
         <v-menu
           v-model="departMenu"
-          :nudge-right="50"
-          :nudge-bottom="-50"
+          :nudge-right="0"
+          :nudge-bottom="-150"
           transition="scale-transition"
           offset-y
           min-width="auto"
@@ -81,7 +81,7 @@
               v-model="formatDepartDate"
               label="When are you leaving Zermatt?"
               prepend-icon="mdi-calendar"
-              class="ml-10 mt-n8 mb-6"
+              class="ml-10 mt-n4 mb-6"
               readonly
               v-bind="attrs"
               v-on="on"
@@ -395,11 +395,9 @@ export default {
      */
     buildFlightList: function () {
       const obj = this.$store.state._flightsList
-      console.log('build flight list for drop menu', obj)
+      //console.log('build flight list for drop menu', obj)
 
-      // TODO This should throw an error and send us an email to let
-      // TODO us know that there's no valid schedule set for this requested date.
-      if (this.isObjEmpty(obj)) return
+      if (this.isObjEmpty(obj)) return ["No flights available for this date. Please call us."]
 
       let newFlightsList = []
 
