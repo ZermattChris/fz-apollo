@@ -3,6 +3,7 @@
   <div 
     id="slotContainer"
     @click="onClickedRow"
+    :class="placesFree < 0 ? 'noClick' : ''"
   >
   
     <!-- Clock Icon -->
@@ -31,6 +32,7 @@
             class="availability" 
             color="silver"
             outlined
+            :class="placesFree < 0 ? 'noClick' : ''"
           >
             <span style="color:grey;">Flight not available</span>
           </v-chip>
@@ -207,7 +209,13 @@
 
 
       onClickedRow: function (ev) {
-        console.log(ev)
+        // console.log(ev)
+
+        if (this.placesFree < 0) {
+          ev.stopPropagation()
+          return
+        }
+
         // fire event that TimeList can listen for that deselects all of the other TimeSlots
         this.$emit('selected', this.index)
         ev.stopPropagation()   // Needed this otherwise the event was being swallowed by the TimeList.
@@ -340,5 +348,10 @@
   background-color: white !important;
   border: 1px grey solid !important;
 }
+
+.noClick {
+  cursor: not-allowed;
+}
+
 
 </style>
