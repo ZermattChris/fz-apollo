@@ -147,7 +147,6 @@
                   type="email"
                   name="email"
                   placeholder="you@mail.com"
-                  @blur="scrollToFirstUserIfValid"
                 />
               </v-col>
             </v-row>
@@ -493,7 +492,7 @@
         iconMale: mdiHumanMale,
         iconFemale: mdiHumanFemale,
 
-        activePanelsList:  [0],
+        activePanelsList:  [],
 
         passengersName: '',
 
@@ -522,12 +521,23 @@
     created() {
       // Show Phone country flags and Tooltip if matching.
       this.updatePhoneCountryData()
+
+      // Open all the accordians
+      for (let step = 0; step < this.usersGroupSize; step++) {
+        // Runs 5 times, with values of step 0 through 4.
+        this.activePanelsList.push(step)
+      }
+
+
     },
     mounted() {
       // set focus to Phone Input if field is empty.
       if (this.contactPhone === '') {
         this.$refs.Phone[0].focus()
       }
+
+      
+      
     },
 
 
@@ -690,7 +700,18 @@
       },
 
       getIsFormValid: function (passengerNr) {
-        return this.$store.getters.getIsValidById(passengerNr)
+
+        // See if we can figure out how to expand next passenger once
+        // a passenger is marked as valid.
+        // activePanelsList:  [0]
+        const isThisPassengerValid = this.$store.getters.getIsValidById(passengerNr)
+
+        // // add next passengerNr to activePanelsList, which should make it expand.
+        // if (this.activePanelsList.indexOf(passengerNr + 1) === -1) {
+        //   this.activePanelsList.push(passengerNr + 1)
+        // }
+
+        return isThisPassengerValid
       },
 
       getPassengersNameForHeader: function (passengerNumber) {
@@ -796,12 +817,12 @@
         this.countriesListingDialog = true
       },
 
-      // Scroll down to the first, opened expander panel if Contact form is valid
-      scrollToFirstUserIfValid: function () {
-        if (this.contactValid === true) {
-          setTimeout(() => { this.$scrollTo('#expand-panels', 500) }, 300)
-        }
-      },
+      // // Scroll down to the first, opened expander panel if Contact form is valid
+      // scrollToFirstUserIfValid: function () {
+      //   if (this.contactValid === true) {
+      //     setTimeout(() => { this.$scrollTo('#expand-panels', 500) }, 300)
+      //   }
+      // },
       scrollToElement: function (ev) {
         let el = ev.currentTarget
         setTimeout(() => { this.$scrollTo(el, 500) }, 300)
