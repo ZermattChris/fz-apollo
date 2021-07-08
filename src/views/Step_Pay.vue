@@ -2,7 +2,8 @@
   <div class="stepPay">
     
     <PageHeader title="4. Place Order">
-      Add any other information or questions to the Booking Message and place your order.
+      Review your order and press the PAY NOW button to go to our Stripe Checkout
+      to complete your payment.
     </PageHeader>
 
     <!-- <h4 class="mb-0">Line item of flights + photos prices</h4> -->
@@ -81,8 +82,12 @@
 
 
     <p class="text-caption mt-4 mx-4">
-      TODO: We need a (collapsable?) message telling the user to let us know
-      if they want to meet on the mountain instead of at the office, etc.
+      TODO: Special Requests (collapsable) info section here.
+    </p>
+    <p class="text-caption mt-4 mx-4">
+      Maybe a "!" icon and then text saying your meeting time is at our office... 
+      List of number of people and Office Meeting time(s).
+      If you have specific request for meeting on the mountain, please let us know here.
     </p>
 
 
@@ -94,40 +99,56 @@
       outlined
       label="Booking Message (optional)"
       auto-grow
-      hint="Enter extra passenger infos or questions here."
+      hint="Enter extra passenger infos, different meeting location or questions here."
       @blur="onMessageBlur"
     ></v-textarea>
 
 
+
+    <!-- Terms and Conditions Checkbox  -->
+    <v-container
+      class="px-0 pt-0"
+      fluid
+      style="max-width:400px; margin:0 auto; text-align:center;"
+    >
+      <v-checkbox
+        v-model="termsCheckboxModel"
+        color="orange darken-3"
+      >
+        <template v-slot:label>
+          <div>
+            Check here to indicate that you have read and agree to the 
+            <v-tooltip top>
+              <template v-slot:activator="{ on }">
+                <a
+                  target="_blank"
+                  href="https://www.flyzermatt.com/terms-and-conditions#onlinepayments"
+                  @click.stop
+                  v-on="on"
+                >Terms and Conditions</a>
+              </template>
+              Opens in new page
+            </v-tooltip> 
+            of the FlyZermatt Customer Agreement
+          </div>
+        </template>
+      </v-checkbox>
+    </v-container>
+
+
     <div id="payment-button-box" class="" style="text-align:center;">
       <v-btn id="payment-button" ref="paymentButton" type="submit"
-        color="warning darken-1"
+        color="orange darken-3"
         class="mt-4"
         @click="onOrderBtn"
+        :disabled="!termsCheckboxModel"
       >
         Pay Now
       </v-btn>
     </div>
 
-    <!-- <div class="mt-4 warning--text" style="font-size:0.6em;">
-      {{message}}
-    </div> -->
-
-    <!-- <v-btn 
-      id="checkout-button"
-      @click="onTestClick"
-    >Test Checkout</v-btn>
-
-    <div class="mt-6">
-      {{message}}
-    </div> -->
-
     <br/><br/>
 
-    <p>
-      Copy one of the numbers below to test payment on the Stripe page. <br/> <br/>
-      Use any email, card date (in future), CVC and Name on card.
-    </p>
     <ul>
       <li>Visa standard card with success: 4000007560000009 <br/></li>
       <li>3D Secure with success: 4000002500003155</li>
@@ -171,6 +192,8 @@
         totalPassengers: this.$store.state.totalPassengers,
         wantsPhotos: this.$store.state.wantsPhotos,
         videoPrice: this.$store.state._videoPrice,
+
+        termsCheckboxModel: false,
       }
     },
 
