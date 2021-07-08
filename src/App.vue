@@ -26,7 +26,6 @@
 
       <div 
         id="logo"
-        class="d-flex align-center"
       >
         <v-img
           alt="FlyZermatt Logo"
@@ -40,15 +39,41 @@
 
       <!-- Language Switch Menu -->
       <!-- Take the style out as soon as we want to activate the Lang menu again. -->
-      <LangMenu style="display:none;" />
+      <LangMenu style="" />
       
-        <v-progress-linear
-          id="progressbar"
-          :value="progressBarPercent"
-          rounded
-          color="deep-purple"
-          height="7"
-        ></v-progress-linear>
+      <!-- <v-progress-linear
+        id="progressbar"
+        :value="progressBarPercent"
+        rounded
+        color="deep-purple"
+        height="7"
+      ></v-progress-linear> -->
+
+      <!-- Want to make a better Breadcrumbs than the prog bar...  -->
+      <!-- <v-container
+        class="width: 100%;"
+        style="flex: 0 6 auto; outline: yellow solid 1px;"
+      >
+        <v-row
+          style="height: 150px;"
+        >
+          <v-col><v-btn
+            elevation="2"
+            outlined
+            raised
+            small
+            text
+            x-small
+          >
+            {{'1. ' + $t('step-info.title')}}
+          </v-btn>
+          </v-col>
+          <v-col></v-col>
+          <v-col></v-col>
+          <v-col></v-col>
+        </v-row>
+      </v-container> -->
+
     </v-app-bar>
 
     <v-main>
@@ -358,7 +383,7 @@ h3 > .v-icon {
   visibility: hidden;
 }
 
-#language-menu {
+#language-menuXXXß {
   position: absolute;
   right: 10px;
   top: 7px;

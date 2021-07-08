@@ -16,8 +16,65 @@
       
       <div class="controls mb-0 mb-sm-2 mb-md-4">
 
+        <!-- <v-date-picker 
+          v-model="flightDate" 
+          first-day-of-week="0"
+          :locale="$i18n.locale" 
+          show-current
+          elevation="4"
+          color="green"
+          header-color="primary"
+          :min="flightMinDate"
+          :max="flightMaxDate"
+          class="ml-10 mb-6 mb-sm-8 mb-md-10"
+          width=""
+          style="min-width:240px;"
+          :events="calendarTripLength"
+        >
+        </v-date-picker> -->
+
+        <!-- Preferred Flight Date Calendar -->
+        <v-dialog
+          v-model="flightMenu"
+          :nudge-right="0"
+          :nudge-bottom="0"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+          max-width="300"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              :value="formatFlightDate"
+              label="Preferred Flight Date"
+              prepend-inner-icon="mdi-calendar"
+              class="ml-10"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+              color="primary"
+              filled
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="flightDate"
+            first-day-of-week="0"
+            show-current
+            :locale="$i18n.locale" 
+            :min="flightMinDate"
+            :max="flightMaxDate"
+            elevation="15"
+            color="green"
+            @input="flightMenu = false"
+            :events="calendarTripLength"
+          ></v-date-picker>
+        </v-dialog>
 
 
+
+
+
+        <!-- Arriving in Zermatt pop up Calendar  -->
         <v-dialog
           v-model="arriveMenu"
           :nudge-right="0"
@@ -29,10 +86,11 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               :value="formatArriveDate"
-              label="When do you arrive in Zermatt?"
-              prepend-icon="mdi-calendar"
-              class="ml-10 mt-4"
+              label="Arriving in Zermatt?"
+              append-icon="mdi-calendar"
+              class="ml-10 mt-n1"
               readonly
+              
               v-bind="attrs"
               v-on="on"
             ></v-text-field>
@@ -49,28 +107,7 @@
           ></v-date-picker>
         </v-dialog>
 
-
-
-
-        <v-date-picker 
-          v-model="flightDate" 
-          first-day-of-week="0"
-          :locale="$i18n.locale" 
-          show-current
-          elevation="4"
-          color="green"
-          header-color="primary"
-          :min="flightMinDate"
-          :max="flightMaxDate"
-          class="ml-10 mb-6 mb-sm-8 mb-md-10"
-          width=""
-          style="min-width:240px;"
-          :events="calendarTripLength"
-        >
-        </v-date-picker>
-
-
-
+        <!-- Departing Zermatt Calendar  -->
         <v-dialog
           v-model="departMenu"
           :nudge-right="0"
@@ -83,9 +120,9 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               v-model="formatDepartDate"
-              label="When are you leaving Zermatt?"
-              prepend-icon="mdi-calendar"
-              class="ml-10 mt-n4 mb-6"
+              label="Departing Zermatt?"
+              append-icon="mdi-calendar"
+              class="ml-10 mt-n3 mb-2"
               readonly
               v-bind="attrs"
               v-on="on"
@@ -104,7 +141,7 @@
         </v-dialog>
 
 
-        <!-- <v-date-picker 
+        <!-- first version... <v-date-picker 
           v-model="flightDate" 
           first-day-of-week="0"
           :locale="$i18n.locale" 
@@ -202,7 +239,6 @@ export default {
 
       flightOptionsDropMenuList: this.buildFlightList(),
       
-      flightMenu: false,
       flightModal: false,
 
       nrPeopleExceedsMaxPilots: false,    // when true, shows "Booking Info:" message under Nr of People Flying input.
@@ -216,7 +252,8 @@ export default {
       isPageValid: this.$store.getters.step_startValid,
 
       // overlay: false,
-      arriveMenu: false,
+      arriveMenu: false,  
+      flightMenu: false,
       departMenu: false
     }
   },
@@ -365,6 +402,9 @@ export default {
       }
     },
 
+    formatFlightDate: function () {
+      return this.flightDate ? format(parseISO(this.flightDate), 'EEEE, MMMM do yyyy') : ''
+    },
 
 
 
