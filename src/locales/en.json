@@ -9,6 +9,7 @@
     "description": "Why we ask you for all of this information? To help us make sure you get the best possible experience... To make sure that we provide the highest levels of safety..",
     "flightdate": "Flight Date",
     "whichflight": "Which Flight?",
+    "pleaseChooseFlightFirst": "Please choose a Flight Date first...",
     "photosvideos": "Photos + Videos (optional)",
     "photosvideos-description": "Filmed with GoPros on specially built sticks for some great memories!"
   },

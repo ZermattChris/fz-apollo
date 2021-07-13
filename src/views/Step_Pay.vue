@@ -236,7 +236,7 @@
 
         const data = { 
           "orderId": id,
-          "isTest": true,                             // TODO Change this for produciton!
+          "isTest": true,                             // TODO Change this for produciton! Not really sure where this is used... Stripe using the VUE_APP_STRIPE_PUBLIC_KEY_TEST
           "email": this.$store.state.contactEmail,
           "phone": this.$store.state.contactPhone,
           //"gender": this.$store.getters.getSexById(0), 
@@ -251,6 +251,7 @@
           "orderMessage": this.$store.state.orderMessage
         }
 
+        console.log("Order data sent to Tommy.", data)
 
 
         fetch("https://bookings.simpleitsolutions.ch/api/createcheckout", {

@@ -39,7 +39,7 @@
 
       <!-- Language Switch Menu -->
       <!-- Take the style out as soon as we want to activate the Lang menu again. -->
-      <LangMenu style="" />
+      <!-- <LangMenu style="" /> -->
       
       <!-- <v-progress-linear
         id="progressbar"
@@ -150,7 +150,7 @@
 
 <script>
 import NavButton from '@/components/NavButton.vue'
-import LangMenu from '@/components/LangMenu.vue'
+// import LangMenu from '@/components/LangMenu.vue'
 
 import { format, add, parseISO } from 'date-fns'
 import { mdiDeleteForever, mdiChevronLeft } from '@mdi/js'
@@ -160,7 +160,7 @@ export default {
 
   components: {
     NavButton,
-    LangMenu,
+    // LangMenu,
   },
 
   // Reactive data

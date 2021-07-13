@@ -5,7 +5,7 @@
       {{$t('step-info.description')}}
     </PageHeader>
 
-    <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12 pt-sm-2" style="max-width:600px;">
+    <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12 pt-sm-2" style="max-width:500px;">
       
 
          <!-- ***************** Flight Date ******************** -->
@@ -34,7 +34,7 @@
         </v-date-picker> -->
 
         <!-- Preferred Flight Date Calendar -->
-        <v-dialog
+        <!-- <v-dialog
           v-model="flightMenu"
           :nudge-right="0"
           :nudge-bottom="0"
@@ -55,20 +55,22 @@
               color="primary"
               filled
             ></v-text-field>
-          </template>
+          </template> -->
           <v-date-picker
             v-model="flightDate"
             first-day-of-week="0"
             show-current
+            landscape
             :locale="$i18n.locale" 
             :min="flightMinDate"
             :max="flightMaxDate"
-            elevation="15"
-            color="green"
+            elevation="4"
+            width="290"
+            :color="flightDate === '' ? 'primary' : 'green'"
             @input="flightMenu = false"
             :events="calendarTripLength"
           ></v-date-picker>
-        </v-dialog>
+        <!-- </v-dialog> -->
 
 
 
@@ -88,9 +90,9 @@
               :value="formatArriveDate"
               label="Arriving in Zermatt?"
               append-icon="mdi-calendar"
-              class="ml-10 mt-n1"
+              class="ml-10 mt-3"
               readonly
-              
+            :color="departDate === '' ? 'primary' : 'green'"
               v-bind="attrs"
               v-on="on"
             ></v-text-field>
@@ -124,6 +126,7 @@
               append-icon="mdi-calendar"
               class="ml-10 mt-n3 mb-2"
               readonly
+              :color="departDate === '' ? 'primary' : 'green'"
               v-bind="attrs"
               v-on="on"
             ></v-text-field>
@@ -135,7 +138,7 @@
             :min="flightDate"
             :max="flightMaxDate"
             elevation="15"
-          color="green"
+            color="green"
             @input="departMenu = false"
           ></v-date-picker>
         </v-dialog>
@@ -178,7 +181,7 @@
           solo
           outlined
           :disabled="!isValidFlightDate"
-          :hint="isValidFlightDate ? '' : 'Please choose a Flight Date first...'"
+          :hint="isValidFlightDate ? '' : $t('step-info.pleaseChooseFlightFirst')"
           persistent-hint
         >
         </v-select>

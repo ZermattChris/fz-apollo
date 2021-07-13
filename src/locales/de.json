@@ -9,8 +9,9 @@
     "description": "TOTRANSLATE: Why we ask you for all of this information? To help us make sure you get the best possible experience... To make sure that we provide the highest levels of safety..",
     "flightdate": "Flug Datum",
     "whichflight": "Welcher Flug?",
+    "pleaseChooseFlightFirst": "Bitte wählen Sie zuerst ein Flugdatum aus...",
     "photosvideos": "Fotos + Videos (optional)",
-    "photosvideos-description": "Gefilmt mit GoPros auf speziell gebauten Halterungen für einige tolle Erinnerungen!"
+    "photosvideos-description": "Gefilmt mit GoPros mit speziell gebauten Halterungen für einige tolle Erinnerungen!"
   },
   "step-timeslot": {
     "title": "Wie viele Personen fliegen?",
