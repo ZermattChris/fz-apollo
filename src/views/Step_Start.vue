@@ -89,13 +89,25 @@
             <v-text-field
               :value="formatArriveDate"
               label="Arriving in Zermatt?"
-              append-icon="mdi-calendar"
               class="ml-10 mt-3"
               readonly
-            :color="departDate === '' ? 'primary' : 'green'"
+              :color="arriveDate === '' ? 'primary' : 'green'"
               v-bind="attrs"
               v-on="on"
-            ></v-text-field>
+            >
+            
+              <template v-slot:append>
+                <v-hover v-slot="{}" >
+                  <v-icon
+                    :color="arriveDate === '' ? 'primary' : 'green'"
+                    @click="arriveMenu = true"
+                  >
+                    mdi-calendar
+                  </v-icon> 
+                </v-hover>
+              </template>
+            
+            </v-text-field>
           </template>
           <v-date-picker
             v-model="arriveDate"
@@ -108,6 +120,12 @@
             @input="arriveMenu = false"
           ></v-date-picker>
         </v-dialog>
+
+
+
+
+
+
 
         <!-- Departing Zermatt Calendar  -->
         <v-dialog
@@ -129,7 +147,20 @@
               :color="departDate === '' ? 'primary' : 'green'"
               v-bind="attrs"
               v-on="on"
-            ></v-text-field>
+            >
+            
+              <template v-slot:append>
+                <v-hover v-slot="{}" >
+                  <v-icon
+                    :color="departDate === '' ? 'primary' : 'green'"
+                    @click="departMenu = true"
+                  >
+                    mdi-calendar
+                  </v-icon> 
+                </v-hover>
+              </template>
+            
+            </v-text-field>
           </template>
           <v-date-picker
             v-model="departDate"
