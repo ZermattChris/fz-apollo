@@ -18,7 +18,7 @@
         {{titleDate.fullDate}}
       </div>
 
-      <v-tooltip 
+      <!-- <v-tooltip 
         top
         open-on-click
       >
@@ -38,7 +38,7 @@
           </v-avatar>
         </template>
         <span>{{$t('step-timeslot.selected-date')}}</span>
-      </v-tooltip>
+      </v-tooltip> -->
 
     </div>
 

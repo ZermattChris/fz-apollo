@@ -384,8 +384,9 @@
                     </td>
                     <td><v-icon :color="maleFemaleColour(passenger.sex)">{{maleFemaleIcon(passenger.sex)}}</v-icon></td>
                     <td>{{ passenger.age }}</td>
-                    <td>{{ speedLabel(passenger.speed) }}</td>
-                    
+
+
+
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on, attrs }">
                         <td
@@ -393,7 +394,24 @@
                           v-on="on"
                           class=""
                         >
-                          {{ passenger.weightKg }}
+                          {{ speedLabel(passenger.speed) }}
+                        </td>
+                      </template>
+                      <span>
+                        Your ability to run a few steps for take off.
+                      </span>
+                    </v-tooltip>
+                    
+
+
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on, attrs }">
+                        <td
+                          v-bind="attrs"
+                          v-on="on"
+                          class=""
+                        >
+                          {{ passenger.weightKg }} kg
                         </td>
                       </template>
                       <span>
@@ -407,13 +425,20 @@
               </template>
             </v-simple-table>
 
+            <p 
+              class="mt-6 red--text font-weight-bold"
+              v-if="passenger.speed === 0"
 
-                <!-- <div class="mt-8">
-                  TODO: How to handle passengers spread over multiple time slots??
-                </div> -->
-
+              
+              
+            >
+              <sup>*</sup>Assistance required. Please give us details on this passenger in 
+              the Booking Message on the next page. We will be in contact with you to organise.
+            </p>
 
           </template>
+
+
         </v-simple-table>
         <!-- End of table listing -->
 

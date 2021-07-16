@@ -60,7 +60,7 @@
             v-model="flightDate"
             first-day-of-week="0"
             show-current
-            landscape
+            :landscape="this.$vuetify.breakpoint.name === 'xs' ? false : true"
             :locale="$i18n.locale" 
             :min="flightMinDate"
             :max="flightMaxDate"
@@ -88,7 +88,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               :value="formatArriveDate"
-              label="Arriving in Zermatt?"
+              :label="$t('step-info.departingDate')"
               class="ml-10 mt-3"
               readonly
               :color="arriveDate === '' ? 'primary' : 'green'"
@@ -140,7 +140,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               v-model="formatDepartDate"
-              label="Departing Zermatt?"
+              :label="$t('step-info.arrivingDate')"
               append-icon="mdi-calendar"
               class="ml-10 mt-n3 mb-2"
               readonly
@@ -248,6 +248,8 @@
 
 import { format, add, sub, parseISO, isAfter, isBefore } from 'date-fns'
 import { mdiInformation, mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud, mdiCalendarMonth } from '@mdi/js'
+
+import i18n from '@/i18n'
 
 import PageHeader from '@/components/PageHeader.vue'
 // import NumberScroller from "@/components/NumberScroller.vue"
@@ -487,7 +489,7 @@ export default {
       const obj = this.$store.state._flightsList
       //console.log('build flight list for drop menu', obj)
 
-      if (this.isObjEmpty(obj)) return [{id:-1, name:"No flights available for this date. Please call us." }]
+      if (this.isObjEmpty(obj)) return [{id:-1, name: i18n.t('step-info.noAvailableFlights')}]
 
       let newFlightsList = []
 

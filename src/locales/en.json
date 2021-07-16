@@ -6,10 +6,13 @@
   "step-info": {
     "test": "hello i18n !!",
     "title": "Dates & Flight",
-    "description": "Why we ask you for all of this information? To help us make sure you get the best possible experience... To make sure that we provide the highest levels of safety..",
-    "flightdate": "Flight Date",
+    "description": "We need the following information to help us give you the best possible experience with the highest levels of safety.",
+    "flightdate": "Preferred Flight Date",
+    "arrivingDate": "Arriving in Zermatt?",
+    "departingDate": "Departing from Zermatt?",
     "whichflight": "Which Flight?",
     "pleaseChooseFlightFirst": "Please choose a Flight Date first...",
+    "noAvailableFlights": "No Schedule available for this date. Please call us.",
     "photosvideos": "Photos + Videos (optional)",
     "photosvideos-description": "Filmed with GoPros on specially built sticks for some great memories!"
   },

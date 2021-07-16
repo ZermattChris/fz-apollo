@@ -3,18 +3,16 @@
     <PageHeader :title="'2. ' + $t('step-timeslot.title')">
 
       {{$t('step-timeslot.description')}}
+
       <br /><br />
-        ( <v-icon color="orange">{{iconIdea}}</v-icon> {{$t('step-timeslot.large-group-tip')}} )
-
-      <br />
-      <br />
-
-      <span :class="(passengerTotal > 0) ? '' : 'hidden'">
+      
+      <span>
         <v-btn
           fab
           outlined
           dark
           small
+          disabled
           id="passenger-btn"
         >
           {{ passengerTotal }}
@@ -22,9 +20,15 @@
         <span id="passenger-text" class="font-weight-bold">{{$tc('step-timeslot.total-passengers', passengerTotal)}}</span>
       </span>
 
+      <br /><br />
+        ( <v-icon color="orange">{{iconIdea}}</v-icon> {{$t('step-timeslot.large-group-tip')}} )
+
+      <br />
+      <br />
 
 
-      <span>
+
+      <!-- <span>
         <v-tooltip bottom open-delay="700">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -45,7 +49,7 @@
           </template>
           <span>{{$t('step-timeslot.jump-original-date')}}</span>
         </v-tooltip>
-      </span>
+      </span> -->
 
       <!-- <br/>
       Orig Date: {{usersCurrDate}} <br/>
@@ -396,6 +400,18 @@
   border-width: 3px;
   cursor: default;
 }
+
+
+#passenger-btn-disabled {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: black !important;
+  border-color: rgb(206, 86, 0);
+  border-width: 3px;
+  cursor: default;
+}
+
+
 #passenger-text {
   position: relative;
   top: 0.1em;
