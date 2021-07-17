@@ -60,7 +60,7 @@
         </v-btn>
 
         <span style="position:relative; top:8px; max-width: 100px;" class="">
-          {{$t('step-timeslot.passengers') + ' ' + passengersInSlot}}
+          {{passengersInSlot + ' ' + $tc('step-timeslot.passengers', passengersInSlot)}}
         </span>
 
         <v-btn

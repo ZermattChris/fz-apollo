@@ -23,7 +23,7 @@
     "total-passengers": "Passenger in total | Passengers in total",
     "jump-original-date": "Jump to Origanal Date",
     "selected-date": "Selected Date",
-    "places-free": "{n} Places free",
-    "passengers": "Passengers"
+    "places-free": "{n} Place free | {n} Places free",
+    "passengers": "Passenger | Passengers"
   }
 }

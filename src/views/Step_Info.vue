@@ -974,4 +974,8 @@
   text-align: center;
 }
 
+div .theme--light.v-expansion-panels .v-expansion-panel--disabled {
+	color: rgba(0,0,0,100) !important;
+}
+
 </style>
