@@ -26,6 +26,7 @@
           v-for="(item, i) in usersGroupSize"
           :key="i"
           active-class="activePanel"
+          disabled
         >
 
           <v-expansion-panel-header
