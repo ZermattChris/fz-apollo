@@ -1,12 +1,30 @@
 <template>
   <div class="timeSlot">
-    <PageHeader :title="'2. ' + $t('step-timeslot.title')">
+    <PageHeader 
+      :title="'2. ' + $t('step-timeslot.title')"
+    >
 
       {{$t('step-timeslot.description')}}
 
-      <br /><br />
+      <v-sheet
+        rounded="lg"
+        color="grey lighten-3"
+        class="mx-auto mt-3 px-5 py-2"
+        style="max-width:400px;"
+      >
+        <v-icon 
+          color="orange"
+        >
+          {{iconIdea}}
+        </v-icon>
       
-      <span>
+        {{$t('step-timeslot.large-group-tip')}}
+      </v-sheet>
+
+      <div
+        class="my-3"
+        style="text-align:center;"
+      >
         <v-btn
           fab
           outlined
@@ -18,14 +36,7 @@
           {{ passengerTotal }}
         </v-btn>
         <span id="passenger-text" class="font-weight-bold">{{$tc('step-timeslot.total-passengers', passengerTotal)}}</span>
-      </span>
-
-      <br /><br />
-        ( <v-icon color="orange">{{iconIdea}}</v-icon> {{$t('step-timeslot.large-group-tip')}} )
-
-      <br />
-      <br />
-
+      </div>
 
 
       <!-- <span>
@@ -59,14 +70,14 @@
     </PageHeader>
 
     <!-- ???? Simple loading icon from main page load... -->
-    <div class="text-center pt-6" v-if="!daysVisibleList">
+    <!-- <div class="text-center pt-6" v-if="!daysVisibleList">
       <v-progress-circular
         :size="70"
         :width="7"
         color="amber"
         indeterminate
       ></v-progress-circular>
-    </div>
+    </div> -->
 
 
     <div class="mySwiperWrapper" >

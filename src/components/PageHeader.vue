@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-header">
 
     <h1 
       class="ml-n2 disable-select"
@@ -29,5 +29,8 @@
 
 <style scoped>
 
+  .page-header {
+    max-width: 400px;
+  }
 
 </style>

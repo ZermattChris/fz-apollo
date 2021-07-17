@@ -19,7 +19,7 @@
   "step-timeslot": {
     "title": "How Many are Flying?",
     "description": "Add the number of passengers to the times you would like to fly.",
-    "large-group-tip": "Not enough place on the time you’d like? Split your group over multiple times.",
+    "large-group-tip": "For larger groups, you can split your group over multiple times.",
     "total-passengers": "Passenger in total | Passengers in total",
     "jump-original-date": "Jump to Origanal Date",
     "selected-date": "Selected Date",
