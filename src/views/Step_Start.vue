@@ -88,7 +88,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               :value="formatArriveDate"
-              :label="$t('step-info.departingDate')"
+              :label="$t('step-info.arrivingDate')"
               class="ml-10 mt-3"
               readonly
               :color="arriveDate === '' ? 'primary' : 'green'"
@@ -140,7 +140,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               v-model="formatDepartDate"
-              :label="$t('step-info.arrivingDate')"
+              :label="$t('step-info.departingDate')"
               append-icon="mdi-calendar"
               class="ml-10 mt-n3 mb-2"
               readonly
@@ -222,7 +222,7 @@
       <!-- ***************** Photos + Videos ******************** -->
       <h3>
         <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
-        {{$t('step-info.photosvideos')}}
+        {{$t('step-info.photosvideos', { 'price': photosPrice })}}
       </h3>
       <div class="controls mb-0 mb-sm-6">
         <!-- Photos and Videos included? -->
@@ -316,6 +316,10 @@ export default {
 
 
   computed: {
+
+    photosPrice: function () {
+      return this.$store.state._videoPrice
+    },
 
     flightOptionsLoaded: function () {
       return this.$store.state._flightsList_loading

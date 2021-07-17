@@ -152,9 +152,9 @@
 
         const myDate = parseISO(this.date)
 
-        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+        let options = { year: 'numeric', month: 'long', day: 'numeric' }
         const fullDateStr = new Intl.DateTimeFormat(this.$i18n.locale, options).format(myDate)
-        options = { weekday: 'short' }
+        options = { weekday: 'long' }
         const dayAbrvStr = new Intl.DateTimeFormat(this.$i18n.locale, options).format(myDate)
 
         return {abbreviation: dayAbrvStr, fullDate: fullDateStr}

@@ -68,31 +68,45 @@
       ></v-progress-circular>
     </div>
 
-    <swiper
-      id="timeSlotSwiper"
-      class="swiperBox steps-controls"
-      ref="mySwiper"
-      :options="swiperOptions"
-      @slideChange="onSlideChanged"
-    >
-      <swiper-slide 
-        v-for="(timeListerObj, key, index) in daysVisibleList" 
-        :key="key"
-        class="pb-2"
-        :id="'SwiperSlide_' + index"
+
+    <div class="mySwiperWrapper" >
+
+      <swiper
+        id="timeSlotSwiper"
+        class="swiperBox steps-controls"
+        ref="mySwiper"
+        :options="swiperOptions"
+        @slideChange="onSlideChanged"
       >
-      <!-- {{visibleSwiperSlidesList + ' Key: ' + key}} -->
-        <TimeList
-          :id="'TimeList_' + index"
-          :date="key"
-          :timesObj="timeListerObj"
-          @row-selected="onRowSelected"
-        ></TimeList>
+          <swiper-slide 
+            v-for="(timeListerObj, key, index) in daysVisibleList" 
+            :key="key"
+            class="swiper-slide pb-2"
+            :id="'SwiperSlide_' + index"
+          >
+          <!-- {{visibleSwiperSlidesList + ' Key: ' + key}} -->
+            <TimeList
+              :id="'TimeList_' + index"
+              :date="key"
+              :timesObj="timeListerObj"
+              @row-selected="onRowSelected"
+            ></TimeList>
 
-        <div class="vSpacerForFooter" ></div>
+            <div class="vSpacerForFooter" ></div>
 
-      </swiper-slide>
-    </swiper>
+          </swiper-slide>
+
+      </swiper>
+
+      <div v-show="$vuetify.breakpoint.name !== 'md' " class="swiper-button-next"></div>
+      <div v-show="$vuetify.breakpoint.name !== 'md' " class="swiper-button-prev"></div>
+
+      <!-- <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div> -->
+
+    </div>
+
+
 
   </div>
 </template>
@@ -142,6 +156,11 @@
           slideToClickedSlide: true,
           threshold: 9,
           spaceBetween: 40,
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
           breakpoints: {
             1700: {
               slidesPerView: 5,
@@ -416,6 +435,24 @@
   position: relative;
   top: 0.1em;
   left: 0.3em;
+}
+
+/* Arrow size for the Swiper component */
+
+
+.swiper-button-next, .swiper-button-prev {
+  top: 395px;
+}
+.swiper-button-next::after, .swiper-button-prev::after {
+  font-size: 22px;
+}
+.swiper-button-prev::after {
+  position: relative;
+  left: -7px;
+}
+.swiper-button-next::after {
+  position: relative;
+  right: -7px;
 }
 
 .hidden {
