@@ -13,8 +13,8 @@
     "whichflight": "Which Flight?",
     "pleaseChooseFlightFirst": "Please choose a Flight Date first...",
     "noAvailableFlights": "No Schedule available for this date. Please call us.",
-    "photosvideos": "Photos + Videos (optional {price}.00 CHF per person)",
-    "photosvideos-description": "Filmed with GoPros on specially built sticks for some great memories!"
+    "photosvideos": "Photos + Videos",
+    "photosvideos-description": "Filmed with GoPros on specially built stcks for some great memories! (optional {price}.00 CHF per person)"
   },
   "step-timeslot": {
     "title": "How Many are Flying?",

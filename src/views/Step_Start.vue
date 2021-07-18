@@ -222,7 +222,7 @@
       <!-- ***************** Photos + Videos ******************** -->
       <h3>
         <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
-        {{$t('step-info.photosvideos', { 'price': photosPrice })}}
+        {{$t('step-info.photosvideos')}}
       </h3>
       <div class="controls mb-0 mb-sm-6">
         <!-- Photos and Videos included? -->
@@ -232,7 +232,7 @@
           class="ml-10"
           color="success"
           inset 
-          :label="$t('step-info.photosvideos-description')"
+          :label="$t('step-info.photosvideos-description', { 'price': photosPrice })"
         ></v-switch>
       </div>
 
