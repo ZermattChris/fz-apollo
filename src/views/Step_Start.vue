@@ -224,6 +224,21 @@
       <h3>
         <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
         {{$t('step-info.photosvideos')}}
+        <v-tooltip
+          bottom
+          class="pl-6"
+        >
+          <template v-slot:activator="{ on }">
+            <v-icon 
+              v-on="on"
+              tabindex="-1"
+              @click="console.log('TODO')"
+            >
+              {{infoIcon}}
+            </v-icon>
+          </template>
+          Click for more details for Photos + Videos...
+        </v-tooltip>
       </h3>
       <div class="controls mb-0 mb-sm-6">
         <!-- Photos and Videos included? -->
