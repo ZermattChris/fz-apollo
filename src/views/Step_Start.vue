@@ -94,6 +94,7 @@
               :color="arriveDate === '' ? 'primary' : 'green'"
               v-bind="attrs"
               v-on="on"
+              v-show="hasValidFlightDate"
             >
             
               <template v-slot:append>
@@ -147,6 +148,7 @@
               :color="departDate === '' ? 'primary' : 'green'"
               v-bind="attrs"
               v-on="on"
+              v-show="hasValidFlightDate"
             >
             
               <template v-slot:append>
@@ -174,7 +176,6 @@
           ></v-date-picker>
         </v-dialog>
 
-
         <!-- first version... <v-date-picker 
           v-model="flightDate" 
           first-day-of-week="0"
@@ -193,7 +194,7 @@
 
 
       <!-- ***************** Which Flight? Flight List ******************** -->
-      <h3 class="disable-select" >
+      <h3 class="disable-select mt-6" >
         <v-icon  
           :color="flightChosen ? 'success' : 'primary'">{{ flightOptionsDropMenuList ? stepIconCompleted : stepIcon }}
         </v-icon>
@@ -316,6 +317,13 @@ export default {
 
 
   computed: {
+
+    hasValidFlightDate: function () {
+      if ( isAfter( sub(parseISO(this.flightDate), {days: -1}), Date.now() ) ) {
+        return true
+      }
+      return false
+    },
 
     photosPrice: function () {
       return this.$store.state._videoPrice
