@@ -29,8 +29,4 @@
 
 <style scoped>
 
-  .page-header {
-    max-width: 400px;
-  }
-
 </style>

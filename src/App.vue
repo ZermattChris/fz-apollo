@@ -253,6 +253,7 @@ export default {
       this.$store.dispatch('setCurrentStep', '')
       this.$store.dispatch('setContactPhone', '')
       this.$store.dispatch('setContactEmail', '')
+      this.$store.dispatch('setTimeSlot', payload)
 
       this.$store.dispatch('clearSlotsPassengers')
 
