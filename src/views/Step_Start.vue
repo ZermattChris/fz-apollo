@@ -94,6 +94,7 @@
               :color="arriveDate === '' ? 'primary' : 'green'"
               v-bind="attrs"
               v-on="on"
+              v-show="hasValidFlightDate"
             >
             
               <template v-slot:append>
@@ -147,6 +148,7 @@
               :color="departDate === '' ? 'primary' : 'green'"
               v-bind="attrs"
               v-on="on"
+              v-show="hasValidFlightDate"
             >
             
               <template v-slot:append>
@@ -174,7 +176,6 @@
           ></v-date-picker>
         </v-dialog>
 
-
         <!-- first version... <v-date-picker 
           v-model="flightDate" 
           first-day-of-week="0"
@@ -193,7 +194,7 @@
 
 
       <!-- ***************** Which Flight? Flight List ******************** -->
-      <h3 class="disable-select" >
+      <h3 class="disable-select mt-6" >
         <v-icon  
           :color="flightChosen ? 'success' : 'primary'">{{ flightOptionsDropMenuList ? stepIconCompleted : stepIcon }}
         </v-icon>
@@ -222,7 +223,22 @@
       <!-- ***************** Photos + Videos ******************** -->
       <h3>
         <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
-        {{$t('step-info.photosvideos', { 'price': photosPrice })}}
+        {{$t('step-info.photosvideos')}}
+        <v-tooltip
+          bottom
+          class="pl-6"
+        >
+          <template v-slot:activator="{ on }">
+            <v-icon 
+              v-on="on"
+              tabindex="-1"
+              @click="console.log('TODO')"
+            >
+              {{infoIcon}}
+            </v-icon>
+          </template>
+          Click for more details for Photos + Videos...
+        </v-tooltip>
       </h3>
       <div class="controls mb-0 mb-sm-6">
         <!-- Photos and Videos included? -->
@@ -232,7 +248,7 @@
           class="ml-10"
           color="success"
           inset 
-          :label="$t('step-info.photosvideos-description')"
+          :label="$t('step-info.photosvideos-description', { 'price': photosPrice })"
         ></v-switch>
       </div>
 
@@ -316,6 +332,13 @@ export default {
 
 
   computed: {
+
+    hasValidFlightDate: function () {
+      if ( isAfter( sub(parseISO(this.flightDate), {days: -1}), Date.now() ) ) {
+        return true
+      }
+      return false
+    },
 
     photosPrice: function () {
       return this.$store.state._videoPrice
