@@ -224,21 +224,6 @@
       <h3>
         <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
         {{$t('step-info.photosvideos')}}
-        <v-tooltip
-          bottom
-          class="pl-6"
-        >
-          <template v-slot:activator="{ on }">
-            <v-icon 
-              v-on="on"
-              tabindex="-1"
-              @click="console.log('TODO')"
-            >
-              {{infoIcon}}
-            </v-icon>
-          </template>
-          Click for more details for Photos + Videos...
-        </v-tooltip>
       </h3>
       <div class="controls mb-0 mb-sm-6">
         <!-- Photos and Videos included? -->
@@ -250,6 +235,19 @@
           inset 
           :label="$t('step-info.photosvideos-description', { 'price': photosPrice })"
         ></v-switch>
+
+        <p
+          class="caption pl-16 ml-8 mt-n4"
+          style="position:relative; z-index:20;"
+        >
+          (
+          <v-icon tabindex="-1" @click="gotoPhotosVideosWebPage">
+            {{infoIcon}} 
+          </v-icon> 
+          <a href="https://www.flyzermatt.com/photos-videos/" target="_blank">
+            click here for detailed information
+          </a>)
+        </p>
       </div>
 
 
@@ -474,6 +472,12 @@ export default {
 
   },
   methods: {
+
+    // <a data-testid="linkElement-2" data-anchor="dataItem-k961fqqv" href="https://www.flyzermatt.com" target="_self" class="_3tow4" tabindex="0">OTHER OPTIONS</a>
+    gotoPhotosVideosWebPage () {
+      window.open("https://www.flyzermatt.com/photos-videos/", "_blank")
+    },
+
 
     // sub(parseISO(this.arriveDate), {days: 1})
 
