@@ -849,10 +849,7 @@
       //     setTimeout(() => { this.$scrollTo('#expand-panels', 500) }, 300)
       //   }
       // },
-      scrollToElement: function (ev) {
-        let el = ev.currentTarget
-        setTimeout(() => { this.$scrollTo(el, 500) }, 300)
-      },
+
 
     },
 
