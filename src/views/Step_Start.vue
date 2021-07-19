@@ -16,46 +16,7 @@
       
       <div class="controls mb-0 mb-sm-2 mb-md-4">
 
-        <!-- <v-date-picker 
-          v-model="flightDate" 
-          first-day-of-week="0"
-          :locale="$i18n.locale" 
-          show-current
-          elevation="4"
-          color="green"
-          header-color="primary"
-          :min="flightMinDate"
-          :max="flightMaxDate"
-          class="ml-10 mb-6 mb-sm-8 mb-md-10"
-          width=""
-          style="min-width:240px;"
-          :events="calendarTripLength"
-        >
-        </v-date-picker> -->
-
-        <!-- Preferred Flight Date Calendar -->
-        <!-- <v-dialog
-          v-model="flightMenu"
-          :nudge-right="0"
-          :nudge-bottom="0"
-          transition="scale-transition"
-          offset-y
-          min-width="auto"
-          max-width="300"
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-text-field
-              :value="formatFlightDate"
-              label="Preferred Flight Date"
-              prepend-inner-icon="mdi-calendar"
-              class="ml-10"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-              color="primary"
-              filled
-            ></v-text-field>
-          </template> -->
+          <!-- Preferred Flight Date Calendar  -->
           <v-date-picker
             v-model="flightDate"
             first-day-of-week="0"
@@ -70,8 +31,6 @@
             @input="flightMenu = false"
             :events="calendarTripLength"
           ></v-date-picker>
-        <!-- </v-dialog> -->
-
 
 
 
@@ -176,19 +135,6 @@
           ></v-date-picker>
         </v-dialog>
 
-        <!-- first version... <v-date-picker 
-          v-model="flightDate" 
-          first-day-of-week="0"
-          :locale="$i18n.locale" 
-          show-current
-          elevation="4"
-          :min="flightMinDate"
-          :max="flightMaxDate"
-          class="ml-10 mb-6 mb-sm-8 mb-md-10"
-          width=""
-          style="min-width:240px;"
-        >
-        </v-date-picker> -->
 
       </div>
 
@@ -266,7 +212,6 @@ import { mdiInformation, mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, 
 import i18n from '@/i18n'
 
 import PageHeader from '@/components/PageHeader.vue'
-// import NumberScroller from "@/components/NumberScroller.vue"
 //const VueScrollTo = require('vue-scrollto');
 
 export default {
@@ -292,8 +237,6 @@ export default {
       flightModal: false,
 
       nrPeopleExceedsMaxPilots: false,    // when true, shows "Booking Info:" message under Nr of People Flying input.
-      maxGroupSize: 15,                   // Just some sort of limit -- call us if bigger group (sucks inputting that many people's names...)
-
 
       nrPeopleEnabled: false,
 
@@ -319,13 +262,6 @@ export default {
     this.onValueChanged()
   },
 
-  async mounted() {
-
-    // setTimeout(() => {
-    //   this.$refs.flightDateInput.focus()
-    // }, 500)
-
-  },
 
 
 
@@ -473,13 +409,10 @@ export default {
   },
   methods: {
 
-    // <a data-testid="linkElement-2" data-anchor="dataItem-k961fqqv" href="https://www.flyzermatt.com" target="_self" class="_3tow4" tabindex="0">OTHER OPTIONS</a>
     gotoPhotosVideosWebPage () {
       window.open("https://www.flyzermatt.com/photos-videos/", "_blank")
     },
 
-
-    // sub(parseISO(this.arriveDate), {days: 1})
 
     calendarTripLength (date) {
       if ( 

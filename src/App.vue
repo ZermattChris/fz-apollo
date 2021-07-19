@@ -34,6 +34,7 @@
           src="@/assets/FlyZermatt-logo-light.svg"
           transition="scale-transition"
           width="220"
+          @click="onClearData"
         />
       </div>
 
@@ -82,16 +83,7 @@
         <v-col class="pa-5 pa-sm-8 pa-md-12" cols="12" md="10" lg="8" >
 
           <!-- Router hooked up here -->
-          <router-view
-
-          />
-
-          <!-- <div class="text-center mt-12 mb-6"> -->
-            <!-- Continue Btn -->
-            <!-- <NavButton
-              ref="ContinueBtn"
-            /> -->
-          <!-- </div> -->
+          <router-view/>
 
         </v-col>
         <v-col cols="12" md="1" lg="2"></v-col>
@@ -243,14 +235,16 @@ export default {
     },
 
 
-    // ************************** Storage workers **************************. 
     // This is just a _DEV function for quick testing
     // Is called by the < Clear button on header.
     // Remove for final release. (maybe put into a debug menu?)
     onClearData: function () {
-      if (this.$store.state._DEV !== true) return
+      if (confirm("DEBUG: Clear all stored data?") !== true) return
+      //if (this.$store.state._DEV !== true) return
       //console.log('Clear all data:')
       this.$store.dispatch('setFlightDate', '')
+      this.$store.dispatch('setArriveDate', '')
+      this.$store.dispatch('setDepartDate', '')
       this.$store.dispatch('setFlight', '')
       this.$store.dispatch('setWantsPhotos', false)
       const payload = {'slot':-1, 'label':''}
