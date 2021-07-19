@@ -238,7 +238,7 @@
 
         <p
           class="caption pl-16 ml-8 mt-n4"
-          style="position:relative; z-index:20;"
+          style="position:relative; z-index:2;"
         >
           (
           <v-icon tabindex="-1" @click="gotoPhotosVideosWebPage">
