@@ -9,8 +9,9 @@
       <v-sheet
         rounded="lg"
         color="grey lighten-3"
-        class="mx-auto mt-3 px-5 py-2"
+        class="mx-auto mt-3 px-5 py-2 disable-select"
         style="max-width:400px;"
+        
       >
         <v-icon 
           color="orange"
@@ -24,6 +25,7 @@
       <div
         class="my-3"
         style="text-align:center;"
+          @click="onToOrigDateClick"
       >
         <v-btn
           fab
@@ -95,7 +97,6 @@
             class="swiper-slide pb-2"
             :id="'SwiperSlide_' + index"
           >
-          <!-- {{visibleSwiperSlidesList + ' Key: ' + key}} -->
             <TimeList
               :id="'TimeList_' + index"
               :date="key"
@@ -111,9 +112,6 @@
 
       <div v-show="$vuetify.breakpoint.name !== 'md' " class="swiper-button-next"></div>
       <div v-show="$vuetify.breakpoint.name !== 'md' " class="swiper-button-prev"></div>
-
-      <!-- <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div> -->
 
     </div>
 
@@ -167,11 +165,11 @@
           slideToClickedSlide: true,
           threshold: 9,
           spaceBetween: 40,
-  // Navigation arrows
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
+          // Navigation arrows
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
           breakpoints: {
             1700: {
               slidesPerView: 5,

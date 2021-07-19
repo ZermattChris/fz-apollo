@@ -30,6 +30,7 @@
             :color="flightDate === '' ? 'primary' : 'green'"
             @input="flightMenu = false"
             :events="calendarTripLength"
+            class="disable-select"
           ></v-date-picker>
 
 
@@ -140,7 +141,7 @@
 
 
       <!-- ***************** Which Flight? Flight List ******************** -->
-      <h3 class="disable-select mt-6" >
+      <h3 id="whichFlight" class="disable-select mt-6" >
         <v-icon  
           :color="flightChosen ? 'success' : 'primary'">{{ flightOptionsDropMenuList ? stepIconCompleted : stepIcon }}
         </v-icon>
@@ -148,13 +149,12 @@
       </h3>
       <div class="controls mb-0 mb-sm-6 mb-md-10">
         <v-select
-         class="disable-select"
+          class="disable-select"
           style="max-width:330px;"
           v-model="flightChosen"
           :items="flightOptionsDropMenuList"
           item-text="name"
           item-value="id"
-          :prepend-icon="flightChosen ? cloudIcon : cloudQuestionIcon"
           :loading="flightOptionsLoaded"
           solo
           outlined
@@ -167,7 +167,7 @@
 
 
       <!-- ***************** Photos + Videos ******************** -->
-      <h3>
+      <h3 class="disable-select">
         <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
         {{$t('step-info.photosvideos')}}
       </h3>
@@ -176,14 +176,14 @@
         <v-switch 
           id="photosSwitch"
           v-model="switchPhotos" 
-          class="ml-10"
+          class="ml-2"
           color="success"
           inset 
           :label="$t('step-info.photosvideos-description', { 'price': photosPrice })"
         ></v-switch>
 
         <p
-          class="caption pl-16 ml-8 mt-n4"
+          class="caption pl-16 ml-8 mt-n4 disable-select"
           style="position:relative; z-index:2;"
         >
           (
@@ -305,6 +305,7 @@ export default {
         this.$store.dispatch('flightOptions')
         this.buildFlightList()
         this.$store.dispatch('clearSlotsPassengers')
+        this.scrollToId("#chooseFlightDate")
       }
     },
     flightChosen: {
@@ -396,6 +397,7 @@ export default {
       },
       set(dateStr) {
         this.$store.dispatch('setDepartDate', dateStr)
+        this.scrollToId("#whichFlight")
       }
     },
 
@@ -424,8 +426,8 @@ export default {
       }
     },
 
-    scrollToFormTop: function () {
-      setTimeout(() => { this.$scrollTo('#chooseFlightDate', 500) }, 100)
+    scrollToId: function (elIdToTarget = '') {
+      setTimeout(() => { this.$scrollTo(elIdToTarget, 500) }, 100)
     },
     
     // move this to updating a VueX state list, that the Continue button

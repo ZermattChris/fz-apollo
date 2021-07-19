@@ -6,7 +6,7 @@
       v-html="title"
     >
     </h1>
-    <p>
+    <p class="disable-select">
         <slot>Default Page Header text...</slot>
     </p>
 
