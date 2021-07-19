@@ -254,7 +254,7 @@
 
   /* Gives us a bit more left/right space */
   .v-list-item {
-    padding: 0 14px;
+    padding: 0 7px;
   }
 
 
