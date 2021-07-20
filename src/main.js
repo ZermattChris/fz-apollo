@@ -35,7 +35,10 @@ Vue.mixin({
       if (obj == null) return true
       if (Object.keys(obj).length > 0) return false
       return true
-    }
+    },
+    scrollToId: function (elIdToTarget = '') {
+      setTimeout(() => { this.$scrollTo(elIdToTarget, 500) }, 100)
+    },
   }
 })
 

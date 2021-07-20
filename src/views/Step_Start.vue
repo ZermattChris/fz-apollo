@@ -78,6 +78,7 @@
             :max="flightDate"
             color="green"
             elevation="15"
+            :events="showFlightDateColour"
             @input="arriveMenu = false"
           ></v-date-picker>
         </v-dialog>
@@ -132,6 +133,7 @@
             :max="flightMaxDate"
             elevation="15"
             color="green"
+            :events="showFlightDateColour"
             @input="departMenu = false"
           ></v-date-picker>
         </v-dialog>
@@ -206,7 +208,7 @@
 <script>
 // @ is an alias to /src
 
-import { format, add, sub, parseISO, isAfter, isBefore } from 'date-fns'
+import { format, add, sub, parseISO, isAfter, isBefore, isEqual } from 'date-fns'
 import { mdiInformation, mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud, mdiCalendarMonth } from '@mdi/js'
 
 import i18n from '@/i18n'
@@ -416,6 +418,13 @@ export default {
     },
 
 
+    showFlightDateColour (date) {
+      if ( isEqual( parseISO(this.flightDate), parseISO(date)) ) { 
+        //console.log(date, "Matched")
+        return ['primary']
+      }
+    },
+
     calendarTripLength (date) {
       if ( 
         (isAfter( parseISO(date), sub(parseISO(this.arriveDate), {days: 1}) ) ) 
@@ -426,9 +435,9 @@ export default {
       }
     },
 
-    scrollToId: function (elIdToTarget = '') {
-      setTimeout(() => { this.$scrollTo(elIdToTarget, 500) }, 100)
-    },
+    // scrollToId: function (elIdToTarget = '') {
+    //   setTimeout(() => { this.$scrollTo(elIdToTarget, 500) }, 100)
+    // },
     
     // move this to updating a VueX state list, that the Continue button
     // can react to on its own.

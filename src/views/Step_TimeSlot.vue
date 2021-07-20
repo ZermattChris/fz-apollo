@@ -11,7 +11,7 @@
         color="grey lighten-3"
         class="mx-auto mt-3 px-5 py-2 disable-select"
         style="max-width:400px;"
-        
+        id="bigGroupTipBox"
       >
         <v-icon 
           color="orange"
@@ -242,6 +242,7 @@
         set(payload) {
           // Pass along the slot's label as a sanity check for booking time.
           //console.log(payload)
+          //this.scrollToId("#bigGroupTipBox")
           // const payload = {'slot':int, 'label':this.slotLabel}
           return this.$store.dispatch('setTimeSlot', payload)
         }
@@ -267,6 +268,16 @@
 
     methods: {
 
+      onSlideChanged: function () {
+        // scroll Swiper to the currently selected date.
+        // console.log("Slide changed ")
+        // this.updateVirtualSlides()
+      },
+      
+      // scrollToId: function (elIdToTarget = '') {
+      //   setTimeout(() => { this.$scrollTo(elIdToTarget, 500) }, 100)
+      // },
+      
       
       loadVisibleSlides: function () {
 
@@ -314,12 +325,10 @@
         return this.$store.getters.getUsersDayIndex()
       },
 
-      scrollToTimeSlotTop: function () {
-        setTimeout(() => { this.$scrollTo('#timeSlotSwiper', 500) }, 200)
-      },
-      
       onRowSelected: function () {
         //clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
+
+        this.scrollToId("#bigGroupTipBox")
 
         // update the autoheight on Swiper to allow for TimeSlot height changes
         // when toggling passenger inputs. Needs a timeout to work.

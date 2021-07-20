@@ -29,9 +29,7 @@
           disabled
         >
 
-          <v-expansion-panel-header
-            @click="scrollToElement"
-          >
+          <v-expansion-panel-header>
             <template v-slot:default="{ open }">
 
               <v-icon  
@@ -678,6 +676,12 @@
     },
 
     methods: {
+
+
+      // scrollToId: function (elIdToTarget = '') {
+      //   setTimeout(() => { this.$scrollTo(elIdToTarget, 500) }, 100)
+      // },
+      
 
       goToNextStep: function () {
         this.$store.dispatch('hasReviewedData', true)    // This store value triggers NavBtn to go to next step.
