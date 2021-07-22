@@ -228,11 +228,12 @@
           bottom
           class="pl-6"
         >
+          // TODO link
           <template v-slot:activator="{ on }">
             <v-icon 
               v-on="on"
               tabindex="-1"
-              @click="console.log('TODO')"
+              
             >
               {{infoIcon}}
             </v-icon>
