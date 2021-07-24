@@ -81,6 +81,11 @@
       </v-simple-table>
     </template>
 
+  <div id="shop-meeting-text">
+  
+  
+  </div>
+
 
     <p class="text-caption mt-4 mx-4">
       TODO: Special Requests (collapsable) info section here.
@@ -98,10 +103,11 @@
       v-model="message"
       name="booking-message"
       outlined
-      label="Booking Message (optional)"
+      label="Enter your Booking Message here (optional)"
       auto-grow
       hint="Enter extra passenger infos, different meeting location or questions here."
       @blur="onMessageBlur"
+      @click="scrollToId('#shop-meeting-text')"
     ></v-textarea>
 
 
@@ -152,9 +158,9 @@
 
     <ul>
       <li>Visa standard card with success: 4000007560000009 <br/></li>
-      <li>3D Secure with success: 4000002500003155</li>
+      <!-- <li>3D Secure with success: 4000002500003155</li>
       <li>Fail, insuffecient funds: 4000000000009995</li>
-      <li>Fail, card has expired: 4000000000000069</li>
+      <li>Fail, card has expired: 4000000000000069</li> -->
     </ul>
 
   </div>
@@ -252,7 +258,7 @@
           "orderMessage": this.$store.state.orderMessage
         }
 
-        console.log("Order data sent to Tommy.", data)
+        //console.log("Order data sent to Tommy.", data)
 
 
         fetch("https://bookings.simpleitsolutions.ch/api/createcheckout", {

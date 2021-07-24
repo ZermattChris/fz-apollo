@@ -42,6 +42,7 @@
               <span class="font-weight-bold">{{getPassengersNameForHeader(i)}}
 
               <!-- <span v-if="!open" class="overline text--disabled pl-4">Click to open...</span> -->
+              
               </span>
 
               <v-icon 
@@ -687,7 +688,7 @@
       goToNextStep: function () {
         this.$store.dispatch('hasReviewedData', true)    // This store value triggers NavBtn to go to next step.
         const targetStep = 'Pay'
-        console.log('Nav to:', targetStep)
+        //console.log('Nav to:', targetStep)
         this.$router.push({
           path: targetStep
         })
