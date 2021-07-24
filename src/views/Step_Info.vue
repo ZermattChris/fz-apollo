@@ -424,7 +424,7 @@
               </template>
             </v-simple-table>
 
-            <p 
+            <!-- <p 
               class="mt-6 red--text font-weight-bold"
               v-if="passenger.speed === 0"
 
@@ -433,7 +433,7 @@
             >
               <sup>*</sup>Assistance required. Please give us details on this passenger in 
               the Booking Message on the next page. We will be in contact with you to organise.
-            </p>
+            </p> -->
 
           </template>
 

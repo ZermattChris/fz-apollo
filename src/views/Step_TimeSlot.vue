@@ -130,6 +130,7 @@
 
   
   import { mdiLightbulbOnOutline, mdiArrowDownCircle } from '@mdi/js'
+  import { parseISO, isAfter, isBefore } from 'date-fns'
 
 
   export default {
@@ -235,11 +236,22 @@
       swiper() {
         return this.$refs.mySwiper.$swiper
       },
+
+
+
+      arriveDate() {
+        return this.$store.state.arriveDate
+      },
+      departDate() {
+        return this.$store.state.departDate
+      },
+
       userSelectedSlot: {
         get() {
           return this.$store.state.timeSlot
         },
         set(payload) {
+
           // Pass along the slot's label as a sanity check for booking time.
           //console.log(payload)
           //this.scrollToId("#bigGroupTipBox")
@@ -283,7 +295,7 @@
 
         // This bit is all rather wrong and poorly thought through. Must plan and redo properly
 
-        console.log("- Update Slides. Active slide index: ", this.swiper.activeIndex, " Container Width:", this.swiper.width)
+        //console.log("- Update Slides. Active slide index: ", this.swiper.activeIndex, " Container Width:", this.swiper.width)
         // const myTimelist = "TimeList_" + this.swiper.activeIndex
         // this.$refs[myTimelist].show()
 
@@ -311,14 +323,15 @@
           }
         }
 
-        console.log("-> Visible slide Indexes: " + visibleSlidesIndexes)
+        //console.log("-> Visible slide Indexes: " + visibleSlidesIndexes)
 
       },
 
   
       onToOrigDateClick: function () {
+        // Not working correctly, needs to go to current flight date.
         // scroll Swiper to the currently selected date.
-        this.swiper.slideTo(this.swiperOptions.initialSlide)
+        //this.swiper.slideTo(this.swiperOptions.initialSlide)
       },
 
       usersDayIndex: function () {
@@ -329,6 +342,24 @@
         //clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
 
         this.scrollToId("#bigGroupTipBox")
+
+
+        // ----
+        // TODO Put up a confirm dialog if selected date fall outside of the range given in step 1.
+        // TODO If confirm is true, clear arrive and depart dates and return to Step 1?
+        //console.log("TEST", this.userFlightDate, this.departDate, this.arriveDate)
+        if ( 
+          isAfter( parseISO(this.userFlightDate), parseISO(this.departDate)) || 
+          isBefore( parseISO(this.userFlightDate), parseISO(this.arriveDate))
+        )
+        { 
+          if (window.confirm("This will change your Arrival and Departure dates. Continue?")) {
+            console.log("TODO: If confirm is true, clear arrive and depart dates and return to Step 1")
+          }
+        }
+        // ----
+
+
 
         // update the autoheight on Swiper to allow for TimeSlot height changes
         // when toggling passenger inputs. Needs a timeout to work.

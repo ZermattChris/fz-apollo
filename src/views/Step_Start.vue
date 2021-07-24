@@ -505,7 +505,7 @@ export default {
     flightDate: function () {
       // enable nr people and which flight if valid date chosen.
       //this.nrPeopleEnabled = true
-      console.log('Chosen Date: ' + this.flightDate)
+      //console.log('Chosen Date: ' + this.flightDate)
     },
 
   },
