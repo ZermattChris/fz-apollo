@@ -93,6 +93,7 @@
                   prefix="+"
                   @keyup="updatePhoneCountryData"
                   @blur="stripPhoneJunkOnBlur"
+                  @focus="scrollToId('#expand-panels')"
                 >
                   <template v-slot:append-outer>
                     <v-tooltip
@@ -557,7 +558,7 @@
     mounted() {
       // set focus to Phone Input if field is empty.
       if (this.contactPhone === '') {
-        this.$refs.Phone[0].focus()
+        //this.$refs.Phone[0].focus()
       }
 
       
