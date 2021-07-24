@@ -35,6 +35,7 @@
           transition="scale-transition"
           width="220"
           @click="onClearData"
+          ref="fzlogo"
         />
       </div>
 
@@ -239,8 +240,11 @@ export default {
     // Is called by the < Clear button on header.
     // Remove for final release. (maybe put into a debug menu?)
     onClearData: function () {
+
+      if (this.$store.state._DEV !== true) return
+
       if (confirm("DEBUG: Clear all stored data?") !== true) return
-      //if (this.$store.state._DEV !== true) return
+
       //console.log('Clear all data:')
       this.$store.dispatch('setFlightDate', '')
       this.$store.dispatch('setArriveDate', '')
@@ -261,6 +265,7 @@ export default {
         this.$router.push('/') // return to step 1
       }
       window.location.reload()
+
     },
   },
 

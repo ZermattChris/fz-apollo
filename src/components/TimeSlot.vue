@@ -49,6 +49,7 @@
           class="ml-7"
           :class="(passengersInSlot == myMin) ? 'disabledButton' : ''"
           color="pink"
+          ripple
           dark
           small
           left
@@ -70,18 +71,21 @@
           dark
           small
           right
+          ripple
           fab
           absolute
           @click="onPlus"
         >
           <v-icon>mdi-plus</v-icon>
         </v-btn>
+        
       </div>
     </div>
 
     <!-- Total number of passengers selected in this slot (hidden if 0) -->
     <v-btn
       id="slotPassengersTotalBtn"
+      style="cursor:default;"
       v-show="(passengersInSlot > 0)"
       fab
       small

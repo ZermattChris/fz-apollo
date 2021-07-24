@@ -70,7 +70,8 @@
             <tr class="grey lighten-3">
               <td></td>
               <td style="text-align:right; font-weight:bold;">Total CHF</td>
-              <td class="text-right"><span style="font-weight:bold;">{{ (totalPassengers * flightDetails.price) + (totalPassengers * videoPrice) }}.00</span></td>
+              <td v-if="wantsPhotos" class="text-right"><span style="font-weight:bold;">{{ (totalPassengers * flightDetails.price) + (totalPassengers * videoPrice) }}.00</span></td>
+              <td v-if="!wantsPhotos" class="text-right"><span style="font-weight:bold;">{{ (totalPassengers * flightDetails.price) }}.00</span></td>
               <td></td>
             </tr>
           </tbody>

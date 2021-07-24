@@ -30,7 +30,7 @@
         >
 
           <v-expansion-panel-header>
-            <template v-slot:default="{ open }">
+            <template v-slot:default="{}">
 
               <v-icon  
                 v-if="i === 0"
@@ -41,7 +41,7 @@
 
               <span class="font-weight-bold">{{getPassengersNameForHeader(i)}}
 
-              <span v-if="!open" class="overline text--disabled pl-4">Click to open...</span>
+              <!-- <span v-if="!open" class="overline text--disabled pl-4">Click to open...</span> -->
               </span>
 
               <v-icon 
@@ -762,7 +762,7 @@
         } else {
           // Passenger has a name already, just add the number...
           if (passengerNumber === 0 ) {
-            myName += ' (Contact)'
+            myName += ' (Contact Person)'
           } else {
             myName = '#' + (passengerNumber +1) + " " + myName
           }
