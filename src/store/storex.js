@@ -373,6 +373,7 @@ export default new Vuex.Store({
       // Return if the date is not set/valid.
       const flDate = context.state.flightDate
       const flightId = context.state.selectedFlight
+      if (flightId === "") return         // No flight has yet been chosen, don't call API,
       //console.log(flDate)
       return axios.get("https://bookings.simpleitsolutions.ch/api/flightsavailable/" + flightId + "/" + flDate)
         .then(response => {

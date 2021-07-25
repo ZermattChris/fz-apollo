@@ -16,46 +16,7 @@
       
       <div class="controls mb-0 mb-sm-2 mb-md-4">
 
-        <!-- <v-date-picker 
-          v-model="flightDate" 
-          first-day-of-week="0"
-          :locale="$i18n.locale" 
-          show-current
-          elevation="4"
-          color="green"
-          header-color="primary"
-          :min="flightMinDate"
-          :max="flightMaxDate"
-          class="ml-10 mb-6 mb-sm-8 mb-md-10"
-          width=""
-          style="min-width:240px;"
-          :events="calendarTripLength"
-        >
-        </v-date-picker> -->
-
-        <!-- Preferred Flight Date Calendar -->
-        <!-- <v-dialog
-          v-model="flightMenu"
-          :nudge-right="0"
-          :nudge-bottom="0"
-          transition="scale-transition"
-          offset-y
-          min-width="auto"
-          max-width="300"
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-text-field
-              :value="formatFlightDate"
-              label="Preferred Flight Date"
-              prepend-inner-icon="mdi-calendar"
-              class="ml-10"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-              color="primary"
-              filled
-            ></v-text-field>
-          </template> -->
+          <!-- Preferred Flight Date Calendar  -->
           <v-date-picker
             v-model="flightDate"
             first-day-of-week="0"
@@ -69,9 +30,8 @@
             :color="flightDate === '' ? 'primary' : 'green'"
             @input="flightMenu = false"
             :events="calendarTripLength"
+            class="disable-select"
           ></v-date-picker>
-        <!-- </v-dialog> -->
-
 
 
 
@@ -118,6 +78,7 @@
             :max="flightDate"
             color="green"
             elevation="15"
+            :events="showFlightDateColour"
             @input="arriveMenu = false"
           ></v-date-picker>
         </v-dialog>
@@ -172,29 +133,17 @@
             :max="flightMaxDate"
             elevation="15"
             color="green"
+            :events="showFlightDateColour"
             @input="departMenu = false"
           ></v-date-picker>
         </v-dialog>
 
-        <!-- first version... <v-date-picker 
-          v-model="flightDate" 
-          first-day-of-week="0"
-          :locale="$i18n.locale" 
-          show-current
-          elevation="4"
-          :min="flightMinDate"
-          :max="flightMaxDate"
-          class="ml-10 mb-6 mb-sm-8 mb-md-10"
-          width=""
-          style="min-width:240px;"
-        >
-        </v-date-picker> -->
 
       </div>
 
 
       <!-- ***************** Which Flight? Flight List ******************** -->
-      <h3 class="disable-select mt-6" >
+      <h3 id="whichFlight" class="disable-select mt-6" >
         <v-icon  
           :color="flightChosen ? 'success' : 'primary'">{{ flightOptionsDropMenuList ? stepIconCompleted : stepIcon }}
         </v-icon>
@@ -202,13 +151,12 @@
       </h3>
       <div class="controls mb-0 mb-sm-6 mb-md-10">
         <v-select
-         class="disable-select"
+          class="disable-select"
           style="max-width:330px;"
           v-model="flightChosen"
           :items="flightOptionsDropMenuList"
           item-text="name"
           item-value="id"
-          :prepend-icon="flightChosen ? cloudIcon : cloudQuestionIcon"
           :loading="flightOptionsLoaded"
           solo
           outlined
@@ -221,7 +169,7 @@
 
 
       <!-- ***************** Photos + Videos ******************** -->
-      <h3>
+      <h3 class="disable-select">
         <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
         {{$t('step-info.photosvideos')}}
         <v-tooltip
@@ -246,11 +194,24 @@
         <v-switch 
           id="photosSwitch"
           v-model="switchPhotos" 
-          class="ml-10"
+          class="ml-2"
           color="success"
           inset 
           :label="$t('step-info.photosvideos-description', { 'price': photosPrice })"
         ></v-switch>
+
+        <p
+          class="caption pl-16 ml-8 mt-n4 disable-select"
+          style="position:relative; z-index:2;"
+        >
+          (
+          <v-icon tabindex="-1" @click="gotoPhotosVideosWebPage">
+            {{infoIcon}} 
+          </v-icon> 
+          <a href="https://www.flyzermatt.com/photos-videos/" target="_blank">
+            click here for detailed information
+          </a>)
+        </p>
       </div>
 
 
@@ -263,13 +224,12 @@
 <script>
 // @ is an alias to /src
 
-import { format, add, sub, parseISO, isAfter, isBefore } from 'date-fns'
+import { format, add, sub, parseISO, isAfter, isBefore, isEqual } from 'date-fns'
 import { mdiInformation, mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud, mdiCalendarMonth } from '@mdi/js'
 
 import i18n from '@/i18n'
 
 import PageHeader from '@/components/PageHeader.vue'
-// import NumberScroller from "@/components/NumberScroller.vue"
 //const VueScrollTo = require('vue-scrollto');
 
 export default {
@@ -295,8 +255,6 @@ export default {
       flightModal: false,
 
       nrPeopleExceedsMaxPilots: false,    // when true, shows "Booking Info:" message under Nr of People Flying input.
-      maxGroupSize: 15,                   // Just some sort of limit -- call us if bigger group (sucks inputting that many people's names...)
-
 
       nrPeopleEnabled: false,
 
@@ -322,13 +280,6 @@ export default {
     this.onValueChanged()
   },
 
-  async mounted() {
-
-    // setTimeout(() => {
-    //   this.$refs.flightDateInput.focus()
-    // }, 500)
-
-  },
 
 
 
@@ -372,6 +323,7 @@ export default {
         this.$store.dispatch('flightOptions')
         this.buildFlightList()
         this.$store.dispatch('clearSlotsPassengers')
+        this.scrollToId("#chooseFlightDate")
       }
     },
     flightChosen: {
@@ -463,6 +415,7 @@ export default {
       },
       set(dateStr) {
         this.$store.dispatch('setDepartDate', dateStr)
+        this.scrollToId("#whichFlight")
       }
     },
 
@@ -476,7 +429,17 @@ export default {
   },
   methods: {
 
-    // sub(parseISO(this.arriveDate), {days: 1})
+    gotoPhotosVideosWebPage () {
+      window.open("https://www.flyzermatt.com/photos-videos/", "_blank")
+    },
+
+
+    showFlightDateColour (date) {
+      if ( isEqual( parseISO(this.flightDate), parseISO(date)) ) { 
+        //console.log(date, "Matched")
+        return ['primary']
+      }
+    },
 
     calendarTripLength (date) {
       if ( 
@@ -488,9 +451,9 @@ export default {
       }
     },
 
-    scrollToFormTop: function () {
-      setTimeout(() => { this.$scrollTo('#chooseFlightDate', 500) }, 100)
-    },
+    // scrollToId: function (elIdToTarget = '') {
+    //   setTimeout(() => { this.$scrollTo(elIdToTarget, 500) }, 100)
+    // },
     
     // move this to updating a VueX state list, that the Continue button
     // can react to on its own.

@@ -6,7 +6,7 @@
       v-html="title"
     >
     </h1>
-    <p>
+    <p class="disable-select">
         <slot>Default Page Header text...</slot>
     </p>
 
@@ -28,9 +28,5 @@
 </script>
 
 <style scoped>
-
-  .page-header {
-    max-width: 400px;
-  }
 
 </style>

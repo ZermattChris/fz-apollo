@@ -6,14 +6,14 @@
   "step-info": {
     "test": "hello i18n !!",
     "title": "Dates & Flight",
-    "description": "We need the following information to help us give you the best possible booking experience with the highest levels of safety.",
+    "description": "We need the following information to help us give you the best possible flight experience with the highest levels of safety.",
     "flightdate": "Preferred Flight Date",
     "arrivingDate": "Arriving in Zermatt?",
     "departingDate": "Departing from Zermatt?",
     "whichflight": "Which Flight?",
     "pleaseChooseFlightFirst": "Please choose a Flight Date first...",
     "noAvailableFlights": "No Schedule available for this date. Please call us.",
-    "photosvideos": "Photos + Videos",
+    "photosvideos": "Photos + Videos (optional)",
     "photosvideos-description": "Filmed with GoPros on specially built stcks for some great memories! (optional {price}.00 CHF per person)"
   },
   "step-timeslot": {

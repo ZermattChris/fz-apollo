@@ -29,9 +29,7 @@
           disabled
         >
 
-          <v-expansion-panel-header
-            @click="scrollToElement"
-          >
+          <v-expansion-panel-header>
             <template v-slot:default="{ open }">
 
               <v-icon  
@@ -679,6 +677,12 @@
 
     methods: {
 
+
+      // scrollToId: function (elIdToTarget = '') {
+      //   setTimeout(() => { this.$scrollTo(elIdToTarget, 500) }, 100)
+      // },
+      
+
       goToNextStep: function () {
         this.$store.dispatch('hasReviewedData', true)    // This store value triggers NavBtn to go to next step.
         const targetStep = 'Pay'
@@ -849,10 +853,7 @@
       //     setTimeout(() => { this.$scrollTo('#expand-panels', 500) }, 300)
       //   }
       // },
-      scrollToElement: function (ev) {
-        let el = ev.currentTarget
-        setTimeout(() => { this.$scrollTo(el, 500) }, 300)
-      },
+
 
     },
 

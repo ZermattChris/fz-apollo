@@ -9,8 +9,9 @@
       <v-sheet
         rounded="lg"
         color="grey lighten-3"
-        class="mx-auto mt-3 px-5 py-2"
+        class="mx-auto mt-3 px-5 py-2 disable-select"
         style="max-width:400px;"
+        id="bigGroupTipBox"
       >
         <v-icon 
           color="orange"
@@ -24,6 +25,7 @@
       <div
         class="my-3"
         style="text-align:center;"
+          @click="onToOrigDateClick"
       >
         <v-btn
           fab
@@ -95,7 +97,6 @@
             class="swiper-slide pb-2"
             :id="'SwiperSlide_' + index"
           >
-          <!-- {{visibleSwiperSlidesList + ' Key: ' + key}} -->
             <TimeList
               :id="'TimeList_' + index"
               :date="key"
@@ -111,9 +112,6 @@
 
       <div v-show="$vuetify.breakpoint.name !== 'md' " class="swiper-button-next"></div>
       <div v-show="$vuetify.breakpoint.name !== 'md' " class="swiper-button-prev"></div>
-
-      <!-- <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div> -->
 
     </div>
 
@@ -167,11 +165,11 @@
           slideToClickedSlide: true,
           threshold: 9,
           spaceBetween: 40,
-  // Navigation arrows
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
+          // Navigation arrows
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
           breakpoints: {
             1700: {
               slidesPerView: 5,
@@ -218,10 +216,6 @@
     
     computed: {
 
-      // test: function () {
-      //   return this.visibleSwiperSlidesList
-      // },
-
       passengerTotal() {
         const totalP = this.$store.state.totalPassengers
         // Pass along to the Nav button if user has 1+ passengers.
@@ -248,6 +242,7 @@
         set(payload) {
           // Pass along the slot's label as a sanity check for booking time.
           //console.log(payload)
+          //this.scrollToId("#bigGroupTipBox")
           // const payload = {'slot':int, 'label':this.slotLabel}
           return this.$store.dispatch('setTimeSlot', payload)
         }
@@ -266,20 +261,10 @@
         return this.$store.state.flightDate
       },
 
-      // timeListerHeaderStr: function () {
-      //   if (this.isObjEmpty(this.$store.state._flightsList)) return
-      //   return "2. How Many are Flying?"
-      // }
+
     },
 
-    // watch: {
 
-    //   // 
-    //   test: function() {
-    //     console.log('Changed!: ',this.visibleSwiperSlidesList)
-    //   }
-
-    // }, []
 
     methods: {
 
@@ -288,6 +273,10 @@
         // console.log("Slide changed ")
         // this.updateVirtualSlides()
       },
+      
+      // scrollToId: function (elIdToTarget = '') {
+      //   setTimeout(() => { this.$scrollTo(elIdToTarget, 500) }, 100)
+      // },
       
       
       loadVisibleSlides: function () {
@@ -326,50 +315,6 @@
 
       },
 
-      // updateVirtualSlides: function () {
-      //   console.log("- Update Slides", this.swiper.activeIndex, " Container Width:", this.swiper.width)
-      //   // const myTimelist = "TimeList_" + this.swiper.activeIndex
-      //   // this.$refs[myTimelist].show()
-
-      //   const currSlideIndex = this.swiper.activeIndex
-      //   const swiperWidth = this.swiper.width
-      //   let renderSlideOffset = 1
-      //   this.visibleSlides = []
-
-      //   if (swiperWidth >= 700 && swiperWidth < 1260)  {
-      //     renderSlideOffset = 2
-      //   } else if (swiperWidth >= 1260)  {
-      //     renderSlideOffset = 3
-      //   } 
-
-      //   for (
-      //     let x = (currSlideIndex - renderSlideOffset); 
-      //     x < (currSlideIndex + renderSlideOffset); 
-      //     x++
-      //   ) {
-      //     this.visibleSlides.push(x)
-      //   }
-
-      //   //this.visibleSlides
-
-
-      // },
-      
-      // onIntersect (entries) {
-      //   //console.log(entries, observer)
-      //   // More information about these options
-      //   // is located here: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
-      //   //this.isIntersecting = entries[0].isIntersecting
-
-      //   // Need to see if entries[0].isIntersecting is true or false. Set visible for this element.
-      //   //if (entries[0].isIntersecting) {
-      //     //console.log(entries[0].target.id, entries[0].isIntersecting)
-      //   //}
-
-      //   this.visibleSwiperSlidesList[entries[0].target.id] = entries[0].isIntersecting
-
-      //   console.log(this.visibleSwiperSlidesList)
-      // },
   
       onToOrigDateClick: function () {
         // scroll Swiper to the currently selected date.
@@ -380,12 +325,10 @@
         return this.$store.getters.getUsersDayIndex()
       },
 
-      scrollToTimeSlotTop: function () {
-        setTimeout(() => { this.$scrollTo('#timeSlotSwiper', 500) }, 200)
-      },
-      
       onRowSelected: function () {
         //clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
+
+        this.scrollToId("#bigGroupTipBox")
 
         // update the autoheight on Swiper to allow for TimeSlot height changes
         // when toggling passenger inputs. Needs a timeout to work.
