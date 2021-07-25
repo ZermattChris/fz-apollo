@@ -652,7 +652,7 @@ export default new Vuex.Store({
         let copiedPassenger = JSON.parse(JSON.stringify(state.passengerObjList[i]))
         refinedPassengerObjList[i] = copiedPassenger
       }
-
+      //console.log(refinedPassengerObjList)
       return refinedPassengerObjList
     },
     

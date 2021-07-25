@@ -30,7 +30,7 @@
         >
 
           <v-expansion-panel-header>
-            <template v-slot:default="{ open }">
+            <template v-slot:default="{}">
 
               <v-icon  
                 v-if="i === 0"
@@ -41,7 +41,8 @@
 
               <span class="font-weight-bold">{{getPassengersNameForHeader(i)}}
 
-              <span v-if="!open" class="overline text--disabled pl-4">Click to open...</span>
+              <!-- <span v-if="!open" class="overline text--disabled pl-4">Click to open...</span> -->
+              
               </span>
 
               <v-icon 
@@ -93,6 +94,7 @@
                   prefix="+"
                   @keyup="updatePhoneCountryData"
                   @blur="stripPhoneJunkOnBlur"
+                  @focus="scrollToId('#expand-panels')"
                 >
                   <template v-slot:append-outer>
                     <v-tooltip
@@ -424,7 +426,7 @@
               </template>
             </v-simple-table>
 
-            <p 
+            <!-- <p 
               class="mt-6 red--text font-weight-bold"
               v-if="passenger.speed === 0"
 
@@ -433,7 +435,7 @@
             >
               <sup>*</sup>Assistance required. Please give us details on this passenger in 
               the Booking Message on the next page. We will be in contact with you to organise.
-            </p>
+            </p> -->
 
           </template>
 
@@ -557,7 +559,7 @@
     mounted() {
       // set focus to Phone Input if field is empty.
       if (this.contactPhone === '') {
-        this.$refs.Phone[0].focus()
+        //this.$refs.Phone[0].focus()
       }
 
       
@@ -686,7 +688,7 @@
       goToNextStep: function () {
         this.$store.dispatch('hasReviewedData', true)    // This store value triggers NavBtn to go to next step.
         const targetStep = 'Pay'
-        console.log('Nav to:', targetStep)
+        //console.log('Nav to:', targetStep)
         this.$router.push({
           path: targetStep
         })
@@ -761,7 +763,7 @@
         } else {
           // Passenger has a name already, just add the number...
           if (passengerNumber === 0 ) {
-            myName += ' (Contact)'
+            myName += ' (Contact Person)'
           } else {
             myName = '#' + (passengerNumber +1) + " " + myName
           }

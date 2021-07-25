@@ -4,6 +4,7 @@
     ref="infosForm"
     v-model="passengerForm"
     lazy-validation
+    :id="'passengerForm_' + passengerNr"
   >
     <v-row>
       <v-col 
@@ -20,8 +21,14 @@
           :rules="[rules.required]"
           :disabled="!disabled"
         >
-          <v-radio label="Male" value="male"></v-radio>
-          <v-radio label="Female" value="female"></v-radio>
+          <v-radio 
+            label="Male" value="male"
+            @click="scrollToId('#passengerForm_' + passengerNr)"
+          ></v-radio>
+          <v-radio 
+            label="Female" value="female"
+            @click="scrollToId('#passengerForm_' + passengerNr)"
+          ></v-radio>
         </v-radio-group>
       </v-col>
 
@@ -48,6 +55,7 @@
           min="0"
           max="99"
           oninput="if(Number(this.value) > Number(this.max)) this.value = this.max; if(Number(this.value) < Number(this.min)) this.value = this.min;"
+          @focus="scrollToId('#passengerForm_' + passengerNr)"
         />
       </v-col>
 
@@ -70,6 +78,7 @@
           name="first-last"
           :placeholder="firstLastNameHint(passengerNr)"
           @keydown.capture="nameKeydown($event)"
+          @focus="scrollToId('#passengerForm_' + passengerNr)"
         />
       </v-col>
       
@@ -86,7 +95,7 @@
         >
           <v-btn
             :disabled="!disabled"
-            @click="onUpdateSpeed(-2)"
+            @click="onUpdateSpeed(-2); scrollToId('#passengerForm_' + passengerNr)"
           >
             <v-icon>{{iconTortoise}}</v-icon>
           </v-btn>
@@ -102,11 +111,12 @@
             :thumb-color="runningThumbColour"
             step="2"
             ticks="always"
+            @mousedown="scrollToId('#passengerForm_' + passengerNr)"
           ></v-slider>
           <v-btn
             id="rightBtn"
             :disabled="!disabled"
-            @mousedown="onUpdateSpeed(2)"
+            @click="onUpdateSpeed(2); scrollToId('#passengerForm_' + passengerNr)"
           >
             <v-icon>{{iconRabbit}}</v-icon>
           </v-btn>
@@ -128,7 +138,7 @@
         >
           <v-btn
             :disabled="!disabled"
-            @click="onUpdateWeight(-5)"
+            @click="onUpdateWeight(-5); scrollToId('#passengerForm_' + passengerNr)"
           >
             <v-icon size="14">{{iconWeightKg}}</v-icon>
           </v-btn>
@@ -143,6 +153,7 @@
             :thumb-color="weightThumbColour"
             step="5"
             ticks="always"
+            @mousedown="scrollToId('#passengerForm_' + passengerNr)"
           >
             <template v-slot:thumb-label="{ value }">
               {{ value }}kg
@@ -153,7 +164,7 @@
             id="rightBtn" 
             :disabled="!disabled"
             class="fixedWidthBtn"
-            @click="onUpdateWeight(5)"
+            @click="onUpdateWeight(5); scrollToId('#passengerForm_' + passengerNr)"
           >
             <v-icon size="36">{{iconWeightKg}}</v-icon>
           </v-btn>

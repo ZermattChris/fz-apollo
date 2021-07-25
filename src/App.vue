@@ -35,6 +35,7 @@
           transition="scale-transition"
           width="220"
           @click="onClearData"
+          ref="fzlogo"
         />
       </div>
 
@@ -118,6 +119,7 @@
         <NavButton
           class="mx-auto"
           ref="ContinueBtn"
+          v-show="!isPayStep"
         />
       </div>
       <div 
@@ -164,6 +166,7 @@ export default {
     iconGarbageBin: mdiDeleteForever,
     
     canGoBack:   false,
+
 
   }),
   // Lifecycle Hooks
@@ -239,42 +242,53 @@ export default {
     // Is called by the < Clear button on header.
     // Remove for final release. (maybe put into a debug menu?)
     onClearData: function () {
-      if (confirm("DEBUG: Clear all stored data?") !== true) return
-      //if (this.$store.state._DEV !== true) return
-      //console.log('Clear all data:')
-      this.$store.dispatch('setFlightDate', '')
-      this.$store.dispatch('setArriveDate', '')
-      this.$store.dispatch('setDepartDate', '')
-      this.$store.dispatch('setFlight', '')
-      this.$store.dispatch('setWantsPhotos', false)
-      const payload = {'slot':-1, 'label':''}
-      this.$store.dispatch('setTimeSlot', payload)
-      this.$store.dispatch('clearNavList')
-      this.$store.dispatch('setCurrentStep', '')
-      this.$store.dispatch('setContactPhone', '')
-      this.$store.dispatch('setContactEmail', '')
-      this.$store.dispatch('setTimeSlot', payload)
 
-      this.$store.dispatch('clearSlotsPassengers')
+      if (this.$store.state._DEV !== true) return
+
+      if (confirm("DEBUG: Clear all stored data?") !== true) return
+
+      localStorage.clear
+
+      //console.log('Clear all data:')
+      // this.$store.dispatch('setFlightDate', '')
+      // this.$store.dispatch('setArriveDate', '')
+      // this.$store.dispatch('setDepartDate', '')
+      // this.$store.dispatch('setFlight', '')
+      // this.$store.dispatch('setWantsPhotos', false)
+      // const payload = {'slot':-1, 'label':''}
+      // this.$store.dispatch('setTimeSlot', payload)
+      // this.$store.dispatch('clearNavList')
+      // this.$store.dispatch('setCurrentStep', '')
+      // this.$store.dispatch('setContactPhone', '')
+      // this.$store.dispatch('setContactEmail', '')
+      // this.$store.dispatch('setTimeSlot', payload)
+
+      // this.$store.dispatch('clearSlotsPassengers')
 
       if (this.$route.name !== 'Start') {
         this.$router.push('/') // return to step 1
       }
       window.location.reload()
+
     },
   },
 
   computed: {
+
+    isPayStep: function () {
+      const result = this.$store.state._currentStep.toLowerCase() === 'pay'
+      console.log(result)
+      return result
+    },
 
     progressBarPercent: function () {
 
       // This is a wee bit of a quick hack, needs manual updating to reflect
       // any changes in the way navigation works.
       const totalNrSteps = 4
-      const currentStepString = this.$store.state._currentStep.toLowerCase()
 
       let counter = 0
-      switch (currentStepString) {
+      switch (this.currentStep) {
         case 'start':
           counter = 1
           break
@@ -288,7 +302,7 @@ export default {
           counter = 4
           break
         default:
-          console.error(`Invalid Step name for progress bar in App.vue ${currentStepString}.`)
+          console.error(`Invalid Step name for progress bar in App.vue ${this.currentStep}.`)
       }
 
       return counter * (100 / totalNrSteps)
