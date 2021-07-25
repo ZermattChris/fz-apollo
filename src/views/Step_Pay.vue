@@ -75,9 +75,13 @@
       </template>
 
       <p class="text-caption mt-4 mx-4">
-        Maybe a "!" icon and then text saying your meeting time is at our office... 
-        List of number of people and Office Meeting time(s).
-        If you have specific request for meeting on the mountain, please let us know here.
+        All meeting times are at our office, located in the Viktoria Center, next to Zermatt's 
+        main train station - inside, next to the COOP Supermarket.
+      </p>
+
+      <p class="text-caption mt-2 mx-4">
+        If you have any questions, have a special wish or further information regarding a 
+        passenger (for example a passenger with a disability), please click the Special Requests below.
       </p>
 
       <template>
