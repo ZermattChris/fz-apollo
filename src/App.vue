@@ -247,7 +247,7 @@ export default {
 
       if (confirm("DEBUG: Clear all stored data?") !== true) return
 
-      localStorage.clear
+      localStorage.clear()
 
       //console.log('Clear all data:')
       // this.$store.dispatch('setFlightDate', '')
