@@ -249,22 +249,6 @@ export default {
 
       localStorage.clear()
 
-      //console.log('Clear all data:')
-      // this.$store.dispatch('setFlightDate', '')
-      // this.$store.dispatch('setArriveDate', '')
-      // this.$store.dispatch('setDepartDate', '')
-      // this.$store.dispatch('setFlight', '')
-      // this.$store.dispatch('setWantsPhotos', false)
-      // const payload = {'slot':-1, 'label':''}
-      // this.$store.dispatch('setTimeSlot', payload)
-      // this.$store.dispatch('clearNavList')
-      // this.$store.dispatch('setCurrentStep', '')
-      // this.$store.dispatch('setContactPhone', '')
-      // this.$store.dispatch('setContactEmail', '')
-      // this.$store.dispatch('setTimeSlot', payload)
-
-      // this.$store.dispatch('clearSlotsPassengers')
-
       if (this.$route.name !== 'Start') {
         this.$router.push('/') // return to step 1
       }

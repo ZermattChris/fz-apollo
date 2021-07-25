@@ -6,167 +6,190 @@
       to complete your payment.
     </PageHeader>
 
-    <!-- <h4 class="mb-0">Line item of flights + photos prices</h4> -->
-    <!-- <v-skeleton-loader
-      type="list-item-three-line"
-    ></v-skeleton-loader> -->
+
+    <div style="max-width:600px; margin:0 auto;">
 
 
-    <!-- {{flightDetails}} -->
+      <p>
+        <v-chip
+          color="deep-orange"
+          class="pl-4 pr-6"
+          id="passenger-btn"
+        >
+          {{ totalPassengers }}
+        </v-chip>
+        {{ totalPassengers == 1 ? 'Person' : 'People' }} flying - {{ flightDate }}
+      </p>
 
-  <div style="max-width:600px; margin:0 auto;">
+      <template>
+        <v-simple-table 
+          dense
+          class="elevation-1"
+        >
+          <template v-slot:default>
+            <thead>
+              <tr class="grey lighten-3">
+                <th class="text-left">
+                  Qty
+                </th>
+                <th class="text-left">
+                  Description
+                </th>
+                <th class="text-right">
+                  Subtotal in CHF
+                </th>
+                <th class="text-left">
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- List flights -->
+              <tr>
+                <td>{{ totalPassengers }}</td>
+                <td><span style="font-weight:bold;">{{ flightDetails.name }} Flight</span> @ {{ flightDetails.price }}{{'\xa0'}}CHF</td>
+                <td class="text-right">{{ totalPassengers * flightDetails.price }}.00</td>
+                <td></td>
+              </tr>
+              <!-- List Photos and Videos -->
+              <tr
+                v-if="wantsPhotos"
+              >
+                <td>{{ totalPassengers }}</td>
+                <td><span style="font-weight:bold;">Photos &amp; Videos</span> @ {{ videoPrice}}.00{{'\xa0'}}CHF</td>
+                <td class="text-right">{{ totalPassengers * videoPrice }}.00</td>
+                <td></td>
+              </tr>
+
+              <tr class="grey lighten-3">
+                <td></td>
+                <td style="text-align:right; font-weight:bold;">Total CHF</td>
+                <td v-if="wantsPhotos" class="text-right"><span style="font-weight:bold;">{{ (totalPassengers * flightDetails.price) + (totalPassengers * videoPrice) }}.00</span></td>
+                <td v-if="!wantsPhotos" class="text-right"><span style="font-weight:bold;">{{ (totalPassengers * flightDetails.price) }}.00</span></td>
+                <td></td>
+              </tr>
+            </tbody>
+
+          </template>
+
+        </v-simple-table>
+      </template>
+
+      <p class="text-caption mt-4 mx-4">
+        Maybe a "!" icon and then text saying your meeting time is at our office... 
+        List of number of people and Office Meeting time(s).
+        If you have specific request for meeting on the mountain, please let us know here.
+      </p>
+
+      <template>
+        <v-row justify="center" class="text-caption mx-1 mt-4 mb-12">
+          <v-expansion-panels>
+            <v-expansion-panel>
+              <v-expansion-panel-header
+                disable-icon-rotate
+              >
+                Click here for special requests
+                          <template v-slot:actions>
+            <v-icon color="primary">
+              mdi-alert-circle
+            </v-icon>
+          </template>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                Special take off meetings, passengers with disabilites, special requests...
+                <v-textarea
+                  ref="customMessage"
+                  class="mt-6 mx-auto"
+                  style="max-width:600px;"
+                  v-model="message"
+                  name="booking-message"
+                  outlined
+                  label="Your message here"
+                  auto-grow
+                  hint="Enter extra passenger infos, different meeting location or questions here."
+                  @blur="onMessageBlur"
+                  @click="scrollToId('#shop-meeting-text')"
+                ></v-textarea>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-row>
+      </template>
 
 
-    <p>
-      <v-chip
-        color="deep-orange"
-        class="pl-4 pr-6"
-        id="passenger-btn"
+
+
+
+      <!-- Terms and Conditions Checkbox  -->
+      <v-container
+        class="px-0 pt-0"
+        fluid
+        style="max-width:400px; margin:0 auto; text-align:center;"
       >
-        {{ totalPassengers }}
-      </v-chip>
-      {{ totalPassengers == 1 ? 'Person' : 'People' }} flying - {{ flightDate }}
-    </p>
+        <v-checkbox
+          v-model="termsCheckboxModel"
+          color="orange darken-3"
+        >
+          <template v-slot:label>
+            <div>
+              Check here to indicate that you have read and agree to the 
+              <v-tooltip top>
+                <template v-slot:activator="{ on }">
+                  <a
+                    target="_blank"
+                    href="https://www.flyzermatt.com/terms-and-conditions#onlinepayments"
+                    @click.stop
+                    v-on="on"
+                  >Terms and Conditions</a>
+                </template>
+                Opens in new page
+              </v-tooltip> 
+              of the FlyZermatt Customer Agreement
+            </div>
+          </template>
+        </v-checkbox>
+      </v-container>
 
-    <template>
-      <v-simple-table 
-        dense
-        class="elevation-1"
+      <!-- Stripe controlled PAY NOW button  -->
+      <div id="payment-button-box" class="" style="text-align:center;">
+        <v-btn id="payment-button" ref="paymentButton" type="submit"
+          color="orange darken-3"
+          class="mt-4"
+          @click="onOrderBtn"
+          :disabled="!termsCheckboxModel"
+        >
+          Pay Now
+        </v-btn>
+      </div>
+
+      <a 
+        href="https://stripe.com"
+        class="mx-auto"
+        style="display:block; width:100px; height:40px;"
       >
-        <template v-slot:default>
-          <thead>
-            <tr class="grey lighten-3">
-              <th class="text-left">
-                Qty
-              </th>
-              <th class="text-left">
-                Description
-              </th>
-              <th class="text-right">
-                Subtotal in CHF
-              </th>
-              <th class="text-left">
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- List flights -->
-            <tr>
-              <td>{{ totalPassengers }}</td>
-              <td><span style="font-weight:bold;">{{ flightDetails.name }} Flight</span> @ {{ flightDetails.price }}{{'\xa0'}}CHF</td>
-              <td class="text-right">{{ totalPassengers * flightDetails.price }}.00</td>
-              <td></td>
-            </tr>
-            <!-- List Photos and Videos -->
-            <tr
-              v-if="wantsPhotos"
-            >
-              <td>{{ totalPassengers }}</td>
-              <td><span style="font-weight:bold;">Photos &amp; Videos</span> @ {{ videoPrice}}.00{{'\xa0'}}CHF</td>
-              <td class="text-right">{{ totalPassengers * videoPrice }}.00</td>
-              <td></td>
-            </tr>
+        <v-img
+          contain
+          width="100"
+          src="Powered by Stripe - blurple.svg"
+        ></v-img>
+      </a>
 
-            <tr class="grey lighten-3">
-              <td></td>
-              <td style="text-align:right; font-weight:bold;">Total CHF</td>
-              <td v-if="wantsPhotos" class="text-right"><span style="font-weight:bold;">{{ (totalPassengers * flightDetails.price) + (totalPassengers * videoPrice) }}.00</span></td>
-              <td v-if="!wantsPhotos" class="text-right"><span style="font-weight:bold;">{{ (totalPassengers * flightDetails.price) }}.00</span></td>
-              <td></td>
-            </tr>
-          </tbody>
+      <div v-if="$store.state._DEV == true">
 
-        </template>
+          <br/><br/>
 
-      </v-simple-table>
-    </template>
-
-  <div id="shop-meeting-text">
-  
-  
-  </div>
+          <ul>
+            <li>Visa standard card with success: 4000007560000009 <br/></li>
+            <!-- <li>3D Secure with success: 4000002500003155</li>
+            <li>Fail, insuffecient funds: 4000000000009995</li>
+            <li>Fail, card has expired: 4000000000000069</li> -->
+          </ul>
+      </div>
 
 
-    <p class="text-caption mt-4 mx-4">
-      TODO: Special Requests (collapsable) info section here.
-    </p>
-    <p class="text-caption mt-4 mx-4">
-      Maybe a "!" icon and then text saying your meeting time is at our office... 
-      List of number of people and Office Meeting time(s).
-      If you have specific request for meeting on the mountain, please let us know here.
-    </p>
-
-
-    <v-textarea
-      class="mt-6 mx-auto"
-      style="max-width:600px;"
-      v-model="message"
-      name="booking-message"
-      outlined
-      label="Enter your Booking Message here (optional)"
-      auto-grow
-      hint="Enter extra passenger infos, different meeting location or questions here."
-      @blur="onMessageBlur"
-      @click="scrollToId('#shop-meeting-text')"
-    ></v-textarea>
-
-
-
-    <!-- Terms and Conditions Checkbox  -->
-    <v-container
-      class="px-0 pt-0"
-      fluid
-      style="max-width:400px; margin:0 auto; text-align:center;"
-    >
-      <v-checkbox
-        v-model="termsCheckboxModel"
-        color="orange darken-3"
-      >
-        <template v-slot:label>
-          <div>
-            Check here to indicate that you have read and agree to the 
-            <v-tooltip top>
-              <template v-slot:activator="{ on }">
-                <a
-                  target="_blank"
-                  href="https://www.flyzermatt.com/terms-and-conditions#onlinepayments"
-                  @click.stop
-                  v-on="on"
-                >Terms and Conditions</a>
-              </template>
-              Opens in new page
-            </v-tooltip> 
-            of the FlyZermatt Customer Agreement
-          </div>
-        </template>
-      </v-checkbox>
-    </v-container>
-
-
-    <div id="payment-button-box" class="" style="text-align:center;">
-      <v-btn id="payment-button" ref="paymentButton" type="submit"
-        color="orange darken-3"
-        class="mt-4"
-        @click="onOrderBtn"
-        :disabled="!termsCheckboxModel"
-      >
-        Pay Now
-      </v-btn>
     </div>
 
-    <br/><br/>
-
-    <ul>
-      <li>Visa standard card with success: 4000007560000009 <br/></li>
-      <!-- <li>3D Secure with success: 4000002500003155</li>
-      <li>Fail, insuffecient funds: 4000000000009995</li>
-      <li>Fail, card has expired: 4000000000000069</li> -->
-    </ul>
 
   </div>
-
-
-    </div>
 </template>
 
 
@@ -201,16 +224,26 @@
         videoPrice: this.$store.state._videoPrice,
 
         termsCheckboxModel: false,
+
+        orderOverlay: false,    // Shown when the PAY NOW button is hit, while Stripe loads.
+
       }
     },
 
     async mounted() {
 
-      // TODO Swap out the test key for the live key when ready.
       // VUE_APP_STRIPE_PUBLIC_KEY_TEST
       // VUE_APP_STRIPE_PUBLIC_KEY_LIVE
 
+
+      if (this.$store.state._DEV === true) {
+        console.log('Development Mode, will create a TEST order via Stripe')
         this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
+        return
+      }
+
+      // Live Stripe call.
+      this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_LIVE)
 
     },
 
