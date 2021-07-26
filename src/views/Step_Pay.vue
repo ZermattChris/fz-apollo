@@ -181,12 +181,13 @@
 
       <a 
         href="https://stripe.com"
-        class="mx-auto"
-        style="display:block; width:100px; height:40px;"
+        class="mx-auto mt-8"
+        style="display:block; width:100px; height:30px;"
       >
         <v-img
           contain
           width="100"
+          height="30"
           src="Powered by Stripe - blurple.svg"
         ></v-img>
       </a>
