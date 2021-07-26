@@ -10,7 +10,7 @@
     <div style="max-width:600px; margin:0 auto;">
 
 
-      <p>
+      <!-- <p>
         <v-chip
           color="deep-orange"
           class="pl-4 pr-6"
@@ -19,13 +19,14 @@
           {{ totalPassengers }}
         </v-chip>
         {{ totalPassengers == 1 ? 'Person' : 'People' }} flying - {{ flightDate }}
-      </p>
+      </p> -->
 
       <p class="ml-3 mb-6">
         <v-icon color="primary">
           mdi-airplane-takeoff
         </v-icon>
         {{meetingTimesString}}
+        {{flightDate}}
       </p>
 
 
@@ -83,12 +84,12 @@
         </v-simple-table>
       </template>
 
-      <p class="text-caption mt-8 mx-4">
+      <p class="text-caption mt-2 mx-4">
         All meeting times are at our office, located inside the Viktoria Center across from Zermatt's 
         main train station (just down the hall from the COOP Supermarket).
       </p>
 
-      <p class="text-caption mt-8 mx-4">
+      <p id="questionsTxt" class="text-caption mt-12 mx-4">
         <v-icon color="primary">
           mdi-information-outline
         </v-icon>
@@ -103,18 +104,19 @@
             <v-expansion-panel>
               <v-expansion-panel-header
                 disable-icon-rotate
+                @click="focusBookingMessage()"
               >
                 Click here for special requests
-                          <template v-slot:actions>
-            <v-icon color="primary">
-              mdi-information-outline
-            </v-icon>
-          </template>
+              <template v-slot:actions>
+                <v-icon color="primary">
+                  mdi-information-outline
+                </v-icon>
+              </template>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
                 Special take off times and/or locations, passengers with disabilites, or just general questions...
                 <v-textarea
-                  ref="customMessage"
+                  ref="bookingMessage"
                   class="mt-6 mx-auto"
                   style="max-width:600px;"
                   v-model="message"
@@ -122,7 +124,6 @@
                   outlined
                   label="Your message here"
                   auto-grow
-                  hint="Enter extra passenger infos, different meeting location or questions here."
                   @blur="onMessageBlur"
                   @click="scrollToId('#shop-meeting-text')"
                 ></v-textarea>
@@ -195,7 +196,7 @@
           <br/><br/>
 
           <ul>
-            <li>Visa standard card with success: 4000007560000009 <br/></li>
+            <li>DEBUG: Visa with success: 4000007560000009 <br/></li>
             <!-- <li>3D Secure with success: 4000002500003155</li>
             <li>Fail, insuffecient funds: 4000000000009995</li>
             <li>Fail, card has expired: 4000000000000069</li> -->
@@ -300,6 +301,15 @@
     },
 
     methods: {
+
+      focusBookingMessage() {
+        this.scrollToId("#questionsTxt")
+        const me = this
+        setTimeout(function() {
+          me.$refs.bookingMessage.focus()
+        }, 500);
+        
+      },
 
       onMessageBlur() {
         //console.log('message: ', this.message)

@@ -3,7 +3,7 @@
     "continue": "Continue",
     "back": "Back"
   },
-  "step-info": {
+  "step-start": {
     "test": "hello i18n !!",
     "title": "Dates & Flight",
     "description": "We need the following information to help us give you the best possible flight experience with the highest levels of safety.",
@@ -14,16 +14,27 @@
     "pleaseChooseFlightFirst": "Please choose a Flight Date first...",
     "noAvailableFlights": "No Schedule available for this date. Please call us.",
     "photosvideos": "Photos + Videos (optional)",
-    "photosvideos-description": "Filmed with GoPros on specially built stcks for some great memories! (optional {price}.00 CHF per person)"
+    "photosvideos-description": "Filmed with GoPros on specially built stcks for some great memories! (optional {price}.00 CHF per person)",
+    "clickForDetails": "click for detailed information"
   },
   "step-timeslot": {
     "title": "How Many are Flying?",
     "description": "Add the number of passengers to the times you would like to fly.",
-    "large-group-tip": "For larger groups, you can split your group over multiple times.",
+    "large-group-tip": "You can split larger groups over multiple times.",
     "total-passengers": "Passenger in total | Passengers in total",
     "jump-original-date": "Jump to Origanal Date",
     "selected-date": "Selected Date",
     "places-free": "{n} Place free | {n} Places free",
+    "passengers": "Passenger | Passengers",
+    "flightNotAvail": "Flight not available"
+  },
+  "step-info": {
     "passengers": "Passenger | Passengers"
+  },
+  "step-pay": {
+    "passengers": "Passenger | Passengers"
+  },
+  "step-thanks": {
+    "selected-date": "Selected Date"
   }
 }

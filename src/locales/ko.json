@@ -3,15 +3,19 @@
     "continue": "계속하다",
     "back": "반환"
   },
-  "step-info": {
+  "step-start": {
     "test": "hello i18n !!",
     "title": "날짜 및 항공편",
     "description": "TO TRANSLATE: Why we ask you for all of this information? To help us make sure you get the best possible experience... To make sure that we provide the highest levels of safety..",
     "flightdate": "비행 날짜",
+    "arrivingDate": "체르마트에 도착? ",
+    "departingDate": "체르마트에서 출발하시나요? ",
     "whichflight": "어느 항공편?",
-    "pleaseChooseFlightFirst": "Please choose a Flight Date first...",
+    "pleaseChooseFlightFirst": "먼저 비행 날짜를 선택하십시오... ",
+    "noAvailableFlights": "이 날짜에 사용할 수 있는 일정이 없습니다. 전화주세요.",
     "photosvideos": "사진 + 동영상 (선택 사항)",
-    "photosvideos-description": "특별한 추억을 위해 특별히 제작 된 스틱에 GoPro로 촬영했습니다!"
+    "photosvideos-description": "특별한 추억을 위해 특별히 제작 된 스틱에 GoPro로 촬영했습니다!",
+    "clickForDetails": "자세한 정보를 보려면 클릭하십시오"
   },
   "step-timeslot": {
     "title": "얼마나 많은 사람들이 날고 있습니까?",
@@ -20,7 +24,17 @@
     "total-passengers": "총 승객 | 총 승객",
     "jump-original-date": "오리가 날 날짜로 이동",
     "selected-date": "선택한 날짜",
-    "places-free": "{n} 개소 무료",
-    "passengers": "승객"
+    "places-free": "{n} 장소 무료 | {n} 장소 무료 ",
+    "passengers": "승객 | 승객",
+    "flightNotAvail": "항공편 이용 불가"  
+  },
+    "step-info": {
+      "passengers": "Passenger | Passengers"
+    },
+    "step-pay": {
+      "passengers": "Passenger | Passengers"
+    },
+    "step-thanks": {
+      "selected-date": "Selected Date"
+    }
   }
-}

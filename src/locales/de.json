@@ -3,24 +3,38 @@
     "continue": "Weiter",
     "back": "Zurück"
   },
-  "step-info": {
+  "step-start": {
     "test": "Hallo i18n !!",
     "title": "Datum & Flug",
-    "description": "TOTRANSLATE: Why we ask you for all of this information? To help us make sure you get the best possible experience... To make sure that we provide the highest levels of safety..",
+    "description": "Wir brauchen die folgenden Informationen damit wir Ihnen das bestmögliche Flugerlebnis mit einem höchstmöglichen Grad an Sicherheit bieten können.",
     "flightdate": "Flug Datum",
+    "arrivingDate": "Ankunft in Zermatt?",
+    "departingDate": "Abreise von Zermatt?",
     "whichflight": "Welcher Flug?",
     "pleaseChooseFlightFirst": "Bitte wählen Sie zuerst ein Flugdatum aus...",
+    "noAvailableFlights": "No Schedule available for this date. Please call us.",
     "photosvideos": "Fotos + Videos (optional)",
-    "photosvideos-description": "Gefilmt mit GoPros mit speziell gebauten Halterungen für einige tolle Erinnerungen!"
+    "photosvideos-description": "Gefilmt mit GoPros von eigens gebauten Sticks für tolle Erinnerungen! (optional {price}.00 CHF pro Person)",
+    "clickForDetails": "für Informationen anklicken"
   },
   "step-timeslot": {
     "title": "Wie viele Personen fliegen?",
     "description": "Klicken Sie auf eine Zeit um die Anzahl der Passagiere zu bestimmen die fliegen möchten.",
-    "large-group-tip": "Tipp: Bei grösseren Gruppen kann die Unterteilung über mehrere Zeiten erfolgen.",
+    "large-group-tip": "Sie können grössere Gruppen auf mehrere Zeiten verteilen.",
     "total-passengers": "Passagier insgesamt | Passagiere insgesamt",
     "jump-original-date": "Zurück zum Originaldatum",
     "selected-date": "Ausgewähltes Datum",
     "places-free": "{n} Freie Plätze",
-    "passengers": "Passagiere"
+    "passengers": "Passagier | Passagiere",
+    "flightNotAvail": "Flug nicht verfügbar"
+  },
+  "step-info": {
+    "xxx": "Passxxxengers"
+  },
+  "step-pay": {
+    "xxx": "Passexxengers"
+  },
+  "step-thanks": {
+    "xx": "Selectexate"
   }
 }

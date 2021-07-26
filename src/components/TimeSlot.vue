@@ -34,7 +34,7 @@
             outlined
             :class="placesFree < 0 ? 'noClick' : ''"
           >
-            <span style="color:grey;">Flight not available</span>
+            <span style="color:grey;">{{$t('step-timeslot.flightNotAvail')}}</span>
           </v-chip>
       </v-list-item-title>
     </v-list-item-content>  

@@ -1,8 +1,8 @@
 <template>
   <div class="page" id="step-start" ref="stepStart">
 
-    <PageHeader :title="'1. ' + $t('step-info.title')">
-      {{$t('step-info.description')}}
+    <PageHeader :title="'1. ' + $t('step-start.title')">
+      {{$t('step-start.description')}}
     </PageHeader>
 
     <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12 pt-sm-2" style="max-width:500px;">
@@ -11,7 +11,7 @@
          <!-- ***************** Flight Date ******************** -->
       <h3 id="chooseFlightDate" class="disable-select">
         <v-icon :color="flightDate ? 'success' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
-        {{$t('step-info.flightdate')}}
+        {{$t('step-start.flightdate')}}
       </h3>
       
       <div class="controls mb-0 mb-sm-2 mb-md-4">
@@ -48,7 +48,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               :value="formatArriveDate"
-              :label="$t('step-info.arrivingDate')"
+              :label="$t('step-start.arrivingDate')"
               class="ml-10 mt-3"
               readonly
               :color="arriveDate === '' ? 'primary' : 'green'"
@@ -102,7 +102,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               v-model="formatDepartDate"
-              :label="$t('step-info.departingDate')"
+              :label="$t('step-start.departingDate')"
               append-icon="mdi-calendar"
               class="ml-10 mt-n3 mb-2"
               readonly
@@ -147,7 +147,7 @@
         <v-icon  
           :color="flightChosen ? 'success' : 'primary'">{{ flightOptionsDropMenuList ? stepIconCompleted : stepIcon }}
         </v-icon>
-        {{$t('step-info.whichflight')}}
+        {{$t('step-start.whichflight')}}
       </h3>
       <div class="controls mb-0 mb-sm-6 mb-md-10">
         <v-select
@@ -161,7 +161,7 @@
           solo
           outlined
           :disabled="!isValidFlightDate"
-          :hint="isValidFlightDate ? '' : $t('step-info.pleaseChooseFlightFirst')"
+          :hint="isValidFlightDate ? '' : $t('step-start.pleaseChooseFlightFirst')"
           persistent-hint
         >
         </v-select>
@@ -171,13 +171,13 @@
       <!-- ***************** Photos + Videos ******************** -->
       <h3 class="disable-select">
         <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
-        {{$t('step-info.photosvideos')}}
-        <v-tooltip
+        {{$t('step-start.photosvideos')}}
+        <!-- <v-tooltip
           bottom
           class="pl-6"
         >
-          // TODO link
           <template v-slot:activator="{ on }">
+            <a href="https://www.flyzermatt.com/photos-videos/" target="_blank">
             <v-icon 
               v-on="on"
               tabindex="-1"
@@ -185,9 +185,10 @@
             >
               {{infoIcon}}
             </v-icon>
+            </a>
           </template>
-          Click for more details for Photos + Videos...
-        </v-tooltip>
+              {{$t('step-start.clickForDetails')}}
+        </v-tooltip> -->
       </h3>
       <div class="controls mb-0 mb-sm-6">
         <!-- Photos and Videos included? -->
@@ -197,7 +198,7 @@
           class="ml-2"
           color="success"
           inset 
-          :label="$t('step-info.photosvideos-description', { 'price': photosPrice })"
+          :label="$t('step-start.photosvideos-description', { 'price': photosPrice })"
         ></v-switch>
 
         <p
@@ -205,12 +206,13 @@
           style="position:relative; z-index:2;"
         >
           (
-          <v-icon tabindex="-1" @click="gotoPhotosVideosWebPage">
-            {{infoIcon}} 
-          </v-icon> 
-          <a href="https://www.flyzermatt.com/photos-videos/" target="_blank">
-            click here for detailed information
-          </a>)
+            <v-icon tabindex="-1" @click="gotoPhotosVideosWebPage">
+              {{infoIcon}} 
+            </v-icon> 
+            <a href="https://www.flyzermatt.com/photos-videos/" target="_blank">
+              {{$t('step-start.clickForDetails')}}
+            </a>
+          )
         </p>
       </div>
 
@@ -480,7 +482,7 @@ export default {
       const obj = this.$store.state._flightsList
       //console.log('build flight list for drop menu', obj)
 
-      if (this.isObjEmpty(obj)) return [{id:-1, name: i18n.t('step-info.noAvailableFlights')}]
+      if (this.isObjEmpty(obj)) return [{id:-1, name: i18n.t('step-start.noAvailableFlights')}]
 
       let newFlightsList = []
 

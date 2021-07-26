@@ -22,7 +22,7 @@
     >
 
       <!-- Test i18n message. -->
-      <!-- <div>{{ $t('step-info.message') }}</div> -->
+      <!-- <div>{{ $t('step-start.message') }}</div> -->
 
       <div 
         id="logo"
@@ -40,8 +40,10 @@
       </div>
 
       <!-- Language Switch Menu -->
-      <!-- Take the style out as soon as we want to activate the Lang menu again. -->
-      <!-- <LangMenu style="" /> -->
+      <!-- currently only shown when app is running in state._DEV mode.  -->
+      <LangMenu
+        v-show="this.$store.state._DEV === true"
+      />
       
       <!-- <v-progress-linear
         id="progressbar"
@@ -67,7 +69,7 @@
             text
             x-small
           >
-            {{'1. ' + $t('step-info.title')}}
+            {{'1. ' + $t('step-start.title')}}
           </v-btn>
           </v-col>
           <v-col></v-col>
@@ -144,7 +146,7 @@
 
 <script>
 import NavButton from '@/components/NavButton.vue'
-// import LangMenu from '@/components/LangMenu.vue'
+import LangMenu from '@/components/LangMenu.vue'
 
 import { format, add, parseISO } from 'date-fns'
 import { mdiDeleteForever, mdiChevronLeft } from '@mdi/js'
@@ -154,7 +156,7 @@ export default {
 
   components: {
     NavButton,
-    // LangMenu,
+    LangMenu,
   },
 
   // Reactive data
@@ -261,7 +263,7 @@ export default {
 
     isPayStep: function () {
       const result = this.$store.state._currentStep.toLowerCase() === 'pay'
-      console.log(result)
+      //console.log(result)
       return result
     },
 
