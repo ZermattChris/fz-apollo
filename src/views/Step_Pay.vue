@@ -2,7 +2,7 @@
   <div class="stepPay">
     
     <PageHeader title="4. Place Order">
-      Review your order and press the PAY NOW button to go to our Stripe Checkout
+      Review your order and press the PAY NOW button to
       to complete your payment.
     </PageHeader>
 
@@ -20,6 +20,15 @@
         </v-chip>
         {{ totalPassengers == 1 ? 'Person' : 'People' }} flying - {{ flightDate }}
       </p>
+
+      <p class="ml-3 mb-6">
+        <v-icon color="primary">
+          mdi-airplane-takeoff
+        </v-icon>
+        {{meetingTimesString}}
+      </p>
+
+
 
       <template>
         <v-simple-table 
@@ -74,14 +83,18 @@
         </v-simple-table>
       </template>
 
-      <p class="text-caption mt-4 mx-4">
-        All meeting times are at our office, located in the Viktoria Center, next to Zermatt's 
-        main train station - inside, next to the COOP Supermarket.
+      <p class="text-caption mt-8 mx-4">
+        All meeting times are at our office, located inside the Viktoria Center across from Zermatt's 
+        main train station (just down the hall from the COOP Supermarket).
       </p>
 
-      <p class="text-caption mt-2 mx-4">
-        If you have any questions, have a special wish or further information regarding a 
-        passenger (for example a passenger with a disability), please click the Special Requests below.
+      <p class="text-caption mt-8 mx-4">
+        <v-icon color="primary">
+          mdi-information-outline
+        </v-icon>
+        If you have any questions, special wishes or have extra information regarding a 
+        passenger (for example a passenger with a disability), please click the Special Requests below
+        and enter your message.
       </p>
 
       <template>
@@ -94,12 +107,12 @@
                 Click here for special requests
                           <template v-slot:actions>
             <v-icon color="primary">
-              mdi-alert-circle
+              mdi-information-outline
             </v-icon>
           </template>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
-                Special take off meetings, passengers with disabilites, special requests...
+                Special take off times and/or locations, passengers with disabilites, or just general questions...
                 <v-textarea
                   ref="customMessage"
                   class="mt-6 mx-auto"
@@ -134,7 +147,7 @@
           color="orange darken-3"
         >
           <template v-slot:label>
-            <div>
+            <div id="TCs-Box">
               Check here to indicate that you have read and agree to the 
               <v-tooltip top>
                 <template v-slot:activator="{ on }">
@@ -254,6 +267,30 @@
 
     computed: {
 
+      // Build a display string showing the number of passengers for each 
+      // chosen TimeSlot in the booking.
+      meetingTimesString: function () {
+
+        let result = ''
+        const slotList = this.$store.state.slotPassengersObj.slotsList
+        //console.log(slotList)
+
+        slotList.forEach((element) => {
+          // Need to guard against null, as an empty timeSlot is added to list with a null.
+          if (!this.isObjEmpty(element)) {
+            //console.log(element.timeString)
+            //console.log(element.passengers)
+            //console.log(index)
+            result += element.passengers + " person @ " + element.timeString + ". "
+          }
+        })
+
+
+
+        return result 
+      },
+
+
       flightDate: function () {
         return format(parseISO(this.$store.state.flightDate), 'EE, MMMM do, yyyy')
       },
@@ -367,7 +404,9 @@
   position: relative;
 }
 
-
+#TCs-Box:hover {
+  color: black; 
+}
 
 
 
