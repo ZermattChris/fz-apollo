@@ -281,7 +281,9 @@
             //console.log(element.timeString)
             //console.log(element.passengers)
             //console.log(index)
-            result += element.passengers + " person @ " + element.timeString + ". "
+            if (element.passengers > 0) {
+              result += element.passengers + " person @ " + element.timeString + ". "
+            }
           }
         })
 
