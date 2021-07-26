@@ -330,11 +330,9 @@
 
         const data = { 
           "orderId": id,
-          "isTest": true,                             // TODO Change this for produciton! Not really sure where this is used... Stripe using the VUE_APP_STRIPE_PUBLIC_KEY_TEST
+          "isTest": this.$store.state._DEV,
           "email": this.$store.state.contactEmail,
           "phone": this.$store.state.contactPhone,
-          //"gender": this.$store.getters.getSexById(0), 
-          //"name": this.$store.getters.getNameById(0),    // 0 -> Contact passenger's name.
           "totalPassengers": this.totalPassengers,
           "flightDate": this.$store.state.flightDate,
           "dateRange": {"start": this.$store.state.arriveDate, "end": this.$store.state.departDate},

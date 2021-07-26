@@ -272,6 +272,10 @@ export default {
   },
 
   // Lifecycle Hooks
+  created() {
+    this.handleStaleStorageData()
+  },
+
   beforeMount() {
     // Need to build the Flights Menu list.
     this.$store.dispatch('flightOptions')
@@ -430,6 +434,13 @@ export default {
 
   },
   methods: {
+
+    // Check and reset any flight date or arrive/depart dates that are out of range. 
+    handleStaleStorageData () {
+      
+    },
+
+
 
     gotoPhotosVideosWebPage () {
       window.open("https://www.flyzermatt.com/photos-videos/", "_blank")
