@@ -293,7 +293,7 @@
 
 
       flightDate: function () {
-        if (this.isObjEmpty(this.$store.state.flightDate)) return ''
+        if (this.isObjEmpty(this.$store.state.flightDate)) return ''                // Was getting bad date format from vuex.
         return format(parseISO(this.$store.state.flightDate), 'EE, MMMM do, yyyy')
       },
 

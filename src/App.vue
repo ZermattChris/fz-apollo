@@ -237,6 +237,30 @@ export default {
     onBackBtnClick: function () {
       //console.log('Clicked Back Btn:')
       this.$router.go(-1)
+
+      // We need a bit more logic on the back button, to keep Stripe out of the navigation loop
+      if (this.$store.state._currentStep.toLowerCase() === 'time') {
+        this.$router.push('/') 
+        return
+      }
+      if (this.$store.state._currentStep.toLowerCase() === 'info') {
+        this.$router.push('/time') 
+        return
+      }
+      if (this.$store.state._currentStep.toLowerCase() === 'pay') {
+        this.$router.push('/info') 
+        return
+      }
+      if (this.$store.state._currentStep.toLowerCase() === 'canceled') {
+        this.$router.push('/pay') 
+        return
+      }
+      if (this.$store.state._currentStep.toLowerCase() === 'thanks') {
+        this.$router.push('/') 
+        return
+      }
+
+
     },
 
 
