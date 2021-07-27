@@ -65,9 +65,14 @@ const router = new VueRouter({
 
 // Global Navigation Guards.
 router.beforeEach((to, from, next) => {
+  //console.log(to, from, next)
   // Check for Stale data on Nav. If stale, return to Start
   if (staleFlightDate()) {
-    next({ name: 'Start' })
+    if (to.name !== 'Start') {
+      next({ name: 'Start' })
+    } else {
+      next()
+    }
   } else {
     next()
   }
