@@ -413,7 +413,10 @@ export default new Vuex.Store({
         .finally(() => context.commit("APP_LOADING", false)) // Loading UI OFF (starts off ON)
     },
 
-    
+    clearTimeListDates(context) {
+      context.commit("TIMELIST_DATES", '')
+    },
+
 
     setFlightsList(context, flightsListObj) {
       context.commit("FLIGHTS_LIST", flightsListObj)
@@ -453,8 +456,6 @@ export default new Vuex.Store({
       //   'slotsList': [0:{"timeString":"08:30", "passengers":3}],
       // }
       context.commit("SLOT_SELECTED_DATE", dateStr)
-
-      //console.log("FlightDate Set in Store. " + dateStr)
     },
     setActiveDate(context, dateStr) {
       context.commit("ACTIVE_DATE", dateStr)  // no localstorage for this. Set when entering TimeList step.

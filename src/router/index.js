@@ -93,7 +93,7 @@ function staleFlightDate () {
     const earliestPossFlightDateISO = add(Date.now(), {days: store.state._bookDaysOffset})
     const flightDateISO = parseISO(store.state.flightDate)
     if (  isAfter(earliestPossFlightDateISO, flightDateISO) ) {
-      console.log('flightDate is before allowed date.')
+      console.log('STALE DATA: flightDate is before allowed date.')
       store.dispatch('setFlightDate', '')
       store.dispatch('setArriveDate', '')
       store.dispatch('setDepartDate', '')
