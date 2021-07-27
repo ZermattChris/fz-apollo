@@ -2,8 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Step_Start from '../views/Step_Start.vue'
 import store from '@/store/storex.js'
-
-// const Start = () => import(/* webpackChunkName: "Start" */ '@/views/Step_Start.vue')
+import { add, parseISO, isAfter } from 'date-fns'
 
 Vue.use(VueRouter)
 
@@ -65,10 +64,42 @@ const router = new VueRouter({
 })
 
 // Global Navigation Guards.
+router.beforeEach((to, from, next) => {
+  // Check for Stale data on Nav. If stale, return to Start
+  if (staleFlightDate()) {
+    next({ name: 'Start' })
+  } else {
+    next()
+  }
+})
+
+
 router.afterEach((to) => {
   //console.log('Global -> afterEach() in router', to.name)
   store.dispatch('setCurrentStep', to.name)
 })
+
+
+/*****************************************************
+// Check for Stale data on Nav.
+ *****************************************************/
+function staleFlightDate () {
+  // if (store.state.flightDate !== '') {
+    const earliestPossFlightDateISO = add(Date.now(), {days: store.state._bookDaysOffset})
+    const flightDateISO = parseISO(store.state.flightDate)
+    if (  isAfter(earliestPossFlightDateISO, flightDateISO) ) {
+      console.log('flightDate is before allowed date.')
+      store.dispatch('setFlightDate', '')
+      store.dispatch('setArriveDate', '')
+      store.dispatch('setDepartDate', '')
+      store.dispatch('setFlight', '')
+      store.dispatch('setWantsPhotos', false)
+      store.dispatch('clearSlotsPassengers')
+      return true
+    }
+  // }
+  return false
+}
 
 
 export default router
