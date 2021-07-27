@@ -123,7 +123,8 @@
 <script>
   import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
   // import style (>= Swiper 6.x)
-  import 'swiper/css/swiper.css'
+  // import 'swiper/css/swiper.css'
+  import 'swiper/swiper-bundle.css'
   import TimeList from '@/components/TimeList.vue'
 
   import PageHeader from '@/components/PageHeader.vue'
