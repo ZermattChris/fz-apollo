@@ -150,6 +150,7 @@ import LangMenu from '@/components/LangMenu.vue'
 
 import { format, add, parseISO } from 'date-fns'
 import { mdiDeleteForever, mdiChevronLeft } from '@mdi/js'
+//import { format, add, sub, parseISO, isAfter, isBefore, isEqual } from 'date-fns'
 
 export default {
   name: 'App',
@@ -172,6 +173,11 @@ export default {
 
   }),
   // Lifecycle Hooks
+
+  created() {
+    // this.handleStaleStorageData()
+  },
+
   async mounted () {
     try {
       await this.$store.dispatch('init')
@@ -182,6 +188,8 @@ export default {
 
 
   beforeUpdate () {
+
+    this.handleStaleStorageData()
 
     // Show/hide the Back Btn.
     if (this.$route.name === 'Start') {
@@ -203,19 +211,19 @@ export default {
               Go back to the first Step that has clean data, and let the user know that there
               was old/stale data that needs to be reinput.
     */
-    if (this.flightDate !== '') {
-      //const earliestPossFlightDateISO = add(toDate(Date.now()), {days:+9})    // debug by hard coding the offset.
-      const earliestPossFlightDateISO = add(Date.now(), {days:this.$store.state._bookDaysOffset})
+    // if (this.flightDate !== '') {
+    //   //const earliestPossFlightDateISO = add(toDate(Date.now()), {days:+9})    // debug by hard coding the offset.
+    //   const earliestPossFlightDateISO = add(Date.now(), {days:this.$store.state._bookDaysOffset})
 
-      const flightDateISO = parseISO(this.$store.state.flightDate)
-      if (earliestPossFlightDateISO > flightDateISO) {
-        //console.log("Stale data, needs resetting of sorts! earliestPossFlightDateISO", earliestPossFlightDateISO, ". Stored flightDate: ", flightDateISO)
-        this.$store.dispatch('setFlightDate', '')
-        this.$store.dispatch('setFlight', '')
-        this.$store.dispatch('setWantsPhotos', false)
-        this.$store.dispatch('clearSlotsPassengers')
-      }
-    }
+    //   const flightDateISO = parseISO(this.$store.state.flightDate)
+    //   if (earliestPossFlightDateISO > flightDateISO) {
+    //     //console.log("Stale data, needs resetting of sorts! earliestPossFlightDateISO", earliestPossFlightDateISO, ". Stored flightDate: ", flightDateISO)
+    //     this.$store.dispatch('setFlightDate', '')
+    //     this.$store.dispatch('setFlight', '')
+    //     this.$store.dispatch('setWantsPhotos', false)
+    //     this.$store.dispatch('clearSlotsPassengers')
+    //   }
+    // }
     
   },
 
@@ -229,6 +237,40 @@ export default {
 
   // Methods
   methods: {
+
+
+    // Check and reset any flight date or arrive/depart dates that are out of range. 
+    handleStaleStorageData () {
+      //console.log('Check for stale flight dates')
+
+      this.staleFlightDate()
+
+    },
+
+
+
+
+    staleFlightDate: function () {
+      if (this.flightDate !== '') {
+        const earliestPossFlightDateISO = add(Date.now(), {days:this.$store.state._bookDaysOffset})
+        const flightDateISO = parseISO(this.$store.state.flightDate)
+        if (earliestPossFlightDateISO > flightDateISO) {
+          console.log('flightDate is before allowed date.')
+          this.$store.dispatch('setFlightDate', '')
+          this.$store.dispatch('setArriveDate', '')
+          this.$store.dispatch('setDepartDate', '')
+          this.$store.dispatch('setFlight', '')
+          this.$store.dispatch('setWantsPhotos', false)
+          this.$store.dispatch('clearSlotsPassengers')
+          this.$router.push('/')    // return to start page.
+        }
+      }
+    },
+
+
+
+
+
     
     onEnableBackBtn: function (show) {
       //console.log('Enable Btn: ' + valid)

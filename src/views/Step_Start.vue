@@ -272,9 +272,6 @@ export default {
   },
 
   // Lifecycle Hooks
-  created() {
-    this.handleStaleStorageData()
-  },
 
   beforeMount() {
     // Need to build the Flights Menu list.
@@ -409,7 +406,7 @@ export default {
     },
 
     formatDepartDate: function () {
-      if (isBefore(parseISO(this.departDate), parseISO(this.flightDate))) {
+      if (isBefore(parseISO(this.departDate), parseISO(new Date().toISOString())  )) {
         // return 'Arrival date must be on or after your Flight Date'
         return ''
       }
@@ -434,11 +431,6 @@ export default {
 
   },
   methods: {
-
-    // Check and reset any flight date or arrive/depart dates that are out of range. 
-    handleStaleStorageData () {
-      
-    },
 
 
 
