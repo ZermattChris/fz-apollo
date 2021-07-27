@@ -293,6 +293,7 @@
 
 
       flightDate: function () {
+        if (this.isObjEmpty(this.$store.state.flightDate)) return ''
         return format(parseISO(this.$store.state.flightDate), 'EE, MMMM do, yyyy')
       },
 

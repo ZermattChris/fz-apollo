@@ -28,12 +28,6 @@ const routes = [
     meta: { title: 'Contact Details & Passenger infos' },
   },
   {
-    path: '/next',
-    name: 'Next',
-    component: () => import(/* webpackChunkName: "Next" */ '@/views/Step_Next.vue'),
-    meta: { title: 'What to do Next...' },
-  },
-  {
     path: '/pay',
     name: 'Pay',
     component: () => import(/* webpackChunkName: "Pay" */ '@/views/Step_Pay.vue'),

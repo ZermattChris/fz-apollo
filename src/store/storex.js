@@ -18,7 +18,6 @@ const rawNavList = {
   'Start': false,
   'Time': false,
   'Info': false,
-  'Next': false,
   'Pay': false,
   'Thanks': false
 }
