@@ -17,9 +17,7 @@ Vue.use(Vuex)
 const rawNavList = {
   'Start': false,
   'Time': false,
-  'Info': false,
-  'Pay': false,
-  'Thanks': false
+  'Info': false
 }
 
 const rawPassengerObj = {

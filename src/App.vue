@@ -236,7 +236,12 @@ export default {
     },
     onBackBtnClick: function () {
       //console.log('Clicked Back Btn:')
-      this.$router.go(-1)
+      
+      // Guard against non-set current Step.
+      if ( this.isObjEmpty(this.$store.state._currentStep) ) {
+        this.$router.push('/') 
+        return
+      }
 
       // We need a bit more logic on the back button, to keep Stripe out of the navigation loop
       if (this.$store.state._currentStep.toLowerCase() === 'time') {
@@ -291,32 +296,32 @@ export default {
       return result
     },
 
-    progressBarPercent: function () {
+    // progressBarPercent: function () {
 
-      // This is a wee bit of a quick hack, needs manual updating to reflect
-      // any changes in the way navigation works.
-      const totalNrSteps = 4
+    //   // This is a wee bit of a quick hack, needs manual updating to reflect
+    //   // any changes in the way navigation works.
+    //   const totalNrSteps = 4
 
-      let counter = 0
-      switch (this.currentStep) {
-        case 'start':
-          counter = 1
-          break
-        case 'time':
-          counter = 2
-          break
-        case 'info':
-          counter = 3
-          break
-        case 'pay':
-          counter = 4
-          break
-        default:
-          console.error(`Invalid Step name for progress bar in App.vue ${this.currentStep}.`)
-      }
+    //   let counter = 0
+    //   switch (this.currentStep) {
+    //     case 'start':
+    //       counter = 1
+    //       break
+    //     case 'time':
+    //       counter = 2
+    //       break
+    //     case 'info':
+    //       counter = 3
+    //       break
+    //     case 'pay':
+    //       counter = 4
+    //       break
+    //     default:
+    //       console.error(`Invalid Step name for progress bar in App.vue ${this.currentStep}.`)
+    //   }
 
-      return counter * (100 / totalNrSteps)
-    },
+    //   return counter * (100 / totalNrSteps)
+    // },
 
     _isDEV: function () {
       return this.$store.state._DEV
