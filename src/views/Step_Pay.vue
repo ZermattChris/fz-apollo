@@ -9,7 +9,6 @@
 
     <div style="max-width:600px; margin:0 auto;">
 
-
       <!-- <p>
         <v-chip
           color="deep-orange"
@@ -21,14 +20,17 @@
         {{ totalPassengers == 1 ? 'Person' : 'People' }} flying - {{ flightDate }}
       </p> -->
 
-      <p class="ml-3 mb-6">
+      <p class="ml-3">
         <v-icon color="primary">
           mdi-airplane-takeoff
         </v-icon>
         {{meetingTimesString}}
         {{flightDate}}
       </p>
-
+      <p class="text-caption mt-n2 mb-9 mx-4">
+        All meeting times are at our office, located inside the Viktoria Center across from Zermatt's 
+        main train station (just down the hall from the COOP Supermarket).
+      </p>
 
 
       <template>
@@ -83,11 +85,6 @@
 
         </v-simple-table>
       </template>
-
-      <p class="text-caption mt-2 mx-4">
-        All meeting times are at our office, located inside the Viktoria Center across from Zermatt's 
-        main train station (just down the hall from the COOP Supermarket).
-      </p>
 
       <p id="questionsTxt" class="text-caption mt-12 mx-4">
         <v-icon color="primary">
