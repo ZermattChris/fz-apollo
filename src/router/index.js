@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Step_Start from '../views/Step_Start.vue'
+import Step_Start from '../views/Step_Start.vue'
 import store from '@/store/storex.js'
 
-const Start = () => import(/* webpackChunkName: "Start" */ '@/views/Step_Start.vue')
+// const Start = () => import(/* webpackChunkName: "Start" */ '@/views/Step_Start.vue')
 
 Vue.use(VueRouter)
 
@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/',
     name: 'Start',
-    component: Start,
+    component: Step_Start,
     meta: { title: 'Book your Flight! Get Started' },
   },
   {

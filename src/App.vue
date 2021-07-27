@@ -262,7 +262,7 @@ export default {
           this.$store.dispatch('setFlight', '')
           this.$store.dispatch('setWantsPhotos', false)
           this.$store.dispatch('clearSlotsPassengers')
-          this.$router.push('/')    // return to start page.
+          if (this.$route.name !== '/') this.$router.push('/')    // return to start page.
         }
       }
     },
