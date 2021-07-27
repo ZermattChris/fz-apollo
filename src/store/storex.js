@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from "axios"
 
+
+
 // Temp dev json data unitl Tommy gets his API working.
 // import flightdata from '@/store/flightdata.js'
 
@@ -486,6 +488,9 @@ export default new Vuex.Store({
     setCurrentStep(context, stepName) {
       context.commit("CURRENT_STEP", stepName)
       localStorage._currentStep = stepName
+      // // Call our Stale data (flightDate) handler here.
+      // staleFlightDate(context)
+
     },
 
     setContactPhone(context, phoneNr) {
@@ -745,6 +750,7 @@ export default new Vuex.Store({
   
 
 });
+
 
 
 /*****************************************************
