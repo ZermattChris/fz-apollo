@@ -274,11 +274,12 @@ export default {
     isInvalid_ThanksStep: function () {
 
       // also check that we're coming from the Stripe payment page.
-      console.log('TODO: finish checking for referrer coming from Stripe.', document.referrer)
+      // console.log('TODO: finish checking for referrer coming from Stripe.', document.referrer)
+      // https://checkout.stripe.com/
 
       // Check that the Contact Passenger is valid.
-      if ( this.$store.state.orderID === '' ) {
-        console.log('INVALID DATA: orderID (Transaction Nr) not valid yet. Return to "Pay" page.')
+      if ( this.$store.state.orderID === '' || document.referrer !== "https://checkout.stripe.com/") {
+        console.log('INVALID DATA: orderID (Transaction Nr) not valid yet or not coming from the Stripe Checkout page. Return to "Pay" page.')
         return true
       }
       return false
