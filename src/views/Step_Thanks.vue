@@ -32,14 +32,17 @@
       
       <v-text-field 
         label="Resend confirmation email to:"
+        v-model="orderEmail"
       >
-        {{orderEmail}}
       </v-text-field>
     </p>
     <p class="text-center"> 
       <v-btn
         elevation="2"
-      >SEND</v-btn>
+        @click="onResendEmailBtn"
+      >
+        SEND
+      </v-btn>
     </p>
 
   </div>
@@ -77,6 +80,10 @@
     },
 
     methods: {
+
+      onResendEmailBtn() {
+        alert("TODO: Call Tommy API that resends this order's email, using the email entered here (allows for correction of mistaken email entry earlier).")
+      },
       
       resetLocalStorage() {
         console.log('Thanks page is calling resetLocalStorage()!')
