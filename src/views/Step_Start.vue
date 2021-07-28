@@ -172,23 +172,6 @@
       <h3 class="disable-select">
         <v-icon :color="switchPhotos ? 'success' : 'primary'">{{ cameraIcon }}</v-icon>
         {{$t('step-start.photosvideos')}}
-        <!-- <v-tooltip
-          bottom
-          class="pl-6"
-        >
-          <template v-slot:activator="{ on }">
-            <a href="https://www.flyzermatt.com/photos-videos/" target="_blank">
-            <v-icon 
-              v-on="on"
-              tabindex="-1"
-              
-            >
-              {{infoIcon}}
-            </v-icon>
-            </a>
-          </template>
-              {{$t('step-start.clickForDetails')}}
-        </v-tooltip> -->
       </h3>
       <div class="controls mb-0 mb-sm-6">
         <!-- Photos and Videos included? -->
@@ -202,7 +185,7 @@
         ></v-switch>
 
         <p
-          class="caption pl-16 ml-8 mt-n4 disable-select"
+          class="caption pl-8 ml-8 mt-n4 disable-select"
           style="position:relative; z-index:2;"
         >
           (

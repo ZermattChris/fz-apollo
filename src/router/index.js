@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Step_Start from '../views/Step_Start.vue'
 import store from '@/store/storex.js'
-import { add, parseISO, isAfter } from 'date-fns'
+import { add, parseISO, isAfter, set } from 'date-fns'
 
 Vue.use(VueRouter)
 
@@ -34,12 +34,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "Pay" */ '@/views/Step_Pay.vue'),
     meta: { title: 'Payment' },
   },
-  {
-    path: '/canceled',
-    name: 'Canceled',
-    component: () => import(/* webpackChunkName: "Pay" */ '@/views/Step_Cancelled.vue'),
-    meta: { title: 'Payment Cancelled' },
-  },
+  // {
+  //   path: '/canceled',
+  //   name: 'Canceled',
+  //   component: () => import(/* webpackChunkName: "Pay" */ '@/views/Step_Cancelled.vue'),
+  //   meta: { title: 'Payment Cancelled' },
+  // },
   {
     path: '/thanks',
     name: 'Thanks',
@@ -67,7 +67,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   //console.log(to, from, next)
   // Check for Stale data on Nav. If stale, return to Start
-  if (staleFlightDate()) {
+  if (isStaleFlightDate()) {
     if (from.name !== 'Start') {
       next({ name: 'Start' })
     } else {
@@ -87,12 +87,16 @@ router.afterEach((to) => {
 
 /*****************************************************
 // Check for Stale data on Nav.
- *****************************************************/
-function staleFlightDate () {
-  // if (store.state.flightDate !== '') {
-    const earliestPossFlightDateISO = add(Date.now(), {days: store.state._bookDaysOffset})
+// If stale, clear out related date storage and send user
+// back to the Start page.
+*****************************************************/
+function isStaleFlightDate () {
+
+    let earliestPossFlightDateISO = add(Date.now(), {days: store.state._bookDaysOffset})
     const flightDateISO = parseISO(store.state.flightDate)
-    if (  isAfter(earliestPossFlightDateISO, flightDateISO) ) {
+    let transformedToMidnight = set(earliestPossFlightDateISO, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 })
+    //console.log(transformedToMidnight)
+    if (  isAfter(transformedToMidnight, flightDateISO) ) {
       console.log('STALE DATA: flightDate is before allowed date.')
       store.dispatch('setFlightDate', '')
       store.dispatch('setArriveDate', '')
@@ -102,8 +106,8 @@ function staleFlightDate () {
       store.dispatch('clearSlotsPassengers')
       return true
     }
-  // }
   return false
+
 }
 
 
