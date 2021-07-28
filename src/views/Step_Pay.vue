@@ -9,17 +9,6 @@
 
     <div style="max-width:600px; margin:0 auto;">
 
-      <!-- <p>
-        <v-chip
-          color="deep-orange"
-          class="pl-4 pr-6"
-          id="passenger-btn"
-        >
-          {{ totalPassengers }}
-        </v-chip>
-        {{ totalPassengers == 1 ? 'Person' : 'People' }} flying - {{ flightDate }}
-      </p> -->
-
       <p class="ml-3">
         <v-icon color="primary">
           mdi-airplane-takeoff
@@ -27,7 +16,7 @@
         {{meetingTimesString}}
         {{flightDate}}
       </p>
-      <p class="text-caption mt-n2 mb-9 mx-4">
+      <p style="background-color: #c78b48;" class="rounded-lg white--text text-caption mt-n2 mb-9 mx-4 px-2 py-1">
         All meeting times are at our office, located inside the Viktoria Center across from Zermatt's 
         main train station (just down the hall from the COOP Supermarket).
       </p>

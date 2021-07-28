@@ -73,7 +73,7 @@ export default new Vuex.Store({
     selectedFlight: +localStorage.selectedFlight || "",    // Flight ID from Tommy.
     wantsPhotos:    localStorage.wantsPhotos ? JSON.parse(localStorage.wantsPhotos) : false,  // convert to bool if not undefined.
     
-    timeSlot:      +localStorage.selectedTimeslot || -1,
+    // timeSlot:      +localStorage.selectedTimeslot || -1,
     timeSlotLabel:  localStorage.selectedTimeslotLabel || "",
 
     contactPhone:   localStorage.contactPhone || "",
@@ -178,10 +178,10 @@ export default new Vuex.Store({
       state.wantsPhotos = photosBool
     },
 
-    CHOSEN_TIMESLOT(state, slotInt, slotLabel) {
-      state.timeSlot = slotInt;
-      state.timeSlotLabel = slotLabel
-    },
+    // CHOSEN_TIMESLOT(state, slotInt, slotLabel) {
+    //   state.timeSlot = slotInt;
+    //   state.timeSlotLabel = slotLabel
+    // },
 
     CONTACT_PHONE(state, phoneNr) {
       state.contactPhone = phoneNr
@@ -413,7 +413,10 @@ export default new Vuex.Store({
         .finally(() => context.commit("APP_LOADING", false)) // Loading UI OFF (starts off ON)
     },
 
-    
+    clearTimeListDates(context) {
+      context.commit("TIMELIST_DATES", '')
+    },
+
 
     setFlightsList(context, flightsListObj) {
       context.commit("FLIGHTS_LIST", flightsListObj)
@@ -453,8 +456,6 @@ export default new Vuex.Store({
       //   'slotsList': [0:{"timeString":"08:30", "passengers":3}],
       // }
       context.commit("SLOT_SELECTED_DATE", dateStr)
-
-      //console.log("FlightDate Set in Store. " + dateStr)
     },
     setActiveDate(context, dateStr) {
       context.commit("ACTIVE_DATE", dateStr)  // no localstorage for this. Set when entering TimeList step.
@@ -469,12 +470,12 @@ export default new Vuex.Store({
       context.commit("CHOSEN_PHOTOS", picsBool)
       localStorage.wantsPhotos = picsBool
     },
-    setTimeSlot(context, payload) {
-      //console.log('slotInt', payload.slot, payload.label)
-      context.commit("CHOSEN_TIMESLOT", payload.slot, payload.label)
-      localStorage.selectedTimeslot = payload.slot
-      localStorage.selectedTimeslotLabel = payload.label
-    },
+    // setTimeSlot(context, payload) {
+    //   //console.log('slotInt', payload.slot, payload.label)
+    //   context.commit("CHOSEN_TIMESLOT", payload.slot, payload.label)
+    //   localStorage.selectedTimeslot = payload.slot
+    //   localStorage.selectedTimeslotLabel = payload.label
+    // },
 
     // Nav Action.
     clearNavList(context) {
