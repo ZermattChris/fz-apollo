@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Step_Start from '../views/Step_Start.vue'
 import store from '@/store/storex.js'
-// import { add, parseISO, isAfter, set } from 'date-fns'
 
 Vue.use(VueRouter)
 

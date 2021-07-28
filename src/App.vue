@@ -151,6 +151,7 @@ import LangMenu from '@/components/LangMenu.vue'
 import { format } from 'date-fns'
 import { mdiDeleteForever, mdiChevronLeft } from '@mdi/js'
 //import { format, add, sub, parseISO, isAfter, isBefore, isEqual } from 'date-fns'
+import { add, parseISO, isAfter, set } from 'date-fns'
 
 export default {
   name: 'App',
@@ -199,36 +200,42 @@ export default {
       this.onEnableBackBtn(true)
     }
   },
+
+
+  // TODO NOTE:
+  /*****************************************************
+  // Doing all data checks for each step here now.
+  // Can remove all the old tangled Nav stuff from vuex
+  // at some point when cleaning up.
+  *****************************************************/
   beforeMount () {
 
     //console.log("App beforeMount()")
 
     // App-wide check for missing or stale data here.
-    if (this.isInvalidFlightDate()) {
+    // TODO: move to the generic Start Step check below.
+    if (this.isStaleFlightDate()) {
       if (this.$router.history._startLocation !== '/') this.$router.push('/')    // only nav if not on Start page already.
       return
     }
 
-    // if (this.isStaleFlightDate()) {
-    //   if (this.$router.currentRoute.path !== '/') this.$router.push('/')    // only nav if not on Start page already.
-    //   return
-    // }
 
-    // router.beforeEach((to, from, next) => {
-//   //console.log(to, from, next)
-//   // Check for Stale data on Nav. If stale, return to Start
-//   if ( isStaleFlightDate() || isInvalidFlightDate() ) {
-//     if (from.name !== 'Start') {
-//       next({ name: 'Start' })
-//     } else {
-//       next()
-//     }
-//   } else {
-//     next()
-//   }
-// })
-    
+    // Start Step checks
+    if (this.isInvalid_StartStep()) {
+      if (this.$router.history._startLocation !== '/') this.$router.push('/')
+      return
+    }
+
+    // Time Step checks
+    if (this.isInvalid_TimeStep()) {
+      if (this.$router.history._startLocation.toLowerCase() !== '/time') this.$router.push('/time')
+      return
+    }
+
   },
+
+
+
 
   updated () {
     //console.log('this.$refs.ContinueBtn', this.$refs.ContinueBtn)
@@ -242,12 +249,40 @@ export default {
   methods: {
 
     /*****************************************************
-    // Check for Invalid flight date in localStorage
+    // See if all the data for the Time Step is valid.
     *****************************************************/
-    isInvalidFlightDate: function () {
+    isInvalid_TimeStep: function () {
 
+      // Slots, Times and Nr Passengers
+      if ( this.$store.state.slotPassengersObj.slotsList.length === 0 || this.isObjEmpty(this.$store.state.slotPassengersObj) ) {
+        console.log('INVALID DATA: slotPassengersObj is empty (Slots, Times and Nr Passengers). Return to "Time" page.')
+        return true
+      }
+
+      return false
+
+    },
+
+    /*****************************************************
+    // See if all the data for the Start Step is valid.
+    *****************************************************/
+    isInvalid_StartStep: function () {
+
+      // flightDate
       if (this.$store.state.flightDate === '' ) {
         console.log('INVALID DATA: flightDate is empty. Return to "Start" page.')
+        return true
+      }
+
+      // selectedFlight
+      if (this.$store.state.selectedFlight === '' ) {
+        console.log('INVALID DATA: selectedFlight is empty. Return to "Start" page.')
+        return true
+      }
+
+      // Flights List (returned from API when a flightDate is selected.)
+      if (this.$store.state._flightsList === '' || this.isObjEmpty(this.$store.state._flightsList) ) {
+        console.log('INVALID DATA: _flightsList is empty. Return to "Start" page.')
         return true
       }
       return false
@@ -261,20 +296,20 @@ export default {
     *****************************************************/
     isStaleFlightDate: function () {
 
-        // let earliestPossFlightDateISO = add(Date.now(), {days: store.state._bookDaysOffset})
-        // const flightDateISO = parseISO(store.state.flightDate)
-        // let transformedToMidnight = set(earliestPossFlightDateISO, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 })
-        // //console.log(transformedToMidnight)
-        // if (  isAfter(transformedToMidnight, flightDateISO) ) {
-        //   console.log('STALE DATA: flightDate is before allowed date.')
-        //   store.dispatch('setFlightDate', '')
-        //   store.dispatch('setArriveDate', '')
-        //   store.dispatch('setDepartDate', '')
-        //   store.dispatch('setFlight', '')
-        //   store.dispatch('setWantsPhotos', false)
-        //   store.dispatch('clearSlotsPassengers')
-        //   return true
-        // }
+        let earliestPossFlightDateISO = add(Date.now(), {days: this.$store.state._bookDaysOffset})
+        const flightDateISO = parseISO(this.$store.state.flightDate)
+        let transformedToMidnight = set(earliestPossFlightDateISO, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 })
+        //console.log(transformedToMidnight)
+        if (  isAfter(transformedToMidnight, flightDateISO) ) {
+          console.log('STALE DATA: flightDate is before allowed date.')
+          this.$store.dispatch('setFlightDate', '')
+          this.$store.dispatch('setArriveDate', '')
+          this.$store.dispatch('setDepartDate', '')
+          this.$store.dispatch('setFlight', '')
+          this.$store.dispatch('setWantsPhotos', false)
+          this.$store.dispatch('clearSlotsPassengers')
+          return true
+        }
       return false
 
     },
