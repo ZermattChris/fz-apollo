@@ -79,7 +79,7 @@
     methods: {
       
       resetLocalStorage() {
-        //console.log('message: ', this.message)
+        console.log('Thanks page is calling resetLocalStorage()!')
         this.$store.dispatch('setOrderId', '')
         this.$store.dispatch('setCurrentStep', 'Start')
         this.$store.dispatch('setFlightsList', '')
