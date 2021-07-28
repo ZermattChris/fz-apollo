@@ -68,7 +68,7 @@ router.beforeEach((to, from, next) => {
   //console.log(to, from, next)
   // Check for Stale data on Nav. If stale, return to Start
   if (staleFlightDate()) {
-    if (to.name !== 'Start') {
+    if (from.name !== 'Start') {
       next({ name: 'Start' })
     } else {
       next()
