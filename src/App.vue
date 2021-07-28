@@ -228,10 +228,30 @@ export default {
 
     // Time Step checks
     if (this.isInvalid_TimeStep()) {
+      if (this.$router.history._startLocation.toLowerCase() === '/') return
       if (this.$router.history._startLocation.toLowerCase() !== '/time') this.$router.push('/time')
       return
     }
 
+    // Info Step checks
+    if (this.isInvalid_InfoStep()) {
+      if (this.$router.history._startLocation.toLowerCase() === '/') return
+      if (this.$router.history._startLocation.toLowerCase() === '/time') return
+      if (this.$router.history._startLocation.toLowerCase() !== '/info') this.$router.push('/info')
+      return
+    }
+
+    // Pay Step checks
+
+    // Thanks Step checks
+    if (this.isInvalid_ThanksStep()) {
+      if (this.$router.history._startLocation.toLowerCase() === '/') return
+      if (this.$router.history._startLocation.toLowerCase() === '/time') return
+      if (this.$router.history._startLocation.toLowerCase() === '/info') return
+      // if (this.$router.history._startLocation.toLowerCase() === '/pay') return
+      if (this.$router.history._startLocation.toLowerCase() === '/thanks') this.$router.push('/pay')
+      return
+    }
   },
 
 
@@ -249,6 +269,35 @@ export default {
   methods: {
 
     /*****************************************************
+    // See if all the data for the Thanks Step is valid.
+    *****************************************************/
+    isInvalid_ThanksStep: function () {
+
+      // also check that we're coming from the Stripe payment page.
+      console.log('TODO: finish checking for referrer coming from Stripe.', document.referrer)
+
+      // Check that the Contact Passenger is valid.
+      if ( this.$store.state.orderID === '' ) {
+        console.log('INVALID DATA: orderID (Transaction Nr) not valid yet. Return to "Pay" page.')
+        return true
+      }
+      return false
+    },
+
+    /*****************************************************
+    // See if all the data for the Info Step is valid.
+    *****************************************************/
+    isInvalid_InfoStep: function () {
+
+      // Check that the Contact Passenger is valid.
+      if ( this.$store.state.passengerObjList[0].valid === false ) {
+        console.log('INVALID DATA: passengerObjList not valid yet. Return to "Info" page.')
+        return true
+      }
+      return false
+    },
+
+    /*****************************************************
     // See if all the data for the Time Step is valid.
     *****************************************************/
     isInvalid_TimeStep: function () {
@@ -258,9 +307,7 @@ export default {
         console.log('INVALID DATA: slotPassengersObj is empty (Slots, Times and Nr Passengers). Return to "Time" page.')
         return true
       }
-
       return false
-
     },
 
     /*****************************************************
