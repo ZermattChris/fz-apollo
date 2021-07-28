@@ -201,29 +201,32 @@ export default {
   },
   beforeMount () {
 
-    /** TODO: Need to run some checks looking for stale data.
-              It's possible that a User fills out everything, with a specific
-              chosen date, then returns later and tries to continue with a
-              date that is no longer valid. 
-              Give some sort of popup message and clear the date - timeslot data.
-              console.log("TODO: App Load -> Need to run some checks looking for stale localStorage data.")
-              Need to check to see if each step is valid and mark it 'false' in _navList if not.
-              Go back to the first Step that has clean data, and let the user know that there
-              was old/stale data that needs to be reinput.
-    */
-    // if (this.flightDate !== '') {
-    //   //const earliestPossFlightDateISO = add(toDate(Date.now()), {days:+9})    // debug by hard coding the offset.
-    //   const earliestPossFlightDateISO = add(Date.now(), {days:this.$store.state._bookDaysOffset})
+    //console.log("App beforeMount()")
 
-    //   const flightDateISO = parseISO(this.$store.state.flightDate)
-    //   if (earliestPossFlightDateISO > flightDateISO) {
-    //     //console.log("Stale data, needs resetting of sorts! earliestPossFlightDateISO", earliestPossFlightDateISO, ". Stored flightDate: ", flightDateISO)
-    //     this.$store.dispatch('setFlightDate', '')
-    //     this.$store.dispatch('setFlight', '')
-    //     this.$store.dispatch('setWantsPhotos', false)
-    //     this.$store.dispatch('clearSlotsPassengers')
-    //   }
+    // App-wide check for missing or stale data here.
+    if (this.isInvalidFlightDate()) {
+      if (this.$router.history._startLocation !== '/') this.$router.push('/')    // only nav if not on Start page already.
+      return
+    }
+
+    // if (this.isStaleFlightDate()) {
+    //   if (this.$router.currentRoute.path !== '/') this.$router.push('/')    // only nav if not on Start page already.
+    //   return
     // }
+
+    // router.beforeEach((to, from, next) => {
+//   //console.log(to, from, next)
+//   // Check for Stale data on Nav. If stale, return to Start
+//   if ( isStaleFlightDate() || isInvalidFlightDate() ) {
+//     if (from.name !== 'Start') {
+//       next({ name: 'Start' })
+//     } else {
+//       next()
+//     }
+//   } else {
+//     next()
+//   }
+// })
     
   },
 
@@ -238,35 +241,43 @@ export default {
   // Methods
   methods: {
 
+    /*****************************************************
+    // Check for Invalid flight date in localStorage
+    *****************************************************/
+    isInvalidFlightDate: function () {
 
-    // // Check and reset any flight date or arrive/depart dates that are out of range. 
-    // handleStaleStorageData () {
-    //   //console.log('Check for stale flight dates')
+      if (this.$store.state.flightDate === '' ) {
+        console.log('INVALID DATA: flightDate is empty. Return to "Start" page.')
+        return true
+      }
+      return false
 
-    //   this.staleFlightDate()
+    },
 
-    // },
+    /*****************************************************
+    // Check for Stale data on Nav.
+    // If stale, clear out related date storage and send user
+    // back to the Start page.
+    *****************************************************/
+    isStaleFlightDate: function () {
 
+        // let earliestPossFlightDateISO = add(Date.now(), {days: store.state._bookDaysOffset})
+        // const flightDateISO = parseISO(store.state.flightDate)
+        // let transformedToMidnight = set(earliestPossFlightDateISO, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 })
+        // //console.log(transformedToMidnight)
+        // if (  isAfter(transformedToMidnight, flightDateISO) ) {
+        //   console.log('STALE DATA: flightDate is before allowed date.')
+        //   store.dispatch('setFlightDate', '')
+        //   store.dispatch('setArriveDate', '')
+        //   store.dispatch('setDepartDate', '')
+        //   store.dispatch('setFlight', '')
+        //   store.dispatch('setWantsPhotos', false)
+        //   store.dispatch('clearSlotsPassengers')
+        //   return true
+        // }
+      return false
 
-
-
-    // staleFlightDate: function () {
-    //   if (this.flightDate !== '') {
-    //     const earliestPossFlightDateISO = add(Date.now(), {days:this.$store.state._bookDaysOffset})
-    //     const flightDateISO = parseISO(this.$store.state.flightDate)
-    //     if (earliestPossFlightDateISO > flightDateISO) {
-    //       console.log('flightDate is before allowed date.')
-    //       this.$store.dispatch('setFlightDate', '')
-    //       this.$store.dispatch('setArriveDate', '')
-    //       this.$store.dispatch('setDepartDate', '')
-    //       this.$store.dispatch('setFlight', '')
-    //       this.$store.dispatch('setWantsPhotos', false)
-    //       this.$store.dispatch('clearSlotsPassengers')
-    //       if (this.$route.name !== '/') this.$router.push('/')    // return to start page.
-    //     }
-    //   }
-    // },
-
+    },
 
 
 

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Step_Start from '../views/Step_Start.vue'
 import store from '@/store/storex.js'
-import { add, parseISO, isAfter, set } from 'date-fns'
+// import { add, parseISO, isAfter, set } from 'date-fns'
 
 Vue.use(VueRouter)
 
@@ -63,20 +63,20 @@ const router = new VueRouter({
   }
 })
 
-// Global Navigation Guards.
-router.beforeEach((to, from, next) => {
-  //console.log(to, from, next)
-  // Check for Stale data on Nav. If stale, return to Start
-  if (isStaleFlightDate()) {
-    if (from.name !== 'Start') {
-      next({ name: 'Start' })
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
+// // Global Navigation Guards.
+// router.beforeEach((to, from, next) => {
+//   //console.log(to, from, next)
+//   // Check for Stale data on Nav. If stale, return to Start
+//   if ( isStaleFlightDate() || isInvalidFlightDate() ) {
+//     if (from.name !== 'Start') {
+//       next({ name: 'Start' })
+//     } else {
+//       next()
+//     }
+//   } else {
+//     next()
+//   }
+// })
 
 
 router.afterEach((to) => {
@@ -85,30 +85,31 @@ router.afterEach((to) => {
 })
 
 
-/*****************************************************
-// Check for Stale data on Nav.
-// If stale, clear out related date storage and send user
-// back to the Start page.
-*****************************************************/
-function isStaleFlightDate () {
 
-    let earliestPossFlightDateISO = add(Date.now(), {days: store.state._bookDaysOffset})
-    const flightDateISO = parseISO(store.state.flightDate)
-    let transformedToMidnight = set(earliestPossFlightDateISO, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 })
-    //console.log(transformedToMidnight)
-    if (  isAfter(transformedToMidnight, flightDateISO) ) {
-      console.log('STALE DATA: flightDate is before allowed date.')
-      store.dispatch('setFlightDate', '')
-      store.dispatch('setArriveDate', '')
-      store.dispatch('setDepartDate', '')
-      store.dispatch('setFlight', '')
-      store.dispatch('setWantsPhotos', false)
-      store.dispatch('clearSlotsPassengers')
-      return true
-    }
-  return false
+// /*****************************************************
+// // Check for Stale data on Nav.
+// // If stale, clear out related date storage and send user
+// // back to the Start page.
+// *****************************************************/
+// function isStaleFlightDate () {
 
-}
+//     let earliestPossFlightDateISO = add(Date.now(), {days: store.state._bookDaysOffset})
+//     const flightDateISO = parseISO(store.state.flightDate)
+//     let transformedToMidnight = set(earliestPossFlightDateISO, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 })
+//     //console.log(transformedToMidnight)
+//     if (  isAfter(transformedToMidnight, flightDateISO) ) {
+//       console.log('STALE DATA: flightDate is before allowed date.')
+//       store.dispatch('setFlightDate', '')
+//       store.dispatch('setArriveDate', '')
+//       store.dispatch('setDepartDate', '')
+//       store.dispatch('setFlight', '')
+//       store.dispatch('setWantsPhotos', false)
+//       store.dispatch('clearSlotsPassengers')
+//       return true
+//     }
+//   return false
+
+// }
 
 
 export default router

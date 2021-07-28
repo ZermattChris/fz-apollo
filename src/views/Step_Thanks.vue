@@ -6,7 +6,7 @@
     </PageHeader>
 
     <p>
-      Order Nr: <strong class="primary--text">{{$store.state.orderID}}</strong> 
+      Transaction Nr: <strong class="primary--text">{{$store.state.orderID}}</strong> 
     </p>
     <p>
       Your order confirmation has been sent to <strong class="primary--text">{{orderEmail}}</strong>
@@ -25,6 +25,21 @@
       <a href="mailto:info@flyzermatt.com">info@flyzermatt.com</a>
       or give us a call at:
       <a href="tel:+41796436808">+41 79 643 6808</a>
+    </p>
+
+
+    <p class="text-center mt-12 mr-auto ml-auto" style="max-width:300px;">
+      
+      <v-text-field 
+        label="Resend confirmation email to:"
+      >
+        {{orderEmail}}
+      </v-text-field>
+    </p>
+    <p class="text-center"> 
+      <v-btn
+        elevation="2"
+      >SEND</v-btn>
     </p>
 
   </div>
