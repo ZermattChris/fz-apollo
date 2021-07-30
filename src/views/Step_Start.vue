@@ -186,6 +186,11 @@
           >
             im veuptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
             cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+            {{this.isKlein}}
+            {{this.isClassic}}
+            {{this.isScenic}}
+
           </v-card-text>
 
           <v-divider></v-divider>
@@ -289,7 +294,12 @@ export default {
       // overlay: false,
       arriveMenu: false,  
       flightMenu: false,
-      departMenu: false
+      departMenu: false,
+
+      isKlein: false,
+      isClassic: false,
+      isScenic: false,
+
     }
   },
 
@@ -459,6 +469,26 @@ export default {
     onFlightChanged () {
       // check if user selected the Elite flight and if yes, show info dialog.
       this.eliteDialog = true
+
+      // Klein
+      if (this.$store.state.selectedFlight === 40) {
+        this.isKlein = true,
+        this.isClassic = false,
+        this.isScenic = false
+      }
+      // Classic
+      if (this.$store.state.selectedFlight === 38) {
+        this.isKlein = false,
+        this.isClassic = true,
+        this.isScenic = false
+      }
+      // Scenic
+      if (this.$store.state.selectedFlight === 39) {
+        this.isKlein = false,
+        this.isClassic = false,
+        this.isScenic = true
+      }
+
     },
 
     gotoPhotosVideosWebPage () {
