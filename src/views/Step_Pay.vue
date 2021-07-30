@@ -266,11 +266,12 @@
 
       // Copy test CC nr to clipboard if in _DEV mode.
       if (this.$store.state._DEV === true) {
+        console.log("Copied Test CC Nr to Clipboard: 4000007560000009")
         let copyText = document.querySelector("#cc_success");
         copyText.select();
         document.execCommand("copy");
       } 
-      
+
     },
 
     computed: {
