@@ -381,6 +381,7 @@ export default {
     },
     arriveDate: {
       get() {
+        if (this.$store.state.arriveDate === '') return this.$store.state.flightDate
         return this.$store.state.arriveDate
       },
       set(dateStr) {
@@ -397,6 +398,7 @@ export default {
     },
     departDate: {
       get() {
+        if (this.$store.state.departDate === '') return this.$store.state.flightDate
         return this.$store.state.departDate
       },
       set(dateStr) {
