@@ -17,7 +17,7 @@
         {{flightDate}}
       </p>
       <p style="background-color: #c78b48;" class="rounded-lg white--text text-caption mt-n2 mb-9 mx-4 px-2 py-1">
-        All meeting times are at our office, located inside the Viktoria Center across from Zermatt's 
+        @ All meeting times are at our office, located inside the Viktoria Center across from Zermatt's 
         main train station (just down the hall from the COOP Supermarket).
       </p>
 
@@ -183,15 +183,24 @@
           <br/><br/>
 
           <ul>
-            <li>DEBUG: Visa with success: 4000007560000009 <br/></li>
+            <li>NOTE: A TEST Credit Card number has been copied to the Clipboard. Just "paste" it into the CC field in the Stripe form. <br/></li>
             <!-- <li>3D Secure with success: 4000002500003155</li>
             <li>Fail, insuffecient funds: 4000000000009995</li>
             <li>Fail, card has expired: 4000000000000069</li> -->
           </ul>
+          <input id="cc_success" name="cc_success" type="text" value="4000007560000009">
       </div>
 
 
     </div>
+
+    <!-- Order Overlay  -->
+    <v-overlay :value="orderOverlay">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      ></v-progress-circular>
+    </v-overlay>
 
 
   </div>
@@ -247,11 +256,21 @@
         return
       }
 
+      // Copy test CC nr to clipboard if in _DEV mode.
+      if (this.$store.state._DEV === true) {
+        let copyText = document.querySelector("#cc_success");
+        copyText.select();
+        document.execCommand("copy");
+      } 
+
       // Live Stripe call.
       this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_LIVE)
 
     },
 
+    beforeUpdate() {
+
+    },
 
     computed: {
 
@@ -306,8 +325,8 @@
 
       onOrderBtn() {
 
-        // todo Disable screen until the Order Now call has completed (with animation)
-
+        // Disable screen until the Order Now call has completed (with animation)
+        this.orderOverlay = true
 
         let me = this
 
