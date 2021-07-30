@@ -188,7 +188,7 @@
             <li>Fail, insuffecient funds: 4000000000009995</li>
             <li>Fail, card has expired: 4000000000000069</li> -->
           </ul>
-          <input id="cc_success" name="cc_success" type="text" value="4000007560000009">
+          <input style="color:white;" id="cc_success" name="cc_success" type="text" value="4000007560000009">
       </div>
 
 
