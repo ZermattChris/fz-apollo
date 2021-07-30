@@ -163,9 +163,47 @@
           :disabled="!isValidFlightDate"
           :hint="isValidFlightDate ? '' : $t('step-start.pleaseChooseFlightFirst')"
           persistent-hint
+          @change="onFlightChanged"
         >
         </v-select>
       </div>
+
+      <!-- This is an Info dialog that's shown to the user if they choose the Elite flight.  -->
+      <v-dialog
+        v-model="eliteDialog"
+        width="500"
+      >
+        <template v-slot:activator="{}">
+        </template>
+
+        <v-card>
+          <v-card-title class="text-h5 grey lighten-2">
+            Flight Infos
+          </v-card-title>
+
+          <v-card-text
+            class="pt-4"
+          >
+            im veuptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </v-card-text>
+
+          <v-divider></v-divider>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="primary"
+              elevation="2"
+              outlined
+              class="mb-2"
+              @click="eliteDialog = false"
+            >
+              Got it!
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
 
       <!-- ***************** Photos + Videos ******************** -->
@@ -244,6 +282,7 @@ export default {
       nrPeopleEnabled: false,
 
       bigGroupDialog: false,
+      eliteDialog: false,
 
       isPageValid: this.$store.getters.step_startValid,
 
@@ -417,7 +456,10 @@ export default {
   },
   methods: {
 
-
+    onFlightChanged () {
+      // check if user selected the Elite flight and if yes, show info dialog.
+      this.eliteDialog = true
+    },
 
     gotoPhotosVideosWebPage () {
       window.open("https://www.flyzermatt.com/photos-videos/", "_blank")
