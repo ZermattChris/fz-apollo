@@ -18,7 +18,7 @@
     "clickForDetails": "click for detailed information"
   },
   "step-timeslot": {
-    "title": "How Many are Flying?",
+    "title": "How Many Flying?",
     "description": "Add the number of passengers to the times you would like to fly.",
     "large-group-tip": "You can split larger groups over multiple times.",
     "total-passengers": "Passenger in total | Passengers in total",
