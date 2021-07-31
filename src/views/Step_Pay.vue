@@ -256,19 +256,19 @@
         return
       }
 
+      // Live Stripe call.
+      this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_LIVE)
+
+    },
+
+    created() {
+
       // Copy test CC nr to clipboard if in _DEV mode.
       if (this.$store.state._DEV === true) {
         let copyText = document.querySelector("#cc_success");
         copyText.select();
         document.execCommand("copy");
       } 
-
-      // Live Stripe call.
-      this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_LIVE)
-
-    },
-
-    beforeUpdate() {
 
     },
 
