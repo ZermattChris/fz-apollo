@@ -325,7 +325,7 @@
                 src="@/assets/MicroSD-and-adaptor.jpg"
               ></v-img>
               <p>
-                Select our Photos + Videos option, if you're sure you want to buy the MicroSD Card
+                Select our {{photosPrice}} Photos + Videos option, if you're sure you want to buy the MicroSD Card
                 that your pilot will make of your flight. Buying them now just makes your fly day
                 a little bit smoother and easier.
               </p>
@@ -583,6 +583,12 @@ export default {
   methods: {
 
     onFlightChanged () {
+
+      // guard against the dialog opening when nothing has been selected.
+      if (this.$store.state.selectedFlight === '') {
+        return
+      }
+
       // check if user selected the Elite flight and if yes, show info dialog.
       this.eliteDialog = true
 
