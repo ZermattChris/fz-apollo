@@ -183,12 +183,12 @@
           <br/><br/>
 
           <ul>
-            <li>NOTE: A TEST Credit Card number has been copied to the Clipboard. Just "paste" it into the CC field in the Stripe form. <br/></li>
-            <!-- <li>3D Secure with success: 4000002500003155</li>
+            <!-- <li>NOTE: A TEST Credit Card number has been copied to the Clipboard. Just "paste" it into the CC field in the Stripe form. <br/></li> -->
+            <li>3D Secure with success: 4000002500003155</li>
             <li>Fail, insuffecient funds: 4000000000009995</li>
-            <li>Fail, card has expired: 4000000000000069</li> -->
+            <li>Fail, card has expired: 4000000000000069</li>
           </ul>
-          <input style="color:white;" id="cc_success" name="cc_success" type="text" value="4000007560000009">
+          <!-- <input style="color:white;" id="cc_success" name="cc_success" type="text" value="4000007560000009"> -->
       </div>
 
 
@@ -249,30 +249,28 @@
       // VUE_APP_STRIPE_PUBLIC_KEY_TEST
       // VUE_APP_STRIPE_PUBLIC_KEY_LIVE
 
-
       if (this.$store.state._DEV === true) {
         console.log('Development Mode, will create a TEST order via Stripe')
         this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
         return
       }
 
-
       // Live Stripe call.
       this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_LIVE)
 
     },
 
-    beforeUpdate() {
+    // beforeMount() {
 
-      // Copy test CC nr to clipboard if in _DEV mode.
-      if (this.$store.state._DEV === true) {
-        console.log("Copied Test CC Nr to Clipboard: 4000007560000009")
-        let copyText = document.querySelector("#cc_success");
-        copyText.select();
-        document.execCommand("copy");
-      } 
+    //   // Copy test CC nr to clipboard if in _DEV mode.
+    //   if (this.$store.state._DEV === true) {
+    //     console.log("Copied Test CC Nr to Clipboard: 4000007560000009")
+    //     let copyText = document.querySelector("#cc_success")
+    //     copyText.select()
+    //     document.execCommand("copy")
+    //   } 
 
-    },
+    // },
 
     computed: {
 

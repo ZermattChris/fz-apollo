@@ -318,8 +318,25 @@
             class="pt-4"
           >
             <div>
+              <v-img
+                class="mx-auto mb-2"
+                max-height="200"
+                max-width="250"
+                src="@/assets/MicroSD-and-adaptor.jpg"
+              ></v-img>
               <p>
-                saldjfaljdfalj
+                Select our Photos + Videos option, if you're sure you want to buy the MicroSD Card
+                that your pilot will make of your flight. Buying them now just makes your fly day
+                a little bit smoother and easier.
+              </p>
+              <p>
+                There are usually 60-200 photos and a handful
+                of video clips (for example from the take off, landing and if you're doing some actions
+                over town).
+              </p>
+              <p>
+                If you're not sure, you can also decide after you fly. We have tablets in our office to
+                view them on.
               </p>
             </div>
           </v-card-text>
