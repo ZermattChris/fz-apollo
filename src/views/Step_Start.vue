@@ -325,7 +325,7 @@
                 src="@/assets/MicroSD-and-adaptor.jpg"
               ></v-img>
               <p>
-                Select our {{photosPrice}} Photos + Videos option, if you're sure you want to buy the MicroSD Card
+                Select our {{photosPrice}}.- CHF Photos + Videos option, if you're sure you want to buy the MicroSD Card
                 that your pilot will make of your flight. Buying them now just makes your fly day
                 a little bit smoother and easier.
               </p>
@@ -336,7 +336,7 @@
               </p>
               <p>
                 If you're not sure, you can also decide after you fly. We have tablets in our office to
-                view them on.
+                view them on. Hi Stu
               </p>
             </div>
           </v-card-text>
