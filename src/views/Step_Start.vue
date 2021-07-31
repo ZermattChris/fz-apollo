@@ -301,7 +301,7 @@
 
 
 
-      <!-- This is an Info dialog that's shown to the user if they choose the Elite flight.  -->
+      <!-- This is an Info dialog that's shown to the user if they choose the Elite flight. -->
       <v-dialog
         v-model="photosVideoDialog"
         width="500"
