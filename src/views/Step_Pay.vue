@@ -188,7 +188,7 @@
             <li>Fail, insuffecient funds: 4000000000009995</li>
             <li>Fail, card has expired: 4000000000000069</li> -->
           </ul>
-          <input id="cc_success" name="cc_success" type="text" value="4000007560000009">
+          <input style="color:white;" id="cc_success" name="cc_success" type="text" value="4000007560000009">
       </div>
 
 
@@ -256,15 +256,17 @@
         return
       }
 
+
       // Live Stripe call.
       this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_LIVE)
 
     },
 
-    created() {
+    beforeUpdate() {
 
       // Copy test CC nr to clipboard if in _DEV mode.
       if (this.$store.state._DEV === true) {
+        console.log("Copied Test CC Nr to Clipboard: 4000007560000009")
         let copyText = document.querySelector("#cc_success");
         copyText.select();
         document.execCommand("copy");

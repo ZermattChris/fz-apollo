@@ -163,9 +163,52 @@
           :disabled="!isValidFlightDate"
           :hint="isValidFlightDate ? '' : $t('step-start.pleaseChooseFlightFirst')"
           persistent-hint
+          @change="onFlightChanged"
         >
         </v-select>
       </div>
+
+      <!-- This is an Info dialog that's shown to the user if they choose the Elite flight.  -->
+      <v-dialog
+        v-model="eliteDialog"
+        width="500"
+      >
+        <template v-slot:activator="{}">
+        </template>
+
+        <v-card>
+          <v-card-title class="text-h5 grey lighten-2">
+            Flight Infos
+          </v-card-title>
+
+          <v-card-text
+            class="pt-4"
+          >
+            im veuptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+            {{this.isKlein}}
+            {{this.isClassic}}
+            {{this.isScenic}}
+
+          </v-card-text>
+
+          <v-divider></v-divider>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="primary"
+              elevation="2"
+              outlined
+              class="mb-2"
+              @click="eliteDialog = false"
+            >
+              Got it!
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
 
       <!-- ***************** Photos + Videos ******************** -->
@@ -244,13 +287,19 @@ export default {
       nrPeopleEnabled: false,
 
       bigGroupDialog: false,
+      eliteDialog: false,
 
       isPageValid: this.$store.getters.step_startValid,
 
       // overlay: false,
       arriveMenu: false,  
       flightMenu: false,
-      departMenu: false
+      departMenu: false,
+
+      isKlein: false,
+      isClassic: false,
+      isScenic: false,
+
     }
   },
 
@@ -381,6 +430,7 @@ export default {
     },
     arriveDate: {
       get() {
+        if (this.$store.state.arriveDate === '') return this.$store.state.flightDate
         return this.$store.state.arriveDate
       },
       set(dateStr) {
@@ -397,6 +447,7 @@ export default {
     },
     departDate: {
       get() {
+        if (this.$store.state.departDate === '') return this.$store.state.flightDate
         return this.$store.state.departDate
       },
       set(dateStr) {
@@ -415,7 +466,30 @@ export default {
   },
   methods: {
 
+    onFlightChanged () {
+      // check if user selected the Elite flight and if yes, show info dialog.
+      this.eliteDialog = true
 
+      // Klein
+      if (this.$store.state.selectedFlight === 40) {
+        this.isKlein = true,
+        this.isClassic = false,
+        this.isScenic = false
+      }
+      // Classic
+      if (this.$store.state.selectedFlight === 38) {
+        this.isKlein = false,
+        this.isClassic = true,
+        this.isScenic = false
+      }
+      // Scenic
+      if (this.$store.state.selectedFlight === 39) {
+        this.isKlein = false,
+        this.isClassic = false,
+        this.isScenic = true
+      }
+
+    },
 
     gotoPhotosVideosWebPage () {
       window.open("https://www.flyzermatt.com/photos-videos/", "_blank")
