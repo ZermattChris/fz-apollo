@@ -179,13 +179,13 @@
         <v-card>
           <v-card-title class="text-h5 grey lighten-2">
             Flight Infos - 
-            <span v-if="isKlein">
+            <span v-if="isKlein" class="pl-1">
               Elite
             </span>
-            <span v-if="isClassic">
+            <span v-if="isClassic" class="pl-1">
               Classic High
             </span>
-            <span v-if="isScenic">
+            <span v-if="isScenic" class="pl-1">
               Scenic
             </span>
           </v-card-title>
