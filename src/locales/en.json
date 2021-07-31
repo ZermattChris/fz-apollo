@@ -15,7 +15,7 @@
     "noAvailableFlights": "No Schedule available for this date. Please call us.",
     "photosvideos": "Photos + Videos (optional)",
     "photosvideos-description": "Filmed with GoPros on specially built stcks for some great memories! (optional {price}.00 CHF per person)",
-    "clickForDetails": "click for detailed information"
+    "clickForDetails": "click for details..."
   },
   "step-timeslot": {
     "title": "How Many Flying?",

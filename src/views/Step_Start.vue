@@ -178,18 +178,72 @@
 
         <v-card>
           <v-card-title class="text-h5 grey lighten-2">
-            Flight Infos
+            Flight Infos - 
+            <span v-if="isKlein">
+              Elite
+            </span>
+            <span v-if="isClassic">
+              Classic High
+            </span>
+            <span v-if="isScenic">
+              Scenic
+            </span>
           </v-card-title>
 
           <v-card-text
             class="pt-4"
           >
-            im veuptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-            {{this.isKlein}}
-            {{this.isClassic}}
-            {{this.isScenic}}
+            <div v-if="isKlein">
+              <p>
+                The Elite flight is the highest tandem take off in the Alps - this makes for an amazing flight,
+                but also means that both weather and snow conditions have to be just right. Winds are often 
+                strong at this altitude and our take off areas are on glacier/snow - because of this we try and do
+                this flight early in the morning when conditions are the best.
+              </p>
+              <p>
+                If you book the Elite, we ask that you are happy to do the Classic High flight as a back-up -
+                in case the conditions don't allow us to fly from Klein Matterhorn.
+              </p>
+              <p>
+                The Elite flight also requires passengers to be fairly fit, confident and not too heavy.
+              </p>
+            </div>
+
+            <div v-if="isClassic">
+              <p>
+                The best time for the Classic High is in the mornings. It is often also possible to do 
+                this flight in the afternoon, but it depends on the day's conditions.
+              </p>
+              <p>
+                If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy
+              </p>
+            </div>
+
+            <div v-if="isScenic">
+              <p>
+                We fly the Scenic from both Blauherd and Riffelberg. We try and choose the location that 
+                we feel will have the best conditions for your specific booking time.
+              </p>
+              <p>
+                If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy
+              </p>
+              <p>
+                <v-icon small color="warning" class="">
+                  mdi-information-outline
+                </v-icon>
+                It is also possible to meet you on the mountain, if you would like to combine 
+                your flight with a day of hiking or sight seeing. IMPORTANT: Please add a "Booking Message", on the payment page 
+                to let us know where you would like to meet. 
+              </p>
+              <p>
+                <v-icon small color="warning" class="mr-1">
+                  mdi-information-outline
+                </v-icon>
+                <strong>PLEASE NOTE</strong>: All times shown on your Booking are <strong>Office Meeting times</strong>!
+                If you want to meet on the mountain, we will contact you, after you complete your online booking, with final times and details.
+              </p>
+            </div>
 
           </v-card-text>
 
@@ -231,19 +285,63 @@
           class="caption pl-8 ml-8 mt-n4 disable-select"
           style="position:relative; z-index:2;"
         >
-          (
-            <v-icon tabindex="-1" @click="gotoPhotosVideosWebPage">
-              {{infoIcon}} 
-            </v-icon> 
-            <a href="https://www.flyzermatt.com/photos-videos/" target="_blank">
-              {{$t('step-start.clickForDetails')}}
-            </a>
-          )
+          <span id="photosVidDetails" @click="photosVideoDialog = true" style="cursor:pointer;">
+            (
+              <v-icon tabindex="-1" @click="photosVideoDialog = true">
+                {{infoIcon}} 
+              </v-icon> 
+                {{$t('step-start.clickForDetails')}}
+              <!-- <a href="https://www.flyzermatt.com/photos-videos/" target="_blank">
+                {{$t('step-start.clickForDetails')}}
+              </a> -->
+            )
+          </span>
         </p>
       </div>
 
 
-    </div>
+
+      <!-- This is an Info dialog that's shown to the user if they choose the Elite flight.  -->
+      <v-dialog
+        v-model="photosVideoDialog"
+        width="500"
+      >
+        <template v-slot:activator="{}">
+        </template>
+
+        <v-card>
+          <v-card-title class="text-h5 grey lighten-2">
+            Photos + Videos Infos
+          </v-card-title>
+
+          <v-card-text
+            class="pt-4"
+          >
+            <div>
+              <p>
+                saldjfaljdfalj
+              </p>
+            </div>
+          </v-card-text>
+
+          <v-divider></v-divider>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="primary"
+              elevation="2"
+              outlined
+              class="mb-2"
+              @click="photosVideoDialog = false"
+            >
+              Got it!
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+    </div>    <!-- end step controls -->
 
     
   </div>
@@ -288,6 +386,7 @@ export default {
 
       bigGroupDialog: false,
       eliteDialog: false,
+      photosVideoDialog: false,
 
       isPageValid: this.$store.getters.step_startValid,
 
@@ -604,5 +703,13 @@ export default {
 .v-input__slot:hover {
   cursor: pointer !important;
 }
+
+#photosVidDetails {
+  cursor: pointer;
+}
+  #photosVidDetails:hover {
+    color: #2196F3;
+  }
+
 
 </style>
