@@ -178,7 +178,7 @@
 
         <v-card>
           <v-card-title class="text-h5 grey lighten-2">
-            Flight Infos - 
+            {{$t('step-start.flightInfo')}} - 
             <span v-if="isKlein" class="pl-1">
               Elite
             </span>
@@ -258,7 +258,7 @@
               class="mb-2"
               @click="eliteDialog = false"
             >
-              Got it!
+              {{$t('nav.ok')}}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -311,7 +311,7 @@
 
         <v-card>
           <v-card-title class="text-h5 grey lighten-2">
-            Photos + Videos Infos
+            {{$t('step-start.photosvideosInfo')}}
           </v-card-title>
 
           <v-card-text
@@ -385,7 +385,7 @@
               class="mb-2"
               @click="photosVideoDialog = false"
             >
-              Got it!
+              {{$t('nav.ok')}}
             </v-btn>
           </v-card-actions>
         </v-card>

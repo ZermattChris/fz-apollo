@@ -4,11 +4,10 @@
   >
 
 
-    <PageHeader :title="timeListerHeaderStr">
+    <PageHeader :title="'3. ' + $tc('step-info.title', usersGroupSize === 1)">
       We only ask for the passenger information that we need to help 
       make your flight fun, easy and enjoyable. We never share any 
       information with 3rd parties.
-      <br>
     </PageHeader>
 
     
@@ -494,6 +493,8 @@
 
   import { format, parseISO } from 'date-fns'
 
+  import i18n from '@/i18n'
+
   export default {
     name: "Step_Info",
   
@@ -669,12 +670,12 @@
       usersGroupSize: function () {
         return this.$store.getters.getTotalPassengers
       },
-      timeListerHeaderStr: function () {
-        if (this.nrBookingPeople === 1) {
-          return "3. Your Details"
-        }
-        return "3. Group Details"
-      }
+      // timeListerHeaderStr: function () {
+      //   if (this.nrBookingPeople === 1) {
+      //     return "3. Your Details"
+      //   }
+      //   return "3. Group Details"
+      // }
     },
 
     methods: {
@@ -756,9 +757,9 @@
         if (myName === '') {
           // New Booking, no Passenger Name yet entered. Show default.
           if (passengerNumber === 0 ) {
-            myName = 'Contact Passenger'
+            myName = i18n.t('step-info.contact-passenger')
           } else {
-            myName = 'Passenger #' + (passengerNumber +1)
+            myName = i18n.t('step-info.passenger-nr') + (passengerNumber +1)
           }
         } else {
           // Passenger has a name already, just add the number...

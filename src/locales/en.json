@@ -1,7 +1,8 @@
 {
   "nav": {
     "continue": "Continue",
-    "back": "Back"
+    "back": "Back",
+    "ok": "Got it!"
   },
   "step-start": {
     "test": "hello i18n !!",
@@ -14,7 +15,9 @@
     "pleaseChooseFlightFirst": "Please choose a Flight Date first...",
     "noAvailableFlights": "No Schedule available for this date. Please call us.",
     "photosvideos": "Photos + Videos (optional)",
-    "photosvideos-description": "Filmed with GoPros on specially built stcks for some great memories! (optional {price}.00 CHF per person)",
+    "photosvideosInfo": "Photos + Videos Infos",
+    "flightInfo": "Flight Infos",
+    "photosvideos-description": "Filmed with GoPros on specially built sticks for some great memories! (optional {price}.00 CHF per person)",
     "clickForDetails": "click for details..."
   },
   "step-timeslot": {
@@ -29,7 +32,9 @@
     "flightNotAvail": "Flight not available"
   },
   "step-info": {
-    "passengers": "Passenger | Passengers"
+    "title": "Your Details | Your Group's Details",
+    "contact-passenger": "Contact Passenger",
+    "passenger-nr": "Passenger #"
   },
   "step-pay": {
     "passengers": "Passenger | Passengers"

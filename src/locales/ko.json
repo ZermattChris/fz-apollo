@@ -1,7 +1,8 @@
 {
   "nav": {
     "continue": "계속하다",
-    "back": "반환"
+    "back": "반환",
+    "ok": "알았어 "
   },
   "step-start": {
     "test": "hello i18n !!",
@@ -14,6 +15,8 @@
     "pleaseChooseFlightFirst": "먼저 비행 날짜를 선택하십시오... ",
     "noAvailableFlights": "이 날짜에 사용할 수 있는 일정이 없습니다. 전화주세요.",
     "photosvideos": "사진 + 동영상 (선택 사항)",
+    "photosvideosInfo": "사진 + 비디오 정보",
+    "flightInfo": "항공편 정보",
     "photosvideos-description": "특별한 추억을 위해 특별히 제작 된 스틱에 GoPro로 촬영했습니다!",
     "clickForDetails": "자세한 정보를 보려면 클릭하십시오"
   },
@@ -24,12 +27,14 @@
     "total-passengers": "총 승객 | 총 승객",
     "jump-original-date": "오리가 날 날짜로 이동",
     "selected-date": "선택한 날짜",
-    "places-free": "{n} 장소 무료 | {n} 장소 무료 ",
+    "places-free": "{n} 장소 무료 | {n} 장소 무료",
     "passengers": "승객 | 승객",
     "flightNotAvail": "항공편 이용 불가"  
   },
     "step-info": {
-      "passengers": "Passenger | Passengers"
+      "title": "세부 정보  | 우리 그룹의 세부 사항",
+      "contact-passenger": "그룹 세부정보",
+      "passenger-nr": "연락하다 #"
     },
     "step-pay": {
       "passengers": "Passenger | Passengers"
