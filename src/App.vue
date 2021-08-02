@@ -128,14 +128,14 @@
         style="text-align:right;"
         class="hidden-xs-only white--text overline mr-2 text--secondary"
       >
-        © {{getCurrentYear}} - FlyZermatt
+        © {{getCurrentYear}} - bSoftware
       </div>
       <div 
         style="max-width:140px; line-height:1.2em; text-align:right;"
         class="hidden-sm-and-up white--text overline mr-2 text-caption text--secondary"
       >
         © {{getCurrentYear}}<br/>
-        FlyZermatt
+        bSoftware
       </div>
     </v-footer>
 

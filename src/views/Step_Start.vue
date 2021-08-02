@@ -401,6 +401,8 @@
 // @ is an alias to /src
 
 import { format, add, sub, parseISO, isAfter, isBefore, isEqual } from 'date-fns'
+import { enGB, de, ko } from 'date-fns/locale'
+
 import { mdiInformation, mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, mdiCameraPlusOutline, mdiCloudQuestion, mdiCloud, mdiCalendarMonth } from '@mdi/js'
 
 import i18n from '@/i18n'
@@ -449,7 +451,9 @@ export default {
       isClassic: false,
       isScenic: false,
 
+      myLocal: enGB,    // default date-fns locale
 
+      // temp slide show bits
       colors: [
           'white',
           'warning',
@@ -473,11 +477,17 @@ export default {
   beforeMount() {
     // Need to build the Flights Menu list.
     this.$store.dispatch('flightOptions')
+
   },
 
   beforeUpdate() {
     // update the Continue btn if page is valid
     this.onValueChanged()
+
+    // This is how to add a locale to date-fns function calls.
+    if (this.$i18n.locale === 'en') this.myLocal = enGB 
+    if (this.$i18n.locale === 'de') this.myLocal = de 
+    if (this.$i18n.locale === 'ko') this.myLocal = ko 
   },
 
 
@@ -584,6 +594,7 @@ export default {
 
 
     todaysDate: function () {
+      // , {locale: cs}
       return format(parseISO(new Date().toISOString()), 'yyyy-MM-dd')
     },
     formatArriveDate: function () {
@@ -591,7 +602,7 @@ export default {
         // return 'Arrival date must be on or before your Flight Date'
         return ''
       }
-      return this.arriveDate ? format(parseISO(this.arriveDate), 'EEEE, MMMM do yyyy') : ''
+      return this.arriveDate ? format(parseISO(this.arriveDate), 'EEEE, MMMM do yyyy', {locale: this.myLocal}) : ''
     },
     arriveDate: {
       get() {
@@ -608,7 +619,7 @@ export default {
         // return 'Arrival date must be on or after your Flight Date'
         return ''
       }
-      return this.departDate ? format(parseISO(this.departDate), 'EEEE, MMMM do yyyy') : ''
+      return this.departDate ? format(parseISO(this.departDate), 'EEEE, MMMM do yyyy', {locale: this.myLocal}) : ''
     },
     departDate: {
       get() {
@@ -625,10 +636,10 @@ export default {
       return this.flightDate ? format(parseISO(this.flightDate), 'EEEE, MMMM do yyyy') : ''
     },
 
-
-
-
   },
+
+
+
   methods: {
 
     onFlightChanged () {
@@ -665,7 +676,6 @@ export default {
     gotoPhotosVideosWebPage () {
       window.open("https://www.flyzermatt.com/photos-videos/", "_blank")
     },
-
 
     showFlightDateColour (date) {
       if ( isEqual( parseISO(this.flightDate), parseISO(date)) ) { 
@@ -732,7 +742,6 @@ export default {
   },
 
   watch: {
-
 
     forWatchingBothFlightDateAndFlightType() {
       // const [oldPropertyA, oldProvertyB] = oldVal.split('|');
