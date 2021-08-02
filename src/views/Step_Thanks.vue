@@ -17,7 +17,7 @@
         mdi-at
       </v-icon>
       Please make sure to check your email <strong>Spam/Junk</strong> folders if your order confirmation doesn't arrive (emails
-      can take a bit to arrive sometimes)
+      can take a bit of time to arrive sometimes)
     </p>
 
     <p class="text-caption">

@@ -6,7 +6,7 @@
   "step-start": {
     "test": "hello i18n !!",
     "title": "Dates & Flight",
-    "description": "We need the following information to help us give you the best possible flight experience with the highest levels of safety.",
+    "description": "We need the following information to help us give you the best possible flight experience with the highest level of safety.",
     "flightdate": "Preferred Flight Date",
     "arrivingDate": "Arriving in Zermatt?",
     "departingDate": "Departing from Zermatt?",

@@ -318,12 +318,45 @@
             class="pt-4"
           >
             <div>
-              <v-img
-                class="mx-auto mb-2"
-                max-height="200"
-                max-width="250"
-                src="@/assets/MicroSD-and-adaptor.jpg"
-              ></v-img>
+
+              <!-- Test Photos  -->
+              <v-carousel
+                cycle
+                height="250"
+                hide-delimiter-background
+                show-arrows-on-hover
+                hide-delimiters
+                interval="4500"
+              >
+                <v-carousel-item
+                  v-for="(slide, i) in slides"
+                  :key="i"
+                >
+                  <v-sheet
+                    :color="colors[i]"
+                    height="100%"
+                  >
+                    <v-row
+                      class="fill-height"
+                      align="center"
+                      justify="center"
+                    >
+                      <v-img
+                        v-if="i === 0"
+                        class="mx-auto mb-2"
+                        max-height="200"
+                        max-width="250"
+                        src="@/assets/MicroSD-and-adaptor.jpg"
+                      ></v-img>
+                      <div v-else class="text-h2">
+                        {{ slide }} Slide
+                      </div>
+                    </v-row>
+                  </v-sheet>
+                </v-carousel-item>
+              </v-carousel>
+
+
               <p>
                 Select our {{photosPrice}}.- CHF Photos + Videos option, if you're sure you want to buy the MicroSD Card
                 that your pilot will make of your flight. Buying them now just makes your fly day
@@ -415,6 +448,22 @@ export default {
       isKlein: false,
       isClassic: false,
       isScenic: false,
+
+
+      colors: [
+          'white',
+          'warning',
+          'pink darken-2',
+          'red lighten-1',
+          'deep-purple accent-4',
+        ],
+        slides: [
+          'First',
+          'Second',
+          'Third',
+          'Fourth',
+          'Fifth',
+        ],
 
     }
   },
