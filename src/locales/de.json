@@ -29,7 +29,8 @@
     "selected-date": "Ausgewähltes Datum",
     "places-free": "{n} Freie Plätze",
     "passengers": "Passagier | Passagiere",
-    "flightNotAvail": "Flug nicht verfügbar"
+    "flightNotAvail": "Flug nicht verfügbar",
+    "swipeRightLeft": "(Swipe links/rechts, um das Flugdatum zu ändern)"
   },
   "step-info": {
     "title": "Ihre Angaben | Angaben zu Ihrer Gruppe",

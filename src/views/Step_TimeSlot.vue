@@ -82,6 +82,7 @@
     </div> -->
 
 
+
     <div class="mySwiperWrapper" >
 
       <swiper
@@ -106,13 +107,11 @@
 
           <div 
             class="font-weight-light pt-4" 
-            v-show="mobile"
           >
-            (Swipe left/right to change the Flight Date)
+            {{$t('step-timeslot.swipeRightLeft')}}
           </div>
 
           <div class="vSpacerForFooter" ></div>
-
 
         </swiper-slide>
 

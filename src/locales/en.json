@@ -29,7 +29,8 @@
     "selected-date": "Selected Date",
     "places-free": "{n} Place free | {n} Places free",
     "passengers": "Passenger | Passengers",
-    "flightNotAvail": "Flight not available"
+    "flightNotAvail": "Flight not available",
+    "swipeRightLeft": "(Swipe left/right to change the Flight Date)"
   },
   "step-info": {
     "title": "Your Details | Your Group's Details",

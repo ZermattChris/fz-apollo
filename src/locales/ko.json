@@ -29,7 +29,8 @@
     "selected-date": "선택한 날짜",
     "places-free": "{n} 장소 무료 | {n} 장소 무료",
     "passengers": "승객 | 승객",
-    "flightNotAvail": "항공편 이용 불가"  
+    "flightNotAvail": "항공편 이용 불가",
+    "swipeRightLeft": "(좌/우로 스와이프하여 비행 날짜 변경)"
   },
     "step-info": {
       "title": "세부 정보  | 우리 그룹의 세부 사항",
