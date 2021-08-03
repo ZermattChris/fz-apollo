@@ -103,9 +103,11 @@
         "click-for-prefixes": "세계 국가 코드 접두사 목록을 보려면 클릭하십시오..."
       }
     },
+
     "step-pay": {
       "passengers": "Passenger | Passengers"
     },
+    
     "step-thanks": {
       "selected-date": "Selected Date"
     }

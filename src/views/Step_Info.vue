@@ -407,7 +407,7 @@
                           v-on="on"
                           class=""
                         >
-                          {{ passenger.weightKg }} {{$t('step-info.confirm.kg')}}
+                          {{ passenger.weightKg }}{{ weightPlus(passenger.weightKg) }}
                         </td>
                       </template>
                       <span>
@@ -576,6 +576,11 @@
 
     computed: {
 
+      // weightPlus: function () {
+      //    if (this.passenger.weightKg > 105) return '+' 
+      //    return ''
+      // },
+
       getAllPassengersValid: function () {
         return this.$store.getters.getAllPassengersValid
       },
@@ -685,6 +690,12 @@
     },
 
     methods: {
+
+
+      weightPlus: function (weight) {
+         if (weight > 105) return '+' 
+         return ''
+      },
 
 
       // scrollToId: function (elIdToTarget = '') {

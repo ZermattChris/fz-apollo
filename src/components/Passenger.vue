@@ -161,7 +161,7 @@
             class="pt-2 basicSlider"
             thumb-label="always"
             thumb-size="36"
-            :max="100"
+            :max="110"
             :min="10"
             :thumb-color="weightThumbColour"
             step="5"
@@ -169,7 +169,7 @@
             @mousedown="scrollToId('#passengerForm_' + passengerNr)"
           >
             <template v-slot:thumb-label="{ value }">
-              {{ value }}kg
+              {{ value }}{{ weightPlus }}
             </template>
           </v-slider>
 
@@ -244,6 +244,10 @@
 
     computed: {
 
+      weightPlus: function () {
+         if (this.weight > 105) return '+' 
+         return 'kg'
+      },
 
       // Trying to track the validity of a Passener's form via LocalStorage, as getting
       // pesky infite loop issues trying to update the UI with a custom event to parent.
@@ -320,8 +324,8 @@
         return this.speed + 'kg'
       },
       weightThumbColour: function () {
-        //  if (this.weightSlider >= 90 && this.weightSlider <= 100) return 'warning'
-        //  if (this.weightSlider === 100) return 'red'
+         if (this.weight >= 100 && this.weight <= 105) return 'warning'
+         if (this.weight > 105) return 'red'
          return 'green'      
       },
 
