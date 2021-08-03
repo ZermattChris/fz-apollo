@@ -47,6 +47,7 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
+              id="arriveInput"
               :value="formatArriveDate"
               :label="$t('step-start.arrivingDate')"
               class="ml-10 mt-3"
@@ -256,7 +257,7 @@
               elevation="2"
               outlined
               class="mb-2"
-              @click="eliteDialog = false"
+              @click="closeFlightDialog"
             >
               {{$t('nav.ok')}}
             </v-btn>
@@ -641,6 +642,13 @@ export default {
 
 
   methods: {
+
+    closeFlightDialog () {
+
+      this.eliteDialog = false
+      this.scrollToId('#arriveInput')
+
+    },
 
     onFlightChanged () {
 
