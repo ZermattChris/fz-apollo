@@ -91,22 +91,31 @@
         :options="swiperOptions"
         @slideChange="onSlideChanged"
       >
-          <swiper-slide 
-            v-for="(timeListerObj, key, index) in daysVisibleList" 
-            :key="key"
-            class="swiper-slide pb-2"
-            :id="'SwiperSlide_' + index"
+        <swiper-slide 
+          v-for="(timeListerObj, key, index) in daysVisibleList" 
+          :key="key"
+          class="swiper-slide pb-2"
+          :id="'SwiperSlide_' + index"
+        >
+          <TimeList
+            :id="'TimeList_' + index"
+            :date="key"
+            :timesObj="timeListerObj"
+            @row-selected="onRowSelected"
+          ></TimeList>
+
+          <div 
+            class="font-weight-light pt-4" 
+            v-show="mobile"
           >
-            <TimeList
-              :id="'TimeList_' + index"
-              :date="key"
-              :timesObj="timeListerObj"
-              @row-selected="onRowSelected"
-            ></TimeList>
+            (Swipe left/right to change the Flight Date)
+          </div>
 
-            <div class="vSpacerForFooter" ></div>
+          <div class="vSpacerForFooter" ></div>
 
-          </swiper-slide>
+
+        </swiper-slide>
+
 
       </swiper>
 
@@ -114,7 +123,6 @@
       <div v-show="$vuetify.breakpoint.name !== 'md' " class="swiper-button-prev"></div>
 
     </div>
-
 
 
   </div>
@@ -128,6 +136,7 @@
   import TimeList from '@/components/TimeList.vue'
 
   import PageHeader from '@/components/PageHeader.vue'
+  import { isMobile } from 'mobile-device-detect'
 
   
   import { mdiLightbulbOnOutline, mdiArrowDownCircle } from '@mdi/js'
@@ -150,6 +159,8 @@
     data () {
       //var self = this;
       return {
+
+        mobile: isMobile,
 
         iconIdea: mdiLightbulbOnOutline,
         iconArrowDown: mdiArrowDownCircle,
