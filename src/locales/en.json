@@ -4,6 +4,13 @@
     "back": "Back",
     "ok": "Got it!"
   },
+  "form": {
+    "required": "Required",
+    "max-20-chars": "Max 20 characters",
+    "invalid-email": "Invalid Email...",
+    "phone-hint": "hint: CountryCode + Number (no leading Zeros)"
+  },
+
   "step-start": {
     "test": "hello i18n !!",
     "title": "Dates & Flight",
@@ -34,8 +41,33 @@
   },
   "step-info": {
     "title": "Your Details | Your Group's Details",
+    "description": "We only ask for the passenger information that we need to help make your flight fun, easy and enjoyable. We never share any information with 3rd parties.",
     "contact-passenger": "Contact Passenger",
-    "passenger-nr": "Passenger #"
+    "passenger-nr": "Passenger #",
+    "phone": "Phone",
+    "countryCode-phoneNr": "Country Code & Phone Number",
+    "phone-example": "Example: +1 203 456 7890",
+    "email": "Email",
+    "male": "Male",
+    "female": "Female",
+    "age": "Age",
+    "age-hint": "Your age",
+    "first-last": "First, Last Name",
+    "first-name": "First Name",
+    "speed": "Confidence & Running Ability",
+    "speed-0": "Assistance Required*",
+    "speed-2": "Minimal Confidence - Speed Slow",
+    "speed-4": "A bit nerverous - Speed Slow-ish",
+    "speed-6": "Confidence Okay - Speed okay",
+    "speed-8": "Quite Confident - Speed Quick",
+    "speed-10": "Totally Confident! - Speed Fast",
+    "weight": "Your Weight",
+    "kilos": "Kilograms",
+    "pounds": "Pounds",
+    "stones": "Stones",
+    "country-codes": {
+      "click-for-prefixes": "Click for list of World's Country Code prefixes..."
+    }
   },
   "step-pay": {
     "passengers": "Passenger | Passengers"

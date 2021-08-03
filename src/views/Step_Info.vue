@@ -5,9 +5,7 @@
 
 
     <PageHeader :title="'3. ' + $tc('step-info.title', usersGroupSize === 1)">
-      We only ask for the passenger information that we need to help 
-      make your flight fun, easy and enjoyable. We never share any 
-      information with 3rd parties.
+      {{$t('step-info.description')}}
     </PageHeader>
 
     
@@ -76,7 +74,7 @@
                 class="pt-2 pb-0 phoneInput"
               ><!-- Start of Phone input field -->
                 <v-text-field 
-                  label="Phone"
+                  :label="$t('step-info.phone')"
                   ref="Phone"
                   id="Phone"
                   v-model="contactPhone"
@@ -87,8 +85,8 @@
                   dense
                   type="tel"
                   name="tel"
-                  placeholder="Country Code &amp; Phone Number"
-                  hint="Example: +1 203 456 7890"
+                  :placeholder="$t('step-info.countryCode-phoneNr')"
+                  :hint="$t('step-info.phone-example')"
                   persistent-hint
                   prefix="+"
                   @keyup="updatePhoneCountryData"
@@ -108,7 +106,7 @@
                           {{iconInfo}}
                         </v-icon>
                       </template>
-                      Click for list of World's Country Code prefixes...
+                      {{$t('step-info.country-codes.click-for-prefixes')}}
                     </v-tooltip>
                   </template>
                 </v-text-field>
@@ -136,7 +134,7 @@
                 class="pt-2 pb-3 pt-xs-1 pb-sm-0"
               >
                 <v-text-field 
-                  label="Email"
+                  :label="$t('step-info.email')"
                   ref="Email"
                   v-model="contactEmail"
                   background-color="white"
@@ -531,15 +529,15 @@
         countryPrefixCodeBuffer: '',
 
         rules: {
-          required: value => !!value || 'Required.',
-          counter: value => value.length <= 20 || 'Max 20 characters',
+          required: value => !!value || this.$t('form.required'),
+          counter: value => value.length <= 20 || this.$t('form.max-20-chars'),
           email: value => {
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            return pattern.test(value) || 'Invalid Email...'
+            return pattern.test(value) || this.$t('form.invalid-email')
           },
           phone: value => {
             const pattern = /^(?:[0-9-] ?){6,14}[0-9]$/;
-            return pattern.test(value) || 'hint: [countryCode] + Number (no leading Zeros)'
+            return pattern.test(value) || this.$t('form.phone-hint')
           },
         }
       }

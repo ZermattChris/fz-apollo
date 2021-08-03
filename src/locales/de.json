@@ -4,6 +4,13 @@
     "back": "Zurück",
     "ok": "Okay"
   },
+  "form": {
+    "required": "Erforderlich",
+    "max-20-chars": "Max 20 Zeichen",
+    "invalid-email": "Ungültige Email...",
+    "phone-hint": "hint: Ländervorwahl + Nummer (keine führenden Nullen)"
+  },
+
   "step-start": {
     "test": "Hallo i18n !!",
     "title": "Datum & Flug",
@@ -34,8 +41,36 @@
   },
   "step-info": {
     "title": "Ihre Angaben | Angaben zu Ihrer Gruppe",
+    "description": "Wir fragen nur nach den Passagierinformationen, die wir benötigen um Ihren Flug einfach und angenehm zu gestalten. Wir geben niemals Informationen an Dritte weiter. ",
     "contact-passenger": "Kontakt Passagier",
-    "passenger-nr": "Passagier #"
+    "passenger-nr": "Passagier #",
+
+    "phone": "Telefon",
+    "countryCode-phoneNr": "Ländervorwahl & Telefonnummer",
+    "phone-example": "Beispiel: +49 69 1234 5678",
+    "email": "Email",
+    "male": "Mann",
+    "female": "Frau",
+    "age": "Alter",
+    "age-hint": "Dein Alter",
+    "first-last": "Vor-, Nachname",
+    "first-name": "Vorname",
+
+    "speed": "Selbstvertrauen & Lauffähigkeit",
+    "speed-0": "Hilfe erforderlich*",
+    "speed-2": "Minimales Vertrauen - Geschwindigkeit Langsam",
+    "speed-4": "Ein bisschen nerverous - Geschwindigkeit Langsam",
+    "speed-6": "Vertrauen Okay - Geschwindigkeit Okay",
+    "speed-8": "Ziemlich selbstbewusst - schnell schnell",
+    "speed-10": "Völlig selbstbewusst! - Schnelle Geschwindigkeit", 
+
+    "weight": "Your Weight",
+    "kilos": "Kilograms",
+    "pounds": "Pounds",
+    "stones": "Stones",
+    "country-codes": {
+      "click-for-prefixes": "Klicken Sie für die Liste der Welt Country Code Präfixe..."
+    }
   },
   "step-pay": {
     "xxx": "Passexxengers"

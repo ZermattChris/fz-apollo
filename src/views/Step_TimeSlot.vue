@@ -3,7 +3,6 @@
     <PageHeader 
       :title="'2. ' + $t('step-timeslot.title')"
     >
-
       {{$t('step-timeslot.description')}}
 
       <v-sheet

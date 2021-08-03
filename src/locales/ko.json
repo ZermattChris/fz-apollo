@@ -4,6 +4,13 @@
     "back": "반환",
     "ok": "알았어 "
   },
+  "form": {
+    "required": "필수",
+    "max-20-chars": "최대 20자",
+    "invalid-email": "잘못된 이메일...",
+    "phone-hint": "힌트: 국가 코드 + 숫자(앞에 0 없음)"
+  },
+
   "step-start": {
     "test": "hello i18n !!",
     "title": "날짜 및 항공편",
@@ -34,8 +41,36 @@
   },
     "step-info": {
       "title": "세부 정보  | 우리 그룹의 세부 사항",
+      "description": "즐겁고 쉽고 즐거운 비행을 하는 데 필요한 승객 정보만 요청합니다. 우리는 제3자와 어떠한 정보도 공유하지 않습니다.",
       "contact-passenger": "그룹 세부정보",
-      "passenger-nr": "연락하다 #"
+      "passenger-nr": "연락하다 #",
+
+      "phone": "전화",
+      "countryCode-phoneNr": "국가 코드 및 전화 번호",
+      "phone-example": "예: +82 99 2645 9999",
+      "email": "이메일",
+      "male": "남성",
+      "female": "여성",
+      "age": "나이",
+      "age-hint": "나이",
+      "first-last": "이름, 성",
+      "first-name": "이름",
+
+      "speed": "자신감 및 실행 능력",
+      "speed-0": "지원 필요*",
+      "speed-2": "최소한의 자신감 - 느린 속도",
+      "speed-4": "조금 신경질적 - 속도가 느리다",
+      "speed-6": "자신감 있음 - 속도 괜찮음",
+      "speed-8": "매우 자신감 - 빠른 속도",
+      "speed-10": "완전 자신감! - 속도 빠름",
+
+      "weight": "Your Weight",
+      "kilos": "Kilograms",
+      "pounds": "Pounds",
+      "stones": "Stones",
+      "country-codes": {
+        "click-for-prefixes": "세계 국가 코드 접두사 목록을 보려면 클릭하십시오..."
+      }
     },
     "step-pay": {
       "passengers": "Passenger | Passengers"

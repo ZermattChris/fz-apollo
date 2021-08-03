@@ -22,11 +22,13 @@
           :disabled="!disabled"
         >
           <v-radio 
-            label="Male" value="male"
+            :label="$t('step-info.male')" 
+            value="male"
             @click="scrollToId('#passengerForm_' + passengerNr)"
           ></v-radio>
           <v-radio 
-            label="Female" value="female"
+            :label="$t('step-info.female')" 
+            value="female"
             @click="scrollToId('#passengerForm_' + passengerNr)"
           ></v-radio>
         </v-radio-group>
@@ -50,8 +52,8 @@
           type="number"
           id="age"
           name="age"
-          placeholder="Age"
-          hint="Your age"
+          :placeholder="$t('step-info.age')"
+          :hint="$t('step-info.age-hint')"
           min="0"
           max="99"
           oninput="if(Number(this.value) > Number(this.max)) this.value = this.max; if(Number(this.value) < Number(this.min)) this.value = this.min;"
@@ -75,7 +77,7 @@
           outlined
           dense
           :hint="firstLastNameHint(passengerNr)"
-          name="first-last"
+          :name="$t('step-info.first-last')"
           :placeholder="firstLastNameHint(passengerNr)"
           @keydown.capture="nameKeydown($event)"
           @focus="scrollToId('#passengerForm_' + passengerNr)"
@@ -86,8 +88,12 @@
 
     <!-- Speed/fitness slider -->
     <v-row style="position:relative;">
-      <div class="pt-1 pl-3 font-weight-light">Confidence &amp; Running Ability:</div>
-      <div class="speed pt-0 font-weight-thin">{{runningDesc}}</div>
+      <div class="pt-1 pl-3 font-weight-light">
+        {{$t('step-info.speed')}}:
+      </div>
+      <div class="speed pt-0 font-weight-thin">
+        {{runningDesc}}
+      </div>
       <v-col cols="12">
         <v-btn-toggle
           class="d-flex justify-space-between"
@@ -126,8 +132,13 @@
 
     <!-- Weight slider -->
     <v-row style="position:relative;">
-      <div class="pt-1 pl-3 font-weight-light">Your Weight:</div>
-      <div class="weights pt-0 font-weight-thin"><span class="font-weight-medium">{{weight}}&nbsp;Kilograms</span>, {{(weight * 2.204621999990873).toFixed(0)}}{{ '\xa0' }}Pounds, {{(weight * 0.157473).toFixed(1)}}{{ '\xa0' }}Stone</div>
+      <div class="pt-1 pl-3 font-weight-light">
+        {{$t('step-info.weight')}}:
+      </div>
+      <div class="weights pt-0 font-weight-thin">
+        <span class="font-weight-medium">{{weight}}&nbsp;{{$t('step-info.kilos')}}</span>, 
+        {{(weight * 2.204621999990873).toFixed(0)}}{{ '\xa0' }}{{$t('step-info.pounds')}}, {{(weight * 0.157473).toFixed(1)}}{{ '\xa0' }}{{$t('step-info.stones')}}
+      </div>
       <v-col 
         cols="12"
         class="pb-8 pb-sm-2"
@@ -322,22 +333,22 @@
         let msg = "Bad Value"
         switch (this.speed) {
           case 0:
-            msg = "Assistance Required*"
+            msg = this.$t('step-info.speed-0')
             break
           case 2:
-            msg = "Minimal Confidence - Speed Slow"
+            msg = this.$t('step-info.speed-2')
             break
           case 4:
-            msg = "A bit nerverous - Speed Slow-ish"
+            msg = this.$t('step-info.speed-4')
             break
           case 6:
-            msg = "Confidence Okay - Speed okay"
+            msg = this.$t('step-info.speed-6')
             break
           case 8:
-            msg = "Quite Confident - Speed Quick"
+            msg = this.$t('step-info.speed-8')
             break
           case 10:
-            msg = "Totally Confident! - Speed Fast"
+            msg = this.$t('step-info.speed-10')
             break
         }
         return msg   
@@ -383,8 +394,8 @@
       },
      
       firstLastNameHint: function (index) {
-        if (index === 0) return "First, Last Name"
-        return "First Name"
+        if (index === 0) return this.$t('step-info.first-last')
+        return this.$t('step-info.first-name')
       },
 
       onUpdateSpeed: function (newSpeed) {
