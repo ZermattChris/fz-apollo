@@ -18,7 +18,6 @@
       app
       color="primary"
       dark
-      hide-on-scroll
     >
 
       <!-- Test i18n message. -->

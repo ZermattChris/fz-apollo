@@ -53,7 +53,7 @@
     "female": "Frau",
     "age": "Alter",
     "age-hint": "Dein Alter",
-    "first-last": "Vor-, Nachname",
+    "first-last": "Vor- Nachname",
     "first-name": "Vorname",
 
     "speed": "Selbstvertrauen & Lauffähigkeit",
@@ -64,10 +64,11 @@
     "speed-8": "Ziemlich selbstbewusst - schnell schnell",
     "speed-10": "Völlig selbstbewusst! - Schnelle Geschwindigkeit", 
 
-    "weight": "Your Weight",
-    "kilos": "Kilograms",
-    "pounds": "Pounds",
-    "stones": "Stones",
+    "weight": "Dein Gewicht",
+    "kilos": "Kilogramm",
+    "pounds": "Pfund",
+    "stones": "Steine",
+
     "country-codes": {
       "click-for-prefixes": "Klicken Sie für die Liste der Welt Country Code Präfixe..."
     }

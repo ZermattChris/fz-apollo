@@ -36,7 +36,7 @@
                 {{iconMail}}
               </v-icon>
 
-              <span class="font-weight-bold">{{getPassengersNameForHeader(i)}}
+              <span class="pl-1 font-weight-bold">{{getPassengersNameForHeader(i)}}
 
               <!-- <span v-if="!open" class="overline text--disabled pl-4">Click to open...</span> -->
               
@@ -250,13 +250,11 @@
     >
       <v-card height="auto">
         <v-card-title class="text-h5 font-weight-bold lineHeight">
-          Please Review &amp; Confirm <br>your Booking Details
+          {{$t('step-info.confirm.title')}}
         </v-card-title>
 
-        <v-card-text class="lineHeight d-none d-sm-flex">
-          Please check that your Booking information is correct, especially
-          your Phone Number and Email (otherwise we can't contact you if we need to 
-          adjust your booking due to weather, etc.)
+        <v-card-text class="lineHeight d-sm-flex">
+          {{$t('step-info.confirm.description')}}
         </v-card-text>
 
         
@@ -278,7 +276,7 @@
                 <tbody>
                   <tr>
                     <!-- Number of People in booking -->
-                    <td class="font-weight-bold">People flying: </td>
+                    <td class="font-weight-bold">{{$t('step-info.confirm.people-flying')}}: </td>
                     <td>
                       <v-chip
                         color="deep-orange"
@@ -298,7 +296,7 @@
                   </tr>
                   <tr>
                     <!-- Flight Date -->
-                    <td class="font-weight-bold">Flight Date:</td>
+                    <td class="font-weight-bold">{{$t('step-info.confirm.flight-date')}}:</td>
                     <td>{{bookingDate}}</td>
                   </tr>
                   <!-- <tr>
@@ -307,12 +305,12 @@
                   </tr> -->
                   <tr>
                     <!-- Flight Type/Name -->
-                    <td class="font-weight-bold">Flight:</td>
+                    <td class="font-weight-bold">{{$t('step-info.confirm.flight')}}:</td>
                     <td class="text-capitalize">{{bookingFlight}}</td>
                   </tr>
                   <tr>
                     <!-- Photos Option -->
-                    <td class="font-weight-bold">Photos + Videos: </td>
+                    <td class="font-weight-bold">{{$t('step-info.confirm.photos-videos')}}: </td>
                     <td>{{bookingPhotosOption}}</td>
                   </tr>
                 </tbody>
@@ -355,19 +353,19 @@
                 <thead>
                   <tr>
                     <th class="text-left">
-                      Name
+                      {{$t('step-info.confirm.name')}}
                     </th>
                     <th class="text-left">
-                      M/F
+                      {{$t('step-info.confirm.m-f')}}
                     </th>
                     <th class="text-left">
-                      Age
+                      {{$t('step-info.confirm.age')}}
                     </th>
                     <th class="text-left">
-                      Confidence
+                      {{$t('step-info.confirm.confidence')}}
                     </th>
                     <th class="text-left">
-                      Kg
+                      {{$t('step-info.confirm.kg')}}
                     </th>
                   </tr>
                 </thead>
@@ -490,8 +488,9 @@
   import countrycodes from '@/store/countrycodes.js'
 
   import { format, parseISO } from 'date-fns'
+  import { enGB, de, ko } from 'date-fns/locale'
 
-  import i18n from '@/i18n'
+  // import i18n from '@/i18n'
 
   export default {
     name: "Step_Info",
@@ -528,6 +527,8 @@
         countriesListingDialog: false,
         countryPrefixCodeBuffer: '',
 
+        myLocal: enGB,    // default date-fns locale
+
         rules: {
           required: value => !!value || this.$t('form.required'),
           counter: value => value.length <= 20 || this.$t('form.max-20-chars'),
@@ -560,10 +561,17 @@
       if (this.contactPhone === '') {
         //this.$refs.Phone[0].focus()
       }
-
-      
-      
     },
+
+
+    beforeUpdate() {
+      // This is how to add a locale to date-fns function calls.
+      if (this.$i18n.locale === 'en') this.myLocal = enGB 
+      if (this.$i18n.locale === 'de') this.myLocal = de 
+      if (this.$i18n.locale === 'ko') this.myLocal = ko 
+    },
+
+
 
 
     computed: {
@@ -635,7 +643,7 @@
         return this.$store.getters.getTotalPassengers
       },
       bookingDate: function () {
-        return format(parseISO(this.$store.state.flightDate), 'PPPP')
+        return format(parseISO(this.$store.state.flightDate), 'PPPP', {locale: this.myLocal})
       },
       bookingFlightSlot: function () {
         return this.$store.state.timeSlot
@@ -654,9 +662,9 @@
       },
       bookingPhotosOption: function () {
         const wantsFotos = this.$store.state.wantsPhotos
-        let formattedStr = 'No Photos'
+        let formattedStr = this.$t("step-info.confirm.doesnt-want-photos-videos")
         if (wantsFotos) {
-          formattedStr = 'Yes, want Photos'
+          formattedStr = this.$t("step-info.confirm.wants-photos-videos")
         }
         return formattedStr
       },
@@ -701,22 +709,22 @@
         let msg = "Bad Value"
         switch (speedString) {
           case 0:
-            msg = "Assistance*"
+            msg = this.$t('step-info.confirm.speed-0')
             break
           case 2:
-            msg = "Low"
+            msg = this.$t('step-info.confirm.speed-2')
             break
           case 4:
-            msg = "Nervous"
+            msg = this.$t('step-info.confirm.speed-4')
             break
           case 6:
-            msg = "Okay-ish"
+            msg = this.$t('step-info.confirm.speed-6')
             break
           case 8:
-            msg = "Confident"
+            msg = this.$t('step-info.confirm.speed-8')
             break
           case 10:
-            msg = "Very Confident!"
+            msg = this.$t('step-info.confirm.speed-10')
             break
         }
         return msg  
@@ -755,14 +763,14 @@
         if (myName === '') {
           // New Booking, no Passenger Name yet entered. Show default.
           if (passengerNumber === 0 ) {
-            myName = i18n.t('step-info.contact-passenger')
+            myName = this.$t('step-info.contact-passenger')
           } else {
-            myName = i18n.t('step-info.passenger-nr') + (passengerNumber +1)
+            myName = this.$t('step-info.passenger-nr') + (passengerNumber +1)
           }
         } else {
           // Passenger has a name already, just add the number...
           if (passengerNumber === 0 ) {
-            myName += ' (Contact Person)'
+            myName += ' (' + this.$t('step-info.contact-passenger') + ')'
           } else {
             myName = '#' + (passengerNumber +1) + " " + myName
           }

@@ -53,7 +53,7 @@
       "female": "여성",
       "age": "나이",
       "age-hint": "나이",
-      "first-last": "이름, 성",
+      "first-last": "이름 & 성",
       "first-name": "이름",
 
       "speed": "자신감 및 실행 능력",
@@ -64,10 +64,11 @@
       "speed-8": "매우 자신감 - 빠른 속도",
       "speed-10": "완전 자신감! - 속도 빠름",
 
-      "weight": "Your Weight",
-      "kilos": "Kilograms",
-      "pounds": "Pounds",
-      "stones": "Stones",
+      "weight": "당신의 체중",
+      "kilos": "킬로그램",
+      "pounds": "파운드",
+      "stones": "돌",
+      
       "country-codes": {
         "click-for-prefixes": "세계 국가 코드 접두사 목록을 보려면 클릭하십시오..."
       }

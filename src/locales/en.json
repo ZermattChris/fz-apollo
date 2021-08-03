@@ -44,6 +44,7 @@
     "description": "We only ask for the passenger information that we need to help make your flight fun, easy and enjoyable. We never share any information with 3rd parties.",
     "contact-passenger": "Contact Passenger",
     "passenger-nr": "Passenger #",
+
     "phone": "Phone",
     "countryCode-phoneNr": "Country Code & Phone Number",
     "phone-example": "Example: +1 203 456 7890",
@@ -52,8 +53,9 @@
     "female": "Female",
     "age": "Age",
     "age-hint": "Your age",
-    "first-last": "First, Last Name",
+    "first-last": "First & Last Name",
     "first-name": "First Name",
+
     "speed": "Confidence & Running Ability",
     "speed-0": "Assistance Required*",
     "speed-2": "Minimal Confidence - Speed Slow",
@@ -61,17 +63,50 @@
     "speed-6": "Confidence Okay - Speed okay",
     "speed-8": "Quite Confident - Speed Quick",
     "speed-10": "Totally Confident! - Speed Fast",
+
     "weight": "Your Weight",
     "kilos": "Kilograms",
     "pounds": "Pounds",
     "stones": "Stones",
+    
+    "confirm": {
+      "title": "Please Review & Confirm your Booking Details",
+      "description": "Please check that your Booking information is correct, especially your Phone Number and Email (otherwise we can't contact you if we need to adjust your booking due to weather, etc.)",
+
+      "people-flying": "People flying",
+      "flight-date": "Flight Date",
+      "flight": "Flight",
+      "photos-videos": "Photos + Videos",
+      "wants-photos-videos": "Yes, want Photos",
+      "doesnt-want-photos-videos": "No Photos",
+      "name": "Name",
+      "m-f": "M/F",
+      "age": "Age",
+
+      "confidence": "Confidence",
+      "speed-0": "Assistance*",
+      "speed-2": "Minimal",
+      "speed-4": "Nerverous",
+      "speed-6": "Okay",
+      "speed-8": "Confident",
+      "speed-10": "Very Confident!",
+
+      "kg": "Kg",
+
+      "cancel": "Cancel",
+      "confirm": "confirm"
+
+    },
+
     "country-codes": {
       "click-for-prefixes": "Click for list of World's Country Code prefixes..."
     }
   },
+
   "step-pay": {
     "passengers": "Passenger | Passengers"
   },
+
   "step-thanks": {
     "selected-date": "Selected Date"
   }
