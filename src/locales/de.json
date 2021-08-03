@@ -69,6 +69,36 @@
     "pounds": "Pfund",
     "stones": "Steine",
 
+    "confirm": {
+      "title": "Bitte überprüfen und bestätigen Sie Ihre Buchungsdetails",
+      "description": "Bitte überprüfen Sie, ob Ihre Buchungsinformationen korrekt sind, insbesondere Ihre Telefonnummer und E-Mail (andernfalls können wir Sie nicht kontaktieren, wenn wir Ihre Buchung aufgrund von Wetter usw. anpassen müssen)",
+
+      "people-flying": "Wieviel Fliegen",
+      "flight-date": "Flugdatum",
+      "flight": "Flug",
+      "photos-videos": "Fotos + Videos",
+      "wants-photos-videos": "Ja, will Fotos",
+      "doesnt-want-photos-videos": "Keine Fotos",
+      "name": "Name",
+      "m-f": "M/W",
+      "age": "Alter",
+
+      "confidence": "Selbstvertrauen",
+      "confidence-hover": "Deine Fähigkeit, ein paar Schritte zum Abheben zu laufen.",
+      "speed-0": "Assistance*",
+      "speed-2": "Minimal",
+      "speed-4": "Nervös",
+      "speed-6": "Okay",
+      "speed-8": "Selbstbewusst",
+      "speed-10": "Sehr zuversichtlich!",
+
+      "kg": "Kg",
+
+      "cancel": "Abbrechen",
+      "confirm": "Bestätigen"
+
+    },
+
     "country-codes": {
       "click-for-prefixes": "Klicken Sie für die Liste der Welt Country Code Präfixe..."
     }

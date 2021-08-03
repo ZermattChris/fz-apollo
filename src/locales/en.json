@@ -84,9 +84,10 @@
       "age": "Age",
 
       "confidence": "Confidence",
+      "confidence-hover": "Your ability to run a few steps for take off.",
       "speed-0": "Assistance*",
       "speed-2": "Minimal",
-      "speed-4": "Nerverous",
+      "speed-4": "Nervous",
       "speed-6": "Okay",
       "speed-8": "Confident",
       "speed-10": "Very Confident!",

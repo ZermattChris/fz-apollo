@@ -25,11 +25,13 @@
             :label="$t('step-info.male')" 
             value="male"
             @click="scrollToId('#passengerForm_' + passengerNr)"
+            class="text-no-wrap"
           ></v-radio>
           <v-radio 
             :label="$t('step-info.female')" 
             value="female"
             @click="scrollToId('#passengerForm_' + passengerNr)"
+            class="text-no-wrap"
           ></v-radio>
         </v-radio-group>
       </v-col>

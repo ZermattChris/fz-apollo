@@ -394,7 +394,7 @@
                         </td>
                       </template>
                       <span>
-                        Your ability to run a few steps for take off.
+                        {{$t('step-info.confirm.confidence-hover')}}
                       </span>
                     </v-tooltip>
                     
@@ -407,12 +407,12 @@
                           v-on="on"
                           class=""
                         >
-                          {{ passenger.weightKg }} kg
+                          {{ passenger.weightKg }} {{$t('step-info.confirm.kg')}}
                         </td>
                       </template>
                       <span>
-                        {{ (weight(passenger.id) * 2.204621999990873).toFixed(0) }}{{ '\xa0' }}Pounds, 
-                        {{ (weight(passenger.id) * 0.157473).toFixed(1) }}{{ '\xa0' }}Stone
+                        {{ (weight(passenger.id) * 2.204621999990873).toFixed(0) }}{{ '\xa0' }}{{$t('step-info.pounds')}}, 
+                        {{ (weight(passenger.id) * 0.157473).toFixed(1) }}{{ '\xa0' }}{{$t('step-info.stones')}}
                       </span>
                     </v-tooltip>
 
@@ -450,7 +450,7 @@
             style="background-color:white;"
             @click="confirmDetailsDialog = false"
           >
-            Cancel
+            {{$t('step-info.confirm.cancel')}}
             <v-icon right>{{iconClose}}</v-icon>
           </v-btn>
 
@@ -464,7 +464,7 @@
             class="px-4 mx-auto"
             @click="confirmDetailsDialog = false; goToNextStep()"
           >
-            Confirm
+            {{$t('step-info.confirm.confirm')}}
             <v-icon right>{{iconNextArrow}}</v-icon>
           </v-btn>
 
