@@ -119,7 +119,6 @@
             :thumb-color="runningThumbColour"
             step="2"
             ticks="always"
-            @mousedown="scrollToId('#passengerForm_' + passengerNr)"
           ></v-slider>
           <v-btn
             id="rightBtn"
@@ -166,7 +165,6 @@
             :thumb-color="weightThumbColour"
             step="5"
             ticks="always"
-            @mousedown="scrollToId('#passengerForm_' + passengerNr)"
           >
             <template v-slot:thumb-label="{ value }">
               {{ value }}{{ weightPlus }}
