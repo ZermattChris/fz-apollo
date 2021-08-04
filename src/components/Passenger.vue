@@ -136,7 +136,7 @@
       <div class="pt-1 pl-3 font-weight-light">
         {{$t('step-info.weight')}}:
       </div>
-      <div class="weights pt-0 font-weight-thin">
+      <div class="weights pt-0 font-weight-thin text-truncate">
         <span class="font-weight-medium">{{weight}}&nbsp;{{$t('step-info.kilos')}}</span>, 
         {{(weight * 2.204621999990873).toFixed(0)}}{{ '\xa0' }}{{$t('step-info.pounds')}}, {{(weight * 0.157473).toFixed(1)}}{{ '\xa0' }}{{$t('step-info.stones')}}
       </div>
@@ -181,6 +181,29 @@
           </v-btn>
         </v-btn-toggle>
 
+
+
+      <v-expand-transition>
+        <v-card
+          class="mx-auto mt-4 mb-0"
+          max-width="344"
+          outlined
+          v-show="ageWarning"
+        >
+          <v-card-title class="text-h6 orange--text text--darken-2">
+            Just a little head's up...
+          </v-card-title>
+          <v-card-subtitle>
+            Orange Warnings. Red Warnings. Speed &amp; Weight. This needs to be texted up still...
+          </v-card-subtitle>
+        </v-card>
+      </v-expand-transition>
+
+
+
+
+
+
         <span v-if="myFormValid" >
           <!-- This empty span is req to get the Passenger form to update it's validity to LocalStorage properly... -->
         </span>
@@ -220,7 +243,8 @@
         iconRadioMarked: mdiRadioboxMarked,
 
         passengerNumber: this.passengerNr,
-        //name: '',
+
+        ageWarning: 0,   // show extra info if passenger is young/old
 
         passengerForm: false,
         //myFormValid: false,
@@ -358,7 +382,6 @@
         return msg   
       },
 
-
       // Setup a computed prop that aggragates all of the user's inputs, so we can watch
       // for any change and set the this.$store.dispatch('hasReviewedData', false), which
       // will re-show the Dialog box before going to the next step.
@@ -370,9 +393,14 @@
 
     watch: {
 
-
       // See above computed prop for description.
       forWatchAnyPassengerInfoChange: function () {
+
+        // Handle displaying our Age, Weight & Speed dialogs here.
+        if (this.age < 8) {this.ageWarning = 1}
+        if (this.age >= 70) {this.ageWarning = 2}
+        if (this.age <= 8 && this.age < 70) {this.ageWarning = 0}
+
         this.$store.dispatch('hasReviewedData', false)
       },
 
