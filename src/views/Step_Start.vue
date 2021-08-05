@@ -203,10 +203,19 @@
                 this flight early in the morning when conditions are the best.
               </p>
               <p>
+                <v-icon color="primary" class="">
+                  mdi-map-marker
+                </v-icon>
+                We fly the Elite over the entire year, when ever wind and snow conditions allow.
+              </p>
+              <p>
                 If you book the Elite, we ask that you are happy to do the Classic High flight as a back-up -
                 in case the conditions don't allow us to fly from Klein Matterhorn.
               </p>
               <p>
+                <v-icon color="warning" class="">
+                  mdi-star
+                </v-icon>
                 The Elite flight also requires passengers to be fairly fit, confident and not too heavy.
               </p>
             </div>
@@ -216,7 +225,18 @@
                 The best time for the Classic High is in the mornings. It is often also possible to do 
                 this flight in the afternoon, but it depends on the day's conditions.
               </p>
+
               <p>
+                <v-icon color="primary" class="">
+                  mdi-map-marker
+                </v-icon>
+                We fly the Classic the entire year, in the summer from Rothorn and 
+                in the spring/autumn, from Gornergrat and/or Rotenboden.
+              </p>
+              <p>
+                <v-icon color="warning" class="">
+                  mdi-star
+                </v-icon>
                 If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy
               </p>
             </div>
@@ -227,6 +247,16 @@
                 we feel will have the best conditions for your specific booking time.
               </p>
               <p>
+                <v-icon color="primary" class="">
+                  mdi-map-marker
+                </v-icon>
+                We fly the Scenic in the Spring, Summer and Autumn, from Riffelberg/Blauherd (there is too much snow in winter for
+                these lower take off areas).
+              </p>
+              <p>
+                <v-icon color="warning" class="">
+                  mdi-star
+                </v-icon>
                 If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy
               </p>
               <p>
@@ -342,14 +372,7 @@
                       align="center"
                       justify="center"
                     >
-                      <v-img
-                        v-if="i === 0"
-                        class="mx-auto mb-2"
-                        max-height="200"
-                        max-width="250"
-                        src="@/assets/MicroSD-and-adaptor.jpg"
-                      ></v-img>
-                      <div v-else class="text-h2">
+                      <div class="text-h2">
                         {{ slide }} Slide
                       </div>
                     </v-row>
@@ -357,12 +380,18 @@
                 </v-carousel-item>
               </v-carousel>
 
-
               <p>
                 Select our {{photosPrice}}.- CHF Photos + Videos option, if you're sure you want to buy the MicroSD Card
                 that your pilot will make of your flight. Buying them now just makes your fly day
                 a little bit smoother and easier.
               </p>
+              <v-img
+                class="ml-2 mr-2 float-left"
+                contain
+                max-height="100"
+                max-width="110"
+                src="@/assets/MicroSD-and-adaptor.jpg"
+              ></v-img>
               <p>
                 There are usually 60-200 photos and a handful
                 of video clips (for example from the take off, landing and if you're doing some actions
