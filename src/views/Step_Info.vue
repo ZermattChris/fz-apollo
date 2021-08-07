@@ -226,7 +226,7 @@
             text
             @click="countriesListingDialog = false"
           >
-            Close
+            {{$t('step-info.country-codes.close')}}
           </v-btn>
 
         </v-card-actions>

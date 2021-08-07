@@ -568,6 +568,23 @@ export default new Vuex.Store({
   
   getters: {
 
+    getCurrentStep: state => {
+      return state._currentStep
+    },
+
+    startStepValid: state => {
+      return state._navList.Start === true
+    },
+    timeStepValid: state => {
+      return state._navList.Time === true
+    },
+    infoStepValid: state => {
+      return state._navList.Info === true
+    },
+    infoPayValid: state => {
+      return state._currentStep === 'Pay' && state.orderID !== ''
+    },
+
 
     /**
      * Pass in a flight ID and get the name and price returned as an object.

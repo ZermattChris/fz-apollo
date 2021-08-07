@@ -2,8 +2,7 @@
   <div class="stepPay">
     
     <PageHeader title="4. Place Order">
-      Review your order and press the PAY NOW button to
-      to complete your payment.
+      {{$t('step-pay.title')}}
     </PageHeader>
 
 
@@ -17,8 +16,7 @@
         {{flightDate}}
       </p>
       <p style="background-color: #c78b48;" class="rounded-lg white--text text-caption mt-n2 mb-9 mx-4 px-2 py-1">
-        @ All meeting times are at our office, located inside the Viktoria Center across from Zermatt's 
-        main train station (just down the hall from the COOP Supermarket).
+        {{$t('step-pay.description')}}
       </p>
 
 

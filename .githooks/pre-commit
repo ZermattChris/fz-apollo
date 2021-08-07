@@ -1,0 +1,5 @@
+#!/bin/sh
+# To enable this hook, rename this file to "pre-commit".
+
+git log master --pretty=oneline | wc -l > build_number
+git add build_number

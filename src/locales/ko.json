@@ -106,12 +106,13 @@
         "flag": "깃발",
         "country": "국가",
         "prefix": "접두사 코드",
-        "close": "close"
+        "close": "닫기 "
       }
     },
 
     "step-pay": {
-      "passengers": "Passenger | Passengers"
+      "title": "Review your order and press the PAY NOW button to to complete your payment.",
+      "description": "@ All meeting times are at our office, located inside the Viktoria Center across from Zermatt's main train station (just down the hall from the COOP Supermarket)."
     },
     
     "step-thanks": {

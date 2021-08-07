@@ -22,6 +22,9 @@
 
       <!-- Test i18n message. -->
       <!-- <div>{{ $t('step-start.message') }}</div> -->
+      <LangMenu
+        style="visibility:hidden;"
+      />
 
       <div 
         id="logo"
@@ -41,6 +44,7 @@
       <!-- Language Switch Menu -->
       <!-- currently only shown when app is running in state._DEV mode.  -->
       <LangMenu
+        class=""
         v-show="this.$store.state._DEV === true"
       />
       
@@ -80,6 +84,62 @@
     </v-app-bar>
 
     <v-main>
+
+
+      <v-stepper 
+        v-model="stepper"
+        flat
+        v-if="_isDEV"
+      >
+        <v-stepper-header>
+          <v-stepper-step 
+            step="1" 
+            class="disable-select"
+            :complete="stepDateComplete"
+            :color="stepDateComplete ? 'success' : 'primary'"
+          >
+            Date
+          </v-stepper-step>
+
+          <v-divider></v-divider>
+
+          <v-stepper-step 
+            step="2" 
+            class="disable-select"
+            :complete="stepTimeComplete"
+            :color="stepTimeComplete ? 'success' : 'primary'"
+          >
+            Time
+          </v-stepper-step>
+
+          <v-divider></v-divider>
+
+          <v-stepper-step 
+            step="3" 
+            class="disable-select"
+            :complete="stepInfoComplete"
+            :color="stepInfoComplete ? 'success' : 'primary'"
+          >
+            Info
+          </v-stepper-step>
+
+          <v-divider></v-divider>
+
+          <v-stepper-step 
+            step="4" 
+            class="disable-select"
+            :complete="stepPayComplete"
+            :color="stepPayComplete ? 'success' : 'primary'"
+          >
+            Pay
+          </v-stepper-step>
+
+        </v-stepper-header>
+      </v-stepper>
+
+
+
+
       <v-row no-gutters>
         <v-col cols="12" md="1" lg="2"></v-col>
         <v-col class="pa-5 pa-sm-8 pa-md-12" cols="12" md="10" lg="8" >
@@ -170,12 +230,39 @@ export default {
     
     canGoBack:   false,
 
+    stepper: 1,
+    stepDateComplete: false,
+    stepTimeComplete: false,
+    stepInfoComplete: false,
+    stepPayComplete: false
+
 
   }),
   // Lifecycle Hooks
 
   created() {
     // this.handleStaleStorageData()
+    this.$store.watch(
+      (state)=>{
+        // What to watch in store.
+        //console.log('Watched -> state._navList', state._navList)
+        return state._navList + state._currentStep
+      },
+      ()=>{
+        // How to react to the watch
+        //console.log('Reacted to watched -> state._navList')
+        // this.update()
+        // console.log("start valid: ", this.$store.getters.startStepValid)
+        this.stepDateComplete = this.$store.getters.startStepValid
+        this.stepTimeComplete = this.$store.getters.timeStepValid
+        this.stepInfoComplete = this.$store.getters.infoStepValid
+        this.stepPayComplete = this.$store.getters.infoPayValid
+      },
+      {
+        // React to changes in the watched Object in store.
+        deep:true
+      }
+    )
   },
 
   async mounted () {
@@ -189,7 +276,9 @@ export default {
 
   beforeUpdate () {
 
-    // this.handleStaleStorageData()
+    // 
+
+
 
     // Show/hide the Back Btn.
     if (this.$route.name === 'Start') {
@@ -225,12 +314,16 @@ export default {
       return
     }
 
+    console.log("Start/Date Step is Valid")
+
     // Time Step checks
     if (this.isInvalid_TimeStep()) {
       if (this.$router.history._startLocation.toLowerCase() === '/') return
       if (this.$router.history._startLocation.toLowerCase() !== '/time') this.$router.push('/time')
       return
     }
+
+    console.log("Time Step is Valid")
 
     // Info Step checks
     if (this.isInvalid_InfoStep()) {
@@ -240,14 +333,16 @@ export default {
       return
     }
 
-    // Pay Step checks
+    console.log("Info Step is Valid")
+
+    // Pay Step checks - none. // Pay has no data that must pass validity checks.
 
     // Thanks Step checks
     if (this.isInvalid_ThanksStep()) {
       if (this.$router.history._startLocation.toLowerCase() === '/') return
       if (this.$router.history._startLocation.toLowerCase() === '/time') return
       if (this.$router.history._startLocation.toLowerCase() === '/info') return
-      // if (this.$router.history._startLocation.toLowerCase() === '/pay') return
+      // if (this.$router.history._startLocation.toLowerCase() === '/pay') return  // Pay has no data that must pass validity checks.
       if (this.$router.history._startLocation.toLowerCase() === '/thanks') this.$router.push('/pay')
       return
     }
@@ -257,6 +352,10 @@ export default {
 
 
   updated () {
+
+    // Update the Stepper icons to show valid steps.
+    // this.updateSteppersSteps()
+
     //console.log('this.$refs.ContinueBtn', this.$refs.ContinueBtn)
     // This needs to be called on updated() to allow the Step_Start to figure out
     // if the Step is valid and update the _navList in beforeUpdate().
@@ -266,6 +365,22 @@ export default {
 
   // Methods
   methods: {
+
+    /*****************************************************
+    // Stepper items mark completed or not.
+    *****************************************************/
+    updateSteppersSteps: function () {
+
+      // this.stepDateComplete = this.$store.startStepValid
+
+      // stepDateComplete: false,
+      // stepTimeComplete: false,
+      // stepInfoComplete: false,
+      // stepPayComplete: false
+
+      // this.stepDateComplete = this.$store.state._navList["Start"]
+
+    },
 
     /*****************************************************
     // See if all the data for the Thanks Step is valid.
@@ -425,38 +540,18 @@ export default {
 
   computed: {
 
+    // // Setup a computed prop that aggragates all of the user's inputs, so we can watch
+    // // for any change and set the this.$store.dispatch('hasReviewedData', false), which
+    // // will re-show the Dialog box before going to the next step.
+    // watchForValidStepsChange() {
+    //   return `${this.$store.startStepValid}`
+    // },
+
     isPayStep: function () {
       const result = this.$store.state._currentStep.toLowerCase() === 'pay'
       //console.log(result)
       return result
     },
-
-    // progressBarPercent: function () {
-
-    //   // This is a wee bit of a quick hack, needs manual updating to reflect
-    //   // any changes in the way navigation works.
-    //   const totalNrSteps = 4
-
-    //   let counter = 0
-    //   switch (this.currentStep) {
-    //     case 'start':
-    //       counter = 1
-    //       break
-    //     case 'time':
-    //       counter = 2
-    //       break
-    //     case 'info':
-    //       counter = 3
-    //       break
-    //     case 'pay':
-    //       counter = 4
-    //       break
-    //     default:
-    //       console.error(`Invalid Step name for progress bar in App.vue ${this.currentStep}.`)
-    //   }
-
-    //   return counter * (100 / totalNrSteps)
-    // },
 
     _isDEV: function () {
       return this.$store.state._DEV
@@ -470,6 +565,20 @@ export default {
   },
   
   watch: {
+    
+    // // See above computed prop for description.
+    // watchForValidStepsChange: function () {
+    //   this.stepDateComplete = this.$store.startStepValid
+    // },
+
+    // '$store.state._navList': function() {
+    //   console.log("Nav state changed: ", this.$store.state._navList)
+    //   // stepDateComplete: false,
+    //   // stepTimeComplete: false,
+    //   // stepInfoComplete: false,
+    //   // stepPayComplete: false
+    // },
+
     '$route' (to) {
       document.title = to.meta.title || 'Secure Booking at FlyZermatt Paragliding'
     }
@@ -554,6 +663,14 @@ h3 > .v-icon {
   bottom: -15px;
   width: 93%;
   z-index: -1;
+}
+
+.v-stepper__step .v-stepper__label {
+	display: block !important;
+}
+
+.v-stepper__header div.v-stepper__label {
+	padding-left: 0.3em;
 }
 
 </style>

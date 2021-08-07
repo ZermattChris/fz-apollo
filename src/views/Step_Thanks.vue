@@ -64,6 +64,11 @@
       }
     },
 
+    beforeMount () {
+      this.$store.dispatch('setCurrentStep', "Thanks")
+    },
+
+
     destroyed() {
 
       this.resetLocalStorage()
