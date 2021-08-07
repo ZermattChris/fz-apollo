@@ -176,11 +176,11 @@
     >
       <v-card>
         <v-card-title>
-          Country Phone Prefix Codes
+          {{$t('step-info.country-codes.title')}}
         </v-card-title>
 
         <v-card-text>
-          Here's a listing of valid Country Code prefixes for reference. Double-click to select a Prefix.
+          {{$t('step-info.country-codes.details')}}
         </v-card-text>
 
         
@@ -193,13 +193,13 @@
             <thead>
               <tr>
                 <th class="text-left">
-                  Flag
+                  {{$t('step-info.country-codes.flag')}}
                 </th>
                 <th class="text-left">
-                  Country
+                  {{$t('step-info.country-codes.country')}}
                 </th>
                 <th class="text-left">
-                  Prefix Code
+                  {{$t('step-info.country-codes.prefix')}}  
                 </th>
               </tr>
             </thead>

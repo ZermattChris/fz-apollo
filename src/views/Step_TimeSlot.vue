@@ -106,6 +106,7 @@
 
           <div 
             class="font-weight-light pt-4" 
+            v-if="mobile"
           >
             {{$t('step-timeslot.swipeRightLeft')}}
           </div>

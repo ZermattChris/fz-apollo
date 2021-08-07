@@ -100,9 +100,16 @@
     },
 
     "country-codes": {
-      "click-for-prefixes": "Klicken Sie für die Liste der Welt Country Code Präfixe..."
+      "click-for-prefixes": "Klicken Sie für die Liste der Welt Country Code Präfixe...",
+      "title": "Landesvorwahlnummern",
+      "details": "Hier ist eine Liste gültiger Ländercode-Präfixe als Referenz. Doppelklicken Sie, um ein Präfix auszuwählen.",
+      "flag": "Flagge",
+      "country": "Land",
+      "prefix": "Präfix-Code",
+      "close": "close"
     }
   },
+
 
   "step-pay": {
     "xxx": "Passexxengers"

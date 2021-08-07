@@ -100,7 +100,13 @@
     },
 
       "country-codes": {
-        "click-for-prefixes": "세계 국가 코드 접두사 목록을 보려면 클릭하십시오..."
+        "click-for-prefixes": "세계 국가 코드 접두사 목록을 보려면 클릭하십시오...",
+        "title": "국가 전화 접두사 코드",
+        "details": "참조용으로 유효한 국가 코드 접두사 목록입니다. 접두사를 선택하려면 두 번 클릭하십시오.",
+        "flag": "깃발",
+        "country": "국가",
+        "prefix": "접두사 코드",
+        "close": "close"
       }
     },
 

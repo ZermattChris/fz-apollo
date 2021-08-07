@@ -230,7 +230,7 @@
                 <v-icon color="primary" class="">
                   mdi-map-marker
                 </v-icon>
-                We fly the Classic the entire year, in the summer from Rothorn and 
+                We fly the Classic High the entire year, in the summer from Rothorn and 
                 in the spring/autumn, from Gornergrat and/or Rotenboden.
               </p>
               <p>

@@ -100,7 +100,13 @@
     },
 
     "country-codes": {
-      "click-for-prefixes": "Click for list of World's Country Code prefixes..."
+      "click-for-prefixes": "Click for list of World's Country Code prefixes...",
+      "title": "Country Phone Prefix Codes",
+      "details": "Here's a listing of valid Country Code prefixes for reference. Double-click to select a Prefix.",
+      "flag": "Flag",
+      "country": "Country",
+      "prefix": "Prefix Code",
+      "close": "close"
     }
   },
 
