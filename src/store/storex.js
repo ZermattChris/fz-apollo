@@ -2,7 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from "axios"
 
+// Split large vuex into smaller chunks.
 
+
+// Import my modules
+// -----------------
+import navigation from './modules/nav'
+// -----------------
 
 // Temp dev json data unitl Tommy gets his API working.
 // import flightdata from '@/store/flightdata.js'
@@ -55,6 +61,11 @@ const initPassengersInTimeSlot = function () {
 
 
 export default new Vuex.Store({
+
+  modules: {
+    navigation
+  },
+
   state: {
 
     // Set to false for Release code.

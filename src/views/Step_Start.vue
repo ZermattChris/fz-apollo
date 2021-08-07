@@ -5,6 +5,7 @@
       {{$t('step-start.description')}}
     </PageHeader>
 
+
     <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12 pt-sm-2" style="max-width:500px;">
       
 
@@ -498,6 +499,8 @@ export default {
           'Fourth',
           'Fifth',
         ],
+
+
 
     }
   },

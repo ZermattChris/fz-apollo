@@ -47,39 +47,6 @@
         class=""
         v-show="this.$store.state._DEV === true"
       />
-      
-      <!-- <v-progress-linear
-        id="progressbar"
-        :value="progressBarPercent"
-        rounded
-        color="deep-purple"
-        height="7"
-      ></v-progress-linear> -->
-
-      <!-- Want to make a better Breadcrumbs than the prog bar...  -->
-      <!-- <v-container
-        class="width: 100%;"
-        style="flex: 0 6 auto; outline: yellow solid 1px;"
-      >
-        <v-row
-          style="height: 150px;"
-        >
-          <v-col><v-btn
-            elevation="2"
-            outlined
-            raised
-            small
-            text
-            x-small
-          >
-            {{'1. ' + $t('step-start.title')}}
-          </v-btn>
-          </v-col>
-          <v-col></v-col>
-          <v-col></v-col>
-          <v-col></v-col>
-        </v-row>
-      </v-container> -->
 
     </v-app-bar>
 
@@ -90,6 +57,7 @@
         v-model="stepper"
         flat
         v-if="_isDEV"
+        style="font-size: 0.7em;"
       >
         <v-stepper-header>
           <v-stepper-step 
@@ -98,7 +66,7 @@
             :complete="stepDateComplete"
             :color="stepDateComplete ? 'success' : 'primary'"
           >
-            Date
+            Date &amp; Flight
           </v-stepper-step>
 
           <v-divider></v-divider>
@@ -106,10 +74,11 @@
           <v-stepper-step 
             step="2" 
             class="disable-select"
+            style="max-width: 150px;"
             :complete="stepTimeComplete"
             :color="stepTimeComplete ? 'success' : 'primary'"
           >
-            Time
+            Time &amp; Passengers
           </v-stepper-step>
 
           <v-divider></v-divider>
@@ -120,7 +89,7 @@
             :complete="stepInfoComplete"
             :color="stepInfoComplete ? 'success' : 'primary'"
           >
-            Info
+            Passenger Info
           </v-stepper-step>
 
           <v-divider></v-divider>
@@ -139,10 +108,12 @@
 
 
 
-
       <v-row no-gutters>
         <v-col cols="12" md="1" lg="2"></v-col>
         <v-col class="pa-5 pa-sm-8 pa-md-12" cols="12" md="10" lg="8" >
+
+
+    {{stateModuleTest}}
 
           <!-- Router hooked up here -->
           <router-view/>
@@ -160,6 +131,7 @@
       app
       padless
     >
+
       <!-- Back Btn -->
       <v-btn
         class="text-capitalize"
@@ -234,8 +206,7 @@ export default {
     stepDateComplete: false,
     stepTimeComplete: false,
     stepInfoComplete: false,
-    stepPayComplete: false
-
+    stepPayComplete: false,
 
   }),
   // Lifecycle Hooks
@@ -540,6 +511,11 @@ export default {
 
   computed: {
 
+
+    stateModuleTest: function () {
+      return this.$store.state.navigation.currStep
+    },
+
     // // Setup a computed prop that aggragates all of the user's inputs, so we can watch
     // // for any change and set the this.$store.dispatch('hasReviewedData', false), which
     // // will re-show the Dialog box before going to the next step.
@@ -663,6 +639,13 @@ h3 > .v-icon {
   bottom: -15px;
   width: 93%;
   z-index: -1;
+}
+
+.v-stepper__step {
+  max-width: 120px;
+}
+.v-stepper__header .v-divider {
+  visibility: hidden;
 }
 
 .v-stepper__step .v-stepper__label {
