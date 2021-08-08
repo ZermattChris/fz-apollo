@@ -1,0 +1,155 @@
+{
+  "nav": {
+    "continue": "Continuer",
+    "back": "Retour",
+    "ok": "Je l'ai eu!",
+    "breadcrumb-date": "Date & vol",
+    "breadcrumb-time": "Heure & Passagers",
+    "breadcrumb-info": "Infos sur les passagers",
+    "breadcrumb-pay": "Payer"
+  },
+  "form": {
+    "required": "Required",
+    "max-20-chars": "Max 20 characters",
+    "invalid-email": "Invalid Email...",
+    "phone-hint": "hint: CountryCode + Number (no leading Zeros)"
+  },
+
+  "step-start": {
+    "title": "Dates & Flight",
+    "description": "We need the following information to help us give you the best possible flight experience with the highest level of safety.",
+    "flightdate": "Preferred Flight Date",
+    "arrivingDate": "Arriving in Zermatt?",
+    "departingDate": "Departing from Zermatt?",
+    "whichflight": "Which Flight?",
+    "pleaseChooseFlightFirst": "Please choose a Flight Date first...",
+    "noAvailableFlights": "No Schedule available for this date. Please call us.",
+    "photosvideos": "Photos + Videos (optional)",
+    "photosvideosInfo": "Photos + Videos Infos",
+    "flightInfo": "Flight Infos",
+    "photosvideos-description": "Filmed with GoPros on specially built sticks for some great memories! (optional {price}.00 CHF per person)",
+    "clickForDetails": "click for details..."
+  },
+  "step-timeslot": {
+    "title": "How Many Flying?",
+    "description": "Add the number of passengers to the times you would like to fly.",
+    "large-group-tip": "You can split larger groups over multiple times.",
+    "total-passengers": "Passenger in total | Passengers in total",
+    "jump-original-date": "Jump to Origanal Date",
+    "selected-date": "Selected Date",
+    "places-free": "{n} Place free | {n} Places free",
+    "passengers": "Passenger | Passengers",
+    "flightNotAvail": "Flight not available",
+    "swipeRightLeft": "(Swipe left/right to change the Flight Date)"
+  },
+  "step-info": {
+    "title": "Your Details | Your Group's Details",
+    "description": "We only ask for the passenger information that we need to help make your flight fun, easy and enjoyable. We never share any information with 3rd parties.",
+    "contact-passenger": "Contact Passenger",
+    "passenger-nr": "Passenger #",
+
+    "phone": "Phone",
+    "countryCode-phoneNr": "Country Code & Phone Number",
+    "phone-example": "Example: +1 203 456 7890",
+    "email": "Email",
+    "male": "Male",
+    "female": "Female",
+    "age": "Age",
+    "age-hint": "Your age",
+    "first-last": "First & Last Name",
+    "first-name": "First Name",
+
+    "speed": "Confidence & Running Ability",
+    "speed-0": "Assistance Required*",
+    "speed-2": "Minimal Confidence - Speed Slow",
+    "speed-4": "A bit nerverous - Speed Slow-ish",
+    "speed-6": "Confidence Okay - Speed okay",
+    "speed-8": "Quite Confident - Speed Quick",
+    "speed-10": "Totally Confident! - Speed Fast",
+
+    "weight": "Your Weight",
+    "kilos": "Kilograms",
+    "pounds": "Pounds",
+    "stones": "Stones",
+    
+    "confirm": {
+      "title": "Please Review & Confirm your Booking Details",
+      "description": "Please check that your Booking information is correct, especially your Phone Number and Email (otherwise we can't contact you if we need to adjust your booking due to weather, etc.)",
+
+      "people-flying": "People flying",
+      "flight-date": "Flight Date",
+      "flight": "Flight",
+      "photos-videos": "Photos + Videos",
+      "wants-photos-videos": "Yes, want Photos",
+      "doesnt-want-photos-videos": "No Photos",
+      "name": "Name",
+      "m-f": "M/F",
+      "age": "Age",
+
+      "confidence": "Confidence",
+      "confidence-hover": "Your ability to run a few steps for take off.",
+      "speed-0": "Assistance*",
+      "speed-2": "Minimal",
+      "speed-4": "Nervous",
+      "speed-6": "Okay",
+      "speed-8": "Confident",
+      "speed-10": "Very Confident!",
+
+      "kg": "Kg",
+
+      "cancel": "Cancel",
+      "confirm": "confirm"
+
+    },
+
+    "country-codes": {
+      "click-for-prefixes": "Click for list of World's Country Code prefixes...",
+      "title": "Country Phone Prefix Codes",
+      "details": "Here's a listing of valid Country Code prefixes for reference. Double-click to select a Prefix.",
+      "flag": "Flag",
+      "country": "Country",
+      "prefix": "Prefix Code",
+      "close": "close"
+    }
+  },
+
+  "step-pay": {
+    "title": "Place Order",
+    "description": "Review your order and press the PAY NOW button to to complete your payment.",
+    "meetingTime": "@ All meeting times are at our office, located inside the Viktoria Center across from Zermatt's main train station (just down the hall from the COOP Supermarket).",
+    "people": "person | people",
+
+    "qty": "Qty",
+    "flightDescription": "Description",
+    "subtotalCHF": "Subtotal in CHF",
+    "photosVideos": "Photos & Videos",
+    "totalCHF": "Total CHF",
+
+    "specialWishes": "If you have any questions, special wishes or have extra information regarding a passenger (for example a passenger with a disability), please click the Special Requests below and enter your message.",
+    "clickForSpecialRequests": "Click here for special requests",
+    "specialRequestsDesc": "Special take off times and/or locations, passengers with disabilites, or just general questions... ",
+    "yourMsgHere": "Your message here",
+
+    "tc-text-start": "Check here to indicate that you have read and agree to the ",
+    "tc-text-link": "Terms and Conditions",
+    "tc-text-end": " of the FlyZermatt Customer Agreement ",
+    "openInNewPage": "Opens in new page",
+    "payNow": "Pay Now"
+
+  },
+
+  "step-thanks": {
+    "title": "Thank you!",
+    "description": "Your payment succeeded & your order is complete.",
+    "transactionNr": "Transaction Nr:",
+    "orderSentTo": "Your order confirmation has been sent to:",
+    "checkSpamStart": "Please make sure to check your email",
+    "checkSpamJunk": "Spam/Junk",
+    "checkSpamEnd": "folders if your order confirmation doesn't arrive (emails can take a bit of time to arrive sometimes)",
+    "ifAnyProblems": "If you have any problems with your order, please contact us at:",
+    "orCallUs": " or give us a call at:",
+    "resendTo": "Resend confirmation email to:",
+    "sendEmail": "SEND"
+  }
+  
+}
