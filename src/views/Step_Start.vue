@@ -11,7 +11,7 @@
 
          <!-- ***************** Flight Date ******************** -->
       <h3 id="chooseFlightDate" class="disable-select">
-        <v-icon :color="flightDate ? 'success' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
+        <v-icon :color="flightDate ? 'successBright' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
         {{$t('step-start.flightdate')}}
       </h3>
       
@@ -28,7 +28,7 @@
             :max="flightMaxDate"
             elevation="4"
             width="290"
-            :color="flightDate === '' ? 'primary' : 'green'"
+            :color="flightDate === '' ? 'primary' : 'success'"
             @input="flightMenu = false"
             :events="calendarTripLength"
             class="disable-select"
@@ -53,7 +53,7 @@
               :label="$t('step-start.arrivingDate')"
               class="ml-10 mt-3"
               readonly
-              :color="arriveDate === '' ? 'primary' : 'green'"
+              :color="arriveDate === '' ? 'primary' : 'successBright'"
               v-bind="attrs"
               v-on="on"
               v-show="hasValidFlightDate"
@@ -62,7 +62,7 @@
               <template v-slot:append>
                 <v-hover v-slot="{}" >
                   <v-icon
-                    :color="arriveDate === '' ? 'primary' : 'green'"
+                    :color="arriveDate === '' ? 'primary' : 'successBright'"
                     @click="arriveMenu = true"
                   >
                     mdi-calendar
@@ -108,7 +108,7 @@
               append-icon="mdi-calendar"
               class="ml-10 mt-n3 mb-2"
               readonly
-              :color="departDate === '' ? 'primary' : 'green'"
+              :color="departDate === '' ? 'primary' : 'successBright'"
               v-bind="attrs"
               v-on="on"
               v-show="hasValidFlightDate"
@@ -117,7 +117,7 @@
               <template v-slot:append>
                 <v-hover v-slot="{}" >
                   <v-icon
-                    :color="departDate === '' ? 'primary' : 'green'"
+                    :color="departDate === '' ? 'primary' : 'successBright'"
                     @click="departMenu = true"
                   >
                     mdi-calendar
@@ -147,7 +147,7 @@
       <!-- ***************** Which Flight? Flight List ******************** -->
       <h3 id="whichFlight" class="disable-select mt-6" >
         <v-icon  
-          :color="flightChosen ? 'success' : 'primary'">{{ flightOptionsDropMenuList ? stepIconCompleted : stepIcon }}
+          :color="flightChosen ? 'successBright' : 'primary'">{{ flightOptionsDropMenuList ? stepIconCompleted : stepIcon }}
         </v-icon>
         {{$t('step-start.whichflight')}}
       </h3>
