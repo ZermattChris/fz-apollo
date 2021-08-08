@@ -110,10 +110,10 @@
 
       <v-row no-gutters>
         <v-col cols="12" md="1" lg="2"></v-col>
-        <v-col class="pa-5 pa-sm-8 pa-md-12" cols="12" md="10" lg="8" >
+        <v-col class="px-5 pb-5 pt-2 pa-sm-8 pa-md-12" cols="12" md="10" lg="8" >
 
 
-    {{stateModuleTest}}
+    <!-- {{stateModuleTest}} -->
 
           <!-- Router hooked up here -->
           <router-view/>
@@ -644,7 +644,8 @@ h3 > .v-icon {
 .v-stepper__step {
   max-width: 135px;
 }
-.v-stepper__header {
+div .v-stepper__header {
+  height:45px;
 	flex-wrap: nowrap;
 }
 .v-stepper__header .v-divider {
