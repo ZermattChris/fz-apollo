@@ -2,7 +2,11 @@
   "nav": {
     "continue": "계속하다",
     "back": "반환",
-    "ok": "알았어 "
+    "ok": "알았어 ",
+    "breadcrumb-date": "날짜 및 비행",
+    "breadcrumb-time": "시간 및 승객",
+    "breadcrumb-info": "승객 정보",
+    "breadcrumb-pay": "지불"
   },
   "form": {
     "required": "필수",

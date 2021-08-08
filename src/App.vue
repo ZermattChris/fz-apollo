@@ -66,7 +66,7 @@
             :complete="stepDateComplete"
             :color="stepDateComplete ? 'success' : 'primary'"
           >
-            Date &amp; Flight
+            {{$t('nav.breadcrumb-date')}}
           </v-stepper-step>
 
           <v-divider></v-divider>
@@ -78,7 +78,7 @@
             :complete="stepTimeComplete"
             :color="stepTimeComplete ? 'success' : 'primary'"
           >
-            Time &amp; Passengers
+            {{$t('nav.breadcrumb-time')}}
           </v-stepper-step>
 
           <v-divider></v-divider>
@@ -89,7 +89,7 @@
             :complete="stepInfoComplete"
             :color="stepInfoComplete ? 'success' : 'primary'"
           >
-            Passenger Info
+            {{$t('nav.breadcrumb-info')}}
           </v-stepper-step>
 
           <v-divider></v-divider>
@@ -100,7 +100,7 @@
             :complete="stepPayComplete"
             :color="stepPayComplete ? 'success' : 'primary'"
           >
-            Pay
+            {{$t('nav.breadcrumb-pay')}}
           </v-stepper-step>
 
         </v-stepper-header>
@@ -642,7 +642,10 @@ h3 > .v-icon {
 }
 
 .v-stepper__step {
-  max-width: 120px;
+  max-width: 135px;
+}
+.v-stepper__header {
+	flex-wrap: nowrap;
 }
 .v-stepper__header .v-divider {
   visibility: hidden;

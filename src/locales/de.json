@@ -2,7 +2,11 @@
   "nav": {
     "continue": "Weiter",
     "back": "Zurück",
-    "ok": "Okay"
+    "ok": "Okay",
+    "breadcrumb-date": "Datum & Flug",
+    "breadcrumb-time": "Zeit & Passagiere",
+    "breadcrumb-info": "Passagierinfo",
+    "breadcrumb-pay": "Bezahlen"
   },
   "form": {
     "required": "Erforderlich",

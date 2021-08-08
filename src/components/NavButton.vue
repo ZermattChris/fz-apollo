@@ -96,11 +96,11 @@
             //console.log('Leaving Pay')
             this.$store.dispatch('setCurrentStep', 'Thanks')
             break
-          case 'Thanks': 
-            //console.log('Leaving Thanks. Where next?? (homepage??)')
-            this.$store.dispatch('setCurrentStep', 'Completed')
-            window.location = 'http://www.flyzermatt.com'
-            return
+          // case 'Thanks': 
+          //   //console.log('Leaving Thanks. Where next?? (homepage??)')
+          //   this.$store.dispatch('setCurrentStep', 'Completed')
+          //   window.location = 'http://www.flyzermatt.com'
+          //   return
         }
 
         const targetStep = this.$store.state._currentStep
