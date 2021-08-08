@@ -1,8 +1,8 @@
 <template>
   <div class="stepPay">
     
-    <PageHeader title="4. Place Order">
-      {{$t('step-pay.title')}}
+    <PageHeader :title="'4. ' + $t('step-pay.title')">
+      {{$t('step-pay.description')}}
     </PageHeader>
 
 
@@ -16,7 +16,7 @@
         {{flightDate}}
       </p>
       <p style="background-color: #c78b48;" class="rounded-lg white--text text-caption mt-n2 mb-9 mx-4 px-2 py-1">
-        {{$t('step-pay.description')}}
+        {{$t('step-pay.meetingTime')}}
       </p>
 
 
@@ -29,13 +29,13 @@
             <thead>
               <tr class="grey lighten-3">
                 <th class="text-left">
-                  Qty
+                  {{$t('step-pay.qty')}}
                 </th>
                 <th class="text-left">
-                  Description
+                  {{$t('step-pay.flightDescription')}}
                 </th>
                 <th class="text-right">
-                  Subtotal in CHF
+                  {{$t('step-pay.subtotalCHF')}}
                 </th>
                 <th class="text-left">
                 </th>
@@ -54,14 +54,16 @@
                 v-if="wantsPhotos"
               >
                 <td>{{ totalPassengers }}</td>
-                <td><span style="font-weight:bold;">Photos &amp; Videos</span> @ {{ videoPrice}}.00{{'\xa0'}}CHF</td>
+                <td><span style="font-weight:bold;">{{$t('step-pay.photosVideos')}}</span> @ {{ videoPrice}}.00{{'\xa0'}}CHF</td>
                 <td class="text-right">{{ totalPassengers * videoPrice }}.00</td>
                 <td></td>
               </tr>
 
               <tr class="grey lighten-3">
                 <td></td>
-                <td style="text-align:right; font-weight:bold;">Total CHF</td>
+                <td style="text-align:right; font-weight:bold;">
+                  {{$t('step-pay.totalCHF')}}
+                </td>
                 <td v-if="wantsPhotos" class="text-right"><span style="font-weight:bold;">{{ (totalPassengers * flightDetails.price) + (totalPassengers * videoPrice) }}.00</span></td>
                 <td v-if="!wantsPhotos" class="text-right"><span style="font-weight:bold;">{{ (totalPassengers * flightDetails.price) }}.00</span></td>
                 <td></td>
@@ -77,9 +79,7 @@
         <v-icon color="primary">
           mdi-information-outline
         </v-icon>
-        If you have any questions, special wishes or have extra information regarding a 
-        passenger (for example a passenger with a disability), please click the Special Requests below
-        and enter your message.
+        {{$t('step-pay.specialWishes')}}
       </p>
 
       <template>
@@ -90,7 +90,7 @@
                 disable-icon-rotate
                 @click="focusBookingMessage()"
               >
-                Click here for special requests
+                {{$t('step-pay.clickForSpecialRequests')}}
               <template v-slot:actions>
                 <v-icon color="primary">
                   mdi-information-outline
@@ -98,7 +98,7 @@
               </template>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
-                Special take off times and/or locations, passengers with disabilites, or just general questions...
+                {{$t('step-pay.specialRequestsDesc')}}
                 <v-textarea
                   ref="bookingMessage"
                   class="mt-6 mx-auto"
@@ -106,7 +106,7 @@
                   v-model="message"
                   name="booking-message"
                   outlined
-                  label="Your message here"
+                  :label="$t('step-pay.yourMsgHere')"
                   auto-grow
                   @blur="onMessageBlur"
                   @click="scrollToId('#shop-meeting-text')"
@@ -133,7 +133,7 @@
         >
           <template v-slot:label>
             <div id="TCs-Box">
-              Check here to indicate that you have read and agree to the 
+              {{$t('step-pay.tc-text-start')}}
               <v-tooltip top>
                 <template v-slot:activator="{ on }">
                   <a
@@ -141,11 +141,11 @@
                     href="https://www.flyzermatt.com/terms-and-conditions#onlinepayments"
                     @click.stop
                     v-on="on"
-                  >Terms and Conditions</a>
+                  >{{$t('step-pay.tc-text-link')}}</a>
                 </template>
-                Opens in new page
+                {{$t('step-pay.openInNewPage')}}
               </v-tooltip> 
-              of the FlyZermatt Customer Agreement
+              {{$t('step-pay.tc-text-end')}}
             </div>
           </template>
         </v-checkbox>
@@ -159,7 +159,7 @@
           @click="onOrderBtn"
           :disabled="!termsCheckboxModel"
         >
-          Pay Now
+          {{$t('step-pay.payNow')}}
         </v-btn>
       </div>
 
@@ -209,6 +209,8 @@
   import PageHeader from '@/components/PageHeader.vue'
 
   import { format, parseISO } from 'date-fns'  
+  import { enGB, de, ko } from 'date-fns/locale'
+
   import {loadStripe} from '@stripe/stripe-js'
 
 
@@ -239,6 +241,8 @@
 
         orderOverlay: false,    // Shown when the PAY NOW button is hit, while Stripe loads.
 
+        myLocal: enGB,    // default date-fns locale
+
       }
     },
 
@@ -258,17 +262,13 @@
 
     },
 
-    // beforeMount() {
-
-    //   // Copy test CC nr to clipboard if in _DEV mode.
-    //   if (this.$store.state._DEV === true) {
-    //     console.log("Copied Test CC Nr to Clipboard: 4000007560000009")
-    //     let copyText = document.querySelector("#cc_success")
-    //     copyText.select()
-    //     document.execCommand("copy")
-    //   } 
-
-    // },
+    
+    beforeUpdate() {
+      // This is how to add a locale to date-fns function calls.
+      if (this.$i18n.locale === 'en') this.myLocal = enGB 
+      if (this.$i18n.locale === 'de') this.myLocal = de 
+      if (this.$i18n.locale === 'ko') this.myLocal = ko 
+    },
 
     computed: {
 
@@ -287,7 +287,7 @@
             //console.log(element.passengers)
             //console.log(index)
             if (element.passengers > 0) {
-              result += element.passengers + " person @ " + element.timeString + ". "
+              result += element.passengers + " " + this.$tc('step-pay.people', element.passengers) + " @ " + element.timeString + ". "
             }
           }
         })
@@ -300,7 +300,7 @@
 
       flightDate: function () {
         if (this.isObjEmpty(this.$store.state.flightDate)) return ''                // Was getting bad date format from vuex.
-        return format(parseISO(this.$store.state.flightDate), 'EE, MMMM do, yyyy')
+        return format(parseISO(this.$store.state.flightDate), 'EE, MMMM do, yyyy', {locale: this.myLocal})
       },
 
     },

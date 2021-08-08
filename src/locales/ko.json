@@ -115,8 +115,28 @@
     },
 
     "step-pay": {
-      "title": "Review your order and press the PAY NOW button to to complete your payment.",
-      "description": "@ All meeting times are at our office, located inside the Viktoria Center across from Zermatt's main train station (just down the hall from the COOP Supermarket)."
+      "title": "주문하기",
+      "description": "주문을 검토하고 PAY NOW 버튼을 눌러 결제를 완료하십시오",
+      "meetingTime": "@ 모든 회의 시간은 체르마트의 중앙 기차역 건너편에 있는 빅토리아 센터 내부(COOP 슈퍼마켓에서 복도 바로 아래)에 있는 우리 사무실입니다.",
+      "people": "사람 | 사람",
+
+      "qty": "수량",
+      "flightDescription": "설명",
+      "subtotalCHF": "스위스 프랑의 소계",
+      "photosVideos": "사진 및 비디오",
+      "totalCHF": "스위스 프랑의 합계",
+
+      "specialWishes": "질문이 있거나 특별한 희망 사항이 있거나 승객(예: 장애가 있는 승객)에 대한 추가 정보가 있는 경우 아래의 특별 요청을 클릭하고 메시지를 입력하십시오.",
+      "clickForSpecialRequests": "특별 요청은 여기를 클릭하십시오 ",
+      "specialRequestsDesc": "특별 이륙 시간 및/또는 위치, 장애가 있는 승객 또는 일반적인 질문... ",
+      "yourMsgHere": "여기에 귀하의 메시지 ",
+  
+      "tc-text-start": "여기를 확인하여 귀하가 내용을 읽었고 동의함을 나타냅니다 ",
+      "tc-text-link": "이용약관 ",
+      "tc-text-end": " FlyZermatt 고객 계약 ",
+      "openInNewPage": "새 페이지에서 열립니다",
+      "payNow": "지불 "
+  
     },
     
     "step-thanks": {

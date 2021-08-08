@@ -116,7 +116,28 @@
 
 
   "step-pay": {
-    "xxx": "Passexxengers"
+    "title": "Bestellen",
+    "description": "Überprüfen Sie Ihre Bestellung und drücken Sie BEZAHLEN, um Ihre Zahlung abzuschliessen.",
+    "meetingTime": "@ Alle Termine finden in unserem Büro statt, das sich im Viktoria Center, gegenüber dem Hauptbahnhof von Zermatt befindet (innen, neben dem COOP Supermarkt).",
+    "people": "Person | Personen",
+
+    "qty": "Anzahl",
+    "flightDescription": "Beschreibung",
+    "subtotalCHF": "Zwischensumme in CHF",
+    "photosVideos": "Fotos & Videos",
+    "totalCHF": "Total CHF",
+
+    "specialWishes": "Wenn Sie Fragen, besondere Wünsche oder zusätzliche Informationen zu einem Fahrgast haben (z. B. zu einem Fahrgast mit einer Behinderung), klicken Sie bitte auf die unten stehenden Sonderwünsche und geben Sie Ihre Mitteilung ein.",
+    "clickForSpecialRequests": "Hier klicken für Sonderwünsche",
+    "specialRequestsDesc": "Besondere Abflugzeiten und/oder -orte, Passagiere mit Behinderungen oder einfach nur allgemeine Fragen...",
+    "yourMsgHere": "Ihre Nachricht hier",
+
+    "tc-text-start": "Kreuzen Sie hier an, um zu bestätigen, dass Sie die ",
+    "tc-text-link": "Allgemeine Geschäftsbedingungen",
+    "tc-text-end": " von FlyZermatt gelesen haben und ihnen zustimmen.",
+    "openInNewPage": "Öffnet eine neue Seite",
+    "payNow": "Bezahlen"
+
   },
   
   "step-thanks": {

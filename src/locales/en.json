@@ -115,7 +115,28 @@
   },
 
   "step-pay": {
-    "passengers": "Passenger | Passengers"
+    "title": "Place Order",
+    "description": "Review your order and press the PAY NOW button to to complete your payment.",
+    "meetingTime": "@ All meeting times are at our office, located inside the Viktoria Center across from Zermatt's main train station (just down the hall from the COOP Supermarket).",
+    "people": "person | people",
+
+    "qty": "Qty",
+    "flightDescription": "Description",
+    "subtotalCHF": "Subtotal in CHF",
+    "photosVideos": "Photos & Videos",
+    "totalCHF": "Total CHF",
+
+    "specialWishes": "If you have any questions, special wishes or have extra information regarding a passenger (for example a passenger with a disability), please click the Special Requests below and enter your message.",
+    "clickForSpecialRequests": "Click here for special requests",
+    "specialRequestsDesc": "Special take off times and/or locations, passengers with disabilites, or just general questions... ",
+    "yourMsgHere": "Your message here",
+
+    "tc-text-start": "Check here to indicate that you have read and agree to the ",
+    "tc-text-link": "Terms and Conditions",
+    "tc-text-end": " of the FlyZermatt Customer Agreement ",
+    "openInNewPage": "Opens in new page",
+    "payNow": "Pay Now"
+
   },
 
   "step-thanks": {
