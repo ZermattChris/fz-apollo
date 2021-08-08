@@ -16,7 +16,6 @@
   },
 
   "step-start": {
-    "test": "hello i18n !!",
     "title": "Dates & Flight",
     "description": "We need the following information to help us give you the best possible flight experience with the highest level of safety.",
     "flightdate": "Preferred Flight Date",
@@ -140,7 +139,17 @@
   },
 
   "step-thanks": {
-    "selected-date": "Selected Date"
+    "title": "Thank you!",
+    "description": "Your payment succeeded & your order is complete.",
+    "transactionNr": "Transaction Nr:",
+    "orderSentTo": "Your order confirmation has been sent to:",
+    "checkSpamStart": "Please make sure to check your email",
+    "checkSpamJunk": "Spam/Junk",
+    "checkSpamEnd": "folders if your order confirmation doesn't arrive (emails can take a bit of time to arrive sometimes)",
+    "ifAnyProblems": "If you have any problems with your order, please contact us at:",
+    "orCallUs": " or give us a call at:",
+    "resendTo": "Resend confirmation email to:",
+    "sendEmail": "SEND"
   }
   
 }

@@ -16,7 +16,6 @@
   },
 
   "step-start": {
-    "test": "Hallo i18n !!",
     "title": "Datum & Flug",
     "description": "Wir brauchen die folgenden Informationen damit wir Ihnen das bestmögliche Flugerlebnis mit einem höchstmöglichen Grad an Sicherheit bieten können.",
     "flightdate": "Flug Datum",
@@ -141,6 +140,16 @@
   },
   
   "step-thanks": {
-    "xx": "Selectexate"
+    "title": "Danke!",
+    "description": "Ihre Zahlung war erfolgreich und Ihre Bestellung ist abgeschlossen.",
+    "transactionNr": "Transaktionsnummer:",
+    "orderSentTo": "Ihre Bestellbestätigung wurde gesendet an:",
+    "checkSpamStart": "Bitte stellen Sie sicher, dass Sie Ihre E-Mail ",
+    "checkSpamJunk": "Spam/Junk",
+    "checkSpamEnd": "Ordner überprüfen, wenn Ihre Auftragsbestätigung nicht ankommt (E-Mails können manchmal etwas länger brauchen)",
+    "ifAnyProblems": "Wenn Sie irgendwelche Probleme mit Ihrer Bestellung haben, kontaktieren Sie uns bitte unter:",
+    "orCallUs": " oder rufen Sie uns an unter:",
+    "resendTo": "Bestätigungs-E-Mail erneut senden an:",
+    "sendEmail": "SENDEN"
   }
 }

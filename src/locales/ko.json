@@ -16,7 +16,6 @@
   },
 
   "step-start": {
-    "test": "hello i18n !!",
     "title": "날짜 및 항공편",
     "description": "최고 수준의 안전과 최상의 비행 경험을 제공하기 위해 다음 정보가 필요합니다. ",
     "flightdate": "비행 날짜",
@@ -140,6 +139,16 @@
     },
     
     "step-thanks": {
-      "selected-date": "Selected Date"
+      "title": "감사합니다!",
+      "description": "결제가 성공하고 주문이 완료되었습니다.",
+      "transactionNr": "거래 번호:",
+      "orderSentTo": "주문 확인 메일이 다음 주소로 발송되었습니다.",
+      "checkSpamStart": "이메일을 확인하십시오",
+      "checkSpamJunk": "Spam/Junk",
+      "checkSpamEnd": "주문 확인이 도착하지 않은 경우 폴더(이메일이 도착하는 데 시간이 다소 걸릴 수 있음",
+      "ifAnyProblems": "주문에 문제가 있는 경우 다음 주소로 문의하세요:",
+      "orCallUs": " 또는 다음으로 전화주십시오:",
+      "resendTo": "확인 이메일 재전송:",
+      "sendEmail": "보내기"
     }
   }

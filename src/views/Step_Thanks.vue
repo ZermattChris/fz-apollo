@@ -1,29 +1,30 @@
 <template>
   <div class="stepThanks">
     
-    <PageHeader title="Thank you!">
-      Your payment succeeded &amp; your order is complete.
+    <PageHeader :title="$t('step-thanks.title')">
+      {{$t('step-thanks.description')}}
     </PageHeader>
 
     <p>
-      Transaction Nr: <strong class="primary--text">{{$store.state.orderID}}</strong> 
+      {{$t('step-thanks.transactionNr')}} <strong class="primary--text">{{$store.state.orderID}}</strong> 
     </p>
     <p>
-      Your order confirmation has been sent to <strong class="primary--text">{{orderEmail}}</strong>
+      {{$t('step-thanks.orderSentTo')}} <strong class="primary--text">{{orderEmail}}</strong>
     </p>
 
     <p style="background-color: #c78b48;" class="rounded-lg white--text text-caption mt-6 mb-6 mx-4 px-2 py-1">
       <v-icon color="white">
         mdi-at
       </v-icon>
-      Please make sure to check your email <strong>Spam/Junk</strong> folders if your order confirmation doesn't arrive (emails
-      can take a bit of time to arrive sometimes)
+      {{$t('step-thanks.checkSpamStart')}}
+      <strong>{{$t('step-thanks.checkSpamJunk')}}</strong>
+      {{$t('step-thanks.checkSpamEnd')}}
     </p>
 
     <p class="text-caption">
-      If you have any problems with your order, please contact us at:
+      {{$t('step-thanks.ifAnyProblems')}}
       <a href="mailto:info@flyzermatt.com">info@flyzermatt.com</a>
-      or give us a call at:
+      {{$t('step-thanks.orCallUs')}}
       <a href="tel:+41796436808">+41 79 643 6808</a>
     </p>
 
@@ -31,7 +32,7 @@
     <p class="text-center mt-12 mr-auto ml-auto" style="max-width:300px;">
       
       <v-text-field 
-        label="Resend confirmation email to:"
+        :label="$t('step-thanks.sendEmail')"
         v-model="orderEmail"
       >
       </v-text-field>
@@ -41,7 +42,7 @@
         elevation="2"
         @click="onResendEmailBtn"
       >
-        SEND
+        {{$t('step-thanks.sendEmail')}}
       </v-btn>
     </p>
 

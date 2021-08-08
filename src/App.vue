@@ -269,7 +269,10 @@ export default {
   *****************************************************/
   beforeMount () {
 
-    //console.log("App beforeMount()")
+    if (this.$store.state._DEV === true) {
+      console.log("In _DEV mode, not doing page validity checks.")
+      return    // let me work on any page when in Dev mode.
+    }
 
     // App-wide check for missing or stale data here.
     // TODO: move to the generic Start Step check below.
@@ -277,7 +280,6 @@ export default {
       if (this.$router.history._startLocation !== '/') this.$router.push('/')    // only nav if not on Start page already.
       return
     }
-
 
     // Start Step checks
     if (this.isInvalid_StartStep()) {
@@ -314,6 +316,7 @@ export default {
       if (this.$router.history._startLocation.toLowerCase() === '/time') return
       if (this.$router.history._startLocation.toLowerCase() === '/info') return
       // if (this.$router.history._startLocation.toLowerCase() === '/pay') return  // Pay has no data that must pass validity checks.
+      
       if (this.$router.history._startLocation.toLowerCase() === '/thanks') this.$router.push('/pay')
       return
     }
