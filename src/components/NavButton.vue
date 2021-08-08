@@ -2,8 +2,9 @@
 
     <v-btn 
       rounded 
-      color="white" 
+      color="fzPink" 
       elevation="4"
+      class="white--text"
       :disabled="isDisabled"
       @click="navigate"
     >

@@ -21,6 +21,7 @@ export default new Vuetify({
         successBright: colors.green.darken1,
         accent: colors.shades.black,
         error: colors.red.accent3,
+        fzPink: "#CB0073",
       },
       dark: {
         primary: colors.blue.lighten3,

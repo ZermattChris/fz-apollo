@@ -74,7 +74,6 @@
           <v-stepper-step 
             step="2" 
             class="disable-select"
-            style="max-width: 150px;"
             :complete="stepTimeComplete"
             :color="stepTimeComplete ? 'success' : 'primary'"
           >
@@ -207,6 +206,7 @@ export default {
     stepTimeComplete: false,
     stepInfoComplete: false,
     stepPayComplete: false,
+    currStep: 'Start'
 
   }),
   // Lifecycle Hooks
@@ -247,8 +247,8 @@ export default {
 
   beforeUpdate () {
 
-    // 
-
+    // Shows the editable icon in the Steppers
+    this.currStep = this.$store.state._currentStep
 
 
     // Show/hide the Back Btn.
