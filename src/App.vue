@@ -259,7 +259,7 @@ export default {
         this.stepPayComplete = this.$store.getters.infoPayValid
       },
       {
-        // React to changes in the watched Object in store.
+        // Need this to see into objects and arrays.
         deep:true
       }
     )
