@@ -133,9 +133,15 @@ export default new Vuex.Store({
     _hasReviewedData: false,
     _showReviewDialog: false,
 
+    findOfficeDialog: false,
+
   },   // END STATE
 
   mutations: {
+
+    SHOW_FIND_OFFICE_DIALOG(state, showBool) {
+      state.findOfficeDialog = showBool;
+    },
 
     HAS_REVIEWED_DATA(state, reviewedBool) {
       state._hasReviewedData = reviewedBool;
@@ -436,12 +442,14 @@ export default new Vuex.Store({
       context.commit("FLIGHTS_LIST", flightsListObj)
     },
 
-
     hasReviewedData(context, reviewedBool) {
       context.commit("HAS_REVIEWED_DATA", reviewedBool)
     },
     showReviewDialog(context, showBool) {
       context.commit("SHOW_REVIEW_DIALOG", showBool)
+    },
+    showFindOfficeDialog(context, showBool) {
+      context.commit("SHOW_FIND_OFFICE_DIALOG", showBool)
     },
     
     // Database connector id.

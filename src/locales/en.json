@@ -1,4 +1,10 @@
 {
+
+  "findOffice": {
+    "linkText": "Find us video...",
+    "title": "Find the FLYZermatt Office"
+  },
+
   "nav": {
     "continue": "Continue",
     "back": "Back",

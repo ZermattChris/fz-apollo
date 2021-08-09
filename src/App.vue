@@ -170,7 +170,35 @@
       </div>
     </v-footer>
 
-  <v-overlay :value="isAppStillLoading" />
+    <v-overlay :value="isAppStillLoading" />
+
+
+    <!-- This is an Info dialog that's shown to the user if they choose the Elite flight. -->
+    <v-dialog
+      v-model="findOfficeDialog"
+      width="500"
+    >
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          {{$t('findOffice.title')}}
+        </v-card-title>
+
+        <v-card-text
+          class="pt-4"
+        >
+          <iframe
+            style="overflow:hidden;width:100%;" 
+            src="https://player.vimeo.com/video/217390381" 
+            frameborder="0" 
+            height="250"
+            allow="autoplay; fullscreen" 
+            allowfullscreen>
+          </iframe>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+
 
   </v-app>
 </template>
@@ -515,10 +543,15 @@ export default {
 
   computed: {
 
-
-    stateModuleTest: function () {
-      return this.$store.state.navigation.currStep
+    findOfficeDialog: {
+      get() {
+        return this.$store.state.findOfficeDialog
+      },
+      set(val) {
+        return this.$store.dispatch('showFindOfficeDialog', val)
+      }
     },
+
 
     // // Setup a computed prop that aggragates all of the user's inputs, so we can watch
     // // for any change and set the this.$store.dispatch('hasReviewedData', false), which

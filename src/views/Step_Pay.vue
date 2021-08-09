@@ -17,7 +17,18 @@
       </p>
       <p style="background-color: #c78b48;" class="rounded-lg white--text text-caption mt-n2 mb-9 mx-4 px-2 py-1">
         {{$t('step-pay.meetingTime')}}
+        <strong><a
+          class="white--text text-decoration-underline"
+          @click="findOfficeDialog = true"
+        >
+          {{$t('findOffice.linkText')}}
+          <v-icon color="white" x-small>
+            mdi-open-in-new
+          </v-icon>
+        </a></strong>
       </p>
+
+          <!-- @click:outside="findOfficeDialog = false" -->
 
 
       <template>
@@ -199,6 +210,9 @@
     </v-overlay>
 
 
+
+
+
   </div>
 </template>
 
@@ -241,6 +255,7 @@
 
         myLocal: enGB,    // default date-fns locale
 
+
       }
     },
 
@@ -270,6 +285,15 @@
 
     computed: {
 
+      findOfficeDialog: {
+        get() {
+          return this.$store.state.findOfficeDialog
+        },
+        set(val) {
+          return this.$store.dispatch('showFindOfficeDialog', val)
+        }
+      },
+
       // Build a display string showing the number of passengers for each 
       // chosen TimeSlot in the booking.
       meetingTimesString: function () {
@@ -289,8 +313,6 @@
             }
           }
         })
-
-
 
         return result 
       },
