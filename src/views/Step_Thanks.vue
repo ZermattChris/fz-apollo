@@ -32,7 +32,7 @@
     <p class="text-center mt-12 mr-auto ml-auto" style="max-width:300px;">
       
       <v-text-field 
-        :label="$t('step-thanks.sendEmail')"
+        :label="$t('step-thanks.resendTo')"
         v-model="orderEmail"
       >
       </v-text-field>
@@ -100,6 +100,7 @@
         this.$store.dispatch('clearTimeListDates')
 
         this.$store.dispatch('setWantsPhotos', '')
+        this.$store.dispatch('setVideoPrice', '')
 
         this.$store.dispatch('setArriveDate', '')
         this.$store.dispatch('setDepartDate', '')
@@ -109,6 +110,7 @@
         this.$store.dispatch('setOrderMessage', '')
 
         this.$store.dispatch('clearSlotsPassengers', '')
+        this.$store.dispatch('setFlightsList', '')
         
       },
 

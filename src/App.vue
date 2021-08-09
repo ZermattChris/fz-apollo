@@ -58,7 +58,6 @@
       <v-stepper 
         v-model="stepper"
         flat
-        v-if="_isDEV"
         style="font-size: 0.7em;"
       >
         <v-stepper-header>
@@ -111,7 +110,7 @@
 
       <v-row no-gutters>
         <v-col cols="12" md="1" lg="2"></v-col>
-        <v-col class="px-5 pb-5 pt-2 pa-sm-8 pa-md-12" cols="12" md="10" lg="8" >
+        <v-col class="px-5 pb-5 pt-6 pa-sm-8 pa-md-12" cols="12" md="10" lg="8" >
 
 
     <!-- {{stateModuleTest}} -->

@@ -24,6 +24,7 @@
         <v-simple-table 
           dense
           class="elevation-1"
+          id="scrollTarget"
         >
           <template v-slot:default>
             <thead>
@@ -75,15 +76,9 @@
         </v-simple-table>
       </template>
 
-      <p id="questionsTxt" class="text-caption mt-12 mx-4">
-        <v-icon color="primary">
-          mdi-information-outline
-        </v-icon>
-        {{$t('step-pay.specialWishes')}}
-      </p>
 
       <template>
-        <v-row justify="center" class="text-caption mx-1 mt-4 mb-12">
+        <v-row justify="center" class="text-caption mx-1 mt-8 mb-10">
           <v-expansion-panels>
             <v-expansion-panel>
               <v-expansion-panel-header
@@ -92,13 +87,16 @@
               >
                 {{$t('step-pay.clickForSpecialRequests')}}
               <template v-slot:actions>
-                <v-icon color="primary">
+                <v-icon color="warning">
                   mdi-information-outline
                 </v-icon>
               </template>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
-                {{$t('step-pay.specialRequestsDesc')}}
+                <!-- {{$t('step-pay.specialRequestsDesc')}} -->
+                <p id="questionsTxt" class="text-caption mt-0 mx-4">
+                  {{$t('step-pay.specialWishes')}}
+                </p>
                 <v-textarea
                   ref="bookingMessage"
                   class="mt-6 mx-auto"
@@ -109,7 +107,6 @@
                   :label="$t('step-pay.yourMsgHere')"
                   auto-grow
                   @blur="onMessageBlur"
-                  @click="scrollToId('#shop-meeting-text')"
                 ></v-textarea>
               </v-expansion-panel-content>
             </v-expansion-panel>
@@ -155,7 +152,7 @@
       <div id="payment-button-box" class="" style="text-align:center;">
         <v-btn id="payment-button" ref="paymentButton" type="submit"
           color="orange darken-3"
-          class="mt-4"
+          class="mt-0"
           @click="onOrderBtn"
           :disabled="!termsCheckboxModel"
         >
@@ -165,7 +162,7 @@
 
       <a 
         href="https://stripe.com"
-        class="mx-auto mt-8"
+        class="mx-auto mt-10"
         style="display:block; width:100px; height:30px;"
       >
         <v-img
@@ -182,6 +179,7 @@
 
           <ul>
             <!-- <li>NOTE: A TEST Credit Card number has been copied to the Clipboard. Just "paste" it into the CC field in the Stripe form. <br/></li> -->
+            <li>Normal with success: 4000007560000009</li>
             <li>3D Secure with success: 4000002500003155</li>
             <li>Fail, insuffecient funds: 4000000000009995</li>
             <li>Fail, card has expired: 4000000000000069</li>
@@ -308,7 +306,7 @@
     methods: {
 
       focusBookingMessage() {
-        this.scrollToId("#questionsTxt")
+        this.scrollToId("#scrollTarget")
         const me = this
         setTimeout(function() {
           me.$refs.bookingMessage.focus()

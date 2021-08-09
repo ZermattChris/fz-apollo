@@ -428,6 +428,9 @@ export default new Vuex.Store({
       context.commit("TIMELIST_DATES", '')
     },
 
+    setVideoPrice(context, vidPrice) {
+      context.commit("VIDEO_PRICE", vidPrice)
+    },
 
     setFlightsList(context, flightsListObj) {
       context.commit("FLIGHTS_LIST", flightsListObj)
