@@ -70,7 +70,7 @@
     },
 
 
-    destroyed() {
+    beforeDestroy() {
 
       this.resetLocalStorage()
 

@@ -31,11 +31,12 @@
       >
         <v-img
           alt="FlyZermatt Logo"
-          class="shrink ml-1"
+          class="shrink"
           contain
           src="@/assets/FlyZermatt-logo-light.svg"
           transition="scale-transition"
-          width="220"
+          max-width="200"
+          max-height="130"
           @click="onClearData"
           ref="fzlogo"
         />
@@ -606,7 +607,7 @@ body {
   max-width: 800px;
 }
 
-#logo {
+div #logo {
   margin: 0 auto;
 }
 
