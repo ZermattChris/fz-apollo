@@ -28,6 +28,7 @@
 
       <div 
         id="logo"
+        class="pl-4"
       >
         <v-img
           alt="FlyZermatt Logo"
@@ -610,6 +611,11 @@ body {
 div #logo {
   margin: 0 auto;
 }
+
+div #logo .v-image__image {
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.4));
+}
+
 
 .v-divider {
   margin-bottom: 20px;
