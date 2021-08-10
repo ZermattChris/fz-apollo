@@ -58,7 +58,8 @@
       <v-stepper 
         v-model="stepper"
         flat
-        style="font-size: 0.7em;"
+        class="mx-auto"
+        style="font-size: 0.7em; max-width:600px;"
       >
         <v-stepper-header>
           <v-stepper-step 
