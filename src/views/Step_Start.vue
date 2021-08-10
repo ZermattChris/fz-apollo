@@ -353,16 +353,18 @@
 
               <!-- Test Photos  -->
               <v-carousel
-                cycle
-                height="250"
-                hide-delimiter-background
-                show-arrows-on-hover
+                :cycle="hoverPhotoVidsCarousel"
+                height="240"
                 hide-delimiters
+                show-arrows-on-hover
                 interval="4500"
               >
+
                 <v-carousel-item
                   v-for="(slide, i) in slides"
                   :key="i"
+                  @mouseover="onCarouselMouseOver"
+                  @mouseout="onCarouselMouseOut"
                 >
                   <v-sheet
                     :color="colors[i]"
@@ -373,18 +375,38 @@
                       align="center"
                       justify="center"
                     >
-                      <div class="text-h2">
+
+                      <!-- Slide content goes here. show-if for each slide.  -->
+                      <div 
+                        v-if="i !== 3"
+                        class="text-h2"
+                      >
                         {{ slide }} Slide
                       </div>
+
+                      <iframe
+                        v-if="i === 3"
+                        style="overflow:hidden;width:100%;" 
+                        src="https://player.vimeo.com/video/217390381?title=0&amp;byline=0&amp;portrait=0&amp;color=ff0179" 
+                        frameborder="0" 
+                        height="250"
+                        webkitallowfullscreen 
+                        mozallowfullscreen 
+                        allowfullscreen 
+                        allow="autoplay; fullscreen"
+                      ></iframe>
+
+
+
                     </v-row>
                   </v-sheet>
                 </v-carousel-item>
+
               </v-carousel>
 
               <p>
-                Select our {{photosPrice}}.- CHF Photos + Videos option, if you're sure you want to buy the MicroSD Card
-                that your pilot will make of your flight. Buying them now just makes your fly day
-                a little bit smoother and easier.
+                Select our {{photosPrice}}.- CHF Photos + Videos option, if you're sure you want to buy the Photos
+                and Videos from your flight. Buying them now just makes your fly day a little bit smoother and easier.
               </p>
               <v-img
                 class="ml-2 mr-2 float-left"
@@ -395,12 +417,12 @@
               ></v-img>
               <p>
                 There are usually 60-200 photos and a handful
-                of video clips (for example from the take off, landing and if you're doing some actions
+                of video clips (for example from the take-off, landing and if you're doing some big turns
                 over town).
               </p>
               <p>
                 If you're not sure, you can also decide after you fly. We have tablets in our office to
-                view them on. Hi Stu
+                view them on.
               </p>
             </div>
           </v-card-text>
@@ -470,6 +492,7 @@ export default {
       bigGroupDialog: false,
       eliteDialog: false,
       photosVideoDialog: false,
+      hoverPhotoVidsCarousel: true,
 
       isPageValid: this.$store.getters.step_startValid,
 
@@ -674,6 +697,20 @@ export default {
 
 
   methods: {
+
+    // onPlayingVideo () {
+    //   console.log('Playing Video')
+    // },
+
+    onCarouselMouseOut () {
+      this.hoverPhotoVidsCarousel = true
+      //console.log('Run Carousel')
+    },
+
+    onCarouselMouseOver () {
+      this.hoverPhotoVidsCarousel = false
+      //console.log('Stop Carousel')
+    },
 
     closeFlightDialog () {
 

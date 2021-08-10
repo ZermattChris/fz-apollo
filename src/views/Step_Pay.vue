@@ -96,7 +96,7 @@
                 disable-icon-rotate
                 @click="focusBookingMessage()"
               >
-                {{$t('step-pay.clickForSpecialRequests')}}
+                <strong>{{$t('step-pay.clickForSpecialRequests')}}</strong>
               <template v-slot:actions>
                 <v-icon color="warning">
                   mdi-information-outline
