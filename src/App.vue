@@ -188,12 +188,14 @@
         >
           <iframe
             style="overflow:hidden;width:100%;" 
-            src="https://player.vimeo.com/video/217390381" 
+            src="https://player.vimeo.com/video/217390381?title=0&amp;byline=0&amp;portrait=0&amp;color=ff0179" 
             frameborder="0" 
             height="250"
-            allow="autoplay; fullscreen" 
-            allowfullscreen>
-          </iframe>
+            webkitallowfullscreen 
+            mozallowfullscreen 
+            allowfullscreen 
+            allow="autoplay; fullscreen"
+          ></iframe>
         </v-card-text>
       </v-card>
     </v-dialog>
