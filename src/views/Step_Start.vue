@@ -29,7 +29,6 @@
             elevation="4"
             width="290"
             :color="flightDate === '' ? 'primary' : 'success'"
-            @input="flightMenu = false"
             :events="calendarTripLength"
             class="disable-select"
           ></v-date-picker>
@@ -480,7 +479,7 @@ export default {
 
       // overlay: false,
       arriveMenu: false,  
-      flightMenu: false,
+      // flightMenu: false,
       departMenu: false,
 
       isKlein: false,
@@ -571,7 +570,7 @@ export default {
         this.$store.dispatch('flightOptions')
         this.buildFlightList()
         this.$store.dispatch('clearSlotsPassengers')
-        this.scrollToId("#chooseFlightDate")
+        this.scrollToId("#headerDivider")
       }
     },
     flightChosen: {

@@ -222,8 +222,10 @@
           <v-spacer></v-spacer>
 
           <v-btn
-            color="purple"
-            text
+            class="white--text"
+            color="fzPink"
+            elevation="2"
+            rounded
             @click="countriesListingDialog = false"
           >
             {{$t('step-info.country-codes.close')}}
@@ -457,11 +459,11 @@
           <v-spacer></v-spacer>
 
           <v-btn
-            color="primary"
+            color="fzPink"
             elevation="2"
             rounded
             large
-            class="px-4 mx-auto"
+            class="px-4 mx-auto white--text"
             @click="confirmDetailsDialog = false; goToNextStep()"
           >
             {{$t('step-info.confirm.confirm')}}

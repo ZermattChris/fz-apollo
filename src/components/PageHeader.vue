@@ -10,7 +10,7 @@
         <slot>Default Page Header text...</slot>
     </p>
 
-    <v-divider></v-divider>
+    <v-divider id="headerDivider"></v-divider>
 
   </div>
 </template>
