@@ -343,7 +343,7 @@
 
         <v-card>
           <v-card-title class="text-h5 grey lighten-2">
-            {{$t('step-start.photosvideosInfo')}}
+            {{$t('step-start.photosVideosPopup.title')}}
           </v-card-title>
 
           <v-card-text
@@ -405,8 +405,7 @@
               </v-carousel>
 
               <p>
-                Select our {{photosPrice}}.- CHF Photos + Videos option, if you're sure you want to buy the Photos
-                and Videos from your flight. Buying them now just makes your fly day a little bit smoother and easier.
+                {{$t('step-start.photosVideosPopup.paragraphOne', { price: photosPrice })}}
               </p>
               <v-img
                 class="ml-2 mr-2 float-left"
@@ -416,13 +415,10 @@
                 src="@/assets/MicroSD-and-adaptor.jpg"
               ></v-img>
               <p>
-                There are usually 60-200 photos and a handful
-                of video clips (for example from the take-off, landing and if you're doing some big turns
-                over town).
+                {{$t('step-start.photosVideosPopup.paragraphTwo')}}
               </p>
               <p>
-                If you're not sure, you can also decide after you fly. We have tablets in our office to
-                view them on.
+                {{$t('step-start.photosVideosPopup.paragraphThree')}}
               </p>
             </div>
           </v-card-text>

@@ -31,10 +31,15 @@
     "pleaseChooseFlightFirst": "Please choose a Flight Date first...",
     "noAvailableFlights": "No Schedule available for this date. Please call us.",
     "photosvideos": "Photos + Videos (optional)",
-    "photosvideosInfo": "Photos + Videos Infos",
     "flightInfo": "Flight Infos",
     "photosvideos-description": "Filmed with GoPros on specially built sticks for some great memories! (optional {price}.00 CHF per person)",
-    "clickForDetails": "click for details..."
+    "clickForDetails": "click for details...",
+    "photosVideosPopup": {
+      "title": "Photos + Videos Infos",
+      "paragraphOne": "Select our {price}.- CHF Photos + Videos option, if you're sure you want to buy the Photos and Videos from your flight. Buying them now just makes your fly day a little bit smoother and easier.",
+      "paragraphTwo": "There are usually 60-200 photos and a handful of video clips (for example from the take-off, landing and if you're doing some big turns over town).",
+      "paragraphThree": "If you're not sure, you can also decide after you fly. We have tablets in our office to view them on."
+    }
   },
   "step-timeslot": {
     "title": "How Many Flying?",
