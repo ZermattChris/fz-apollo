@@ -1,4 +1,10 @@
 {
+
+  "findOffice": {
+    "linkText": "Find us video...",
+    "title": "Find the FLYZermatt Office"
+  },
+
   "nav": {
     "continue": "Weiter",
     "back": "Zurück",
@@ -24,11 +30,41 @@
     "whichflight": "Welcher Flug?",
     "pleaseChooseFlightFirst": "Bitte wählen Sie zuerst ein Flugdatum aus...",
     "noAvailableFlights": "No Schedule available for this date. Please call us.",
+
+    "kleinPopup": {
+      "paragraphOne": "The Elite flight is the highest tandem take off in the Alps - this makes for an amazing flight, but also means that both weather and snow conditions have to be just right. Winds are often strong at this altitude and our take off areas are on glacier/snow - because of this we try and do this flight early in the morning when conditions are the best.",
+      "paragraphTwo": "We fly the Elite over the entire year, when ever wind and snow conditions allow.",
+      "paragraphThree": "If you book the Elite, we ask that you are happy to do the Classic High flight as a back-up - in case the conditions don't allow us to fly from Klein Matterhorn.",
+      "paragraphFour": "The Elite flight also requires passengers to be fairly fit, confident and not too heavy.",
+      "paragraphFive": "xxxx"
+    },
+
+    "classicPopup": {
+      "paragraphOne": "The best time for the Classic High is in the mornings. It is often also possible to do this flight in the afternoon, but it depends on the day's conditions.",
+      "paragraphTwo": "We fly the Classic High the entire year, in the summer from Rothorn and in the spring/autumn, from Gornergrat and/or Rotenboden.",
+      "paragraphThree": "If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy."
+    },
+
+    "scenicPopup": {
+      "paragraphOne": "We fly the Scenic from both Blauherd and Riffelberg. We try and choose the location that we feel will have the best conditions for your specific booking time.",
+      "paragraphTwo": "We fly the Scenic in the Spring, Summer and Autumn, from Riffelberg/Blauherd (there is too much snow in winter forthese lower take off areas).",
+      "paragraphThree": "If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy.",
+      "paragraphFour": "It is also possible to meet you on the mountain, if you would like to combine your flight with a day of hiking or sight seeing. IMPORTANT: Please add a 'Booking Message', on the payment page to let us know where you would like to meet. ",
+      "paragraphFive": "<strong>PLEASE NOTE</strong>: All times shown on your Booking are <strong>Office Meeting times</strong>! If you want to meet on the mountain, we will contact you, after you complete your online booking, with final times and details."
+    },
+
+    
     "photosvideos": "Fotos + Videos (optional)",
     "photosvideosInfo": "Fotos + Videos Infos",
     "flightInfo": "Fluginfos",
     "photosvideos-description": "Gefilmt mit GoPros von eigens gebauten Sticks für tolle Erinnerungen! (optional {price}.00 CHF pro Person)",
-    "clickForDetails": "für Informationen anklicken"
+    "clickForDetails": "für Informationen anklicken",
+    "photosVideosPopup": {
+      "title": "Photos + Videos Infos",
+      "paragraphOne": "Select our {price}.- CHF Photos + Videos option, if you're sure you want to buy the Photos and Videos from your flight. Buying them now just makes your fly day a little bit smoother and easier.",
+      "paragraphTwo": "There are usually 60-200 photos and a handful of video clips (for example from the take-off, landing and if you're doing some big turns over town).",
+      "paragraphThree": "If you're not sure, you can also decide after you fly. We have tablets in our office to view them on."
+    }
   },
   "step-timeslot": {
     "title": "Wie viele Personen fliegen?",
@@ -113,7 +149,6 @@
     }
   },
 
-
   "step-pay": {
     "title": "Bestellen",
     "description": "Überprüfen Sie Ihre Bestellung und drücken Sie BEZAHLEN, um Ihre Zahlung abzuschliessen.",
@@ -152,4 +187,5 @@
     "resendTo": "Bestätigungs-E-Mail erneut senden an:",
     "sendEmail": "SENDEN"
   }
+
 }

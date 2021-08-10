@@ -198,82 +198,71 @@
 
             <div v-if="isKlein">
               <p>
-                The Elite flight is the highest tandem take off in the Alps - this makes for an amazing flight,
-                but also means that both weather and snow conditions have to be just right. Winds are often 
-                strong at this altitude and our take off areas are on glacier/snow - because of this we try and do
-                this flight early in the morning when conditions are the best.
+                <span v-html="$t('step-start.kleinPopup.paragraphOne')" />
               </p>
               <p>
                 <v-icon color="primary" class="">
                   mdi-map-marker
                 </v-icon>
-                We fly the Elite over the entire year, when ever wind and snow conditions allow.
+                <span v-html="$t('step-start.kleinPopup.paragraphTwo')" />
               </p>
               <p>
-                If you book the Elite, we ask that you are happy to do the Classic High flight as a back-up -
-                in case the conditions don't allow us to fly from Klein Matterhorn.
+                <span v-html="$t('step-start.kleinPopup.paragraphThree')" />
               </p>
               <p>
                 <v-icon color="warning" class="">
                   mdi-star
                 </v-icon>
-                The Elite flight also requires passengers to be fairly fit, confident and not too heavy.
+                <span v-html="$t('step-start.kleinPopup.paragraphFour')" />
               </p>
             </div>
 
             <div v-if="isClassic">
               <p>
-                The best time for the Classic High is in the mornings. It is often also possible to do 
-                this flight in the afternoon, but it depends on the day's conditions.
+                <span v-html="$t('step-start.classicPopup.paragraphOne')" />
               </p>
 
               <p>
                 <v-icon color="primary" class="">
                   mdi-map-marker
                 </v-icon>
-                We fly the Classic High the entire year, in the summer from Rothorn and 
-                in the spring/autumn, from Gornergrat and/or Rotenboden.
+                <span v-html="$t('step-start.classicPopup.paragraphTwo')" />
               </p>
               <p>
                 <v-icon color="warning" class="">
                   mdi-star
                 </v-icon>
-                If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy
+                <span v-html="$t('step-start.classicPopup.paragraphThree')" />
               </p>
             </div>
 
             <div v-if="isScenic">
               <p>
-                We fly the Scenic from both Blauherd and Riffelberg. We try and choose the location that 
-                we feel will have the best conditions for your specific booking time.
+                <span v-html="$t('step-start.classicPopup.paragraphOne')" />
               </p>
               <p>
                 <v-icon color="primary" class="">
                   mdi-map-marker
                 </v-icon>
-                We fly the Scenic in the Spring, Summer and Autumn, from Riffelberg/Blauherd (there is too much snow in winter for
-                these lower take off areas).
+                <span v-html="$t('step-start.classicPopup.paragraphTwo')" />
               </p>
               <p>
                 <v-icon color="warning" class="">
                   mdi-star
                 </v-icon>
-                If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy
+                <span v-html="$t('step-start.classicPopup.paragraphThree')" />
               </p>
               <p>
                 <v-icon small color="warning" class="">
                   mdi-information-outline
                 </v-icon>
-                It is also possible to meet you on the mountain, if you would like to combine 
-                your flight with a day of hiking or sight seeing. IMPORTANT: Please add a "Booking Message", on the payment page 
-                to let us know where you would like to meet. 
+                <span v-html="$t('step-start.classicPopup.paragraphFour')" />
               </p>
               <p>
                 <v-icon small color="warning" class="mr-1">
                   mdi-information-outline
                 </v-icon>
-                <strong>PLEASE NOTE</strong>: All times shown on your Booking are <strong>Office Meeting times</strong>!
-                If you want to meet on the mountain, we will contact you, after you complete your online booking, with final times and details.
+                <span v-html="$t('step-start.classicPopup.paragraphFive')" />
               </p>
             </div>
 
@@ -284,10 +273,10 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-              color="primary"
+              color="fzPink" 
+              class="mb-2 white--text"
               elevation="2"
               outlined
-              class="mb-2"
               @click="closeFlightDialog"
             >
               {{$t('nav.ok')}}
@@ -323,9 +312,6 @@
                 {{infoIcon}} 
               </v-icon> 
                 {{$t('step-start.clickForDetails')}}
-              <!-- <a href="https://www.flyzermatt.com/photos-videos/" target="_blank">
-                {{$t('step-start.clickForDetails')}}
-              </a> -->
             )
           </span>
         </p>
@@ -428,10 +414,10 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-              color="primary"
+              color="fzPink" 
+              class="mb-2 white--text"
               elevation="2"
               outlined
-              class="mb-2"
               @click="photosVideoDialog = false"
             >
               {{$t('nav.ok')}}
