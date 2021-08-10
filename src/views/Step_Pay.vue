@@ -28,9 +28,6 @@
         </a></strong>
       </p>
 
-          <!-- @click:outside="findOfficeDialog = false" -->
-
-
       <template>
         <v-simple-table 
           dense
@@ -97,11 +94,11 @@
                 @click="focusBookingMessage()"
               >
                 <strong>{{$t('step-pay.clickForSpecialRequests')}}</strong>
-              <template v-slot:actions>
-                <v-icon color="warning">
-                  mdi-information-outline
-                </v-icon>
-              </template>
+                <template v-slot:actions>
+                  <v-icon color="warning">
+                    mdi-information-outline
+                  </v-icon>
+                </template>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
                 <!-- {{$t('step-pay.specialRequestsDesc')}} -->

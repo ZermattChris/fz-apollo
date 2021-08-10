@@ -113,11 +113,9 @@
         <v-col cols="12" md="1" lg="2"></v-col>
         <v-col class="px-5 pb-5 pt-6 pa-sm-8 pa-md-12" cols="12" md="10" lg="8" >
 
-
-    <!-- {{stateModuleTest}} -->
-
-          <!-- Router hooked up here -->
+          <!-- *********************** Router hooked up here *********************** -->
           <router-view/>
+          <!-- *********************** Router hooked up here *********************** -->
 
         </v-col>
         <v-col cols="12" md="1" lg="2"></v-col>
@@ -174,7 +172,7 @@
     <v-overlay :value="isAppStillLoading" />
 
 
-    <!-- This is an Info dialog that's shown to the user if they choose the Elite flight. -->
+    <!-- Global "Find our Office" pop up dialog -->
     <v-dialog
       v-model="findOfficeDialog"
       width="500"
