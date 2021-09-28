@@ -22,6 +22,7 @@ import navigation from './modules/nav'
 
 Vue.use(Vuex)
 
+
 const rawNavList = {
   'Start': false,
   'Time': false,
@@ -69,7 +70,7 @@ export default new Vuex.Store({
   state: {
 
     // Set to false for Release code.
-    _DEV: false,
+    _DEV: true,
 
     // User inputs.
     // Cached in browser's localStorage.

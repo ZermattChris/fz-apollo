@@ -43,12 +43,15 @@
         />
       </div>
 
-      <!-- Language Switch Menu -->
-      <!-- currently only shown when app is running in state._DEV mode.  -->
+      <!-- LIVE: Language Switch Menu -->
       <LangMenu
         class=""
-        v-show="this.$store.state._DEV === true"
       />
+      <!-- DEV: currently only shown when app is running in state._DEV mode.  -->
+      <!-- <LangMenu
+        class=""
+        v-show="this.$store.state._DEV === true"
+      /> -->
 
     </v-app-bar>
 

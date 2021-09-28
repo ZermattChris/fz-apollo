@@ -237,31 +237,31 @@
 
             <div v-if="isScenic">
               <p>
-                <span v-html="$t('step-start.classicPopup.paragraphOne')" />
+                <span v-html="$t('step-start.scenicPopup.paragraphOne')" />
               </p>
               <p>
                 <v-icon color="primary" class="">
                   mdi-map-marker
                 </v-icon>
-                <span v-html="$t('step-start.classicPopup.paragraphTwo')" />
+                <span v-html="$t('step-start.scenicPopup.paragraphTwo')" />
               </p>
               <p>
                 <v-icon color="warning" class="">
                   mdi-star
                 </v-icon>
-                <span v-html="$t('step-start.classicPopup.paragraphThree')" />
+                <span v-html="$t('step-start.scenicPopup.paragraphThree')" />
               </p>
               <p>
                 <v-icon small color="warning" class="">
                   mdi-information-outline
                 </v-icon>
-                <span v-html="$t('step-start.classicPopup.paragraphFour')" />
+                <span v-html="$t('step-start.scenicPopup.paragraphFour')" />
               </p>
               <p>
                 <v-icon small color="warning" class="mr-1">
                   mdi-information-outline
                 </v-icon>
-                <span v-html="$t('step-start.classicPopup.paragraphFive')" />
+                <span v-html="$t('step-start.scenicPopup.paragraphFive')" />
               </p>
             </div>
 
