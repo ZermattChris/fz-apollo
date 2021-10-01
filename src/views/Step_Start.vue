@@ -352,7 +352,6 @@
                   @mouseout="onCarouselMouseOut"
                 >
                   <v-sheet
-                    :color="colors[i]"
                     height="100%"
                   >
                     <v-row
@@ -363,13 +362,17 @@
 
                       <!-- Slide content goes here. show-if for each slide.  -->
                       <div 
-                        v-if="i !== 3"
                         class="text-h2"
                       >
-                        {{ slide }} Slide
+                        <!-- slides/{{ slide }} -->
+                        <v-img
+                          height="240"
+                          width="452"
+                          :src="'/slides/' + slide"
+                        ></v-img>
                       </div>
 
-                      <iframe
+                      <!-- <iframe
                         v-if="i === 3"
                         style="overflow:hidden;width:100%;" 
                         src="https://player.vimeo.com/video/217390381?title=0&amp;byline=0&amp;portrait=0&amp;color=ff0179" 
@@ -379,7 +382,7 @@
                         mozallowfullscreen 
                         allowfullscreen 
                         allow="autoplay; fullscreen"
-                      ></iframe>
+                      ></iframe> -->
 
 
 
@@ -497,11 +500,11 @@ export default {
           'deep-purple accent-4',
         ],
         slides: [
-          'First',
-          'Second',
-          'Third',
-          'Fourth',
-          'Fifth',
+          'Winter-in-flight-smiles-with-Matterhorn.jpg',
+          'Funny-Take-off-picture.jpg',
+          'FlyZermatt-wingover-and-Matterhorn.jpg',
+          'Winter-FlyZermatt-wing-and-Matterhorn-over-Zermatt.jpg',
+          'Funny-Korean-Smile-FlyZermatt-Paragliding.jpg',
         ],
 
 
