@@ -22,9 +22,9 @@
 
       <!-- Test i18n message. -->
       <!-- <div>{{ $t('step-start.message') }}</div> -->
-      <LangMenu
+      <!-- <LangMenu
         style="visibility:hidden;"
-      />
+      />  -->
 
       <div 
         id="logo"
@@ -40,6 +40,7 @@
           max-height="130"
           @click="onClearData"
           ref="fzlogo"
+          
         />
       </div>
 
@@ -56,7 +57,6 @@
     </v-app-bar>
 
     <v-main>
-
 
       <v-stepper 
         v-model="stepper"
