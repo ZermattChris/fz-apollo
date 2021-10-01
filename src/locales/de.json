@@ -1,8 +1,8 @@
 {
 
   "findOffice": {
-    "linkText": "Find us video...",
-    "title": "Find the FLYZermatt Office"
+    "linkText": "Finde uns Video...",
+    "title": "Das FLYZermatt Büro finden"
   },
 
   "nav": {
@@ -29,29 +29,28 @@
     "departingDate": "Abreise von Zermatt?",
     "whichflight": "Welcher Flug?",
     "pleaseChooseFlightFirst": "Bitte wählen Sie zuerst ein Flugdatum aus...",
-    "noAvailableFlights": "No Schedule available for this date. Please call us.",
+    "noAvailableFlights": "Für dieses Datum ist kein Flugplan verfügbar. Bitte rufen Sie uns an.",
 
     "kleinPopup": {
-      "paragraphOne": "The Elite flight is the highest tandem take off in the Alps - this makes for an amazing flight, but also means that both weather and snow conditions have to be just right. Winds are often strong at this altitude and our take off areas are on glacier/snow - because of this we try and do this flight early in the morning when conditions are the best.",
-      "paragraphTwo": "We fly the Elite over the entire year, when ever wind and snow conditions allow.",
-      "paragraphThree": "If you book the Elite, we ask that you are happy to do the Classic High flight as a back-up - in case the conditions don't allow us to fly from Klein Matterhorn.",
-      "paragraphFour": "The Elite flight also requires passengers to be fairly fit, confident and not too heavy."
+      "paragraphOne": "Der Elite-Flug ist der höchstgelegene Tandemstart in den Alpen - das macht den Flug zu einem besonderen Erlebnis, bedeutet aber auch, dass sowohl das Wetter als auch die Schneebedingungen stimmen müssen. Die Winde sind in dieser Höhe oft stark und unsere Startplätze befinden sich auf dem Gletscher/Schnee - aus diesem Grund versuchen wir, diesen Flug früh am Morgen durchzuführen, wenn die Bedingungen am besten sind...",
+      "paragraphTwo": "Wir fliegen die Elite das ganze Jahr über, wenn es die Wind- und Schneebedingungen erlauben.",
+      "paragraphThree": "Wenn Sie den Elite-Flug buchen, bitten wir Sie, den Classic-High-Flug als Backup zu buchen - für den Fall, dass die Bedingungen es uns nicht erlauben, vom Klein Matterhorn aus zu fliegen.",
+      "paragraphFour": "Auch für den Elite-Flug müssen die Passagiere einigermassen fit, selbstbewusst und nicht zu schwer sein."
     },
 
     "classicPopup": {
-      "paragraphOne": "The best time for the Classic High is in the mornings. It is often also possible to do this flight in the afternoon, but it depends on the day's conditions.",
-      "paragraphTwo": "We fly the Classic High the entire year, in the summer from Rothorn and in the spring/autumn, from Gornergrat and/or Rotenboden.",
-      "paragraphThree": "If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy."
+      "paragraphOne": "Die beste Zeit für den Classic High ist morgens. Oft ist es auch möglich, diesen Flug am Nachmittag durchzuführen, aber das hängt von den Tagesbedingungen ab.",
+      "paragraphTwo": "Wir fliegen den Classic High das ganze Jahr über, im Sommer vom Rothorn und im Frühling/Herbst vom Gornergrat und/oder Rotenboden.",
+      "paragraphThree": "Wenn Sie den Flug am frühen Morgen (08:00 Uhr) buchen, bitten wir Sie, einigermassen fit, sicher und nicht zu schwer zu sein."
     },
 
     "scenicPopup": {
-      "paragraphOne": "We fly the Scenic from both Blauherd and Riffelberg. We try and choose the location that we feel will have the best conditions for your specific booking time.",
-      "paragraphTwo": "We fly the Scenic in the Spring, Summer and Autumn, from Riffelberg/Blauherd (there is too much snow in winter forthese lower take off areas).",
-      "paragraphThree": "If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy.",
-      "paragraphFour": "It is also possible to meet you on the mountain, if you would like to combine your flight with a day of hiking or sight seeing. IMPORTANT: Please add a 'Booking Message', on the payment page to let us know where you would like to meet. ",
-      "paragraphFive": "<strong>PLEASE NOTE</strong>: All times shown on your Booking are <strong>Office Meeting times</strong>! If you want to meet on the mountain, we will contact you, after you complete your online booking, with final times and details."
+      "paragraphOne": "Wir fliegen die Scenic sowohl von Blauherd als auch von Riffelberg. Wir versuchen, den Standort zu wählen, der unserer Meinung nach die besten Bedingungen für Ihre spezifische Buchungszeit bietet.",
+      "paragraphTwo": "Wir fliegen den Scenic im Frühling, Sommer und Herbst von Riffelberg/Blauherd aus (im Winter liegt zu viel Schnee auf den niedrigeren Startplätzen).",
+      "paragraphThree": "Wenn Sie den Flug am frühen Morgen (08:00 Uhr) buchen, bitten wir Sie, einigermaßen fit, selbstbewusst und nicht zu schwer zu sein.",
+      "paragraphFour": "Es ist auch möglich, Sie auf dem Berg zu treffen, wenn Sie Ihren Flug mit einem Wandertag oder einer Besichtigungstour verbinden möchten. WICHTIG: Bitte fügen Sie auf der Zahlungsseite eine 'Booking Message' hinzu, um uns mitzuteilen, wo Sie sich treffen möchten. ",
+      "paragraphFive": "<strong>BITTE BEACHTEN</strong>: Alle in Ihrer Buchung angegebenen Zeiten sind <strong>Bürozeiten</strong>! Wenn Sie sich auf dem Berg treffen möchten, werden wir Sie nach Abschluss Ihrer Online-Buchung mit den endgültigen Zeiten und Details kontaktieren."
     },
-
     
     "photosvideos": "Fotos + Videos (optional)",
     "photosvideosInfo": "Fotos + Videos Infos",
@@ -59,10 +58,10 @@
     "photosvideos-description": "Gefilmt mit GoPros von eigens gebauten Sticks für tolle Erinnerungen! (optional {price}.00 CHF pro Person)",
     "clickForDetails": "für Informationen anklicken",
     "photosVideosPopup": {
-      "title": "Photos + Videos Infos",
-      "paragraphOne": "Select our {price}.- CHF Photos + Videos option, if you're sure you want to buy the Photos and Videos from your flight. Buying them now just makes your fly day a little bit smoother and easier.",
-      "paragraphTwo": "There are usually 60-200 photos and a handful of video clips (for example from the take-off, landing and if you're doing some big turns over town).",
-      "paragraphThree": "If you're not sure, you can also decide after you fly. We have tablets in our office to view them on."
+      "title": "Fotos + Videos Infos",
+      "paragraphOne": "Wählen Sie unsere Option {Preis}.- CHF Fotos + Videos, wenn Sie sicher sind, dass Sie die Fotos und Videos von Ihrem Flug kaufen möchten. Wenn Sie sie jetzt kaufen, wird Ihr Flugtag noch ein bisschen angenehmer und einfacher.",
+      "paragraphTwo": "Normalerweise gibt es 60-200 Fotos und eine Handvoll Videoclips (z. B. vom Start, der Landung und wenn Sie grosse Kurven über der Stadt fliegen).",
+      "paragraphThree": "Wenn Sie sich nicht sicher sind, können Sie auch nach dem Flug entscheiden. Wir haben in unserem Büro Tablets, auf denen Sie die Videos ansehen können."
     }
   },
   "step-timeslot": {

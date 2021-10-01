@@ -1,8 +1,8 @@
 {
 
-  "findOffice": {
-    "linkText": "Find us video...",
-    "title": "Find the FLYZermatt Office"
+  "findOffice" : {
+    "linkText" : "Trouvez-nous en vidéo...",
+    "title" : "Trouvez le bureau de FLYZermatt"
   },
 
   "nav": {
@@ -15,176 +15,175 @@
     "breadcrumb-pay": "Payer"
   },
   "form": {
-    "required": "Required",
-    "max-20-chars": "Max 20 characters",
-    "invalid-email": "Invalid Email...",
-    "phone-hint": "hint: CountryCode + Number (no leading Zeros)"
+    "required": "Obligatoire",
+    "max-20-chars" : "20 caractères maximum",
+    "invalid-email" : "Invalid Email...",
+    "phone-hint" : "hint : CountryCode + Number (no leading Zeros)"
   },
 
   "step-start": {
-    "title": "Dates & Flight",
-    "description": "We need the following information to help us give you the best possible flight experience with the highest level of safety.",
-    "flightdate": "Preferred Flight Date",
-    "arrivingDate": "Arriving in Zermatt?",
-    "departingDate": "Departing from Zermatt?",
-    "whichflight": "Which Flight?",
-    "pleaseChooseFlightFirst": "Please choose a Flight Date first...",
-    "noAvailableFlights": "No Schedule available for this date. Please call us.",
+    "title": "Dates et vols",
+    "description" : "Nous avons besoin des informations suivantes pour nous aider à vous offrir la meilleure expérience de vol possible avec le plus haut niveau de sécurité.",
+    "flightdate" : "Preferred Flight Date",
+    "arrivingDate" : "Arriver à Zermatt ?",
+    "departingDate" : "Départ de Zermatt ?",
+    "whichflight" : "Quel vol ?",
+    "pleaseChooseFlightFirst" : "Veuillez d'abord choisir une date de vol...",
+    "noAvailableFlights" : "Aucun programme disponible pour cette date. Veuillez nous appeler.",
 
-    "kleinPopup": {
-      "paragraphOne": "The Elite flight is the highest tandem take off in the Alps - this makes for an amazing flight, but also means that both weather and snow conditions have to be just right. Winds are often strong at this altitude and our take off areas are on glacier/snow - because of this we try and do this flight early in the morning when conditions are the best.",
-      "paragraphTwo": "We fly the Elite over the entire year, when ever wind and snow conditions allow.",
-      "paragraphThree": "If you book the Elite, we ask that you are happy to do the Classic High flight as a back-up - in case the conditions don't allow us to fly from Klein Matterhorn.",
-      "paragraphFour": "The Elite flight also requires passengers to be fairly fit, confident and not too heavy."
+    "kleinPopup" : {
+      "paragraphOne" : "Le vol Elite est le plus haut décollage en tandem dans les Alpes - cela donne un vol incroyable, mais signifie également que les conditions météorologiques et de neige doivent être parfaites. Les vents sont souvent forts à cette altitude et nos zones de décollage sont sur le glacier/la neige - pour cette raison, nous essayons de faire ce vol tôt le matin lorsque les conditions sont les meilleures.",
+      "paragrapheTwo" : "Nous faisons voler l'Elite toute l'année, lorsque les conditions de vent et de neige le permettent.",
+      "paragraphThree" : "Si vous réservez l'Elite, nous vous demandons d'accepter de faire le vol d'altitude classique comme solution de secours, au cas où les conditions ne nous permettraient pas de voler depuis le Klein Matterhorn",
+      "paragraphFour" : "Le vol Elite exige également que les passagers soient assez en forme, confiants et pas trop lourds."
     },
 
-    "classicPopup": {
-      "paragraphOne": "The best time for the Classic High is in the mornings. It is often also possible to do this flight in the afternoon, but it depends on the day's conditions.",
-      "paragraphTwo": "We fly the Classic High the entire year, in the summer from Rothorn and in the spring/autumn, from Gornergrat and/or Rotenboden.",
-      "paragraphThree": "If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy."
+    "classicPopup" : {
+      "paragraphOne" : "Le meilleur moment pour effectuer l'altitude classique est le matin. Il est souvent aussi possible d'effectuer ce vol l'après-midi, mais cela dépend des conditions du jour.",
+      "paragraphTwo" : "Nous volons le Classic High toute l'année, en été depuis le Rothorn et au printemps/automne, depuis le Gornergrat et/ou le Rotenboden.",
+      "paragrapheTrois" : "Si vous réservez le vol tôt le matin (08:00), nous vous demandons d'être en assez bonne forme physique, d'avoir confiance en vous et de ne pas être trop lourd."
     },
 
-    "scenicPopup": {
-      "paragraphOne": "We fly the Scenic from both Blauherd and Riffelberg. We try and choose the location that we feel will have the best conditions for your specific booking time.",
-      "paragraphTwo": "We fly the Scenic in the Spring, Summer and Autumn, from Riffelberg/Blauherd (there is too much snow in winter forthese lower take off areas).",
-      "paragraphThree": "If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy.",
-      "paragraphFour": "It is also possible to meet you on the mountain, if you would like to combine your flight with a day of hiking or sight seeing. IMPORTANT: Please add a 'Booking Message', on the payment page to let us know where you would like to meet. ",
-      "paragraphFive": "<strong>PLEASE NOTE</strong>: All times shown on your Booking are <strong>Office Meeting times</strong>! If you want to meet on the mountain, we will contact you, after you complete your online booking, with final times and details."
+    "scenicPopup" : {
+      "paragraphOne" : "Nous faisons voler le Scenic depuis Blauherd et Riffelberg. Nous essayons de choisir l'endroit qui, selon nous, offre les meilleures conditions pour votre réservation spécifique.",
+      "paragraphTwo" : "Nous faisons voler le Scenic au printemps, en été et en automne, depuis Riffelberg/Blauherd (il y a trop de neige en hiver pour ces zones de décollage plus basses).",
+      "paragrapheTrois" : "Si vous réservez le vol tôt le matin (08h00), nous vous demandons d'être en assez bonne forme physique, d'avoir confiance en vous et de ne pas être trop lourd.",
+      "paragrapheQuatre" : "Il est également possible de vous rencontrer sur la montagne, si vous souhaitez combiner votre vol avec une journée de randonnée ou d'excursion. IMPORTANT : Veuillez ajouter un 'Message de réservation' sur la page de paiement pour nous faire savoir où vous souhaitez vous rencontrer. ",
+      "paragraphFive" : "<strong>Veuillez noter</strong> : Tous les horaires indiqués sur votre réservation sont des <strong>horaires de rendez-vous au bureau</strong> ! Si vous souhaitez vous rencontrer sur la montagne, nous vous contacterons, après avoir complété votre réservation en ligne, avec les horaires et les détails définitifs."
     },
 
 
 
-    "photosvideos": "Photos + Videos (optional)",
-    "flightInfo": "Flight Infos",
-    "photosvideos-description": "Filmed with GoPros on specially built sticks for some great memories! (optional {price}.00 CHF per person)",
-    "clickForDetails": "click for details...",
-    "photosVideosPopup": {
-      "title": "Photos + Videos Infos",
-      "paragraphOne": "Select our {price}.- CHF Photos + Videos option, if you're sure you want to buy the Photos and Videos from your flight. Buying them now just makes your fly day a little bit smoother and easier.",
-      "paragraphTwo": "There are usually 60-200 photos and a handful of video clips (for example from the take-off, landing and if you're doing some big turns over town).",
-      "paragraphThree": "If you're not sure, you can also decide after you fly. We have tablets in our office to view them on."
+    "photosvideos" : "Photos + Vidéos (facultatif)",
+    "flightInfo" : "Infos sur le vol",
+    "photosvideos-description" : "Filmé avec des GoPros sur des bâtons spécialement construits pour de grands souvenirs ! (optionnel {prix}.00 CHF par personne)",
+    "clickForDetails" : "cliquez pour les détails...",
+    "photosVideosPopup" : {
+      "title" : "Infos photos + vidéos",
+      "paragraphOne" : "Sélectionnez notre option Photos + Vidéos {prix}.- CHF, si vous êtes sûr de vouloir acheter les photos et vidéos de votre vol. En les achetant maintenant, votre journée de vol sera un peu plus facile et fluide.",
+      "paragraphTwo" : "Il y a généralement 60 à 200 photos et une poignée de clips vidéo (par exemple du décollage, de l'atterrissage et si vous faites de grands virages au-dessus de la ville).",
+      "paragraphThree" : "Si vous n'êtes pas sûr, vous pouvez aussi décider après avoir volé. Nous avons des tablettes dans nos bureaux pour les visionner."
     }
   },
   "step-timeslot": {
-    "title": "How Many Flying?",
-    "description": "Add the number of passengers to the times you would like to fly.",
-    "large-group-tip": "You can split larger groups over multiple times.",
-    "total-passengers": "Passenger in total | Passengers in total",
-    "jump-original-date": "Jump to Origanal Date",
-    "selected-date": "Selected Date",
-    "places-free": "{n} Place free | {n} Places free",
-    "passengers": "Passenger | Passengers",
-    "flightNotAvail": "Flight not available",
-    "swipeRightLeft": "(Swipe left/right to change the Flight Date)"
+    "title": "Combien de personnes volent ?",
+    "description" : "Ajoutez le nombre de passagers aux heures auxquelles vous souhaitez voler.",
+    "large-group-tip" : "Vous pouvez répartir les grands groupes sur plusieurs horaires.",
+    "total-passagers" : "Passagers au total | Passagers au total",
+    "jump-original-date" : "Jump to Origanal Date",
+    "selected-date" : "Selected Date",
+    "places-free" : "{n} Lieu libre | {n} Places gratuites",
+    "Passagers" : "Passager | Passagers",
+    "flightNotAvail" : "Vol non disponible",
+    "swipeRightLeft" : "(Glissez à gauche/droite pour changer la date du vol)"
   },
   "step-info": {
-    "title": "Your Details | Your Group's Details",
-    "description": "We only ask for the passenger information that we need to help make your flight fun, easy and enjoyable. We never share any information with 3rd parties.",
-    "contact-passenger": "Contact Passenger",
-    "passenger-nr": "Passenger #",
+    "title": "Vos détails | Les détails de votre groupe",
+    "description" : "Nous ne demandons que les informations sur les passagers dont nous avons besoin pour vous aider à rendre votre vol amusant, facile et agréable. Nous ne partageons jamais ces informations avec des tiers.",
+    "contact-passager" : "Contacter Passager",
+    "passenger-nr" : "Passager-nr",
 
-    "phone": "Phone",
-    "countryCode-phoneNr": "Country Code & Phone Number",
-    "phone-example": "Example: +1 203 456 7890",
-    "email": "Email",
-    "male": "Male",
-    "female": "Female",
-    "age": "Age",
-    "age-hint": "Your age",
-    "first-last": "First & Last Name",
-    "first-name": "First Name",
+    "phone": "Téléphone",
+    "countryCode-phoneNr" : "Code pays et numéro de téléphone",
+    "phone-example" : "Exemple : +33 1 40 00 00 00",
+    "email": "Courriel",
+    "male": "Homme",
+    "female": "Femme",
+    "age": "Âge",
+    "age-hint" : "Votre âge",
+    "first-last" : "First & Last Name",
+    "first-name" : "First Name",
 
-    "speed": "Confidence & Running Ability",
-    "speed-0": "Assistance Required*",
-    "speed-2": "Minimal Confidence - Speed Slow",
-    "speed-4": "A bit nerverous - Speed Slow-ish",
-    "speed-6": "Confidence Okay - Speed okay",
-    "speed-8": "Quite Confident - Speed Quick",
-    "speed-10": "Totally Confident! - Speed Fast",
+    "speed": "Confiance et aptitude à la course",
+    "speed-0" : "Assistance requise*",
+    "speed-2" : "Confiance minimale - Vitesse lente",
+    "speed-4" : "A bit nerverous - Speed Slow-ish",
+    "speed-6" : "Confiance OK - Vitesse OK",
+    "speed-8" : "Très confiant - Vitesse rapide",
+    "speed-10" : "Totalement confiant ! - Vitesse rapide",
 
-    "weight": "Your Weight",
-    "kilos": "Kilograms",
+    "weight": "Votre poids",
+    "kilos": "Kilogrammes",
     "pounds": "Pounds",
     "stones": "Stones",
     
     "confirm": {
-      "title": "Please Review & Confirm your Booking Details",
-      "description": "Please check that your Booking information is correct, especially your Phone Number and Email (otherwise we can't contact you if we need to adjust your booking due to weather, etc.)",
+      "title": "Veuillez vérifier et confirmer les détails de votre réservation",
+      "description" : "Veuillez vérifier que vos informations de réservation sont correctes, notamment votre numéro de téléphone et votre e-mail (sinon nous ne pourrons pas vous contacter si nous devons ajuster votre réservation en raison de la météo, etc.)",
 
-      "people-flying": "People flying",
-      "flight-date": "Flight Date",
-      "flight": "Flight",
-      "photos-videos": "Photos + Videos",
-      "wants-photos-videos": "Yes, want Photos",
-      "doesnt-want-photos-videos": "No Photos",
-      "name": "Name",
-      "m-f": "M/F",
-      "age": "Age",
+      "people-flying" : "Personnes volant",
+      "flight-date" : "Date du vol",
+      "flight" : "Vol",
+      "photos-videos": "Photos + Vidéos",
+      "wants-photos-videos": "Oui, je veux des photos",
+      "doesnt-want-photos-videos" : "Pas de photos",
+      "name" : "Name",
+      "m-f" : "M/F",
+      "age" : "Age",
 
-      "confidence": "Confidence",
-      "confidence-hover": "Your ability to run a few steps for take off.",
-      "speed-0": "Assistance*",
-      "speed-2": "Minimal",
-      "speed-4": "Nervous",
+      "confidence": "Confiance",
+      "confidence-hover" : "Votre capacité à courir quelques pas pour le décollage",
+      "speed-0" : "Assistance*",
+      "speed-2" : "Minimal",
+      "speed-4" : "Nerveux",
       "speed-6": "Okay",
-      "speed-8": "Confident",
-      "speed-10": "Very Confident!",
+      "speed-8": "Confiant",
+      "speed-10": "Très confiant !",
 
       "kg": "Kg",
 
       "cancel": "Cancel",
-      "confirm": "confirm"
+      "confirm": "confirmer"
 
     },
 
     "country-codes": {
-      "click-for-prefixes": "Click for list of World's Country Code prefixes...",
-      "title": "Country Phone Prefix Codes",
-      "details": "Here's a listing of valid Country Code prefixes for reference. Double-click to select a Prefix.",
-      "flag": "Flag",
-      "country": "Country",
-      "prefix": "Prefix Code",
-      "close": "close"
+      "click-for-prefixes" : "Cliquez pour obtenir la liste des préfixes des codes pays du monde...",
+      "title" : "Codes de préfixe téléphonique des pays",
+      "details" : "Voici une liste de préfixes de codes de pays valides pour référence. Double-cliquez pour sélectionner un préfixe.",
+      "flag" : "Drapeau",
+      "country" : "Pays",
+      "prefix" : "Code Préfixe",
+      "close" : "close"
     }
   },
 
   "step-pay": {
-    "title": "Place Order",
-    "description": "Review your order and press the PAY NOW button to to complete your payment.",
-    "meetingTime": "@ All meeting times are at our office, located inside the Viktoria Center across from Zermatt's main train station (just down the hall from the COOP Supermarket).",
-    "people": "person | people",
+    "title": "Passer commande",
+    "description" : "Passez votre commande et appuyez sur le bouton PAY NOW pour compléter votre paiement.",
+    "meetingTime" : "@ Toutes les heures de réunion sont à notre bureau, situé à l'intérieur du Viktoria Center en face de la gare principale de Zermatt (juste au bout du couloir du supermarché COOP).",
+    "people" : "personne | people",
 
-    "qty": "Qty",
-    "flightDescription": "Description",
-    "subtotalCHF": "Subtotal in CHF",
-    "photosVideos": "Photos & Videos",
-    "totalCHF": "Total CHF",
+    "qty" : "Qty",
+    "flightDescription" : "Description",
+    "subtotalCHF" : "Subtotal en CHF",
+    "photosVideos" : "Photos et vidéos",
+    "totalCHF" : "Total CHF",
 
-    "specialWishes": "If you have any questions, special wishes or have extra information regarding a passenger (for example a passenger with a disability), please click the Special Requests below and enter your message.",
-    "clickForSpecialRequests": "Click here for special requests",
-    "specialRequestsDesc": "Special take off times and/or locations, passengers with disabilites, or just general questions... ",
-    "yourMsgHere": "Your message here",
+    "specialWishes" : "Si vous avez des questions, des souhaits particuliers ou des informations supplémentaires concernant un passager (par exemple un passager handicapé), veuillez cliquer sur les demandes spéciales ci-dessous et saisir votre message",
+    "clickForSpecialRequests" : "Cliquez ici pour les demandes spéciales",
+    "specialRequestsDesc" : "Heures et/ou lieux de décollage spéciaux, passagers handicapés, ou simplement des questions générales... ",
+    "yourMsgHere" : "Votre message ici",
 
-    "tc-text-start": "Check here to indicate that you have read and agree to the ",
-    "tc-text-link": "Terms and Conditions",
-    "tc-text-end": " of the FlyZermatt Customer Agreement ",
-    "openInNewPage": "Opens in new page",
-    "payNow": "Pay Now"
-
+    "tc-text-start" : "Cochez ici pour indiquer que vous avez lu et accepté les ",
+    "tc-text-link" : "Termes et conditions",
+    "tc-text-end" : "du contrat client FlyZermatt",
+    "openInNewPage" : "S'ouvre dans une nouvelle page",
+    "payNow" : "Payez maintenant"
   },
 
   "step-thanks": {
-    "title": "Thank you!",
-    "description": "Your payment succeeded & your order is complete.",
-    "transactionNr": "Transaction Nr:",
-    "orderSentTo": "Your order confirmation has been sent to:",
-    "checkSpamStart": "Please make sure to check your email",
-    "checkSpamJunk": "Spam/Junk",
-    "checkSpamEnd": "folders if your order confirmation doesn't arrive (emails can take a bit of time to arrive sometimes)",
-    "ifAnyProblems": "If you have any problems with your order, please contact us at:",
-    "orCallUs": " or give us a call at:",
-    "resendTo": "Resend confirmation email to:",
-    "sendEmail": "SEND"
+    "title": "Merci!",
+    "description" : "Votre paiement a réussi et votre commande est complète.",
+    "transactionNr" : "Transaction Nr :",
+    "orderSentTo" : "Votre confirmation de commande a été envoyée à :",
+    "checkSpamStart" : "Veuillez vérifier vos e-mails",
+    "checkSpamJunk" : "Spam/Junk",
+    "checkSpamEnd" : "dossiers si votre confirmation de commande n'arrive pas (les emails peuvent parfois mettre un peu de temps à arriver)",
+    "ifAnyProblems" : "Si vous avez des problèmes avec votre commande, veuillez nous contacter à :",
+    "orCallUs" : " ou appelez-nous au :",
+    "resendTo" : "Renvoyer l'email de confirmation à :",
+    "sendEmail" : "SEND"
   }
   
 }
