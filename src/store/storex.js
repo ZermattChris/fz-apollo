@@ -70,7 +70,7 @@ export default new Vuex.Store({
   state: {
 
     // Set to false for Release code.
-    _DEV: true,
+    _DEV: false,
 
     // User inputs.
     // Cached in browser's localStorage.
