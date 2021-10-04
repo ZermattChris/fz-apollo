@@ -346,8 +346,10 @@
         let me = this
 
         let id = this.$store.state.orderID
-        //console.log(id)
         if (id === '' || id === undefined)  id = null
+
+        let usrLang = this.$i18n.locale
+        //console.log("Current user language: ", lang)
 
         const data = { 
           "orderId": id,
@@ -361,7 +363,8 @@
           "photos": this.$store.state.wantsPhotos,
           "passengerJSON": this.$store.state.passengerObjList,
           "slotJSON": this.$store.state.slotPassengersObj,
-          "orderMessage": this.$store.state.orderMessage
+          "orderMessage": this.$store.state.orderMessage,
+          "usersLanguage": usrLang
         }
 
         //console.log("Order data sent to Tommy.", data)
