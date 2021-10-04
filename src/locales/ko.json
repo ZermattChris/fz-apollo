@@ -1,14 +1,14 @@
 {
 
   "findOffice": {
-    "linkText": "영상 찾아주세요...",
-    "title": "FLYZermatt 사무실 찾기"
+    "linkText": "영상 보기",
+    "title": "FLYZermatt 위치 보기"
   },
 
   "nav": {
-    "continue": "계속하다",
-    "back": "반환",
-    "ok": "알았어 ",
+    "continue": "계속하기",
+    "back": "뒤로 가기",
+    "ok": "ok",
     "breadcrumb-date": "날짜 및 비행",
     "breadcrumb-time": "시간 및 승객",
     "breadcrumb-info": "승객 정보",
@@ -17,72 +17,72 @@
   "form": {
     "required": "필수",
     "max-20-chars": "최대 20자",
-    "invalid-email": "잘못된 이메일...",
-    "phone-hint": "힌트: 국가 코드 + 숫자(앞에 0 없음)"
+    "invalid-email": "잘못된 이메일입니다",
+    "phone-hint": "힌트: 국가 코드 + 숫자(첫자리 0 제외)"
   },
 
   "step-start": {
     "title": "날짜 및 항공편",
     "description": "최고 수준의 안전과 최상의 비행 경험을 제공하기 위해 다음 정보가 필요합니다. ",
     "flightdate": "비행 날짜",
-    "arrivingDate": "체르마트에 도착? ",
-    "departingDate": "체르마트에서 출발하시나요? ",
-    "whichflight": "어느 항공편?",
-    "pleaseChooseFlightFirst": "먼저 비행 날짜를 선택하십시오... ",
-    "noAvailableFlights": "이 날짜에 사용할 수 있는 일정이 없습니다. 전화주세요.",
+    "arrivingDate": "체르마트에 도착일 ",
+    "departingDate": "체르마트에서 출발일 ",
+    "whichflight": "비행 선택",
+    "pleaseChooseFlightFirst": "먼저 비행 날짜를 선택하십시오",
+    "noAvailableFlights": "이 날짜에 이용할 수 있는 일정이 없습니다. 전화주세요.",
 
     "kleinPopup": {
-      "paragraphOne": "Elite 비행은 알프스에서 가장 높은 탠덤 이륙입니다. 이는 놀라운 비행을 제공하지만 날씨와 눈 조건이 모두 맞아야 함을 의미합니다. 바람은 종종 이 고도에서 강하고 우리의 테이크 오프 지역은 빙하/눈 위입니다. 이 때문에 우리는 조건이 가장 좋은 이른 아침에 이 비행을 시도합니다.",
+      "paragraphOne": "엘리트(Elite) 비행은 알프스에서 가장 높은 탠덤 이륙입니다. 놀라운 비행을 선사하지만 날씨와 눈 조건이 모두 맞아야 합니다. 이 고도에서 바람은 종종 강하고 우리의 테이크 오프 지역은 빙하/눈 위입니다. 이 때문에 우리는 조건이 가장 좋은 이른 아침에 이 비행을 시도합니다.",
       "paragraphTwo": "바람과 눈 조건이 허락하는 한 일년 내내 엘리트를 비행합니다.",
-      "paragraphThree": "엘리트를 예약하는 경우 클라인 마터호른에서 출발할 수 없는 상황에 대비하여 예비로 Classic High 항공편을 이용하시기 바랍니다.",
-      "paragraphFour": "엘리트 항공편은 또한 승객이 적당히 건강하고 자신감 있고 너무 무겁지 않아야 합니다." 
+      "paragraphThree": "엘리트를 예약하는 경우 클라인 마터호른에서 출발할 수 없는 상황에 대비하여 예비로 클래식 하이(Classic High) 비행편을 이용하시기 바랍니다.",
+      "paragraphFour": "엘리트 항공편은 승객이 충분히 건강하고 자신감 있고 너무 무겁지 않아야 합니다." 
     },
 
     "classicPopup": {
-      "paragraphOne": "Classic High의 가장 좋은 시간은 아침입니다. 이 비행은 종종 오후에도 가능하지만 당일 조건에 따라 다릅니다.",
-      "paragraphTwo": "여름에는 로트호른에서, 봄/가을에는 고르너그라트 및/또는 로텐보덴에서 일 년 내내 Classic High를 비행합니다.",
-      "paragraphThree": "이른 아침(08:00) 항공편을 예약하는 경우 상당히 건강하고 자신감 있고 너무 무겁지 않도록 요청합니다."
+      "paragraphOne": "클래식 하이(Classic High)의 가장 좋은 시간은 아침입니다. 이 비행은 종종 오후에도 가능하지만 당일 조건에 따라 다릅니다.",
+      "paragraphTwo": "여름에는 로트호른에서, 봄/가을에는 고르너그라트 및/또는 로텐보덴에서 일 년 내내 클래식 하이를 비행합니다.",
+      "paragraphThree": "이른 아침(08:00) 비행편을 예약하는 경우 꽤 건강하고 자신감 있고 너무 무겁지 않아야 합니다."
     },
 
     "scenicPopup": {
-      "paragraphOne": "Blauherd와 Riffelberg 모두에서 경치 좋은 비행을 합니다. 우리는 귀하의 특정 예약 시간에 가장 좋은 조건을 가질 수 있다고 생각되는 위치를 선택하려고 노력합니다.",
+      "paragraphOne": "Blauherd와 Riffelberg 모두에서 경치 좋은 비행을 합니다. 우리는 귀하의 특정 예약 시간에 가장 적합한 위치를 선택하려고 노력합니다.",
       "paragraphTwo": "우리는 봄, 여름, 가을에 Riffelberg/Blauherd에서 경치 좋은 비행을 합니다(겨울에는 이 낮은 이륙 지역에 눈이 너무 많이 내립니다).",
-      "paragraphThree": "이른 아침(08:00) 항공편을 예약하는 경우 상당히 건강하고 자신감 있고 너무 무겁지 않도록 요청합니다.",
-      "paragraphFour": "항공편을 ​​하이킹 또는 관광과 결합하려는 경우 산에서 만날 수도 있습니다. 중요: 결제 페이지에서 '예약 메시지'를 추가하여 저희에게 알려주세요. 당신이 만나고 싶은 곳을 알고 있습니다.",
-      "paragraphFive": "<strong>참고</strong>: 예약에 표시된 모든 시간은 <strong>사무실 회의 시간</strong>입니다! 산에서 만나고 싶다면 완료 후 연락드리겠습니다. 최종 시간 및 세부 정보가 포함된 온라인 예약."
+      "paragraphThree": "이른 아침(08:00) 비행편을 예약하는 경우 상당히 건강하고 자신감 있고 너무 무겁지 않아야 합니다.",
+      "paragraphFour": "비행편을 ​​하이킹 또는 관광과 결합하려는 경우 산에서 만날 수도 있습니다. 중요: 결제 페이지에서 '예약 메시지'를 추가하여 저희에게 알려주세요. 여러분이 만나고 싶은 곳을 알 수 있도록요.",
+      "paragraphFive": "<strong>참고</strong>: 예약에 표시된 모든 시간은 <strong>사무실에서 만나는 시간</strong>입니다! 산에서 만나고 싶다면 완료 후 연락드리겠습니다. 최종 시간 및 세부 정보가 포함된 온라인 예약."
     },
 
 
 
     "photosvideos": "사진 + 동영상 (선택 사항)",
     "photosvideosInfo": "사진 + 비디오 정보",
-    "flightInfo": "항공편 정보",
+    "flightInfo": "비행편 정보",
     "photosvideos-description": "특별한 추억을 위해 특별히 제작 된 스틱에 GoPro로 촬영했습니다!",
     "clickForDetails": "자세한 정보를 보려면 클릭하십시오",    
     "photosVideosPopup": {
       "제목": "사진 + 비디오 정보",
-      "paragraphOne": "비행기에서 사진 및 비디오를 구매하려면 CHF 사진 + 비디오 옵션을 선택하십시오. 지금 구매하면 비행 하루가 조금 더 부드럽고 쉬워집니다. ",
-      "paragraphTwo": "보통 60-200장의 사진과 소수의 비디오 클립이 있습니다(예: 이륙, 착륙 및 도시를 크게 회전하는 경우).",
-      "paragraphThree": "확실하지 않은 경우 비행 후에 결정할 수도 있습니다. 우리 사무실에는 태블릿을 볼 수 있는 태블릿이 있습니다."
+      "paragraphOne": "비행 중의 사진 및 비디오를 구매하려면 CHF 사진 + 비디오 옵션을 선택하십시오. 지금 구매하면 비행 당일이 조금 덜 분주하고 쉬워집니다. ",
+      "paragraphTwo": "보통 60-200장의 사진과 몇 개의 비디오 클립이 있습니다(예: 이륙, 착륙 및 도시를 크게 회전하는 경우).",
+      "paragraphThree": "확실하지 않은 경우 비행 후에 결정할 수도 있습니다. 사무실에 태블릿이 비치되어 있습니다."
     }
   },
   "step-timeslot": {
-    "title": "얼마나 많은 사람들이 날고 있습니까?",
+    "title": "얼마나 많은 인원이 비행하나요?",
     "description": "비행 할 승객 수를 선택하려면 시간을 클릭하십시오.",
     "large-group-tip": "팁 : 더 큰 그룹은 두 번 이상으로 분할 될 수 있습니다.",
     "total-passengers": "총 승객 | 총 승객",
-    "jump-original-date": "오리가 날 날짜로 이동",
+    "jump-original-date": "원래 날짜로 이동",
     "selected-date": "선택한 날짜",
-    "places-free": "{n} 장소 무료 | {n} 장소 무료",
+    "places-free": "{n} 장소 무료 | {n} 석 여유",
     "passengers": "승객 | 승객",
     "flightNotAvail": "항공편 이용 불가",
     "swipeRightLeft": "(좌/우로 스와이프하여 비행 날짜 변경)"
   },
     "step-info": {
       "title": "세부 정보  | 우리 그룹의 세부 사항",
-      "description": "즐겁고 쉽고 즐거운 비행을 하는 데 필요한 승객 정보만 요청합니다. 우리는 제3자와 어떠한 정보도 공유하지 않습니다.",
+      "description": "즐겁고 쉽고 즐거운 비행을 하는 데 반드시 필요한 승객 정보만 요청합니다. 우리는 제3자와 어떠한 정보도 공유하지 않습니다.",
       "contact-passenger": "그룹 세부정보",
-      "passenger-nr": "연락하다 #",
+      "passenger-nr": "연락처 #",
 
       "phone": "전화",
       "countryCode-phoneNr": "국가 코드 및 전화 번호",
@@ -97,8 +97,8 @@
 
       "speed": "자신감 및 실행 능력",
       "speed-0": "지원 필요*",
-      "speed-2": "최소한의 자신감 - 느린 속도",
-      "speed-4": "조금 신경질적 - 속도가 느리다",
+      "speed-2": "매우 불안 - 느린 속도",
+      "speed-4": "조금 걱정 - 속도가 느리다",
       "speed-6": "자신감 있음 - 속도 괜찮음",
       "speed-8": "매우 자신감 - 빠른 속도",
       "speed-10": "완전 자신감! - 속도 빠름",
@@ -106,18 +106,18 @@
       "weight": "당신의 체중",
       "kilos": "킬로그램",
       "pounds": "파운드",
-      "stones": "돌",
+      "stones": "스톤",
 
     "confirm": {
       "title": "예약 세부 정보를 검토하고 확인하십시오",
       "description": "예약 정보, 특히 전화번호와 이메일이 정확한지 확인하십시오(그렇지 않으면 날씨 등으로 인해 예약을 조정해야 하는 경우 연락을 드릴 수 없습니다)", 
 
-      "people-flying": "사람이 날다",
+      "people-flying": "비행 인원",
       "flight-date": "비행 날짜",
       "flight": "비행",
       "photos-videos": "사진 + 비디오",
       "wants-photos-videos": "예, 사진을 원합니다",
-      "doesnt-want-photos-videos": "사진 없음",
+      "doesnt-want-photos-videos": "사진 신청 안함",
       "name": "이름",
       "m-f": "남/여",
       "age": "나이",
@@ -125,26 +125,26 @@
       "confidence": "자신감",
       "confidence-hover": "이륙하기 위해 몇 걸음만 달리는 능력",
       "speed-0": "지원*",
-      "speed-2": "최소",
-      "speed-4": "긴장하다",
-      "speed-6": "알았어",
-      "speed-8": "자신감",
-      "speed-10": "매우 자신있습니다!", 
+      "speed-2": "자신감 제로",
+      "speed-4": "긴장된다",
+      "speed-6": "괜찮다",
+      "speed-8": "자신있다",
+      "speed-10": "매우 자신있다!", 
 
       "kg": "Kg",
 
       "cancel": "취소",
-      "confirm": "확인하다" 
+      "confirm": "확인" 
 
     },
 
       "country-codes": {
-        "click-for-prefixes": "세계 국가 코드 접두사 목록을 보려면 클릭하십시오...",
-        "title": "국가 전화 접두사 코드",
-        "details": "참조용으로 유효한 국가 코드 접두사 목록입니다. 접두사를 선택하려면 두 번 클릭하십시오.",
-        "flag": "깃발",
+        "click-for-prefixes": "세계 국가 코드 번호를 보려면 클릭하십시오.",
+        "title": "국가 전화 코드",
+        "details": "참조용으로 유효한 국가 코드 목록입니다. 코드를 선택하려면 두 번 클릭하십시오.",
+        "flag": "국기",
         "country": "국가",
-        "prefix": "접두사 코드",
+        "prefix": "국가 코드",
         "close": "닫기 "
       }
     },
@@ -152,23 +152,23 @@
     "step-pay": {
       "title": "주문하기",
       "description": "주문을 검토하고 PAY NOW 버튼을 눌러 결제를 완료하십시오",
-      "meetingTime": "@ 모든 회의 시간은 체르마트의 중앙 기차역 건너편에 있는 빅토리아 센터 내부(COOP 슈퍼마켓에서 복도 바로 아래)에 있는 우리 사무실입니다.",
-      "people": "사람 | 사람",
+      "meetingTime": "@ 모든 미팅은 체르마트의 중앙 기차역 건너편에 있는 빅토리아 센터 내부(COOP 슈퍼마켓에서 복도 바로 아래)에 있는 사무실입니다.",
+      "people": "인원 | 인원",
 
       "qty": "수량",
       "flightDescription": "설명",
-      "subtotalCHF": "스위스 프랑의 소계",
+      "subtotalCHF": "소계: 스위스프랑(CHF)",
       "photosVideos": "사진 및 비디오",
-      "totalCHF": "스위스 프랑의 합계",
+      "totalCHF": "총액: 스위스프랑(CHF)",
 
       "specialWishes": "질문이 있거나 특별한 희망 사항이 있거나 승객(예: 장애가 있는 승객)에 대한 추가 정보가 있는 경우 아래의 특별 요청을 클릭하고 메시지를 입력하십시오.",
       "clickForSpecialRequests": "특별 요청은 여기를 클릭하십시오 ",
-      "specialRequestsDesc": "특별 이륙 시간 및/또는 위치, 장애가 있는 승객 또는 일반적인 질문... ",
-      "yourMsgHere": "여기에 귀하의 메시지 ",
+      "specialRequestsDesc": "특별 이륙 시간 및/또는 위치, 장애가 있는 승객 또는 일반적인 질문",
+      "yourMsgHere": "귀하의 메시지",
   
-      "tc-text-start": "여기를 확인하여 귀하가 내용을 읽었고 동의함을 나타냅니다 ",
+      "tc-text-start": "여기를 확인하여 귀하가 내용을 읽었고 동의함을 확인합니다 ",
       "tc-text-link": "이용약관 ",
-      "tc-text-end": " FlyZermatt 고객 계약 ",
+      "tc-text-end": " FlyZermatt 고객 계약",
       "openInNewPage": "새 페이지에서 열립니다",
       "payNow": "지불 "
   
@@ -181,7 +181,7 @@
       "orderSentTo": "주문 확인 메일이 다음 주소로 발송되었습니다.",
       "checkSpamStart": "이메일을 확인하십시오",
       "checkSpamJunk": "Spam/Junk",
-      "checkSpamEnd": "주문 확인이 도착하지 않은 경우 폴더(이메일이 도착하는 데 시간이 다소 걸릴 수 있음",
+      "checkSpamEnd": "주문 확인이 도착하지 않은 경우 스팸 폴더를 확인해 주세요(이메일이 도착하는 데 시간이 다소 걸릴 수 있음).",
       "ifAnyProblems": "주문에 문제가 있는 경우 다음 주소로 문의하세요:",
       "orCallUs": " 또는 다음으로 전화주십시오:",
       "resendTo": "확인 이메일 재전송:",

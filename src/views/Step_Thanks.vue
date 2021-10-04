@@ -29,7 +29,7 @@
     </p>
 
 
-    <p class="text-center mt-12 mr-auto ml-auto" style="max-width:300px;">
+    <!-- <p class="text-center mt-12 mr-auto ml-auto" style="max-width:300px;">
       
       <v-text-field 
         :label="$t('step-thanks.resendTo')"
@@ -44,7 +44,7 @@
       >
         {{$t('step-thanks.sendEmail')}}
       </v-btn>
-    </p>
+    </p> -->
 
   </div>
 </template>
