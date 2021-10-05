@@ -564,6 +564,14 @@ export default {
           // console.log('Date didnt change, not setting')
           return
         }
+
+        // This is where we need to block orders for today, if after 07:00
+        // Swiss local time. Tricky!
+        // UTC +2 is Swiss summer time
+        // UTC +1 Swiss winter.
+
+
+
         // Trigger custom event that the main App can listen for,
         // that pulls down updated FlightsList from API and clears
         // the Which Flight menu if there's data that's out of sync.
@@ -596,7 +604,15 @@ export default {
 
     // Normal computed values
     flightMinDate: function () {
-      const offsetDays = this.$store.state._bookDaysOffset
+      // this block was the original 2x days offset coming from Tommy.
+      // const offsetDays = this.$store.state._bookDaysOffset
+      // return format( add(Date.now(), {days:offsetDays}), 'yyyy-MM-dd')
+
+      // We're looking at blocking after 07:00, so not possible to book when
+      // our office is open, so we don't get double bookings
+
+      // This block simply blocks all of today
+      const offsetDays = 1
       return format( add(Date.now(), {days:offsetDays}), 'yyyy-MM-dd')
     },
     flightMaxDate: function () {
