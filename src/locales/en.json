@@ -113,6 +113,7 @@
 
       "people-flying": "People flying",
       "flight-date": "Flight Date",
+      "meeting": "Meeting",
       "flight": "Flight",
       "photos-videos": "Photos + Videos",
       "wants-photos-videos": "Yes, want Photos",
@@ -132,7 +133,7 @@
 
       "kg": "Kg",
 
-      "cancel": "Cancel",
+      "cancel": "Change",
       "confirm": "confirm"
 
     },

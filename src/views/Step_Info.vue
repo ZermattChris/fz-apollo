@@ -301,10 +301,10 @@
                     <td class="font-weight-bold">{{$t('step-info.confirm.flight-date')}}:</td>
                     <td>{{bookingDate}}</td>
                   </tr>
-                  <!-- <tr>
-                    <td class="font-weight-bold">Flight Nr &amp; <br/>Meeting Time:  </td>
-                    <td>#<strong>{{bookingFlightSlot}}</strong> — {{bookingFlightTime}}</td>
-                  </tr> -->
+                  <tr>
+                    <td class="font-weight-bold">{{$t('step-info.confirm.meeting')}}:</td>
+                    <td v-html="meetingTimesString"></td>
+                  </tr>
                   <tr>
                     <!-- Flight Type/Name -->
                     <td class="font-weight-bold">{{$t('step-info.confirm.flight')}}:</td>
@@ -577,6 +577,34 @@
 
 
     computed: {
+
+
+      // Build a display string showing the number of passengers for each 
+      // chosen TimeSlot in the booking.
+      meetingTimesString: function () {
+
+        let result = ''
+        const slotList = this.$store.state.slotPassengersObj.slotsList
+        //console.log(slotList)
+
+        slotList.forEach((element, index) => {
+          console.log(index)
+          // Need to guard against null, as an empty timeSlot is added to list with a null.
+          if (!this.isObjEmpty(element)) {
+            //console.log(element.timeString)
+            //console.log(element.passengers)
+            //console.log(index)
+            if (element.passengers > 0) {
+              let lineBreak = ""
+              if (index > 1) lineBreak = "<br/>"
+              result += lineBreak + element.passengers + " " + this.$tc('step-pay.people', element.passengers) + " @ " + element.timeString
+            }
+          }
+        })
+
+        return result 
+      },
+
 
       // weightPlus: function () {
       //    if (this.passenger.weightKg > 105) return '+' 

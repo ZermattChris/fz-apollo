@@ -25,6 +25,11 @@
       <!-- <LangMenu
         style="visibility:hidden;"
       />  -->
+      <div 
+        id="leftSpacer"
+        style="width:40px; height:40px;"
+        @click="onClearData"
+      ></div>
 
       <div 
         id="logo"
@@ -38,7 +43,6 @@
           transition="scale-transition"
           max-width="200"
           max-height="130"
-          @click="onClearData"
           ref="fzlogo"
           
         />
