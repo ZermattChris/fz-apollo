@@ -188,7 +188,7 @@
           class="mx-auto mt-4 mb-0"
           max-width="344"
           outlined
-          v-show="ageWarning"
+          v-show="ageWarning && showExpertWarnings"
         >
           <v-card-title class="text-h6 orange--text text--darken-2">
             Just a little head's up...
@@ -236,6 +236,9 @@
 
     data () {
       return {
+
+        showExpertWarnings: this.$store.state.expertWarnings,
+
         iconRabbit: mdiRabbit,
         iconTortoise: mdiTortoise,
         iconWeightKg: mdiWeightKilogram,

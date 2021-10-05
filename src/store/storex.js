@@ -72,6 +72,9 @@ export default new Vuex.Store({
     // Set to false for Release code.
     _DEV: true,
 
+    // Features on/off (allows putting code into live)
+    expertWarnings: false,
+
     // User inputs.
     // Cached in browser's localStorage.
     orderID:     +localStorage.orderID || "",        // Connects to our db for this order. Created by the 'create-checkout' call to the Gateway.
