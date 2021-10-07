@@ -161,19 +161,27 @@
           v-show="!isPayStep"
         />
       </div>
+
+      <!-- If we're viewing the Pay page, put in an invisible click for Partner Login here.  -->
       <div 
-        style="text-align:right;"
-        class="hidden-xs-only white--text overline mr-2 text--secondary"
+        @click="showPartnerLoginDialog" 
+        style="z-index:100;"
       >
-        © {{getCurrentYear}} - bSoftware
+        <div 
+          style="text-align:right; "
+          class="hidden-xs-only white--text overline mr-2 text--secondary disable-select"
+        >
+          © {{getCurrentYear}} - bSoftware
+        </div>
+        <div 
+          style="max-width:140px; line-height:1.2em; text-align:right;"
+          class="hidden-sm-and-up white--text overline mr-2 text-caption text--secondary disable-select"
+        >
+          © {{getCurrentYear}}<br/>
+          bSoftware
+        </div>
       </div>
-      <div 
-        style="max-width:140px; line-height:1.2em; text-align:right;"
-        class="hidden-sm-and-up white--text overline mr-2 text-caption text--secondary"
-      >
-        © {{getCurrentYear}}<br/>
-        bSoftware
-      </div>
+
     </v-footer>
 
     <v-overlay :value="isAppStillLoading" />
@@ -207,6 +215,49 @@
     </v-dialog>
 
 
+    <!-- Parnter login pop up dialog -->
+    <v-dialog
+      v-model="partnerLogin"
+      persistent
+      width="500"
+    >
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          <v-icon class="mr-2">{{iconLock}}</v-icon> Partner Login
+        </v-card-title>
+
+        <v-card-text
+          class="pt-4"
+        >
+          Please enter your user name and password
+        </v-card-text>
+
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            text
+            style="padding: 2px 10px 0; margin-right: 10px;"
+            @click="partnerLogin = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            rounded 
+            color="fzPink" 
+            elevation="4"
+            class="white--text"
+            style="padding: 2px 16px 0;"
+            @click="partnerLogin = false"
+          >
+            Login
+            <v-icon right>{{iconNextArrow}}</v-icon>
+          </v-btn>
+        </v-card-actions>
+
+      </v-card>
+    </v-dialog>
+
 
   </v-app>
 </template>
@@ -214,9 +265,10 @@
 <script>
 import NavButton from '@/components/NavButton.vue'
 import LangMenu from '@/components/LangMenu.vue'
+import bcrypt from 'bcryptjs'
 
 import { format } from 'date-fns'
-import { mdiDeleteForever, mdiChevronLeft } from '@mdi/js'
+import { mdiDeleteForever, mdiChevronLeft, mdiArrowRightCircle, mdiLock } from '@mdi/js'
 //import { format, add, sub, parseISO, isAfter, isBefore, isEqual } from 'date-fns'
 import { add, parseISO, isAfter, set } from 'date-fns'
 
@@ -235,6 +287,8 @@ export default {
 
     iconPrevChevron: mdiChevronLeft,
     iconGarbageBin: mdiDeleteForever,
+    iconNextArrow: mdiArrowRightCircle,
+    iconLock: mdiLock,
     
     canGoBack:   false,
 
@@ -243,7 +297,10 @@ export default {
     stepTimeComplete: false,
     stepInfoComplete: false,
     stepPayComplete: false,
-    currStep: 'Start'
+    currStep: 'Start',
+
+    // Popup visible on Pay page for Partner login when clicking the (c) symbol in footer.
+    partnerLogin: false,
 
   }),
   // Lifecycle Hooks
@@ -376,6 +433,34 @@ export default {
 
   // Methods
   methods: {
+
+    showPartnerLoginDialog: function () {
+
+      // Only show on the "Pay" page.
+      //console.log(this.$router.history.current.path)
+      if (this.$router.history.current.path !== '/Pay') return
+      
+      this.partnerLogin = true  // Show the dialog.
+
+      // test out bcrypt
+      let myHash = this.encryptPassword('r0ckyisahungryd0g')
+      console.log(myHash)
+
+
+      bcrypt.compare('r0ckyisahungryd0g', myHash, (err, res) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+        console.log(res) //true or false
+      })
+
+
+    },
+    encryptPassword: function (password) {         
+      const salt = bcrypt.genSaltSync(10)
+      return bcrypt.hashSync(password, salt)
+    },
 
     /*****************************************************
     // Stepper items mark completed or not.
