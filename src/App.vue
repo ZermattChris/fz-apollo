@@ -229,9 +229,57 @@
         <v-card-text
           class="pt-4"
         >
-          Please enter your user name and password
-        </v-card-text>
 
+          <v-form
+            ref="contactForm"
+            v-model="partnerLoginForm"
+          >
+
+            <v-row >
+              <v-col
+                cols="12"
+                sm="10"
+                class=""
+              >
+                <v-text-field 
+                  label="User Name"
+                  ref="partnerUserName"
+                  v-model="partnerUserName"
+                  background-color="white"
+                  hide-details="auto"
+                  outlined
+                  dense
+                  type="text"
+                  name="partnerUserName"
+                  placeholder="User Name"
+                />
+              </v-col>
+            </v-row>
+
+            <v-row >
+              <v-col
+                cols="12"
+                sm="10"
+                class=""
+              >
+                <v-text-field 
+                  label="Password"
+                  ref="partnerPass"
+                  v-model="partnerPass"
+                  background-color="white"
+                  hide-details="auto"
+                  outlined
+                  dense
+                  type="password"
+                  name="partnerPass"
+                  placeholder="Password"
+                />
+              </v-col>
+            </v-row>
+
+          </v-form>
+
+        </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -248,7 +296,7 @@
             elevation="4"
             class="white--text"
             style="padding: 2px 16px 0;"
-            @click="partnerLogin = false"
+            @click="onPartnerLogin"
           >
             Login
             <v-icon right>{{iconNextArrow}}</v-icon>
@@ -265,6 +313,8 @@
 <script>
 import NavButton from '@/components/NavButton.vue'
 import LangMenu from '@/components/LangMenu.vue'
+
+import partnersData from "/.partner-passwords.json"
 import bcrypt from 'bcryptjs'
 
 import { format } from 'date-fns'
@@ -289,6 +339,11 @@ export default {
     iconGarbageBin: mdiDeleteForever,
     iconNextArrow: mdiArrowRightCircle,
     iconLock: mdiLock,
+
+    partnerLoginForm: false,
+    partnerUserName: '',
+    partnerPass: '',
+    partnersData: partnersData,
     
     canGoBack:   false,
 
@@ -434,6 +489,46 @@ export default {
   // Methods
   methods: {
 
+    processPartnerOrder: function () {
+      // Send confirm emails.
+      // Trigger order directly via Tommy's API ???
+      console.log('Login Success!  TODO: Call Tommy API to place order without Stripe')
+
+      // Reset user & password field.
+      this.partnerUserName = ''
+      this.partnerPass = ''
+
+      // close dialog
+      this.partnerLogin = false 
+    },
+
+    onPartnerLogin: function () {
+
+      // Use the given User Name to pull in the stored hash from partner passwords file
+      //console.log(this.partnersData.partners[this.partnerUserName])
+      const myHash = this.partnersData.partners[this.partnerUserName.toLowerCase()]
+
+      bcrypt.compare(this.partnerPass, myHash, (err, res) => {
+        if (err) {
+          //console.error(err)
+          console.log('User Name and/or Password are incorrect.')
+          return
+        }
+        // If res is true, then logged in successfully, complete order without going
+        // to Stripe payments. Probably good to send an email here directly as a backup
+        // to us if any issues.
+        if (res === true) {
+          this.processPartnerOrder()
+        } else {
+          // do some type of warning message here.
+          console.error('User Name and/or Password are incorrect.')
+        }
+        // console.log(res) //true or false
+      })
+
+
+    },
+
     showPartnerLoginDialog: function () {
 
       // Only show on the "Pay" page.
@@ -442,25 +537,19 @@ export default {
       
       this.partnerLogin = true  // Show the dialog.
 
-      // test out bcrypt
-      let myHash = this.encryptPassword('r0ckyisahungryd0g')
-      console.log(myHash)
-
-
-      bcrypt.compare('r0ckyisahungryd0g', myHash, (err, res) => {
-        if (err) {
-          console.error(err)
-          return
-        }
-        console.log(res) //true or false
-      })
-
+      // // test out bcrypt
+      // let myHash = this.encryptPassword('Ronnie-glyphs')
+      // console.log(myHash)
 
     },
     encryptPassword: function (password) {         
       const salt = bcrypt.genSaltSync(10)
       return bcrypt.hashSync(password, salt)
     },
+
+
+
+
 
     /*****************************************************
     // Stepper items mark completed or not.

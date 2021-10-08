@@ -72,7 +72,8 @@
                 cols="12"
                 sm="6"
                 class="pt-2 pb-0 phoneInput"
-              ><!-- Start of Phone input field -->
+              >
+              <!-- Start of Phone input field -->
                 <v-text-field 
                   :label="$t('step-info.phone')"
                   ref="Phone"
