@@ -223,7 +223,7 @@
     >
       <v-card>
         <v-card-title class="text-h5 grey lighten-2">
-          <v-icon class="mr-2">{{iconLock}}</v-icon> Partner Login
+          <v-icon class="mr-2">{{iconLock}}</v-icon> Partner Login &amp; Order
         </v-card-title>
 
         <v-card-text
@@ -298,7 +298,7 @@
             style="padding: 2px 16px 0;"
             @click="onPartnerLogin"
           >
-            Login
+            Order...
             <v-icon right>{{iconNextArrow}}</v-icon>
           </v-btn>
         </v-card-actions>

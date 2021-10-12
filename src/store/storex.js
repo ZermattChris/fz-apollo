@@ -35,8 +35,8 @@ const rawPassengerObj = {
   'sex': null,
   'age': null,
   'name': '',
-  'speed': 6,
-  'weightKg': 25
+  'speed': -1,
+  'weightKg': 0
 }
 
 const rawSlotPassengers = {

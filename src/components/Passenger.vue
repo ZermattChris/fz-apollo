@@ -90,7 +90,7 @@
 
     <!-- Speed/fitness slider -->
     <v-row style="position:relative;">
-      <div class="pt-1 pl-3 font-weight-light">
+      <div class="pt-1 pl-3 font-weight-medium text-center" style="width:100%;">
         {{$t('step-info.speed')}}:
       </div>
       <div class="speed pt-0 font-weight-thin">
@@ -133,7 +133,7 @@
 
     <!-- Weight slider -->
     <v-row style="position:relative;">
-      <div class="pt-1 pl-3 font-weight-light">
+      <div class="pt-1 pl-3 font-weight-medium text-center" style="width:100%;">
         {{$t('step-info.weight')}}:
       </div>
       <div class="weights pt-0 font-weight-thin text-truncate">

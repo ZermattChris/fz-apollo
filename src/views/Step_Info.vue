@@ -454,7 +454,7 @@
             @click="confirmDetailsDialog = false"
           >
             {{$t('step-info.confirm.cancel')}}
-            <v-icon right>{{iconClose}}</v-icon>
+            <v-icon right>{{iconPrevArrow}}</v-icon>
           </v-btn>
 
           <v-spacer></v-spacer>
@@ -486,7 +486,7 @@
   import PageHeader from '@/components/PageHeader.vue'
   import Passenger from '@/components/Passenger.vue'
   import { isMobile } from 'mobile-device-detect'
-  import { mdiHumanMale, mdiHumanFemale, mdiHumanMaleFemale, mdiHelpCircle, mdiEmailCheckOutline, mdiCheckCircle, mdiMinusCircleOutline, mdiPlus, mdiArrowRightCircle, mdiClose } from '@mdi/js'
+  import { mdiHumanMale, mdiHumanFemale, mdiHumanMaleFemale, mdiHelpCircle, mdiEmailCheckOutline, mdiCheckCircle, mdiMinusCircleOutline, mdiPlus, mdiArrowRightCircle, mdiArrowLeftCircle, mdiClose } from '@mdi/js'
   
   import countrycodes from '@/store/countrycodes.js'
 
@@ -514,6 +514,7 @@
         iconMinusCircle: mdiMinusCircleOutline,
         iconPlus: mdiPlus,
         iconNextArrow: mdiArrowRightCircle,
+        iconPrevArrow: mdiArrowLeftCircle,
         iconClose: mdiClose,
         iconPeople: mdiHumanMaleFemale,
         iconMale: mdiHumanMale,
