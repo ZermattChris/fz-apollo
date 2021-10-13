@@ -922,7 +922,7 @@ function _isDev () {
   // const subdomain = window.location.hostname.split('.').slice(0, -2).join('.')
   // console.log(subdomain); // "my.company"
 
-  const subdomain = window.location.hostname
+  const subdomain = window.location.hostname.split('.').slice(0, -2).join('.')
   console.log(subdomain)
   if (subdomain == 'secure') return false
   return true
