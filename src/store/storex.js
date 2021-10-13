@@ -69,8 +69,12 @@ export default new Vuex.Store({
 
   state: {
 
-    // Set to false for Release code.
-    _DEV: false,
+    // Now that we've released production code, need to dynamically set this,
+    // so that "https://secure.flyzermatt.com/blabla" automatically runs the 
+    // production code that goes to the Live payments. 
+    // Everything else (localhost, etc) should set this flag to true.
+    // Calling a simple helper function at end of storex.js
+    _DEV: _isDev(),
 
     // Features on/off (allows putting code into live)
     expertWarnings: false,
@@ -898,5 +902,28 @@ function isObjEmpty (obj) {
   //console.log('Object empty test: ', Object.keys(obj).length)
   if (obj == null) return true
   if (Object.keys(obj).length > 0) return false
+  return true
+}
+
+
+// // for https://my.company.website.com,
+// const subdomain = window.location.hostname.split('.').slice(0, -2).join('.');
+// console.log(subdomain); // "my.company"
+
+// *****************************************************************
+  // Now that we've released production code, need to dynamically set this,
+  // so that "https://secure.flyzermatt.com/blabla" automatically runs the 
+  // production code that goes to the Live payments. 
+  // Everything else (localhost, etc) should set this flag to true.
+  //_DEV: true,
+// *****************************************************************
+function _isDev () {
+  // for https://my.company.website.com,
+  // const subdomain = window.location.hostname.split('.').slice(0, -2).join('.')
+  // console.log(subdomain); // "my.company"
+
+  const subdomain = window.location.hostname
+  console.log(subdomain)
+  if (subdomain == 'secure') return false
   return true
 }

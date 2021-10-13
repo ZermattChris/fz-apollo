@@ -12,12 +12,12 @@
       {{$t('step-thanks.orderSentTo')}} <strong class="primary--text">{{orderEmail}}</strong>
     </p>
 
-    <p style="background-color: #c78b48;" class="rounded-lg white--text text-caption mt-6 mb-6 mx-4 px-2 py-1">
+    <p style="background-color: #c78b48;" class="rounded-lg white--text text-h6 mt-6 mb-6 mx-4 px-2 py-1">
       <v-icon color="white">
         mdi-at
       </v-icon>
       {{$t('step-thanks.checkSpamStart')}}
-      <strong>{{$t('step-thanks.checkSpamJunk')}}</strong>
+      <strong class="black--text">{{$t('step-thanks.checkSpamJunk')}}</strong>
       {{$t('step-thanks.checkSpamEnd')}}
     </p>
 
