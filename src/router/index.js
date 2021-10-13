@@ -37,15 +37,7 @@ const routes = [
     path: '/thanks',
     name: 'Thanks',
     component: () => import(/* webpackChunkName: "Thanks" */ '@/views/Step_Thanks.vue'),
-    meta: { title: 'Thanks for booking with FlyZermatt!' },
-    beforeRouteLeave (to, from, next) {
-      const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
-      if (answer) {
-        next()
-      } else {
-        next(false)
-      }
-    }
+    meta: { title: 'Thanks for booking with FlyZermatt!' }
     
   }
 ]

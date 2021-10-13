@@ -565,6 +565,10 @@ export default {
           return
         }
 
+        // Make sure the Arrive and Depart dates get updated.
+        this.arriveDate = dateStr
+        this.departDate = dateStr
+
         // This is where we need to block orders for today, if after 07:00
         // Swiss local time. Tricky!
         // UTC +2 is Swiss summer time

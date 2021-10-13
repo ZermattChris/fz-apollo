@@ -401,7 +401,7 @@ export default {
 
 
     // Show/hide the Back Btn.
-    if (this.$route.name === 'Start') {
+    if (this.$route.name === 'Start' || this.$route.name === 'Thanks') {
       //console.log('ON HOME PAGE')
       this.onEnableBackBtn(false)
     } else {

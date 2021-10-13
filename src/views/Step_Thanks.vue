@@ -12,7 +12,7 @@
       {{$t('step-thanks.orderSentTo')}} <strong class="primary--text">{{orderEmail}}</strong>
     </p>
 
-    <p style="background-color: #c78b48;" class="rounded-lg white--text text-h6 mt-6 mb-6 mx-4 px-2 py-1">
+    <p style="background-color: #c78b48;" class="rounded-lg white--text mt-6 mb-6 mx-4 px-2 py-1">
       <v-icon color="white">
         mdi-at
       </v-icon>
@@ -21,7 +21,7 @@
       {{$t('step-thanks.checkSpamEnd')}}
     </p>
 
-    <p class="text-caption">
+    <p class="">
       {{$t('step-thanks.ifAnyProblems')}}
       <a href="mailto:info@flyzermatt.com">info@flyzermatt.com</a>
       {{$t('step-thanks.orCallUs')}}
@@ -46,6 +46,23 @@
       </v-btn>
     </p> -->
 
+    <div 
+      class="pt-12"
+      style="width:100%; text-align:center;"
+    >
+      <v-btn 
+        rounded 
+        x-large
+        color="fzPink" 
+        elevation="4"
+        class="white--text"
+        @click="closeBookingSystem"
+      >
+        {{$t('nav.done')}}
+        <!-- <v-icon right>{{iconNextArrow}}</v-icon> -->
+      </v-btn>
+    </div>
+
   </div>
 </template>
 
@@ -67,14 +84,21 @@
 
     beforeMount () {
       this.$store.dispatch('setCurrentStep', "Thanks")
+      window.addEventListener('beforeunload', () => {
+          this.closeBookingSystem()
+      })
     },
 
 
-    beforeDestroy() {
-
-      this.resetLocalStorage()
+    beforeCreate() {
 
     },
+    
+    // beforeRouteLeave (to, from, next) {
+    //   alert('Thanks beforeRouteLeave()')
+    //   this.resetLocalStorage()
+    //   next(false)
+    // },
 
 
     computed: {
@@ -86,6 +110,11 @@
     },
 
     methods: {
+
+      closeBookingSystem() {
+        this.resetLocalStorage()
+        window.location.href = "https://www.flyzermatt.com/"
+      },
 
       onResendEmailBtn() {
         alert("TODO: Call Tommy API that resends this order's email, using the email entered here (allows for correction of mistaken email entry earlier).")
