@@ -154,6 +154,7 @@
       <div
         class="d-flex"
         style="position:absolute; width:100%; height:100%; top:12px;"
+        v-if="continueBtnVisible"
       >
         <NavButton
           class="mx-auto"
@@ -345,6 +346,7 @@ export default {
     partnerPass: '',
     partnersData: partnersData,
     
+    continueBtnVisible:   true,
     canGoBack:   false,
 
     stepper: 1,
@@ -407,6 +409,15 @@ export default {
     } else {
       this.onEnableBackBtn(true)
     }
+
+    // Hide Continue button on 'Thanks' page.
+    if (this.$route.name === 'Thanks') {
+      //console.log('ON HOME PAGE')
+      this.onEnableBackBtn(false)
+    } else {
+      this.onEnableBackBtn(true)
+    }
+
   },
 
 
