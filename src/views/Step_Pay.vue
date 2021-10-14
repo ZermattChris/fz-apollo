@@ -170,6 +170,7 @@
 
       <a 
         href="https://stripe.com"
+        target="_blank"
         class="mx-auto mt-10"
         style="display:block; width:100px; height:30px;"
       >
