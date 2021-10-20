@@ -5,69 +5,88 @@
       {{$t('step-thanks.description')}}
     </PageHeader>
 
-    <p>
-      {{$t('step-thanks.transactionNr')}} <strong class="primary--text">{{$store.state.orderID}}</strong> 
-    </p>
-    <p>
-      {{$t('step-thanks.orderSentTo')}} <strong class="primary--text">{{orderEmail}}</strong>
-    </p>
+    <div style="max-width:600px; margin:0 auto;">
 
-    <p style="background-color: #c78b48;" class="rounded-lg white--text mt-6 mb-6 mx-4 px-2 py-1">
-      <v-icon color="white">
-        mdi-at
-      </v-icon>
-      {{$t('step-thanks.checkSpamStart')}}
-      <strong class="black--text">{{$t('step-thanks.checkSpamJunk')}}</strong>
-      {{$t('step-thanks.checkSpamEnd')}}
-    </p>
+      <p>
+        {{$t('step-thanks.transactionNr')}} <strong class="primary--text">{{$store.state.orderID}}</strong> 
+      </p>
+      <p>
+        {{$t('step-thanks.orderSentTo')}} <strong class="primary--text">{{orderEmail}}</strong>
+      </p>
 
-    <p class="">
-      {{$t('step-thanks.ifAnyProblems')}}
-      <a href="mailto:info@flyzermatt.com">info@flyzermatt.com</a>
-      {{$t('step-thanks.orCallUs')}}
-      <a href="tel:+41796436808">+41 79 643 6808</a>
-    </p>
+      <p style="background-color: #c78b48;" class="rounded-lg white--text mt-6 mb-6 mx-4 px-2 py-1">
+        <v-icon color="white">
+          mdi-at
+        </v-icon>
+        {{$t('step-thanks.checkSpamStart')}}
+        <strong class="black--text">{{$t('step-thanks.checkSpamJunk')}}</strong>
+        {{$t('step-thanks.checkSpamEnd')}}
+      </p>
 
+      <p class="mt-12 primary--text">
+        Resend your order email if needed.
+      </p>
 
-    <!-- <p class="text-center mt-12 mr-auto ml-auto" style="max-width:300px;">
+      <div class="text-center mr-auto ml-auto" style="max-width:400px;">
+
+        <!-- Enter email to resend order to.  -->
+        <v-text-field 
+          :label="$t('step-thanks.resendTo')"
+          v-model="resendEmail"
+          :hint="resendEmailHint"
+          persistent-hint
+          class="float-left pr-6"
+          style="width:75%;"
+        >
+        </v-text-field>
+        <v-btn
+          elevation="2"
+          @click="onResendEmailBtn"
+          class="float-left mt-2"
+        >
+          {{$t('step-thanks.sendEmail')}}
+        </v-btn>
+      </div>
+
       
-      <v-text-field 
-        :label="$t('step-thanks.resendTo')"
-        v-model="orderEmail"
-      >
-      </v-text-field>
-    </p>
-    <p class="text-center"> 
-      <v-btn
-        elevation="2"
-        @click="onResendEmailBtn"
-      >
-        {{$t('step-thanks.sendEmail')}}
-      </v-btn>
-    </p> -->
 
-    <div 
-      class="pt-12"
-      style="width:100%; text-align:center;"
-    >
-      <v-btn 
-        rounded 
-        x-large
-        color="fzPink" 
-        elevation="4"
-        class="white--text"
-        @click="closeBookingSystem"
+      <div class="pt-12 float-end">
+        {{$t('step-thanks.ifAnyProblems')}}
+        <a href="mailto:info@flyzermatt.com">info@flyzermatt.com</a>
+        {{$t('step-thanks.orCallUs')}}
+        <a href="tel:+41796436808">+41 79 643 6808</a>
+      </div>
+
+
+
+
+      <div 
+        class="pt-12 float-end"
+        style="width:100%; text-align:center;"
       >
-        {{$t('nav.done')}}
-        <!-- <v-icon right>{{iconNextArrow}}</v-icon> -->
-      </v-btn>
-    </div>
+        <v-btn 
+          rounded 
+          x-large
+          color="fzPink" 
+          elevation="4"
+          class="white--text"
+          @click="closeBookingSystem"
+        >
+          {{$t('nav.done')}}
+          <!-- <v-icon right>{{iconNextArrow}}</v-icon> -->
+        </v-btn>
+      </div>
+
+
+  </div>
 
   </div>
 </template>
 
 <script>
   import PageHeader from '@/components/PageHeader.vue'
+
+  import axios from "axios"
 
   export default {
     name: "Step_Thanks",
@@ -79,6 +98,9 @@
     data () {
       return {
         
+        resendEmail: '',
+        resendEmailHint: "Your order will be resent to this email"
+
       }
     },
 
@@ -117,7 +139,33 @@
       },
 
       onResendEmailBtn() {
-        alert("TODO: Call Tommy API that resends this order's email, using the email entered here (allows for correction of mistaken email entry earlier).")
+        //alert("TODO: Call Tommy API that resends this order's email, using the email entered here (allows for correction of mistaken email entry earlier).")
+
+        // Check for valid email format.
+
+        // Call Tommy API
+        // https://bookings.simpleitsolutions.ch/api/resendCustomerConfirmation/[orderID]/[email]
+
+        
+
+
+        axios.get("https://bookings.simpleitsolutions.ch/api/resendCustomerConfirmation/160/" + this.resendEmail)
+        .then(response => {
+          // let data = response.data;
+          // console.log(data)
+          if (response.data == 'success') {
+            this.resendEmailHint = 'Successfully sent to: ' + this.resendEmail 
+            this.resendEmail = ''
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          this.resendEmailHint = 'FAILED to send to: ' + this.resendEmail 
+        })
+
+
+
+
       },
       
       resetLocalStorage() {

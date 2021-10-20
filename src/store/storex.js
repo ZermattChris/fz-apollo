@@ -178,10 +178,11 @@ export default new Vuex.Store({
     },
 
     BOOK_DAYS_OFFSET(state, daysOffset) {
-      state._bookDaysOffset = daysOffset;
+      state._bookDaysOffset = daysOffset  // original date offset coming from Tommy's API
+      //state._bookDaysOffset = 1   // over-ride for 1 day in future for bookings
     },
     BOOK_MONTS_OFFSET(state, monthsOffset) {
-      state._bookMonthsOffset = monthsOffset;
+      state._bookMonthsOffset = monthsOffset
     },
     VIDEO_PRICE(state, price) {
       state._videoPrice = price
@@ -428,9 +429,15 @@ export default new Vuex.Store({
           let data = response.data;
           // Note to future self:
           // the preceeding + converts from String to Number before mutatiing.
-          context.commit("BOOK_DAYS_OFFSET", +data["book-days-from-today"]);
-          context.commit("BOOK_MONTS_OFFSET", +data["book-future-months"]);
-          context.commit("VIDEO_PRICE", +data["video-cost"]);
+
+          // TODO Needs a future component/function to calculate allowed booking times to 06:00 Swiss time.
+          // Overriding the incoming setting at moment to allow bookings from 
+          // tomorrow. 
+          context.commit("BOOK_DAYS_OFFSET", +data["book-days-from-today"])
+          //context.commit("BOOK_DAYS_OFFSET", 1)
+
+          context.commit("BOOK_MONTS_OFFSET", +data["book-future-months"])
+          context.commit("VIDEO_PRICE", +data["video-cost"])
         })
         .catch(error => {
           console.log(error)

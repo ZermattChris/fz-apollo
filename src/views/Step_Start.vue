@@ -609,15 +609,12 @@ export default {
     // Normal computed values
     flightMinDate: function () {
       // this block was the original 2x days offset coming from Tommy.
-      // const offsetDays = this.$store.state._bookDaysOffset
-      // return format( add(Date.now(), {days:offsetDays}), 'yyyy-MM-dd')
+      const offsetDays = this.$store.state._bookDaysOffset
+      return format( add(Date.now(), {days:offsetDays}), 'yyyy-MM-dd')
 
-      // We're looking at blocking after 07:00, so not possible to book when
+      // TODO: We're looking at blocking after 06:00, so not possible to book when
       // our office is open, so we don't get double bookings
 
-      // This block simply blocks all of today
-      const offsetDays = 1
-      return format( add(Date.now(), {days:offsetDays}), 'yyyy-MM-dd')
     },
     flightMaxDate: function () {
       const offsetMonths = this.$store.state._bookMonthsOffset

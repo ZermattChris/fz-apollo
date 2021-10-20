@@ -186,7 +186,7 @@
     "checkSpamEnd": "folders if your order confirmation doesn't arrive after 5 minutes (emails can take a bit of time to arrive sometimes)",
     "ifAnyProblems": "If you have any problems with your order, please contact us at:",
     "orCallUs": " or give us a call at:",
-    "resendTo": "Resend confirmation email to:",
+    "resendTo": "name@example.com",
     "sendEmail": "SEND"
   }
   
