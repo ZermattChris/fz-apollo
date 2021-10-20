@@ -70,7 +70,7 @@ export default {
 
       // Don't show any lang that isn't finished when running in LIVE mode.
       if (this.$store.state._DEV === false) {
-        if (this.enabledLangs.includes(key)) return
+        if (this.enabledLangs.includes(key) !== true) return
       }
 
       this.langISOList.push(key)
