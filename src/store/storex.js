@@ -925,12 +925,32 @@ function isObjEmpty (obj) {
   //_DEV: true,
 // *****************************************************************
 function _isDev () {
+
   // for https://my.company.website.com,
   // const subdomain = window.location.hostname.split('.').slice(0, -2).join('.')
   // console.log(subdomain); // "my.company"
 
+  // old code that just checks if is secure.flyzermatt.com -- weak.
+  // const subdomain = window.location.hostname.split('.').slice(0, -2).join('.')
+  // console.log(subdomain)
+  // if (subdomain == 'secure') return false
+  // return true
+
   const subdomain = window.location.hostname.split('.').slice(0, -2).join('.')
-  console.log(subdomain)
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+
+  const DEV_flagValue = urlParams.has('dev')
+  const LIVE_flagValue = urlParams.has('live')
+  
+  //console.log('_DEV?: ', DEV_flagValue)
+  //console.log('_LIVE?: ', LIVE_flagValue)
+
+  if (DEV_flagValue === true) return true
+  if (LIVE_flagValue === true) return false
+
   if (subdomain == 'secure') return false
-  return true
+
+  return true   // defaults to _DEV -> true
+
 }
