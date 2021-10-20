@@ -363,6 +363,10 @@ export default {
   // Lifecycle Hooks
 
   created() {
+    
+    console.log('Running in _DEV mode?: ', this.$store.state._DEV)
+
+
     // this.handleStaleStorageData()
     this.$store.watch(
       (state)=>{

@@ -55,6 +55,9 @@ export default {
       // Sets default language to Browser lang (if a match)
       currentLangISO: 'en',
 
+      // List of langs that are enabled on live (all langs are visible in _DEV mode)
+      enabledLangs: ['en','ko']
+
     }
   },
 
@@ -63,7 +66,13 @@ export default {
 
     const langKeys = Object.keys(this.$i18n.messages)
     langKeys.forEach((key) => {
-      //console.log(key)
+      //console.log(key)    // de, en, fr, ko...
+
+      // Don't show any lang that isn't finished when running in LIVE mode.
+      if (this.$store.state._DEV === false) {
+        if (this.enabledLangs.includes(key)) return
+      }
+
       this.langISOList.push(key)
     })
 
