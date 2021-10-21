@@ -5,20 +5,15 @@ import axios from "axios"
 // Split large vuex into smaller chunks.
 
 
+// TODO: This looks like a start attempt at redoing the Nav mess. Not done at all...
 // Import my modules
 // -----------------
 import navigation from './modules/nav'
 // -----------------
 
-// Temp dev json data unitl Tommy gets his API working.
-// import flightdata from '@/store/flightdata.js'
 
-// Dev only - remove once API is up.
-// import tmp from "./temp3.json"
-//const tempData = require("./flightsdates.js");
-//var faker = require("faker")    //temp
-// var dateUtils = require('date-fns')     // temp
-
+//import { format, add, sub, parseISO, isAfter, isBefore, isEqual } from 'date-fns'
+// import { format, add, isBefore, parseISO } from 'date-fns'
 
 Vue.use(Vuex)
 
@@ -87,7 +82,7 @@ export default new Vuex.Store({
 
     //nrPeople:      +localStorage.nrPeople || 0,   // deprecated. Use: totalPassengers
     arriveDate:     localStorage.arriveDate || "",
-    flightDate:     localStorage.flightDate || "",
+    flightDate:     localStorage.flightDate || "",    //'', // init to empty. The init API then sets a valid date when run below.
     departDate:     localStorage.departDate || "",
     selectedFlight: +localStorage.selectedFlight || "",    // Flight ID from Tommy.
     wantsPhotos:    localStorage.wantsPhotos ? JSON.parse(localStorage.wantsPhotos) : false,  // convert to bool if not undefined.
@@ -375,8 +370,8 @@ export default new Vuex.Store({
       //console.log("Loading Flight Options for drop menu Step 1 ->", flDate);
       return axios.get("https://bookings.simpleitsolutions.ch/api/flightoptions/" + flDate)
         .then(response => {
-          let data = response.data;
-          context.commit("FLIGHTS_LIST", data);
+          let data = response.data
+          context.commit("FLIGHTS_LIST", data)
         })
         .catch(error => {
           // if (context.state._DEV) {
@@ -442,7 +437,10 @@ export default new Vuex.Store({
         .catch(error => {
           console.log(error)
         })
-        .finally(() => context.commit("APP_LOADING", false)) // Loading UI OFF (starts off ON)
+        .finally(() => {
+          context.commit("APP_LOADING", false)
+          //initFlightDate(context)           // This will delete any invalid (old) flight date stored in localstorage
+        }) // Loading UI OFF (starts off ON)
     },
 
     clearTimeListDates(context) {
@@ -923,6 +921,8 @@ function isObjEmpty (obj) {
   // production code that goes to the Live payments. 
   // Everything else (localhost, etc) should set this flag to true.
   //_DEV: true,
+  // -----
+  // Adding either ?dev or ?live overrides and lets us test more effectively.
 // *****************************************************************
 function _isDev () {
 
@@ -954,3 +954,37 @@ function _isDev () {
   return true   // defaults to _DEV -> true
 
 }
+
+
+
+
+// /* -----------------------------------------------------------------------
+// This function reads in flightDate from localStorage and if the date is 
+// invalid, sets an empty date. Possibly also remove the arrive and depart 
+// dates as well  
+// -------------------------------------------------------------------------*/
+// function initFlightDate (context) {
+
+//   //console.log(context)
+
+//   const offsetDays = context.state._bookDaysOffset    // currently 1 from Tommy API
+//   const todaysDateStr = format(new Date(), 'yyyy-MM-dd')
+//   const NowDate = parseISO(todaysDateStr)                           // Today
+
+//   const minValidDate = add(NowDate, {days:offsetDays})    // Today + 1
+//   const storedFlightDate = parseISO(localStorage.flightDate || "")
+
+//   console.log('minValidDate', minValidDate)
+//   console.log('storedFlightDate', storedFlightDate)
+
+
+//   if ( isBefore( storedFlightDate, minValidDate )) {
+//     console.log('Bad date, resetting FlightDate to empty')
+//     //context.dispatch('setFlightDate', '')
+//   } else {
+//     console.log('Stored FlightDate is okay')
+//     //context.dispatch('setFlightDate', todaysDateStr)
+//   }
+
+
+// }

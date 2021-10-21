@@ -556,7 +556,32 @@ export default {
 
     flightDate: {
       get() {
-        return this.$store.state.flightDate
+
+        const initFlightDate = this.$store.state.flightDate
+        //console.log('initFlightDate', initFlightDate)
+
+        const offsetDays = this.$store.state._bookDaysOffset    // currently 1 from Tommy API
+        const todaysDateStr = format(new Date(), 'yyyy-MM-dd')
+        const NowDate = parseISO(todaysDateStr)                           // Today
+
+        const minValidDate = add(NowDate, {days:offsetDays})    // Today + 1
+        const storedFlightDate = parseISO(localStorage.flightDate || "")
+
+        // console.log('minValidDate', minValidDate)
+        // console.log('storedFlightDate', storedFlightDate)
+
+        if ( isBefore( storedFlightDate, minValidDate ) || initFlightDate == '' ) {
+          console.log('Bad or empty date, resetting FlightDate, arriveDate and departDate to empty')
+          this.$store.dispatch('setArriveDate', '')
+          this.$store.dispatch('setDepartDate', '')
+          this.$store.dispatch('setFlightDate', '')
+          return ''
+        }
+        
+        console.log('Stored FlightDate is okay')
+
+        return initFlightDate
+
       },
       set(dateStr) {
         // check if date has changed.
