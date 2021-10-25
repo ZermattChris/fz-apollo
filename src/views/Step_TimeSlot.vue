@@ -355,9 +355,6 @@
         this.scrollToId("#bigGroupTipBox")
 
 
-        // ----
-        // TODO Put up a confirm dialog if selected date fall outside of the range given in step 1.
-        // TODO If confirm is true, clear arrive and depart dates and return to Step 1?
         //console.log("TEST", this.userFlightDate, this.departDate, this.arriveDate)
         if ( 
           isAfter( parseISO(this.userFlightDate), parseISO(this.departDate)) || 
@@ -365,7 +362,10 @@
         )
         { 
           if (window.confirm("This will change your Arrival and Departure dates. Continue?")) {
-            console.log("TODO: If confirm is true, clear arrive and depart dates and return to Step 1")
+            this.$store.dispatch('setArriveDate', '')
+            this.$store.dispatch('setDepartDate', '')
+            this.$router.push({ name: 'Start' })
+            return
           }
         }
         // ----
