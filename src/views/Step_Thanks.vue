@@ -24,7 +24,7 @@
       </p>
 
       <p class="mt-12 primary--text">
-        Resend your order email if needed.
+        {{$t('step-thanks.resendEmailIfNeeded')}}
       </p>
 
       <div class="text-center mr-auto ml-auto" style="max-width:400px;">
@@ -99,7 +99,7 @@
       return {
         
         resendEmail: '',
-        resendEmailHint: "Your order will be resent to this email"
+        resendEmailHint: this.$t('step-thanks.resendToStr')
 
       }
     },
@@ -154,13 +154,13 @@
           // let data = response.data;
           // console.log(data)
           if (response.data == 'success') {
-            this.resendEmailHint = 'Successfully sent to: ' + this.resendEmail 
+            this.resendEmailHint = this.$t('step-thanks.successfullySentTO') + this.resendEmail 
             this.resendEmail = ''
           }
         })
         .catch(error => {
           console.log(error)
-          this.resendEmailHint = 'FAILED to send to: ' + this.resendEmail 
+          this.resendEmailHint = this.$t('step-thanks.failedToSentTO') + this.resendEmail 
         })
 
 

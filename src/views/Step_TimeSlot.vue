@@ -352,7 +352,7 @@
       onRowSelected: function () {
         //clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
 
-        this.scrollToId("#bigGroupTipBox")
+        //this.scrollToId("#bigGroupTipBox")
 
 
         //console.log("TEST", this.userFlightDate, this.departDate, this.arriveDate)
@@ -361,10 +361,17 @@
           isBefore( parseISO(this.userFlightDate), parseISO(this.arriveDate))
         )
         { 
-          if (window.confirm("This will change your Arrival and Departure dates. Continue?")) {
+          // TODO: Not sure I like how this is working - all a bit messy... Maybe just put arrive + depart dates into system later??
+          if (window.confirm(this.$t('step-timeslot.confirmDateChangeDialog'))) {
             this.$store.dispatch('setArriveDate', '')
             this.$store.dispatch('setDepartDate', '')
             this.$router.push({ name: 'Start' })
+
+            // set the focus to arriveDate on Step 1.
+            //this.scrollToId('#arriveInput')
+            
+            //console.log('Changed date, ask to adjust Arrive-Depart date in Step 1?')
+
             return
           }
         }

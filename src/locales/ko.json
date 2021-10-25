@@ -76,7 +76,8 @@
     "places-free": "{n} 장소 무료 | {n} 석 여유",
     "passengers": "승객 | 승객",
     "flightNotAvail": "항공편 이용 불가",
-    "swipeRightLeft": "(좌/우로 스와이프하여 비행 날짜 변경)"
+    "swipeRightLeft": "(좌/우로 스와이프하여 비행 날짜 변경)",
+    "confirmDateChangeDialog": "귀하의 도착 및 출발 날짜는 더 이상 유효하지 않습니다. 1단계에서 조정하십시오. 계속하시겠습니까? "
   },
     "step-info": {
       "title": "세부 정보  | 우리 그룹의 세부 사항",
@@ -186,7 +187,11 @@
       "ifAnyProblems": "주문에 문제가 있는 경우 다음 주소로 문의하세요:",
       "orCallUs": " 또는 다음으로 전화주십시오:",
       "resendTo": "확인 이메일 재전송:",
-      "sendEmail": "보내기"
+      "sendEmail": "보내기",
+      "resendEmailIfNeeded": "필요한 경우 주문 이메일을 다시 보내십시오. ",
+      "resendToStr": "이 이메일로 재전송 ",
+      "successfullySentTO": "성공적으로 보낸 사람: ",
+      "failedToSentTO": "보내지 못했습니다: "
     }
 
   }

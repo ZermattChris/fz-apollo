@@ -77,7 +77,8 @@
     "places-free": "{n} Place free | {n} Places free",
     "passengers": "Passenger | Passengers",
     "flightNotAvail": "Flight not available",
-    "swipeRightLeft": "(Swipe left/right to change the Flight Date)"
+    "swipeRightLeft": "(Swipe left/right to change the Flight Date)",
+    "confirmDateChangeDialog": "Your Arriving and Departing dates are no longer valid. Please adjust them in Step 1. Continue?"
   },
   "step-info": {
     "title": "Your Details | Your Group's Details",
@@ -187,7 +188,11 @@
     "ifAnyProblems": "If you have any problems with your order, please contact us at:",
     "orCallUs": " or give us a call at:",
     "resendTo": "name@example.com",
-    "sendEmail": "SEND"
+    "sendEmail": "SEND",
+    "resendEmailIfNeeded": "Resend your order email if needed.",
+    "resendToStr": "Resend to this email",
+    "successfullySentTO": "Successfully sent to: ",
+    "failedToSentTO": "FAILED to send to: "
   }
   
 }
