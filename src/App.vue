@@ -322,7 +322,7 @@ import bcrypt from 'bcryptjs'
 import { format } from 'date-fns'
 import { mdiDeleteForever, mdiChevronLeft, mdiArrowRightCircle, mdiLock } from '@mdi/js'
 //import { format, add, sub, parseISO, isAfter, isBefore, isEqual } from 'date-fns'
-import { add, parseISO, isAfter, set } from 'date-fns'
+import { add, parseISO, isAfter, isBefore, set } from 'date-fns'
 
 export default {
   name: 'App',
@@ -408,6 +408,7 @@ export default {
 
 
     // Show/hide the Back Btn.
+    //console.log(this.$route.name)
     if (this.$route.name === 'Start' || this.$route.name === 'Thanks') {
       //console.log('ON HOME PAGE')
       this.onEnableBackBtn(false)
@@ -415,18 +416,10 @@ export default {
       this.onEnableBackBtn(true)
     }
 
-    // Hide Continue button on 'Thanks' page.
-    if (this.$route.name === 'Thanks') {
-      //console.log('ON HOME PAGE')
-      this.onEnableBackBtn(false)
-    } else {
-      this.onEnableBackBtn(true)
-    }
 
   },
 
 
-  // TODO NOTE:
   /*****************************************************
   // Doing all data checks for each step here now.
   // Can remove all the old tangled Nav stuff from vuex
@@ -434,57 +427,8 @@ export default {
   *****************************************************/
   beforeMount () {
 
-    if (this.$store.state._DEV === true) {
-      console.log("In _DEV mode, not doing page validity checks.")
-      return    // let me work on any page when in Dev mode.
-    }
-
-    // App-wide check for missing or stale data here.
-    // TODO: move to the generic Start Step check below.
-    if (this.isStaleFlightDate()) {
-      if (this.$router.history._startLocation !== '/') this.$router.push('/')    // only nav if not on Start page already.
-      return
-    }
-
-    // Start Step checks
-    if (this.isInvalid_StartStep()) {
-      if (this.$router.history._startLocation !== '/') this.$router.push('/')
-      return
-    }
-
-    console.log("Start/Date Step is Valid")
-
-    // Time Step checks
-    if (this.isInvalid_TimeStep()) {
-      if (this.$router.history._startLocation.toLowerCase() === '/') return
-      if (this.$router.history._startLocation.toLowerCase() !== '/time') this.$router.push('/time')
-      return
-    }
-
-    console.log("Time Step is Valid")
-
-    // Info Step checks
-    if (this.isInvalid_InfoStep()) {
-      if (this.$router.history._startLocation.toLowerCase() === '/') return
-      if (this.$router.history._startLocation.toLowerCase() === '/time') return
-      if (this.$router.history._startLocation.toLowerCase() !== '/info') this.$router.push('/info')
-      return
-    }
-
-    console.log("Info Step is Valid")
-
-    // Pay Step checks - none. // Pay has no data that must pass validity checks.
-
-    // Thanks Step checks
-    if (this.isInvalid_ThanksStep()) {
-      if (this.$router.history._startLocation.toLowerCase() === '/') return
-      if (this.$router.history._startLocation.toLowerCase() === '/time') return
-      if (this.$router.history._startLocation.toLowerCase() === '/info') return
-      // if (this.$router.history._startLocation.toLowerCase() === '/pay') return  // Pay has no data that must pass validity checks.
-      
-      if (this.$router.history._startLocation.toLowerCase() === '/thanks') this.$router.push('/pay')
-      return
-    }
+    this.validateAllSteps()
+    
   },
 
 
@@ -498,6 +442,9 @@ export default {
     //console.log('this.$refs.ContinueBtn', this.$refs.ContinueBtn)
     // This needs to be called on updated() to allow the Step_Start to figure out
     // if the Step is valid and update the _navList in beforeUpdate().
+
+    //this.validateAllSteps()
+
     this.$refs.ContinueBtn.update()
   },
 
@@ -568,18 +515,63 @@ export default {
 
 
     /*****************************************************
-    // Stepper items mark completed or not.
+    // Called from Mount and BeforeUpdate
     *****************************************************/
-    updateSteppersSteps: function () {
+    validateAllSteps: function () {
 
-      // this.stepDateComplete = this.$store.startStepValid
+      if (this.$store.state._DEV === true) {
+        console.log("In _DEV mode, not doing page validity checks.")
+        return    // let me work on any page when in Dev mode.
+      }
 
-      // stepDateComplete: false,
-      // stepTimeComplete: false,
-      // stepInfoComplete: false,
-      // stepPayComplete: false
+      // App-wide check for missing or stale data here.
+      // TODO: move to the generic Start Step check below.
+      if (this.isStaleFlightDate()) {
+        // console.log("isStaleFlightDate")
+        if (this.$router.history._startLocation !== '/') this.$router.push('/')    // only nav if not on Start page already.
+        return
+      }
 
-      // this.stepDateComplete = this.$store.state._navList["Start"]
+      // Start Step checks
+      if (this.isInvalid_StartStep()) {
+        // console.log("isInvalid_StartStep")
+        if (this.$router.history._startLocation !== '/') this.$router.push('/')
+        return
+      }
+
+      console.log("Start/Date Step is Valid")
+
+      // Time Step checks
+      if (this.isInvalid_TimeStep()) {
+        if (this.$router.history._startLocation.toLowerCase() === '/') return
+        if (this.$router.history._startLocation.toLowerCase() !== '/time') this.$router.push('/time')
+        return
+      }
+
+      console.log("Time Step is Valid")
+
+      // Info Step checks
+      if (this.isInvalid_InfoStep()) {
+        if (this.$router.history._startLocation.toLowerCase() === '/') return
+        if (this.$router.history._startLocation.toLowerCase() === '/time') return
+        if (this.$router.history._startLocation.toLowerCase() !== '/info') this.$router.push('/info')
+        return
+      }
+
+      console.log("Info Step is Valid")
+
+      // Pay Step checks - none. // Pay has no data that must pass validity checks.
+
+      // Thanks Step checks
+      if (this.isInvalid_ThanksStep()) {
+        if (this.$router.history._startLocation.toLowerCase() === '/') return
+        if (this.$router.history._startLocation.toLowerCase() === '/time') return
+        if (this.$router.history._startLocation.toLowerCase() === '/info') return
+        // if (this.$router.history._startLocation.toLowerCase() === '/pay') return  // Pay has no data that must pass validity checks.
+        
+        if (this.$router.history._startLocation.toLowerCase() === '/thanks') this.$router.push('/pay')
+        return
+      }
 
     },
 
@@ -632,7 +624,16 @@ export default {
     isInvalid_StartStep: function () {
 
       // flightDate
-      if (this.$store.state.flightDate === '' ) {
+      // TODO: Add checks for Arrive and Depart dates here. 
+      // if ( isAfter( parseISO(this.userFlightDate), parseISO(this.departDate)) || 
+      //        isBefore( parseISO(this.userFlightDate), parseISO(this.arriveDate)) ){ 
+      if (
+        this.$store.state.flightDate === '' ||
+        this.$store.state.arriveDate === '' ||
+        this.$store.state.departDate === '' ||
+        isAfter( parseISO(this.userFlightDate), parseISO(this.departDate)) ||
+        isBefore( parseISO(this.userFlightDate), parseISO(this.arriveDate))
+      ) {
         console.log('INVALID DATA: flightDate is empty. Return to "Start" page.')
         return true
       }

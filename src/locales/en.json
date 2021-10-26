@@ -78,7 +78,9 @@
     "passengers": "Passenger | Passengers",
     "flightNotAvail": "Flight not available",
     "swipeRightLeft": "(Swipe left/right to change the Flight Date)",
-    "confirmDateChangeDialog": "Your Arriving and Departing dates are no longer valid. Please adjust them in Step 1."
+    "confirmDateChangeDialog": "Ooops! Your Flight Date no longer falls within your Arriving and Departing dates. Please return to Step 1 and adjust.",
+    "confirmDateChangeDialogHeader": "Invalid Arriving and Departing dates",
+    "confirmDateChangeDialogConfirmBtn": "Adjust"
   },
   "step-info": {
     "title": "Your Details | Your Group's Details",

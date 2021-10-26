@@ -578,7 +578,7 @@ export default {
           return ''
         }
         
-        console.log('Stored FlightDate is okay')
+        //console.log('Stored FlightDate is okay')
 
         return initFlightDate
 
@@ -680,6 +680,7 @@ export default {
       return format(parseISO(new Date().toISOString()), 'yyyy-MM-dd')
     },
     formatArriveDate: function () {
+      //console.log('this.arriveDate', this.arriveDate)
       if (isAfter(parseISO(this.arriveDate), parseISO(this.flightDate))) {
         // return 'Arrival date must be on or before your Flight Date'
         return ''
@@ -697,7 +698,8 @@ export default {
     },
 
     formatDepartDate: function () {
-      if (isBefore(parseISO(this.departDate), parseISO(new Date().toISOString())  )) {
+      // if (isBefore(parseISO(this.departDate), parseISO(new Date().toISOString())  )) {
+      if (isBefore(parseISO(this.departDate), parseISO(this.flightDate) )) {
         // return 'Arrival date must be on or after your Flight Date'
         return ''
       }
@@ -710,7 +712,7 @@ export default {
       },
       set(dateStr) {
         this.$store.dispatch('setDepartDate', dateStr)
-        this.scrollToId("#whichFlight")
+        //this.scrollToId("#whichFlight")
       }
     },
 

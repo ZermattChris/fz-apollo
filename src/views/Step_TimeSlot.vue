@@ -131,6 +131,56 @@
 
     </div>
 
+
+
+
+
+    <!-- Changed date outside of given Arrive + Depart values Dialog box -->
+    <v-dialog
+      v-model="changedDateDialog"
+      persistent
+      width="500"
+    >
+      <v-card class="pb-2">
+        <v-card-title class="text-h5 grey lighten-2">
+          <v-icon color="fzPink" class="mr-2">{{iconWarning}}</v-icon> {{$t('step-timeslot.confirmDateChangeDialogHeader')}}
+        </v-card-title>
+
+        <v-card-text
+          class="pt-4"
+        >
+
+          {{$t('step-timeslot.confirmDateChangeDialog')}}
+          
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <!-- <v-btn
+            text
+            style="padding: 2px 10px 0; margin-right: 10px;"
+            @click="changedDateDialog = false; dontNagDateDialog = true"
+          >
+            Cancel
+          </v-btn>  -->
+          <v-btn
+            rounded 
+            color="fzPink" 
+            elevation="4"
+            class="white--text"
+            style="padding: 2px 16px 0; margin-right: 10px;"
+            @click="onChangedDateDialogContinueBtn"
+          >
+            <v-icon right>{{iconPrevArrow}}</v-icon>
+            {{$t('step-timeslot.confirmDateChangeDialogConfirmBtn')}}...
+          </v-btn>
+        </v-card-actions>
+
+      </v-card>
+    </v-dialog>
+
+
+
   </div>
 </template>
 
@@ -145,7 +195,7 @@
   import { isMobile } from 'mobile-device-detect'
 
   
-  import { mdiLightbulbOnOutline, mdiArrowDownCircle } from '@mdi/js'
+  import { mdiLightbulbOnOutline, mdiArrowDownCircle, mdiArrowLeftCircle, mdiAlertOctagram } from '@mdi/js'
   import { parseISO, isAfter, isBefore } from 'date-fns'
 
 
@@ -170,10 +220,12 @@
 
         iconIdea: mdiLightbulbOnOutline,
         iconArrowDown: mdiArrowDownCircle,
+        iconPrevArrow: mdiArrowLeftCircle,
+        iconWarning: mdiAlertOctagram,
 
         // Keep track of the user's initally chosen date from Step 1, and 
         // offer them a UI to return to that date easily.
-        usersStep1Date: '',
+        // usersStep1Date: '',
 
         visibleSlidesData: [],
 
@@ -212,6 +264,8 @@
         // swiperPrevEnabled: true,
         // swiperNextEnabled: '',
 
+        changedDateDialog: false
+
       }
     },
 
@@ -223,7 +277,7 @@
       this.$store.dispatch('setActiveDate', this.$store.state.flightDate)
 
       // Keep track of User's step 1 selected date.
-      this.usersStep1Date = this.$store.state.flightDate
+      // this.usersStep1Date = this.$store.state.flightDate
 
 
     },
@@ -309,6 +363,18 @@
 
 
     methods: {
+
+      onChangedDateDialogContinueBtn: function () {
+        
+        // this.$store.dispatch('setFlightDate', this.$store.state._activeDate)
+        // this.$store.dispatch('setArriveDate', '')
+        // this.$store.dispatch('setDepartDate', '')
+
+        this.changedDateDialog = false
+
+        this.$router.push({ name: 'Start' })
+          
+      },
 
       // Not working -- causes a icky infinite loop bug when trying to change
       // visibility of Prev Next buttons. Will have to wait for big rewrite to
@@ -400,29 +466,47 @@
       onRowSelected: function () {
         //clickedRow: function (chosenDate, chosenSlot, chosenSlotLabel) {
 
+        if ( this.departDate === '' || this.arriveDate === '' ) {
+          this.changedDateDialog = true
+          return
+        }
+
+
+        if ( isAfter( parseISO(this.userFlightDate), parseISO(this.departDate)) || 
+             isBefore( parseISO(this.userFlightDate), parseISO(this.arriveDate)) ){ 
+         
+          this.changedDateDialog = true
+          return
+
+        }
+
+
+
         //this.scrollToId("#bigGroupTipBox")
 
 
         //console.log("TEST", this.userFlightDate, this.departDate, this.arriveDate)
-        if ( 
-          isAfter( parseISO(this.userFlightDate), parseISO(this.departDate)) || 
-          isBefore( parseISO(this.userFlightDate), parseISO(this.arriveDate))
-        )
-        { 
-          // TODO: Not sure I like how this is working - all a bit messy... Maybe just put arrive + depart dates into system later??
-          if (window.confirm(this.$t('step-timeslot.confirmDateChangeDialog'))) {
-            this.$store.dispatch('setArriveDate', '')
-            this.$store.dispatch('setDepartDate', '')
-            this.$router.push({ name: 'Start' })
+        // if ( 
+        //   isAfter( parseISO(this.userFlightDate), parseISO(this.departDate)) || 
+        //   isBefore( parseISO(this.userFlightDate), parseISO(this.arriveDate))
+        // )
+        // { 
+        //   // TODO: Not sure I like how this is working - all a bit messy... Maybe just put arrive + depart dates into system later??
 
-            // set the focus to arriveDate on Step 1.
-            //this.scrollToId('#arriveInput')
+        //   // This obviously doesn't work in mobile browsers! Needs a Vuetify dialog.
+        //   if (window.confirm(this.$t('step-timeslot.confirmDateChangeDialog'))) {
+        //     this.$store.dispatch('setArriveDate', '')
+        //     this.$store.dispatch('setDepartDate', '')
+        //     this.$router.push({ name: 'Start' })
+
+        //     // set the focus to arriveDate on Step 1.
+        //     //this.scrollToId('#arriveInput')
             
-            //console.log('Changed date, ask to adjust Arrive-Depart date in Step 1?')
+        //     //console.log('Changed date, ask to adjust Arrive-Depart date in Step 1?')
 
-            return
-          }
-        }
+        //     return
+        //   }
+        // }
         // ----
 
 
