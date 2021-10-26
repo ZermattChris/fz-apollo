@@ -191,6 +191,7 @@
     <!-- Global "Find our Office" pop up dialog -->
     <v-dialog
       v-model="findOfficeDialog"
+      v-if="findOfficeDialog"
       width="500"
     >
       <v-card>

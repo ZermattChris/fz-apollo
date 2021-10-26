@@ -118,11 +118,18 @@
 
       </swiper>
 
-      <div v-show="$vuetify.breakpoint.name !== 'md' " class="swiper-button-next"></div>
-      <div v-show="$vuetify.breakpoint.name !== 'md' " class="swiper-button-prev"></div>
+      <div 
+        v-show="$vuetify.breakpoint.name == 'xs' || $vuetify.breakpoint.name == 'sm'" 
+        class="swiper-button-prev"
+        @click="onPrevDayBtn">
+      </div>
+      <div 
+        v-show="$vuetify.breakpoint.name == 'xs' || $vuetify.breakpoint.name == 'sm' " 
+        class="swiper-button-next"
+        @click="onNextDayBtn">
+      </div>
 
     </div>
-
 
   </div>
 </template>
@@ -201,6 +208,10 @@
             }
           },
         },
+
+        // swiperPrevEnabled: true,
+        // swiperNextEnabled: '',
+
       }
     },
 
@@ -214,12 +225,20 @@
       // Keep track of User's step 1 selected date.
       this.usersStep1Date = this.$store.state.flightDate
 
+
     },
 
 
     mounted() {
       // console.log("Swiper Init() ")
       this.loadVisibleSlides()
+
+      // setup Swiper events
+      // swiper.isBeginning
+      // const me = this
+      //this.swiperNavButtonEnabler(this.swiper)
+      //this.swiper.on('progress', () => {this.swiperNavButtonEnabler(this.swiper)})
+
     },
 
     beforeUpdate() {
@@ -290,6 +309,35 @@
 
 
     methods: {
+
+      // Not working -- causes a icky infinite loop bug when trying to change
+      // visibility of Prev Next buttons. Will have to wait for big rewrite to
+      // Vue 3 and latest native Swiper.
+      // swiperNavButtonEnabler: function (swiper) {
+
+      //   console.log('swiperNavButtonEnabler')
+      //   this.swiperPrevEnabled = true
+      //   // me.swiperNextEnabledClass = ''
+
+      //   if (swiper.isBeginning) {
+      //     console.log('Swiper Start')
+      //     this.swiperPrevEnabled = false
+      //   }
+      //   if (swiper.isEnd) {
+      //     console.log('Swiper End')
+      //     // me.swiperNextEnabledClass = 'disableBtnClass'
+      //   }
+
+      // },
+
+      onPrevDayBtn: function () {
+        //console.log('Clicked Prev')
+        this.swiper.slidePrev(300)
+      },
+      onNextDayBtn: function () {
+        //console.log('Clicked Next')
+        this.swiper.slideNext(300)
+      },
 
       onSlideChanged: function () {
         // scroll Swiper to the currently selected date.
@@ -442,6 +490,11 @@
 
 /* Arrow size for the Swiper component */
 
+/* this controls the disabled state of the Swiper Nav buttons  */
+.disableBtnClass {
+  cursor: pointer;
+  opacity: 50%;
+}
 
 .swiper-button-next, .swiper-button-prev {
   top: 395px;
