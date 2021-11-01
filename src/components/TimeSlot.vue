@@ -169,7 +169,7 @@
 
     watch: {
 
-      // Whooop! This works! I've finally remembered how to handle this reactive shit.
+      // 
       flightDateChanged: function(newVal) {
         //console.log('newVal',newVal, 'oldVal',oldVal)
         if (newVal !== this.slotDate) {

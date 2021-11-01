@@ -366,11 +366,10 @@
 
       onChangedDateDialogContinueBtn: function () {
         
-        // this.$store.dispatch('setFlightDate', this.$store.state._activeDate)
-        // this.$store.dispatch('setArriveDate', '')
-        // this.$store.dispatch('setDepartDate', '')
+        this.$store.dispatch('setArriveDate', this.$store.state._activeDate)
+        this.$store.dispatch('setDepartDate', this.$store.state._activeDate)
 
-        this.changedDateDialog = false
+        this.changedDateDialog = false  // close dialog box
 
         this.$router.push({ name: 'Start' })
           
@@ -479,37 +478,6 @@
           return
 
         }
-
-
-
-        //this.scrollToId("#bigGroupTipBox")
-
-
-        //console.log("TEST", this.userFlightDate, this.departDate, this.arriveDate)
-        // if ( 
-        //   isAfter( parseISO(this.userFlightDate), parseISO(this.departDate)) || 
-        //   isBefore( parseISO(this.userFlightDate), parseISO(this.arriveDate))
-        // )
-        // { 
-        //   // TODO: Not sure I like how this is working - all a bit messy... Maybe just put arrive + depart dates into system later??
-
-        //   // This obviously doesn't work in mobile browsers! Needs a Vuetify dialog.
-        //   if (window.confirm(this.$t('step-timeslot.confirmDateChangeDialog'))) {
-        //     this.$store.dispatch('setArriveDate', '')
-        //     this.$store.dispatch('setDepartDate', '')
-        //     this.$router.push({ name: 'Start' })
-
-        //     // set the focus to arriveDate on Step 1.
-        //     //this.scrollToId('#arriveInput')
-            
-        //     //console.log('Changed date, ask to adjust Arrive-Depart date in Step 1?')
-
-        //     return
-        //   }
-        // }
-        // ----
-
-
 
         // update the autoheight on Swiper to allow for TimeSlot height changes
         // when toggling passenger inputs. Needs a timeout to work.
