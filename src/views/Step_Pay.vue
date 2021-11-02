@@ -353,6 +353,7 @@
         //console.log("Current user language: ", lang)
 
         const data = { 
+          "partnerName": "",
           "orderId": id,
           "isTest": this.$store.state._DEV,
           "email": this.$store.state.contactEmail,
@@ -388,27 +389,43 @@
             if (session.orderId > 0) {
               me.$store.dispatch('setOrderId', session.orderId)
             }
-            // Send user to the Stripe Checkout page.
-            return me.stripe.redirectToCheckout({ sessionId: session.stripeSessionId });
+            return me.stripe.redirectToCheckout({ sessionId: session.stripeSessionId })
           })
           .then(function (result) {
             // If redirectToCheckout fails due to a browser or network
             // error, you should display the localized error message to your
             // customer using error.message.
             if (result.error) {
-              alert(result.error.message);
+              console.error(result.error.message);
             }
           })
           .catch(function (error) {
             console.log("Getting an error back in the 'catch'")
-            console.error("Error:", error);
+            console.error("Error:", error)
           })
-
 
       },
 
     },
 
+
+    // watch: {
+
+    //   '$store.state.partnerOrder': function() {
+    //     const triggerPartnerOrder = this.$store.state.partnerOrder
+    //     console.log("Partner Order triggered")
+    //     if (triggerPartnerOrder === false) {
+    //       console.log("Not a Partner Order, cancel.")
+    //       return
+    //     }
+
+    //     // Is a Partner order, call the onOrderButton()
+    //     console.log("IS a Partner Order.")
+    //     this.onOrderBtn(true)
+
+    //   },
+
+    // }
 
   }
 

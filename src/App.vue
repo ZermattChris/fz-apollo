@@ -452,24 +452,21 @@ export default {
   // Methods
   methods: {
 
-    processPartnerOrder: function () {
-      // Send confirm emails.
-      // Trigger order directly via Tommy's API ???
-      console.log('Login Success!  TODO: Call Tommy API to place order without Stripe')
-
-      // Reset user & password field.
-      this.partnerUserName = ''
-      this.partnerPass = ''
-
-      // close dialog
-      this.partnerLogin = false 
-    },
-
     onPartnerLogin: function () {
 
       // Use the given User Name to pull in the stored hash from partner passwords file
-      //console.log(this.partnersData.partners[this.partnerUserName])
-      const myHash = this.partnersData.partners[this.partnerUserName.toLowerCase()]
+      const partnerNameInput = this.partnerUserName.toLowerCase()
+      //console.log(partnerNameInput)
+      const partnerData = this.partnersData.partners[partnerNameInput]
+      //console.log(partnerData)
+      const myHash = partnerData.hash
+      //console.log(myHash)
+      const myEmail = partnerData.email
+      //console.log(myEmail)
+      const myPhone = partnerData.phone
+      //console.log(myPhone)
+
+
 
       bcrypt.compare(this.partnerPass, myHash, (err, res) => {
         if (err) {
@@ -481,7 +478,9 @@ export default {
         // to Stripe payments. Probably good to send an email here directly as a backup
         // to us if any issues.
         if (res === true) {
-          this.processPartnerOrder()
+          this.processPartnerOrder(this.partnerUserName, myEmail, myPhone)
+          // close dialog
+          this.partnerLogin = false 
         } else {
           // do some type of warning message here.
           console.error('User Name and/or Password are incorrect.')
@@ -492,6 +491,84 @@ export default {
 
     },
 
+    processPartnerOrder: function (partnerName) {
+      // Send confirm emails.
+      // Trigger order directly via Tommy's API ???
+      console.log('Login Success!  TODO: Call Tommy API to place order without Stripe', partnerName)
+
+
+      let me = this
+
+      let id = this.$store.state.orderID
+      if (id === '' || id === undefined)  id = null
+
+      let usrLang = this.$i18n.locale
+      //console.log("Current user language: ", lang)
+
+      const data = { 
+        "partnerName": partnerName,
+        "nonce":"$2a$10$QLByQXc8pJ0l80AI9/Y2XeWW4ABODvIRQuzc0l7jIEcDs2nGqYVna",
+        "orderId": id,
+        "isTest": this.$store.state._DEV,
+        "email": this.$store.state.contactEmail,
+        "phone": this.$store.state.contactPhone,
+        "totalPassengers": this.totalPassengers,
+        "flightDate": this.$store.state.flightDate,
+        "dateRange": {"start": this.$store.state.arriveDate, "end": this.$store.state.departDate},
+        "flightId": this.$store.state.selectedFlight,
+        "photos": this.$store.state.wantsPhotos,
+        "passengerJSON": this.$store.state.passengerObjList,
+        "slotJSON": this.$store.state.slotPassengersObj,
+        "orderMessage": this.$store.state.orderMessage,
+        "usersLanguage": usrLang
+      }
+
+      //console.log("Order data sent to Tommy.", data)
+
+
+      fetch("https://bookings.simpleitsolutions.ch/api/createPartnerOrder", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            data
+          }),
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (session) {
+          // Save Tommy's OrderId
+          if (session.orderId > 0) {
+            me.$store.dispatch('setOrderId', session.orderId)
+          }
+          
+          console.log("DIRECT PARTNER ORDER SUCCESS - Go to Thanks page...", data)
+
+          this.$router.push({
+            path: 'Thanks'
+          })
+        })
+        .then(function (result) {
+          // If redirectToCheckout fails due to a browser or network
+          // error, you should display the localized error message to your
+          // customer using error.message.
+          if (result.error) {
+            alert(result.error.message);
+          }
+        })
+        .catch(function (error) {
+          console.log("Getting an error back in the Partner Order 'catch'")
+          console.error("Error:", error)
+        })
+
+    },
+
+
+
+
+
     showPartnerLoginDialog: function () {
 
       // Only show on the "Pay" page.
@@ -501,8 +578,8 @@ export default {
       this.partnerLogin = true  // Show the dialog.
 
       // // test out bcrypt
-      // let myHash = this.encryptPassword('Ronnie-glyphs')
-      // console.log(myHash)
+      let myHash = this.encryptPassword('{_w%no>+3r-[}.{e6~yz2\r5y+^')
+      console.log(myHash)
 
     },
     encryptPassword: function (password) {         

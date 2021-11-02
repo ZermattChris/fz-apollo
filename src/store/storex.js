@@ -71,7 +71,7 @@ export default new Vuex.Store({
     // Calling a simple helper function at end of storex.js
     _DEV: _isDev(),
 
-    // Features on/off (allows putting code into live)
+    // Passenger 'expert' warnings. TODO Features on/off (allows putting code into live)
     expertWarnings: false,
 
     // User inputs.
@@ -138,30 +138,49 @@ export default new Vuex.Store({
 
     findOfficeDialog: false,
 
+    // // Holds partner data after a Partner login is successful. Passed to Tommy to complete Partner order.
+    // // TODO: This needs to go on the back end before next summer, as this is just a stop-gap.
+    // partnerOrder: false,    // set to true to trigger a Partner Order
+    // partnerData: {
+    //   "name": "",
+    //   "email": "", 
+    //   "phone": ""
+    // },
+
   },   // END STATE
 
   mutations: {
 
+    // PARTNER_ORDER(state, orderBool) {
+    //   state.partnerOrder = orderBool
+    // },
+    // PARTNER_DATA(state, data) {
+    //   console.log(data)
+    //   state.partnerData.name = data.name
+    //   state.partnerData.email = data.email
+    //   state.partnerData.phone = data.phone
+    // },
+
     SHOW_FIND_OFFICE_DIALOG(state, showBool) {
-      state.findOfficeDialog = showBool;
+      state.findOfficeDialog = showBool
     },
 
     HAS_REVIEWED_DATA(state, reviewedBool) {
-      state._hasReviewedData = reviewedBool;
+      state._hasReviewedData = reviewedBool
     },
     SHOW_REVIEW_DIALOG(state, showBool) {
-      state._showReviewDialog = showBool;
+      state._showReviewDialog = showBool
     },
 
     // UI Loading...
     APP_LOADING(state, isLoading) {
-      state._app_loading = isLoading;
+      state._app_loading = isLoading
     },
     FLIGHTSLIST_LOADING(state, isLoading) {
-      state._flightsList_loading = isLoading;
+      state._flightsList_loading = isLoading
     },
     TIMELIST_LOADING(state, isLoading) {
-      state._timeList_loading = isLoading;
+      state._timeList_loading = isLoading
     },
 
     // APIs
@@ -357,6 +376,13 @@ export default new Vuex.Store({
    * 
    * ==========================================================================================================*/
   actions: {
+
+    // setPartnerOrder(context, orderBool) {
+    //   context.commit("PARTNER_ORDER", orderBool)
+    // },
+    // setPartnerData(context, data) {
+    //   context.commit("PARTNER_DATA", data)
+    // },
    
     // API CALLS.
 
