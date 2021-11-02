@@ -578,8 +578,8 @@ export default {
       this.partnerLogin = true  // Show the dialog.
 
       // // test out bcrypt
-      let myHash = this.encryptPassword('{_w%no>+3r-[}.{e6~yz2\r5y+^')
-      console.log(myHash)
+      // let myHash = this.encryptPassword('xxxxxx')
+      // console.log(myHash)
 
     },
     encryptPassword: function (password) {         
