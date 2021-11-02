@@ -147,7 +147,7 @@
         // https://bookings.simpleitsolutions.ch/api/resendCustomerConfirmation/[orderID]/[email]
 
         
-        const orderID = this.$store.orderID
+        const orderID = this.$store.state.orderID
 
         axios.get("https://bookings.simpleitsolutions.ch/api/resendCustomerConfirmation/" + orderID + "/" + this.resendEmail)
         .then(response => {

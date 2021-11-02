@@ -247,6 +247,7 @@ export default new Vuex.Store({
     // Local Storage Cached
     ORDER_ID(state, id) {
       state.orderID = id
+      console.log("Set orderID", state.orderID);
       localStorage.orderID = JSON.stringify(state.orderID)
     },
 

@@ -548,8 +548,10 @@ export default {
             me.$store.dispatch('setOrderId', session.orderId)
           }
           
-          console.log("DIRECT PARTNER ORDER SUCCESS - Go to Thanks page...", data)
+          console.log("DIRECT PARTNER ORDER SUCCESS - Go to Thanks page...")
 
+
+          // TODO: Create a Partner success payment page, instead of this normal Thanks.
           me.$router.push({
             path: 'Thanks'
           })
