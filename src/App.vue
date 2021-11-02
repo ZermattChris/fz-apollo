@@ -457,14 +457,14 @@ export default {
       // Use the given User Name to pull in the stored hash from partner passwords file
       const partnerNameInput = this.partnerUserName.toLowerCase()
       //console.log(partnerNameInput)
-      const partnerData = this.partnersData.partners[partnerNameInput]
+      const partnerData = partnersData.partners[partnerNameInput]
       //console.log(partnerData)
       const myHash = partnerData.hash
       //console.log(myHash)
-      const myEmail = partnerData.email
-      //console.log(myEmail)
-      const myPhone = partnerData.phone
-      //console.log(myPhone)
+      // const myEmail = partnerData.email
+      // //console.log(myEmail)
+      // const myPhone = partnerData.phone
+      // //console.log(myPhone)
 
 
 
@@ -478,7 +478,7 @@ export default {
         // to Stripe payments. Probably good to send an email here directly as a backup
         // to us if any issues.
         if (res === true) {
-          this.processPartnerOrder(this.partnerUserName, myEmail, myPhone)
+          this.processPartnerOrder(this.partnerUserName)
           // close dialog
           this.partnerLogin = false 
         } else {
@@ -488,6 +488,8 @@ export default {
         // console.log(res) //true or false
       })
 
+
+      this.partnerPass =  '' // clear password input field.
 
     },
 
