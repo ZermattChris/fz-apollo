@@ -358,7 +358,7 @@
           "isTest": this.$store.state._DEV,
           "email": this.$store.state.contactEmail,
           "phone": this.$store.state.contactPhone,
-          "totalPassengers": this.totalPassengers,
+          "totalPassengers": this.$store.state.totalPassengers,
           "flightDate": this.$store.state.flightDate,
           "dateRange": {"start": this.$store.state.arriveDate, "end": this.$store.state.departDate},
           "flightId": this.$store.state.selectedFlight,

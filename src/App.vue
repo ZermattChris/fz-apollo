@@ -507,6 +507,8 @@ export default {
       let usrLang = this.$i18n.locale
       //console.log("Current user language: ", lang)
 
+      //console.log("totalPassengers", this.$store.state.totalPassengers)
+
       const data = { 
         "partnerName": partnerName,
         "nonce":"$2a$10$QLByQXc8pJ0l80AI9/Y2XeWW4ABODvIRQuzc0l7jIEcDs2nGqYVna",
@@ -514,7 +516,7 @@ export default {
         "isTest": this.$store.state._DEV,
         "email": this.$store.state.contactEmail,
         "phone": this.$store.state.contactPhone,
-        "totalPassengers": this.totalPassengers,
+        "totalPassengers": this.$store.state.totalPassengers,
         "flightDate": this.$store.state.flightDate,
         "dateRange": {"start": this.$store.state.arriveDate, "end": this.$store.state.departDate},
         "flightId": this.$store.state.selectedFlight,
@@ -548,18 +550,18 @@ export default {
           
           console.log("DIRECT PARTNER ORDER SUCCESS - Go to Thanks page...", data)
 
-          this.$router.push({
+          me.$router.push({
             path: 'Thanks'
           })
         })
-        .then(function (result) {
-          // If redirectToCheckout fails due to a browser or network
-          // error, you should display the localized error message to your
-          // customer using error.message.
-          if (result.error) {
-            alert(result.error.message);
-          }
-        })
+        // .then(function (status) {
+        //   // If redirectToCheckout fails due to a browser or network
+        //   // error, you should display the localized error message to your
+        //   // customer using error.message.
+        //   if (status != 'success') {
+        //     alert(result.error.message);
+        //   }
+        // })
         .catch(function (error) {
           console.log("Getting an error back in the Partner Order 'catch'")
           console.error("Error:", error)
