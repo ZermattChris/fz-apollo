@@ -99,7 +99,7 @@
       return {
         
         resendEmail: '',
-        resendEmailHint: this.$t('step-thanks.resendToStr')
+        // resendEmailHint: this.$t('step-thanks.resendToStr')
 
       }
     },
@@ -127,6 +127,10 @@
       
       orderEmail: function () {
         return this.$store.state.contactEmail
+      },
+
+      resendEmailHint: function () {
+        return this.$t('step-thanks.resendToStr')
       },
       
     },
