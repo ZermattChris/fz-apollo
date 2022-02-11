@@ -78,6 +78,7 @@ export default {
 
     this.currentLangISO = this.getBroswerLangIfMatch()
     this.$i18n.locale = this.currentLangISO
+    this.$store.dispatch('setLocale', this.currentLangISO)
     //console.log(this.currentLangISO)
 
   },
@@ -85,9 +86,10 @@ export default {
 
   methods: {
     onChooseLanguage: function (lang) {
-      //console.log(lang)
+      //console.log('BeforeLang', this.currentLangISO, 'NewLang', lang)
       this.currentLangISO = lang
       this.$i18n.locale = lang
+      this.$store.dispatch('setLocale', lang)
     },
 
 

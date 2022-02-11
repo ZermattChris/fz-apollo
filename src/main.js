@@ -35,13 +35,7 @@ Vue.mixin({
     },
     scrollToId: function (elIdToTarget = '') {
       setTimeout(() => { this.$scrollTo(elIdToTarget, 500) }, 100)
-    },
-    // // Think this needs to be an input element.
-    // copy: function (elIdToTarget = '') {
-    //   let copyText = document.querySelector(elIdToTarget);
-    //   copyText.select();
-    //   document.execCommand("copy");
-    // }
+    }
   }
 })
 
