@@ -126,38 +126,75 @@
 
 
 
-      <!-- Terms and Conditions Checkbox  -->
-      <v-container
-        class="px-0 pt-0"
-        fluid
-        style="max-width:400px; margin:0 auto; text-align:center;"
-      >
-        <v-checkbox
-          v-model="termsCheckboxModel"
-          color="orange darken-3"
-        >
-          <template v-slot:label>
-            <div id="TCs-Box">
-              {{$t('step-pay.tc-text-start')}}
-              <v-tooltip top>
-                <template v-slot:activator="{ on }">
-                  <a
-                    target="_blank"
-                    href="https://www.flyzermatt.com/terms-and-conditions#onlinepayments"
-                    @click.stop
-                    v-on="on"
-                  >{{$t('step-pay.tc-text-link')}}</a>
-                </template>
-                {{$t('step-pay.openInNewPage')}}
-              </v-tooltip> 
-              {{$t('step-pay.tc-text-end')}}
-            </div>
-          </template>
-        </v-checkbox>
-      </v-container>
+      <!-- Stripe Payment Element for Future Payments  -->
+      <!-- Only show if in Debug at moment -->
+      <div id="stripe-payment-box" class="">
+
+        <v-skeleton-loader
+          v-if="stripePaymentFormLoading"
+          type="article, actions"
+        ></v-skeleton-loader>
+
+        <form id="stripe-payment-form" @submit.prevent="onOrderBtn">
+          <div id="stripe-payment-element" style="min-height:210px;">
+            <!-- Elements will create form elements here -->
+          </div>
+          <!-- <button id="stripe-submit">Submit</button> -->
+
+
+          <!-- Terms and Conditions Checkbox  -->
+          <v-container
+            class="px-0 pt-0"
+            fluid
+            style="max-width:400px; margin:0 auto; text-align:center;"
+          >
+            <v-checkbox
+              v-model="termsCheckboxModel"
+              color="orange darken-3"
+            >
+              <template v-slot:label>
+                <div id="TCs-Box">
+                  {{$t('step-pay.tc-text-start')}}
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                      <a
+                        target="_blank"
+                        href="https://www.flyzermatt.com/terms-and-conditions#onlinepayments"
+                        @click.stop
+                        v-on="on"
+                      >{{$t('step-pay.tc-text-link')}}</a>
+                    </template>
+                    {{$t('step-pay.openInNewPage')}}
+                  </v-tooltip> 
+                  {{$t('step-pay.tc-text-end')}}
+                </div>
+              </template>
+            </v-checkbox>
+          </v-container>
+
+
+          <!-- Stripe controlled PAY NOW button  -->
+          <div id="payment-button-box" class="" style="text-align:center;">
+            <v-btn id="payment-button" ref="paymentButton" type="submit"
+              color="orange darken-3"
+              class="mt-0"
+              :disabled="!termsCheckboxModel"
+            >
+              {{$t('step-pay.payNow')}}
+            </v-btn>
+          </div>
+          
+          <div id="stripe-error-message">
+            <!-- Display error message to your customers here -->
+            <!-- {{isDev ? 'TRUE' : 'FALSE'}} -->
+          </div>
+        </form>
+
+      </div>
+
 
       <!-- Stripe controlled PAY NOW button  -->
-      <div id="payment-button-box" class="" style="text-align:center;">
+      <!-- <div id="payment-button-box" class="" style="text-align:center;">
         <v-btn id="payment-button" ref="paymentButton" type="submit"
           color="orange darken-3"
           class="mt-0"
@@ -166,9 +203,9 @@
         >
           {{$t('step-pay.payNow')}}
         </v-btn>
-      </div>
+      </div> -->
 
-      <a 
+      <!-- <a 
         href="https://stripe.com"
         target="_blank"
         class="mx-auto mt-10"
@@ -180,7 +217,7 @@
           height="30"
           src="Powered by Stripe - blurple.svg"
         ></v-img>
-      </a>
+      </a> -->
 
       <div v-if="$store.state._DEV == true">
 
@@ -253,24 +290,46 @@
 
         myLocal: enGB,    // default date-fns locale
 
+        tempClientSecret: '',
 
+        stripePaymentFormLoading: true
       }
     },
 
-    async mounted() {
+    async beforeMount() {
 
-      // VUE_APP_STRIPE_PUBLIC_KEY_TEST
-      // VUE_APP_STRIPE_PUBLIC_KEY_LIVE
-
-      if (this.$store.state._DEV === true) {
-        console.log('Development Mode, will create a TEST order via Stripe')
+        console.log('Development Mode - Test Stripe Order.')
         this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
-        return
-      }
 
-      // Live Stripe call.
-      this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_LIVE)
+        const response = await fetch('https://gateway.flyzermatt.com/create-customer');
+        const data = await response.json()
+        this.tempClientSecret = data.clientSecret
+        // console.log('this.tempClientSecret', this.tempClientSecret)
+        // console.log('custId', data.customerId)
 
+
+        const options = {
+          clientSecret: this.tempClientSecret,
+          locale: this.$i18n.locale,
+          // Fully customizable with appearance API.
+          //appearance: {}
+        };
+
+        // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in step 2
+        this.elements = this.stripe.elements(options)
+
+
+        // Create and mount the Payment Element
+        const paymentElement = this.elements.create('payment')
+
+        const me = this
+        paymentElement.on('ready', function() {
+          me.stripePaymentFormLoading = false     // remove the skeleton loader
+        })
+
+        paymentElement.mount('#stripe-payment-element')
+
+      
     },
 
     
@@ -282,6 +341,10 @@
     },
 
     computed: {
+
+      isDev: function () {
+          return this.$store.state._DEV
+      },
 
       findOfficeDialog: {
         get() {
@@ -339,93 +402,116 @@
         this.$store.dispatch('setOrderMessage', this.message)
       },
 
-      onOrderBtn() {
 
-        // Disable screen until the Order Now call has completed (with animation)
-        this.orderOverlay = true
 
-        let me = this
 
-        let id = this.$store.state.orderID
-        if (id === '' || id === undefined)  id = null
+      async onOrderBtn() {
 
-        let usrLang = this.$i18n.locale
-        //console.log("Current user language: ", lang)
+        const elements = this.elements
 
-        const data = { 
-          "partnerName": "",
-          "orderId": id,
-          "isTest": this.$store.state._DEV,
-          "email": this.$store.state.contactEmail,
-          "phone": this.$store.state.contactPhone,
-          "totalPassengers": this.$store.state.totalPassengers,
-          "flightDate": this.$store.state.flightDate,
-          "dateRange": {"start": this.$store.state.arriveDate, "end": this.$store.state.departDate},
-          "flightId": this.$store.state.selectedFlight,
-          "photos": this.$store.state.wantsPhotos,
-          "passengerJSON": this.$store.state.passengerObjList,
-          "slotJSON": this.$store.state.slotPassengersObj,
-          "orderMessage": this.$store.state.orderMessage,
-          "usersLanguage": usrLang
+        const {error} = await this.stripe.confirmSetup({
+          //`Elements` instance that was used to create the Payment Element
+          elements,
+          confirmParams: {
+            return_url: 'http://localhost:8080/thanks',
+          }
+        });
+
+//console.log(error)
+
+        if (error) {
+          // This point will only be reached if there is an immediate error when
+          // confirming the payment. Show error to your customer (for example, payment
+          // details incomplete)
+          const messageContainer = document.querySelector('#error-message');
+          messageContainer.textContent = error.message;
+          console.log(error.message)
+        } else {
+          // Your customer will be redirected to your `return_url`. For some payment
+          // methods like iDEAL, your customer will be redirected to an intermediate
+          // site first to authorize the payment, then redirected to the `return_url`.
         }
 
-        //console.log("Order data sent to Tommy.", data)
+        
+
+        // // Disable screen until the Order Now call has completed (with animation)
+        // this.orderOverlay = true
+
+        // let me = this
+
+        // let id = this.$store.state.orderID
+        // if (id === '' || id === undefined)  id = null
+
+        // let usrLang = this.$i18n.locale
+        // //console.log("Current user language: ", lang)
+
+        // const data = { 
+        //   "partnerName": "",
+        //   "orderId": id,
+        //   "isTest": this.$store.state._DEV,
+        //   "email": this.$store.state.contactEmail,
+        //   "phone": this.$store.state.contactPhone,
+        //   "totalPassengers": this.$store.state.totalPassengers,
+        //   "flightDate": this.$store.state.flightDate,
+        //   "dateRange": {"start": this.$store.state.arriveDate, "end": this.$store.state.departDate},
+        //   "flightId": this.$store.state.selectedFlight,
+        //   "photos": this.$store.state.wantsPhotos,
+        //   "passengerJSON": this.$store.state.passengerObjList,
+        //   "slotJSON": this.$store.state.slotPassengersObj,
+        //   "orderMessage": this.$store.state.orderMessage,
+        //   "usersLanguage": usrLang
+        // }
+
+        // //console.log("Order data sent to Tommy.", data)
 
 
-        fetch("https://bookings.simpleitsolutions.ch/api/createcheckout", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-              data
-            }),
-        })
-          .then(function (response) {
-            return response.json();
-          })
-          .then(function (session) {
-            // Save Tommy's OrderId
-            if (session.orderId > 0) {
-              me.$store.dispatch('setOrderId', session.orderId)
-            }
-            return me.stripe.redirectToCheckout({ sessionId: session.stripeSessionId })
-          })
-          .then(function (result) {
-            // If redirectToCheckout fails due to a browser or network
-            // error, you should display the localized error message to your
-            // customer using error.message.
-            if (result.error) {
-              console.error(result.error.message);
-            }
-          })
-          .catch(function (error) {
-            console.log("Getting an error back in the 'catch'")
-            console.error("Error:", error)
-          })
+        // fetch("https://bookings.simpleitsolutions.ch/api/createcheckout", {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({
+        //       data
+        //     }),
+        // })
+        //   .then(function (response) {
+        //     return response.json();
+        //   })
+        //   .then(function (session) {
+        //     // Save Tommy's OrderId
+        //     if (session.orderId > 0) {
+        //       me.$store.dispatch('setOrderId', session.orderId)
+        //     }
+        //     return me.stripe.redirectToCheckout({ sessionId: session.stripeSessionId })
+        //   })
+        //   .then(function (result) {
+        //     // If redirectToCheckout fails due to a browser or network
+        //     // error, you should display the localized error message to your
+        //     // customer using error.message.
+        //     if (result.error) {
+        //       console.error(result.error.message);
+        //     }
+        //   })
+        //   .catch(function (error) {
+        //     console.log("Getting an error back in the 'catch'")
+        //     console.error("Error:", error)
+        //   })
 
       },
 
     },
 
 
-    // watch: {
+    watch: {
 
-    //   '$store.state.partnerOrder': function() {
-    //     const triggerPartnerOrder = this.$store.state.partnerOrder
-    //     console.log("Partner Order triggered")
-    //     if (triggerPartnerOrder === false) {
-    //       console.log("Not a Partner Order, cancel.")
-    //       return
-    //     }
+      '$store.state.locale': function(newLocale) {
+        // Listen for changes in the Language menu and update the Stripe component's locale.
+        // console.log("oldLocale:", oldLocale)
+        // console.log("newLocale:", newLocale)
+        this.elements.update({locale: newLocale})
+      },
 
-    //     // Is a Partner order, call the onOrderButton()
-    //     console.log("IS a Partner Order.")
-    //     this.onOrderBtn(true)
-
-    //   },
-
-    // }
+    }
 
   }
 

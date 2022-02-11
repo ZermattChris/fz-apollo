@@ -71,6 +71,8 @@ export default new Vuex.Store({
     // Calling a simple helper function at end of storex.js
     _DEV: _isDev(),
 
+    locale: '',
+
     // Passenger 'expert' warnings. TODO Features on/off (allows putting code into live)
     expertWarnings: false,
 
@@ -160,6 +162,11 @@ export default new Vuex.Store({
     //   state.partnerData.email = data.email
     //   state.partnerData.phone = data.phone
     // },
+
+
+    LOCALE(state, localeStr) {
+      state.locale = localeStr
+    },
 
     SHOW_FIND_OFFICE_DIALOG(state, showBool) {
       state.findOfficeDialog = showBool
@@ -499,6 +506,10 @@ export default new Vuex.Store({
 
 
     // --- USER INPUTS ---
+
+    setLocale(context, localeStr) {
+      context.commit("LOCALE", localeStr)
+    },
 
     setArriveDate(context, dateStr) {
       context.commit("ARRIVE_DATE", dateStr)
