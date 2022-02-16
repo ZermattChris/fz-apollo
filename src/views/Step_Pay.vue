@@ -178,9 +178,9 @@
             <v-btn id="payment-button" ref="paymentButton" type="submit"
               color="orange darken-3"
               class="mt-0"
-              :disabled="!termsCheckboxModel"
+              :disabled="!payBtnValid"
             >
-              {{$t('step-pay.payNow')}}
+              {{$t('step-pay.bookFlight')}}
             </v-btn>
           </div>
           
@@ -219,30 +219,24 @@
         ></v-img>
       </a> -->
 
-      <div v-if="$store.state._DEV == true">
-
+      <!-- <div v-if="$store.state._DEV == true">
           <br/><br/>
-
           <ul>
-            <!-- <li>NOTE: A TEST Credit Card number has been copied to the Clipboard. Just "paste" it into the CC field in the Stripe form. <br/></li> -->
             <li>Normal with success: 4000007560000009</li>
             <li>3D Secure with success: 4000002500003155</li>
             <li>Fail, insuffecient funds: 4000000000009995</li>
             <li>Fail, card has expired: 4000000000000069</li>
           </ul>
-          <!-- <input style="color:white;" id="cc_success" name="cc_success" type="text" value="4000007560000009"> -->
-      </div>
-
-
+      </div> -->
     </div>
 
     <!-- Order Overlay  -->
-    <v-overlay :value="orderOverlay">
+    <!-- <v-overlay :value="orderOverlay">
       <v-progress-circular
         indeterminate
         size="64"
       ></v-progress-circular>
-    </v-overlay>
+    </v-overlay> -->
 
 
 
@@ -272,7 +266,6 @@
       return {
         stripe: null,
         hasCardErrors: false,
-        payEnabled: false,
         payLoading: false,
         message: this.$store.state.orderMessage,
 
@@ -292,6 +285,7 @@
 
         tempClientSecret: '',
 
+        stripePayFormValid: false,
         stripePaymentFormLoading: true
       }
     },
@@ -323,8 +317,15 @@
         const paymentElement = this.elements.create('payment')
 
         const me = this
+        // remove the skeleton loader
         paymentElement.on('ready', function() {
-          me.stripePaymentFormLoading = false     // remove the skeleton loader
+          me.stripePaymentFormLoading = false
+        })
+        // Enable the PAY button
+        paymentElement.on('change', function(event) {
+          if (event.complete) {
+            me.stripePayFormValid = true
+          }
         })
 
         paymentElement.mount('#stripe-payment-element')
@@ -341,6 +342,11 @@
     },
 
     computed: {
+
+      payBtnValid: function () {
+          if (this.stripePayFormValid === true && this.termsCheckboxModel === true) return true
+          return false
+      },
 
       isDev: function () {
           return this.$store.state._DEV
