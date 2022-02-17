@@ -135,7 +135,11 @@
           type="article, actions"
         ></v-skeleton-loader>
 
-        <form id="stripe-payment-form" @submit.prevent="onOrderBtn">
+        <form 
+          id="stripe-payment-form" 
+          v-if="!stripePaymentFormLoading"
+          @submit.prevent="onOrderBtn"
+        >
           <div id="stripe-payment-element" style="min-height:210px;">
             <!-- Elements will create form elements here -->
           </div>
