@@ -415,11 +415,14 @@
 
         const elements = this.elements
 
+        // Need to grab the current site's host to pass in (allows localhost, staging.flyzermatt.com, etc)
+        const myHost = document.location.host
+
         const {error} = await this.stripe.confirmSetup({
           //`Elements` instance that was used to create the Payment Element
           elements,
           confirmParams: {
-            return_url: 'http://localhost:8080/thanks',
+            return_url: myHost + '/thanks',
           }
         });
 
