@@ -133,6 +133,7 @@
         <v-skeleton-loader
           v-if="stripePaymentFormLoading"
           type="article, actions"
+          style="min-height:360px;"
         ></v-skeleton-loader>
 
         <form 
@@ -223,15 +224,15 @@
         ></v-img>
       </a> -->
 
-      <!-- <div v-if="$store.state._DEV == true">
+      <div v-if="$store.state._DEV == true">
           <br/><br/>
           <ul>
-            <li>Normal with success: 4000007560000009</li>
-            <li>3D Secure with success: 4000002500003155</li>
-            <li>Fail, insuffecient funds: 4000000000009995</li>
-            <li>Fail, card has expired: 4000000000000069</li>
+            <li>The card setup succeeds and doesn’t require authentication: 4242424242424242</li>
+            <li>The card requires authentication for the initial setup, then succeeds for subsequent payments: 4000002500003155</li>
+            <li>The card requires authentication for the initial setup and also requires authentication for subsequent payments: 4000002760003184</li>
+            <li>The card is declined during setup: 4000000000009995</li>
           </ul>
-      </div> -->
+      </div>
     </div>
 
     <!-- Order Overlay  -->
