@@ -42,7 +42,11 @@ http://localhost:3000/flightsdates
 
 
 ### Hosting on Netlify.com
+#### Live
 secure.flyzermatt.com
+
+#### Staging
+flyzermatt-staging.netlify.app
 
 
 ### CSP Joy!
