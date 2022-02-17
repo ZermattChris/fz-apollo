@@ -137,7 +137,7 @@
 
         <form 
           id="stripe-payment-form" 
-          v-if="!stripePaymentFormLoading"
+          v-show="!stripePaymentFormLoading"
           @submit.prevent="onOrderBtn"
         >
           <div id="stripe-payment-element" style="min-height:210px;">
