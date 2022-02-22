@@ -150,7 +150,7 @@
 
   "step-pay": {
     "title": "Bestellen",
-    "description": "Überprüfen Sie Ihre Bestellung und drücken Sie BEZAHLEN, um Ihre Zahlung abzuschliessen.",
+    "description": "Überprüfen Sie Ihre Bestellung und drücken Sie BOOK FLIGHT, um Ihre Zahlung abzuschliessen.",
     "meetingTime": "@ Alle Termine finden in unserem Büro statt, das sich im Viktoria Center, gegenüber dem Hauptbahnhof von Zermatt befindet (innen, neben dem COOP Supermarkt).",
     "people": "Person | Personen",
 
