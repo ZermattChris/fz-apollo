@@ -166,6 +166,7 @@
           case 'requires_payment_method': {
             this.stripeSuccess = false
             this.stripeMessage = 'Failed to process payment details. Please try another payment method. (should redirect back to Pay page...)';
+            this.$store.dispatch('setStripeErrorMsg', this.stripeMessage)
 
             // Redirect your user back to your payment page to attempt collecting
             // payment again
