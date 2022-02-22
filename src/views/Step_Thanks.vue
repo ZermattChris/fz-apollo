@@ -79,12 +79,12 @@
             <!-- <v-icon right>{{iconNextArrow}}</v-icon> -->
           </v-btn>
         </div>
-Stripe debug message: {{stripeMessage}}
       </div>
 
     </div>
 
     <!-- This will be displayed if stripe returns an error during card capture. -->
+    <!-- Actually, going to capture this error and send user back to Pay to display it. -->
     <div v-else>
       {{stripeMessage}}
     </div>
@@ -171,6 +171,10 @@ Stripe debug message: {{stripeMessage}}
             // payment again
 
             // Maybe store error message into a storex var and just redirect back to Pay, and show message in a pop-up of some sort?
+            const myHost = document.location.host
+            const proto = document.location.protocol
+            const payPage = proto + '://' + myHost + '/Pay'
+            window.location.href = payPage
 
             break;
           }
