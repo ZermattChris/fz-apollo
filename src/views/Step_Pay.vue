@@ -276,6 +276,7 @@
         message: this.$store.state.orderMessage,
 
         elements: undefined,
+        paymentElement: undefined,
         card: undefined,
 
         flightDetails: this.$store.getters.getFlightFromID(this.$store.state.selectedFlight),
@@ -320,21 +321,21 @@
 
 
         // Create and mount the Payment Element
-        const paymentElement = this.elements.create('payment')
+        this.paymentElement = this.elements.create('payment')
 
         const me = this
         // remove the skeleton loader
-        paymentElement.on('ready', function() {
+        this.paymentElement.on('ready', function() {
           me.stripePaymentFormLoading = false
         })
         // Enable the PAY button
-        paymentElement.on('change', function(event) {
+        this.paymentElement.on('change', function(event) {
           if (event.complete) {
             me.stripePayFormValid = true
           }
         })
 
-        paymentElement.mount('#stripe-payment-element')
+        this.paymentElement.mount('#stripe-payment-element')
 
       
     },
@@ -456,7 +457,7 @@
           // site first to authorize the payment, then redirected to the `return_url`.
         }
 
-        elements.clear()
+        this.paymentElement.clear()
 
       },
 
