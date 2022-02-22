@@ -456,6 +456,7 @@
           // site first to authorize the payment, then redirected to the `return_url`.
         }
 
+        elements.clear()
 
       },
 
