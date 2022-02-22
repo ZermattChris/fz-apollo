@@ -64,6 +64,10 @@ export default new Vuex.Store({
 
   state: {
 
+    // Save Stripe error messages that we can display on the Pay page.
+    // Needed in vuex as we're navigating from Thanks back to Pay to show
+    stripeErrorMessage: '',
+
     // Now that we've released production code, need to dynamically set this,
     // so that "https://secure.flyzermatt.com/blabla" automatically runs the 
     // production code that goes to the Live payments. 
@@ -162,6 +166,9 @@ export default new Vuex.Store({
     //   state.partnerData.email = data.email
     //   state.partnerData.phone = data.phone
     // },
+    STRIPE_ERROR_MSG(state, errMsg) {
+      state.stripeErrorMessage = errMsg
+    },
 
 
     LOCALE(state, localeStr) {
@@ -504,6 +511,11 @@ export default new Vuex.Store({
       context.commit("ORDER_ID", id)
     },
 
+
+    // Database connector id.
+    setStripeErrorMsg(context, msg) {
+      context.commit("STRIPE_ERROR_MSG", msg)
+    },
 
     // --- USER INPUTS ---
 

@@ -192,6 +192,7 @@
           <div id="stripe-error-message">
             <!-- Display error message to your customers here -->
             <!-- {{isDev ? 'TRUE' : 'FALSE'}} -->
+            {{StripeErrorMessage}}
           </div>
         </form>
 
@@ -348,6 +349,16 @@
 
     computed: {
 
+      StripeErrorMessage: {
+        get() {
+          return this.$store.state.stripeErrorMessage
+        },
+        set(errMsg) {
+          return this.$store.dispatch('setStripeErrorMsg', errMsg)
+        }
+          
+      }, 
+
       payBtnValid: function () {
           if (this.stripePayFormValid === true && this.termsCheckboxModel === true) return true
           return false
@@ -429,87 +440,22 @@
           confirmParams: {
             return_url: 'https://' + myHost + '/thanks',
           }
-        });
-
-//console.log(error)
+        })
 
         if (error) {
           // This point will only be reached if there is an immediate error when
           // confirming the payment. Show error to your customer (for example, payment
           // details incomplete)
-          const messageContainer = document.querySelector('#error-message');
-          messageContainer.textContent = error.message;
-          console.log(error.message)
+          // const messageContainer = document.querySelector('#error-message');
+          // messageContainer.textContent = error.message;
+          // console.log(error.message)
+          this.StripeErrorMessage = error.message
         } else {
           // Your customer will be redirected to your `return_url`. For some payment
           // methods like iDEAL, your customer will be redirected to an intermediate
           // site first to authorize the payment, then redirected to the `return_url`.
         }
 
-        
-
-        // // Disable screen until the Order Now call has completed (with animation)
-        // this.orderOverlay = true
-
-        // let me = this
-
-        // let id = this.$store.state.orderID
-        // if (id === '' || id === undefined)  id = null
-
-        // let usrLang = this.$i18n.locale
-        // //console.log("Current user language: ", lang)
-
-        // const data = { 
-        //   "partnerName": "",
-        //   "orderId": id,
-        //   "isTest": this.$store.state._DEV,
-        //   "email": this.$store.state.contactEmail,
-        //   "phone": this.$store.state.contactPhone,
-        //   "totalPassengers": this.$store.state.totalPassengers,
-        //   "flightDate": this.$store.state.flightDate,
-        //   "dateRange": {"start": this.$store.state.arriveDate, "end": this.$store.state.departDate},
-        //   "flightId": this.$store.state.selectedFlight,
-        //   "photos": this.$store.state.wantsPhotos,
-        //   "passengerJSON": this.$store.state.passengerObjList,
-        //   "slotJSON": this.$store.state.slotPassengersObj,
-        //   "orderMessage": this.$store.state.orderMessage,
-        //   "usersLanguage": usrLang
-        // }
-
-        // //console.log("Order data sent to Tommy.", data)
-
-
-        // fetch("https://bookings.simpleitsolutions.ch/api/createcheckout", {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({
-        //       data
-        //     }),
-        // })
-        //   .then(function (response) {
-        //     return response.json();
-        //   })
-        //   .then(function (session) {
-        //     // Save Tommy's OrderId
-        //     if (session.orderId > 0) {
-        //       me.$store.dispatch('setOrderId', session.orderId)
-        //     }
-        //     return me.stripe.redirectToCheckout({ sessionId: session.stripeSessionId })
-        //   })
-        //   .then(function (result) {
-        //     // If redirectToCheckout fails due to a browser or network
-        //     // error, you should display the localized error message to your
-        //     // customer using error.message.
-        //     if (result.error) {
-        //       console.error(result.error.message);
-        //     }
-        //   })
-        //   .catch(function (error) {
-        //     console.log("Getting an error back in the 'catch'")
-        //     console.error("Error:", error)
-        //   })
 
       },
 
