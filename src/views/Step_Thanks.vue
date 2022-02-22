@@ -79,7 +79,7 @@
             <!-- <v-icon right>{{iconNextArrow}}</v-icon> -->
           </v-btn>
         </div>
-
+Stripe debug message: {{stripeMessage}}
       </div>
 
     </div>
