@@ -97,7 +97,7 @@
 
   import axios from "axios"
 
-  import {Stripe} from '@stripe/stripe-js'
+  import {loadStripe} from '@stripe/stripe-js'
 
 
   export default {
@@ -128,10 +128,10 @@
 
 
 
-    mounted() {
+    async mounted() {
 
       // Initialize Stripe.js using your publishable key
-      const stripe = Stripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST);
+      const stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
 
       // Retrieve the "setup_intent_client_secret" query parameter appended to
       // your return_url by Stripe.js
