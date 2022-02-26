@@ -762,7 +762,6 @@ export default new Vuex.Store({
     },
     
 
-
     getTotalPassengers: (state) => {
       return state.totalPassengers
     },
