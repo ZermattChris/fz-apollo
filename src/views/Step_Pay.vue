@@ -309,8 +309,8 @@
         //   email: this.$store.state.contactEmail
         // }
         const postData = { 
-          name: 'Test Name',
-          email: 'test@test.com'
+          name: "Test Name",
+          email: "test@test.com"
         }
 
         const response = await fetch(
