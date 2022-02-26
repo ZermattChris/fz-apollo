@@ -297,12 +297,24 @@
       }
     },
 
+
     async beforeMount() {
 
         console.log('Development Mode - Test Stripe Order.')
         this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
 
-        const response = await fetch('https://gateway.flyzermatt.com/create-customer');
+        // We want to send the user's name and email to the create Stripe customer server call.
+        const postData = { 
+          name: this.$store.getters.getNameById(0),  // Grab the Contact person's name
+          email: this.$store.state.contactEmail
+        }
+
+        const response = await fetch(
+          'https://gateway.flyzermatt.com/create-customer', {
+            method: 'POST',
+            body: JSON.stringify(postData)
+          }
+        )
         const data = await response.json()
         this.tempClientSecret = data.clientSecret
         // console.log('this.tempClientSecret', this.tempClientSecret)
