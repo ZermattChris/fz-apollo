@@ -316,7 +316,10 @@
         const response = await fetch(
           'https://gateway.flyzermatt.com/create-customer', {
             method: 'POST',
-            body: JSON.stringify(postData)
+            body: JSON.stringify(postData),
+            headers: {
+              'Content-Type': 'application/json'
+            }
           }
         )
         const data = await response.json()
