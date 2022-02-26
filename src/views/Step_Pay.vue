@@ -304,14 +304,14 @@
         this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
 
         // We want to send the user's name and email to the create Stripe customer server call.
-        // const postData = { 
-        //   name: this.$store.getters.getNameById(0),  // Grab the Contact person's name
-        //   email: this.$store.state.contactEmail
-        // }
         const postData = { 
-          name: "Test Name",
-          email: "test@test.com"
+          name: this.$store.getters.getNameById(0),  // Grab the Contact person's name
+          email: this.$store.state.contactEmail
         }
+        // const postData = { 
+        //   name: "Test Name",
+        //   email: "test@test.com"
+        // }
 
         const response = await fetch(
           'https://gateway.flyzermatt.com/create-customer', {
