@@ -56,6 +56,7 @@
               v-bind="attrs"
               v-on="on"
               v-show="hasValidFlightDate"
+              ref="arriveDateInput"
             >
             
               <template v-slot:append>
@@ -71,17 +72,25 @@
             
             </v-text-field>
           </template>
-          <v-date-picker
-            v-model="arriveDate"
-            first-day-of-week="0"
-            :locale="$i18n.locale" 
-            :min="todaysDate"
-            :max="flightDate"
-            color="green"
-            elevation="15"
-            :events="showFlightDateColour"
-            @input="arriveMenu = false"
-          ></v-date-picker>
+
+          <v-card>
+            <v-card-text class="text--h6 font-weight-bold">
+              What Day do you Arrive in Zermatt?
+            </v-card-text>
+            <v-date-picker
+              v-model="arriveDate"
+              first-day-of-week="0"
+              :locale="$i18n.locale" 
+              :min="todaysDate"
+              :max="flightDate"
+              persistent
+              color="blue-grey darken-4"
+              width="100%"
+              style="padding:0 20px;"
+              :events="showFlightDateColour"
+              @input="arriveMenu = false"
+            ></v-date-picker>
+          </v-card>
         </v-dialog>
 
 
@@ -102,6 +111,7 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
+              id="departInput"
               v-model="formatDepartDate"
               :label="$t('step-start.departingDate')"
               append-icon="mdi-calendar"
@@ -126,17 +136,23 @@
             
             </v-text-field>
           </template>
-          <v-date-picker
-            v-model="departDate"
-            first-day-of-week="0"
-            :locale="$i18n.locale" 
-            :min="flightDate"
-            :max="flightMaxDate"
-            elevation="15"
-            color="green"
-            :events="showFlightDateColour"
-            @input="departMenu = false"
-          ></v-date-picker>
+
+          <v-card>
+            <v-card-text class="text--h6 font-weight-bold">
+              What Day do you Depart from Zermatt?
+            </v-card-text>
+            <v-date-picker
+              v-model="departDate"
+              first-day-of-week="0"
+              :locale="$i18n.locale" 
+              :min="flightDate"
+              :max="flightMaxDate"
+              elevation="15"
+              color="green"
+              :events="showFlightDateColour"
+              @input="departMenu = false"
+            ></v-date-picker>
+          </v-card>
         </v-dialog>
 
 
@@ -590,9 +606,17 @@ export default {
           return
         }
 
+        // ----- This was where we were just setting the dates to the chosen
+        // Flight date. Need to force users to choose an Arrive and Depart
+        // date properly. ---
         // Make sure the Arrive and Depart dates get updated.
-        this.arriveDate = dateStr
-        this.departDate = dateStr
+        // this.arriveDate = dateStr
+        // this.departDate = dateStr
+        // -----
+
+        setTimeout(() => {
+          document.querySelector('#arriveInput').click()
+        })
 
         // This is where we need to block orders for today, if after 07:00
         // Swiss local time. Tricky!
@@ -689,10 +713,15 @@ export default {
     },
     arriveDate: {
       get() {
-        if (this.$store.state.arriveDate === '') return this.$store.state.flightDate
+        if (this.$store.state.arriveDate === '') return ''  //this.$store.state.flightDate
         return this.$store.state.arriveDate
       },
       set(dateStr) {
+
+        setTimeout(() => {
+          document.querySelector('#departInput').click()
+        })
+
         this.$store.dispatch('setArriveDate', dateStr)
       }
     },
@@ -707,7 +736,7 @@ export default {
     },
     departDate: {
       get() {
-        if (this.$store.state.departDate === '') return this.$store.state.flightDate
+        if (this.$store.state.departDate === '') return ''  //this.$store.state.flightDate
         return this.$store.state.departDate
       },
       set(dateStr) {
