@@ -466,42 +466,42 @@ export default {
 
       
 
-      // Use the given User Name to pull in the stored hash from partner passwords file
-      const partnerNameInput = this.partnerUserName.toLowerCase()
-      //console.log(partnerNameInput)
-      const partnerData = partnersData.partners[partnerNameInput]
-      //console.log(partnerData)
-      const myHash = partnerData.hash
-      //console.log(myHash)
-      // const myEmail = partnerData.email
-      // //console.log(myEmail)
-      // const myPhone = partnerData.phone
-      // //console.log(myPhone)
+      // // Use the given User Name to pull in the stored hash from partner passwords file
+      // const partnerNameInput = this.partnerUserName.toLowerCase()
+      // //console.log(partnerNameInput)
+      // const partnerData = partnersData.partners[partnerNameInput]
+      // //console.log(partnerData)
+      // const myHash = partnerData.hash
+      // //console.log(myHash)
+      // // const myEmail = partnerData.email
+      // // //console.log(myEmail)
+      // // const myPhone = partnerData.phone
+      // // //console.log(myPhone)
 
 
 
-      bcrypt.compare(this.partnerPass, myHash, (err, res) => {
-        if (err) {
-          //console.error(err)
-          console.log('User Name and/or Password are incorrect.')
-          return
-        }
-        // If res is true, then logged in successfully, complete order without going
-        // to Stripe payments. Probably good to send an email here directly as a backup
-        // to us if any issues.
-        if (res === true) {
-          this.processPartnerOrder(this.partnerUserName)
-          // close dialog
-          this.partnerLogin = false 
-        } else {
-          // do some type of warning message here.
-          console.error('User Name and/or Password are incorrect.')
-        }
-        // console.log(res) //true or false
-      })
+      // bcrypt.compare(this.partnerPass, myHash, (err, res) => {
+      //   if (err) {
+      //     //console.error(err)
+      //     console.log('User Name and/or Password are incorrect.')
+      //     return
+      //   }
+      //   // If res is true, then logged in successfully, complete order without going
+      //   // to Stripe payments. Probably good to send an email here directly as a backup
+      //   // to us if any issues.
+      //   if (res === true) {
+      //     this.processPartnerOrder(this.partnerUserName)
+      //     // close dialog
+      //     this.partnerLogin = false 
+      //   } else {
+      //     // do some type of warning message here.
+      //     console.error('User Name and/or Password are incorrect.')
+      //   }
+      //   // console.log(res) //true or false
+      // })
 
 
-      this.partnerPass =  '' // clear password input field.
+      // this.partnerPass =  '' // clear password input field.
 
     },
 
