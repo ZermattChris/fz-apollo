@@ -56,7 +56,7 @@ export default {
       currentLangISO: 'en',
 
       // List of langs that are enabled on live (all langs are visible in _DEV mode)
-      enabledLangs: ['en','ko']
+      enabledLangs: ['en','ko','fr','de']
 
     }
   },
