@@ -74,8 +74,8 @@
           </template>
 
           <v-card>
-            <v-card-text class="text--h6 font-weight-bold">
-              What Day do you Arrive in Zermatt?
+            <v-card-text>
+              <h2 class="font-weight-black purple--text pt-4">What Day do you Arrive?</h2>
             </v-card-text>
             <v-date-picker
               v-model="arriveDate"
@@ -86,10 +86,14 @@
               persistent
               color="blue-grey darken-4"
               width="100%"
-              style="padding:0 20px;"
+              style="margin:0 20px; padding:0; border:2px silver solid;"
+              class="rounded"
               :events="showFlightDateColour"
               @input="arriveMenu = false"
             ></v-date-picker>
+            <v-card-text>
+              <div class="pt-4 caption">Your Zermatt Arrival and Departure dates help when rescheduling due to weather.</div>
+            </v-card-text>
           </v-card>
         </v-dialog>
 
@@ -138,8 +142,8 @@
           </template>
 
           <v-card>
-            <v-card-text class="text--h6 font-weight-bold">
-              What Day do you Depart from Zermatt?
+            <v-card-text>
+              <h2 class="font-weight-black purple--text pt-4">What Day do you Depart?</h2>
             </v-card-text>
             <v-date-picker
               v-model="departDate"
@@ -147,11 +151,17 @@
               :locale="$i18n.locale" 
               :min="flightDate"
               :max="flightMaxDate"
-              elevation="15"
-              color="green"
+              persistent
+              color="blue-grey darken-4"
+              width="100%"
+              style="margin:0 20px; padding:0; border:2px silver solid;"
+              class="rounded"
               :events="showFlightDateColour"
               @input="departMenu = false"
             ></v-date-picker>
+            <v-card-text>
+              <div class="pt-4 caption">Your Zermatt Arrival and Departure dates help when rescheduling due to weather.</div>
+            </v-card-text>
           </v-card>
         </v-dialog>
 

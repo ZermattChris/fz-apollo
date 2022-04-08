@@ -55,4 +55,3 @@ Use the Mozilla Laboratory Firefox plugin to help generate. Video on how to use 
 
 [Mozilla Observatory test](https://observatory.mozilla.org/)
 
-xyy
