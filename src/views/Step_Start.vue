@@ -150,8 +150,10 @@
               :locale="$i18n.locale" 
               :min="flightDate"
               :max="flightMaxDate"
-              elevation="15"
-              color="green"
+              persistent
+              color="blue-grey darken-4"
+              width="100%"
+              style="padding:0 20px;"
               :events="showFlightDateColour"
               @input="departMenu = false"
             ></v-date-picker>
