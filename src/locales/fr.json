@@ -17,16 +17,19 @@
   "form": {
     "required": "Obligatoire",
     "max-20-chars" : "20 caractères maximum",
-    "invalid-email" : "Invalid Email...",
-    "phone-hint" : "hint : CountryCode + Number (no leading Zeros)"
+    "invalid-email" : "Email invalide...",
+    "phone-hint" : "indice : CountryCode + Number (pas de zéros en tête)"
   },
 
   "step-start": {
     "title": "Dates et vols",
     "description" : "Nous avons besoin des informations suivantes pour nous aider à vous offrir la meilleure expérience de vol possible avec le plus haut niveau de sécurité.",
-    "flightdate" : "Preferred Flight Date",
+    "flightdate" : "Date de vol préférée",
     "arrivingDate" : "Arriver à Zermatt ?",
     "departingDate" : "Départ de Zermatt ?",
+    "arrivingDatePopupTitle": "Quel jour arrivez-vous?",
+    "departingDatePopupTitle": "Quel jour partez-vous?",
+    "arrivingDatePopupMsg": "Vos dates d'arrivée et de départ à Zermatt sont utiles en cas de report en raison de la météo.",
     "whichflight" : "Quel vol ?",
     "pleaseChooseFlightFirst" : "Veuillez d'abord choisir une date de vol...",
     "noAvailableFlights" : "Aucun programme disponible pour cette date. Veuillez nous appeler.",
@@ -41,14 +44,14 @@
     "classicPopup" : {
       "paragraphOne" : "Le meilleur moment pour effectuer l'altitude classique est le matin. Il est souvent aussi possible d'effectuer ce vol l'après-midi, mais cela dépend des conditions du jour.",
       "paragraphTwo" : "Nous volons le Classic High toute l'année, en été depuis le Rothorn et au printemps/automne, depuis le Gornergrat et/ou le Rotenboden.",
-      "paragrapheTrois" : "Si vous réservez le vol tôt le matin (08:00), nous vous demandons d'être en assez bonne forme physique, d'avoir confiance en vous et de ne pas être trop lourd."
+      "paragrapheThree" : "Si vous réservez le vol tôt le matin (08:00), nous vous demandons d'être en assez bonne forme physique, d'avoir confiance en vous et de ne pas être trop lourd."
     },
 
     "scenicPopup" : {
       "paragraphOne" : "Nous faisons voler le Scenic depuis Blauherd et Riffelberg. Nous essayons de choisir l'endroit qui, selon nous, offre les meilleures conditions pour votre réservation spécifique.",
       "paragraphTwo" : "Nous faisons voler le Scenic au printemps, en été et en automne, depuis Riffelberg/Blauherd (il y a trop de neige en hiver pour ces zones de décollage plus basses).",
-      "paragrapheTrois" : "Si vous réservez le vol tôt le matin (08h00), nous vous demandons d'être en assez bonne forme physique, d'avoir confiance en vous et de ne pas être trop lourd.",
-      "paragrapheQuatre" : "Il est également possible de vous rencontrer sur la montagne, si vous souhaitez combiner votre vol avec une journée de randonnée ou d'excursion. IMPORTANT : Veuillez ajouter un 'Message de réservation' sur la page de paiement pour nous faire savoir où vous souhaitez vous rencontrer. ",
+      "paragrapheThree" : "Si vous réservez le vol tôt le matin (08h00), nous vous demandons d'être en assez bonne forme physique, d'avoir confiance en vous et de ne pas être trop lourd.",
+      "paragrapheFour" : "Il est également possible de vous rencontrer sur la montagne, si vous souhaitez combiner votre vol avec une journée de randonnée ou d'excursion. IMPORTANT : Veuillez ajouter un 'Message de réservation' sur la page de paiement pour nous faire savoir où vous souhaitez vous rencontrer. ",
       "paragraphFive" : "<strong>Veuillez noter</strong> : Tous les horaires indiqués sur votre réservation sont des <strong>horaires de rendez-vous au bureau</strong> ! Si vous souhaitez vous rencontrer sur la montagne, nous vous contacterons, après avoir complété votre réservation en ligne, avec les horaires et les détails définitifs."
     },
 
@@ -70,12 +73,15 @@
     "description" : "Ajoutez le nombre de passagers aux heures auxquelles vous souhaitez voler.",
     "large-group-tip" : "Vous pouvez répartir les grands groupes sur plusieurs horaires.",
     "total-passagers" : "Passagers au total | Passagers au total",
-    "jump-original-date" : "Jump to Origanal Date",
-    "selected-date" : "Selected Date",
+    "jump-original-date" : "Aller à la date d'origine",
+    "selected-date" : "Date sélectionnée",
     "places-free" : "{n} Lieu libre | {n} Places gratuites",
     "Passagers" : "Passager | Passagers",
     "flightNotAvail" : "Vol non disponible",
-    "swipeRightLeft" : "(Glissez à gauche/droite pour changer la date du vol)"
+    "swipeRightLeft" : "(Glissez à gauche/droite pour changer la date du vol)",
+    "confirmDateChangeDialog": "Oups ! Votre date de vol ne correspond plus à vos dates d'arrivée et de départ. Veuillez retourner à l'étape 1 et ajuster.",
+    "confirmDateChangeDialogHeader": "Dates d'arrivée et de départ invalides",
+    "confirmDateChangeDialogConfirmBtn": "Ajuster"
   },
   "step-info": {
     "title": "Vos détails | Les détails de votre groupe",
@@ -91,16 +97,16 @@
     "female": "Femme",
     "age": "Âge",
     "age-hint" : "Votre âge",
-    "first-last" : "First & Last Name",
-    "first-name" : "First Name",
+    "first-last" : "Premier nom de famille",
+    "first-name" : "Prénom",
 
     "speed": "Confiance et aptitude à la course",
-    "speed-0" : "Assistance requise*",
-    "speed-2" : "Confiance minimale - Vitesse lente",
-    "speed-4" : "A bit nerverous - Speed Slow-ish",
-    "speed-6" : "Confiance OK - Vitesse OK",
-    "speed-8" : "Très confiant - Vitesse rapide",
-    "speed-10" : "Totalement confiant ! - Vitesse rapide",
+    "speed-0": "Assistance requise*",
+    "speed-2": "Confiance minimale - Vitesse lente",
+    "speed-4": "A bit nerverous - Speed Slow-ish",
+    "speed-6": "Confiance OK - Vitesse OK",
+    "speed-8": "Très confiant - Vitesse rapide",
+    "speed-10": "Totalement confiant ! - Vitesse rapide",
 
     "weight": "Votre poids",
     "kilos": "Kilogrammes",
@@ -110,31 +116,29 @@
     "confirm": {
       "title": "Veuillez vérifier et confirmer les détails de votre réservation",
       "description" : "Veuillez vérifier que vos informations de réservation sont correctes, notamment votre numéro de téléphone et votre e-mail (sinon nous ne pourrons pas vous contacter si nous devons ajuster votre réservation en raison de la météo, etc.)",
-
       "people-flying" : "Personnes volant",
       "flight-date" : "Date du vol",
-      "flight" : "Vol",
       "meeting": "Rencontrer",
-      
+      "flight": "Vol",
       "photos-videos": "Photos + Vidéos",
       "wants-photos-videos": "Oui, je veux des photos",
       "doesnt-want-photos-videos" : "Pas de photos",
-      "name" : "Name",
-      "m-f" : "M/F",
-      "age" : "Age",
+      "name": "Name",
+      "m-f": "M/F",
+      "age": "Age",
 
       "confidence": "Confiance",
       "confidence-hover" : "Votre capacité à courir quelques pas pour le décollage",
-      "speed-0" : "Assistance*",
-      "speed-2" : "Minimal",
-      "speed-4" : "Nerveux",
+      "speed-0": "Assistance*",
+      "speed-2": "Minimal",
+      "speed-4": "Nerveux",
       "speed-6": "Okay",
       "speed-8": "Confiant",
       "speed-10": "Très confiant !",
 
       "kg": "Kg",
 
-      "cancel": "Cancel",
+      "cancel": "Annuler",
       "confirm": "confirmer"
 
     },
@@ -155,13 +159,11 @@
     "description" : "Passez votre commande et appuyez sur le bouton BOOK FLIGHT pour compléter votre paiement.",
     "meetingTime" : "@ Toutes les heures de réunion sont à notre bureau, situé à l'intérieur du Viktoria Center en face de la gare principale de Zermatt (juste au bout du couloir du supermarché COOP).",
     "people" : "personne | people",
-
     "qty" : "Qty",
     "flightDescription" : "Description",
     "subtotalCHF" : "Subtotal en CHF",
     "photosVideos" : "Photos et vidéos",
     "totalCHF" : "Total CHF",
-
     "specialWishes" : "Si vous avez des questions, des souhaits particuliers ou des informations supplémentaires concernant un passager (par exemple un passager handicapé), veuillez cliquer sur les demandes spéciales ci-dessous et saisir votre message",
     "clickForSpecialRequests" : "Cliquez ici pour les demandes spéciales",
     "specialRequestsDesc" : "Heures et/ou lieux de décollage spéciaux, passagers handicapés, ou simplement des questions générales... ",
@@ -171,21 +173,26 @@
     "tc-text-link" : "Termes et conditions",
     "tc-text-end" : "du contrat client FlyZermatt",
     "openInNewPage" : "S'ouvre dans une nouvelle page",
-    "payNow" : "Payez maintenant"
+    "payNow" : "Payez maintenant",
+    "bookFlight": "Réserver un vol"
   },
 
   "step-thanks": {
     "title": "Merci!",
     "description" : "Votre paiement a réussi et votre commande est complète.",
-    "transactionNr" : "Transaction Nr :",
-    "orderSentTo" : "Votre confirmation de commande a été envoyée à :",
+    "transactionNr" : "Numéro de transaction:",
+    "orderSentTo" : "Votre confirmation de commande a été envoyée à:",
     "checkSpamStart" : "Veuillez vérifier vos e-mails",
     "checkSpamJunk" : "Spam/Junk",
     "checkSpamEnd" : "dossiers si votre confirmation de commande n'arrive pas (les emails peuvent parfois mettre un peu de temps à arriver)",
     "ifAnyProblems" : "Si vous avez des problèmes avec votre commande, veuillez nous contacter à :",
     "orCallUs" : " ou appelez-nous au :",
-    "resendTo" : "Renvoyer l'email de confirmation à :",
-    "sendEmail" : "SEND"
+    "resendTo" : "Renvoyer l'email de confirmation à:",
+    "sendEmail" : "ENVOYER",
+    "resendEmailIfNeeded": "Renvoyez votre e-mail de commande si nécessaire.",
+    "resendToStr": "Renvoyer à cet e-mail",
+    "successfullySentTO": "Envoyé avec succès à:",
+    "failedToSentTO": "ÉCHEC de l'envoi à:"
   }
   
 }
