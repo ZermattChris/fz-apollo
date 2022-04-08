@@ -42,7 +42,11 @@ http://localhost:3000/flightsdates
 
 
 ### Hosting on Netlify.com
+#### Live
 secure.flyzermatt.com
+
+#### Staging
+flyzermatt-staging.netlify.app
 
 
 ### CSP Joy!
@@ -50,3 +54,4 @@ Use the Mozilla Laboratory Firefox plugin to help generate. Video on how to use 
 [YouTube](https://youtu.be/Oan4J9kfy44)
 
 [Mozilla Observatory test](https://observatory.mozilla.org/)
+

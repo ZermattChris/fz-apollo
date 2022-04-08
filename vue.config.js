@@ -22,5 +22,9 @@ module.exports = {
       localeDir: 'locales',
       enableInSFC: false
     }
+  },
+
+  devServer: {
+    headers: { "Content-Security-Policy": "default-src * 'unsafe-inline' 'unsafe-eval'; font-src *; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';" }
   }
 };

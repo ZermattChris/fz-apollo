@@ -64,12 +64,18 @@ export default new Vuex.Store({
 
   state: {
 
+    // Save Stripe error messages that we can display on the Pay page.
+    // Needed in vuex as we're navigating from Thanks back to Pay to show
+    stripeErrorMessage: '',
+
     // Now that we've released production code, need to dynamically set this,
     // so that "https://secure.flyzermatt.com/blabla" automatically runs the 
     // production code that goes to the Live payments. 
     // Everything else (localhost, etc) should set this flag to true.
     // Calling a simple helper function at end of storex.js
     _DEV: _isDev(),
+
+    locale: '',
 
     // Passenger 'expert' warnings. TODO Features on/off (allows putting code into live)
     expertWarnings: false,
@@ -160,6 +166,14 @@ export default new Vuex.Store({
     //   state.partnerData.email = data.email
     //   state.partnerData.phone = data.phone
     // },
+    STRIPE_ERROR_MSG(state, errMsg) {
+      state.stripeErrorMessage = errMsg
+    },
+
+
+    LOCALE(state, localeStr) {
+      state.locale = localeStr
+    },
 
     SHOW_FIND_OFFICE_DIALOG(state, showBool) {
       state.findOfficeDialog = showBool
@@ -498,7 +512,16 @@ export default new Vuex.Store({
     },
 
 
+    // Database connector id.
+    setStripeErrorMsg(context, msg) {
+      context.commit("STRIPE_ERROR_MSG", msg)
+    },
+
     // --- USER INPUTS ---
+
+    setLocale(context, localeStr) {
+      context.commit("LOCALE", localeStr)
+    },
 
     setArriveDate(context, dateStr) {
       context.commit("ARRIVE_DATE", dateStr)
@@ -738,7 +761,6 @@ export default new Vuex.Store({
       return refinedPassengerObjList
     },
     
-
 
     getTotalPassengers: (state) => {
       return state.totalPassengers

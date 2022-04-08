@@ -152,7 +152,7 @@
 
   "step-pay": {
     "title": "Passer commande",
-    "description" : "Passez votre commande et appuyez sur le bouton PAY NOW pour compléter votre paiement.",
+    "description" : "Passez votre commande et appuyez sur le bouton BOOK FLIGHT pour compléter votre paiement.",
     "meetingTime" : "@ Toutes les heures de réunion sont à notre bureau, situé à l'intérieur du Viktoria Center en face de la gare principale de Zermatt (juste au bout du couloir du supermarché COOP).",
     "people" : "personne | people",
 
