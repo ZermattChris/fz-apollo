@@ -28,6 +28,9 @@
     "description": "We need the following information to help us give you the best possible flight experience with the highest level of safety.",
     "flightdate": "Preferred Flight Date",
     "arrivingDate": "Arriving in Zermatt?",
+    "arrivingDatePopupTitle": "What Day do you Arrive?",
+    "departingDatePopupTitle": "What Day do you Depart?",
+    "arrivingDatePopupMsg": "Your Zermatt Arrival and Departure dates help if rescheduling due to weather.",
     "departingDate": "Departing from Zermatt?",
     "whichflight": "Which Flight?",
     "pleaseChooseFlightFirst": "Please choose a Flight Date first...",
@@ -115,7 +118,6 @@
     "confirm": {
       "title": "Please Review & Confirm your Booking Details",
       "description": "Please check that your Booking information is correct, especially your Phone Number and Email (otherwise we can't contact you if we need to adjust your booking due to weather, etc.)",
-
       "people-flying": "People flying",
       "flight-date": "Flight Date",
       "meeting": "Meeting",
@@ -159,13 +161,11 @@
     "description": "Review your order and press the BOOK FLIGHT button to to complete your payment.",
     "meetingTime": "@ All meeting times are at our office, located inside the Viktoria Center across from Zermatt's main train station (just down the hall from the COOP Supermarket).",
     "people": "person | people",
-
     "qty": "Qty",
     "flightDescription": "Description",
     "subtotalCHF": "Subtotal in CHF",
     "photosVideos": "Photos & Videos",
     "totalCHF": "Total CHF",
-
     "specialWishes": "If you have any questions, special wishes or have extra information regarding a passenger (for example a passenger with a disability), please leave us a message below.",
     "clickForSpecialRequests": "Click here for any special requests",
     "specialRequestsDesc": "Special take off times and/or locations, passengers with disabilites, or just general questions... ",
@@ -177,7 +177,6 @@
     "openInNewPage": "Opens in new page",
     "payNow": "Pay Now",
     "bookFlight": "Book Flight"
-
   },
 
   "step-thanks": {

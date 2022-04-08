@@ -27,6 +27,9 @@
     "flightdate": "Flug Datum",
     "arrivingDate": "Ankunft in Zermatt?",
     "departingDate": "Abreise von Zermatt?",
+    "arrivingDatePopupTitle": "An welchem Tag kommst du an?",
+    "departingDatePopupTitle": "An welchem Tag reisen Sie ab?",
+    "arrivingDatePopupMsg": "Ihre Ankunfts- und Abreisedaten in Zermatt helfen bei einer wetterbedingten Verschiebung.",
     "whichflight": "Welcher Flug?",
     "pleaseChooseFlightFirst": "Bitte wählen Sie zuerst ein Flugdatum aus...",
     "noAvailableFlights": "Für dieses Datum ist kein Flugplan verfügbar. Bitte rufen Sie uns an.",
@@ -184,7 +187,11 @@
     "ifAnyProblems": "Wenn Sie irgendwelche Probleme mit Ihrer Bestellung haben, kontaktieren Sie uns bitte unter:",
     "orCallUs": " oder rufen Sie uns an unter:",
     "resendTo": "Bestätigungs-E-Mail erneut senden an:",
-    "sendEmail": "SENDEN"
+    "sendEmail": "SENDEN",
+    "resendEmailIfNeeded": "Senden Sie Ihre Bestell-E-Mail bei Bedarf erneut.",
+    "resendToStr": "Erneut an diese E-Mail senden",
+    "successfullySentTO": "Erfolgreich gesendet an: ",
+    "failedToSentTO": "Fehler beim Senden an: "
   }
 
 }
