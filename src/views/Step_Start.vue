@@ -74,8 +74,8 @@
           </template>
 
           <v-card>
-            <v-card-text class="text--h6 font-weight-bold">
-              What Day do you Arrive in Zermatt?
+            <v-card-text>
+              <h2 class="font-weight-black purple--text pt-4">{{$t('step-start.arrivingDatePopupTitle')}}</h2>
             </v-card-text>
             <v-date-picker
               v-model="arriveDate"
@@ -90,6 +90,9 @@
               :events="showFlightDateColour"
               @input="arriveMenu = false"
             ></v-date-picker>
+            <v-card-text>
+              <div class="pt-4 caption">{{$t('step-start.arrivingDatePopupMsg')}}</div>
+            </v-card-text>
           </v-card>
         </v-dialog>
 
@@ -138,8 +141,8 @@
           </template>
 
           <v-card>
-            <v-card-text class="text--h6 font-weight-bold">
-              What Day do you Depart from Zermatt?
+            <v-card-text>
+              <h2 class="font-weight-black purple--text pt-4">{{$t('step-start.departingDatePopupTitle')}}</h2>
             </v-card-text>
             <v-date-picker
               v-model="departDate"
@@ -152,6 +155,9 @@
               :events="showFlightDateColour"
               @input="departMenu = false"
             ></v-date-picker>
+            <v-card-text>
+              <div class="pt-4 caption">{{$t('step-start.arrivingDatePopupMsg')}}</div>
+            </v-card-text>
           </v-card>
         </v-dialog>
 
