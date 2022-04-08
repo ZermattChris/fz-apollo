@@ -454,6 +454,18 @@ export default {
 
     onPartnerLogin: function () {
 
+      // TODO: This all needs to be rebuilt. First get a new Tommy API for this.
+
+      // 1. Toss up a page blocker, with a spinner
+
+      // 2. Make fetch() call to Tommy's API
+
+      // 3. Show error (in dialog box) if bad password
+
+      // 4. Go to success screen for Parnter.
+
+      
+
       // Use the given User Name to pull in the stored hash from partner passwords file
       const partnerNameInput = this.partnerUserName.toLowerCase()
       //console.log(partnerNameInput)
