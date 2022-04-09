@@ -2,7 +2,7 @@
   <div class="stepThanks">
 
     <!-- Show this block if the Stripe Capture has worked. -->
-    <div v-if="stripeSuccess">
+    <div v-if="stripeSuccess"> 
       
       <PageHeader :title="$t('step-thanks.title')">
         {{$t('step-thanks.description')}}

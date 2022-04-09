@@ -2,7 +2,7 @@
   <div class="stepPay">
     
     <PageHeader :title="'4. ' + $t('step-pay.title')">
-      {{$t('step-pay.description')}}
+      {{$t('step-pay.description')}} 
     </PageHeader>
 
 
