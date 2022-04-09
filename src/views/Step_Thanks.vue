@@ -48,40 +48,39 @@
         </v-btn>
       </div>
 
-    <!-- Show this block if the Stripe Capture has worked. -->
-    <div v-if="stripeSuccess"> 
-      
+      <!-- Show this block if the Stripe Capture has worked. -->
+      <div v-if="stripeSuccess"> 
+        
 
-      <div class="pt-12 float-end">
-        {{$t('step-thanks.ifAnyProblems')}}
-        <a href="mailto:info@flyzermatt.com">info@flyzermatt.com</a>
-        {{$t('step-thanks.orCallUs')}}
-        <a href="tel:+41796436808">+41 79 643 6808</a>
-      </div>
-
-
+        <div class="pt-12 float-end">
+          {{$t('step-thanks.ifAnyProblems')}}
+          <a href="mailto:info@flyzermatt.com">info@flyzermatt.com</a>
+          {{$t('step-thanks.orCallUs')}}
+          <a href="tel:+41796436808">+41 79 643 6808</a>
+        </div>
 
 
-      <div 
-        class="pt-12 float-end"
-        style="width:100%; text-align:center;"
-      >
-        <v-btn 
-          rounded 
-          x-large
-          color="fzPink" 
-          elevation="4"
-          class="white--text"
-          @click="closeBookingSystem"
+
+
+        <div 
+          class="pt-12 float-end"
+          style="width:100%; text-align:center;"
         >
-          {{$t('nav.done')}}
-          <!-- <v-icon right>{{iconNextArrow}}</v-icon> -->
-        </v-btn>
+          <v-btn 
+            rounded 
+            x-large
+            color="fzPink" 
+            elevation="4"
+            class="white--text"
+            @click="closeBookingSystem"
+          >
+            {{$t('nav.done')}}
+            <!-- <v-icon right>{{iconNextArrow}}</v-icon> -->
+          </v-btn>
+        </div>
       </div>
 
-
-  </div>
-
+    </div>
   </div>
 </template>
 
