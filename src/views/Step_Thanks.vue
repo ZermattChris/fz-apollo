@@ -48,6 +48,8 @@
         </v-btn>
       </div>
 
+    <!-- Show this block if the Stripe Capture has worked. -->
+    <div v-if="stripeSuccess"> 
       
 
       <div class="pt-12 float-end">
