@@ -325,9 +325,6 @@
 import NavButton from '@/components/NavButton.vue'
 import LangMenu from '@/components/LangMenu.vue'
 
-import partnersData from "/.partner-passwords.json"
-import bcrypt from 'bcryptjs'
-
 import { format } from 'date-fns'
 import { mdiDeleteForever, mdiChevronLeft, mdiArrowRightCircle, mdiLock } from '@mdi/js'
 //import { format, add, sub, parseISO, isAfter, isBefore, isEqual } from 'date-fns'
@@ -354,7 +351,6 @@ export default {
     partnerLoginForm: false,
     partnerUserName: '',
     partnerPass: '',
-    partnersData: partnersData,
     
     continueBtnVisible:   true,
     canGoBack:   false,
@@ -560,14 +556,6 @@ export default {
       
       this.partnerLogin = true  // Show the dialog.
 
-      // // test out bcrypt
-      // let myHash = this.encryptPassword('xxxxxx')
-      // console.log(myHash)
-
-    },
-    encryptPassword: function (password) {         
-      const salt = bcrypt.genSaltSync(10)
-      return bcrypt.hashSync(password, salt)
     },
 
 
