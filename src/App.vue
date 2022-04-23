@@ -551,7 +551,6 @@ export default {
     showPartnerLoginDialog: function () {
 
       // Only show on the "Pay" page.
-      //console.log(this.$router.history.current.path)
       if (this.$router.history.current.path !== '/Pay') return
       
       this.partnerLogin = true  // Show the dialog.
