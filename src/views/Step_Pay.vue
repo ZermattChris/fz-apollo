@@ -353,7 +353,6 @@
         //console.log("Current user language: ", lang)
 
         const data = { 
-          "partnerName": "",
           "orderId": id,
           "isTest": this.$store.state._DEV,
           "email": this.$store.state.contactEmail,

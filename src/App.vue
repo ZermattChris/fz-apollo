@@ -224,6 +224,20 @@
       width="500"
     >
       <v-card>
+        <div 
+          v-if="partnerDialogBlocker == true"
+          id="partnerDialogBlocker"
+          style="z-index:9999; position:absolute; height:100%; top:0; right:0; bottom:0; left:0; background-color: rgba(0, 0, 0, 0.7);"
+        >
+          <div id="animLoader" class="bubblingG" style="position:relative; top:45%;">
+            <span id="bubblingG_1">
+            </span>
+            <span id="bubblingG_2">
+            </span>
+            <span id="bubblingG_3">
+            </span>
+          </div>
+        </div>
         <v-card-title class="text-h5 grey lighten-2">
           <v-icon class="mr-2">{{iconLock}}</v-icon> Partner Login &amp; Order
         </v-card-title>
@@ -359,6 +373,7 @@ export default {
 
     // Popup visible on Pay page for Partner login when clicking the (c) symbol in footer.
     partnerLogin: false,
+    partnerDialogBlocker: false,
 
   }),
   // Lifecycle Hooks
@@ -452,78 +467,49 @@ export default {
   // Methods
   methods: {
 
-    onPartnerLogin: function () {
-
-      // TODO: This all needs to be rebuilt. First get a new Tommy API for this.
+    onPartnerLogin: async function () {
 
       // 1. Toss up a page blocker, with a spinner
+      this.partnerDialogBlocker = true
 
       // 2. Make fetch() call to Tommy's API
+      try {
+        await this.processPartnerOrder()
+      } catch(err) {
+        alert(err)    // processPartnerOrder() threw an error.
+        // Hide blocker
+        this.partnerDialogBlocker = false
+        return
+      }
 
-      // 3. Show error (in dialog box) if bad password
+      // Success!
+      this.partnerLogin = false
+      alert("Order Completed Successfully! Please check your Email inbox for confirmation.")
 
       // 4. Go to success screen for Parnter.
-
-      
-
-      // // Use the given User Name to pull in the stored hash from partner passwords file
-      // const partnerNameInput = this.partnerUserName.toLowerCase()
-      // //console.log(partnerNameInput)
-      // const partnerData = partnersData.partners[partnerNameInput]
-      // //console.log(partnerData)
-      // const myHash = partnerData.hash
-      // //console.log(myHash)
-      // // const myEmail = partnerData.email
-      // // //console.log(myEmail)
-      // // const myPhone = partnerData.phone
-      // // //console.log(myPhone)
-
-
-
-      // bcrypt.compare(this.partnerPass, myHash, (err, res) => {
-      //   if (err) {
-      //     //console.error(err)
-      //     console.log('User Name and/or Password are incorrect.')
-      //     return
-      //   }
-      //   // If res is true, then logged in successfully, complete order without going
-      //   // to Stripe payments. Probably good to send an email here directly as a backup
-      //   // to us if any issues.
-      //   if (res === true) {
-      //     this.processPartnerOrder(this.partnerUserName)
-      //     // close dialog
-      //     this.partnerLogin = false 
-      //   } else {
-      //     // do some type of warning message here.
-      //     console.error('User Name and/or Password are incorrect.')
-      //   }
-      //   // console.log(res) //true or false
+      // this.$router.push({
+      //   path: 'ThanksPartner'
       // })
 
+      // Hide blocker
+      this.partnerDialogBlocker = false
 
-      // this.partnerPass =  '' // clear password input field.
-
+      // 5. Clean up
+      this.partnerUserName = ''
+      this.partnerPass =  '' 
+      
     },
 
-    processPartnerOrder: function (partnerName) {
-      // Send confirm emails.
-      // Trigger order directly via Tommy's API ???
-      console.log('Login Success!  TODO: Call Tommy API to place order without Stripe', partnerName)
-
-
-      let me = this
-
+    processPartnerOrder: async function () {
+      
       let id = this.$store.state.orderID
       if (id === '' || id === undefined)  id = null
 
       let usrLang = this.$i18n.locale
-      //console.log("Current user language: ", lang)
-
-      //console.log("totalPassengers", this.$store.state.totalPassengers)
 
       const data = { 
-        "partnerName": partnerName,
-        "nonce":"$2a$10$QLByQXc8pJ0l80AI9/Y2XeWW4ABODvIRQuzc0l7jIEcDs2nGqYVna",
+        "partnerName": this.partnerUserName.toLowerCase(),
+        "partnerPassword": this.partnerPass,
         "orderId": id,
         "isTest": this.$store.state._DEV,
         "email": this.$store.state.contactEmail,
@@ -539,48 +525,32 @@ export default {
         "usersLanguage": usrLang
       }
 
-      //console.log("Order data sent to Tommy.", data)
-
-
-      fetch("https://bookings.simpleitsolutions.ch/api/createPartnerOrder", {
+      let call = await fetch("https://bookings.simpleitsolutions.ch/api/createPartnerOrder", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            data
-          }),
+          data
+        }),
       })
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (session) {
-          // Save Tommy's OrderId
-          if (session.orderId > 0) {
-            me.$store.dispatch('setOrderId', session.orderId)
-          }
-          
-          console.log("DIRECT PARTNER ORDER SUCCESS - Go to Thanks page...")
 
+      let response = await call.json()
+      //console.log('res', response)   // { type: "#0", code: 401, title: "Unauthorised", status: 401, detail: "Username and/or Password is incorrect." }
 
-          // TODO: Create a Partner success payment page, instead of this normal Thanks.
-          me.$router.push({
-            path: 'Thanks'
-          })
-        })
-        // .then(function (status) {
-        //   // If redirectToCheckout fails due to a browser or network
-        //   // error, you should display the localized error message to your
-        //   // customer using error.message.
-        //   if (status != 'success') {
-        //     alert(result.error.message);
-        //   }
-        // })
-        .catch(function (error) {
-          console.log("Getting an error back in the Partner Order 'catch'")
-          console.error("Error:", error)
-        })
+      if (response.status == 401) {
+        this.partnerPass =  '' 
+        throw 'Invalid User Name and/or Password. Please try again.'
+      } else if (response.status == 'success') {
+        if (response.orderId < 1) throw 'Server returned an invalid orderId of < 1'
+        
+        this.$store.dispatch('setOrderId', response.orderId)
+        //console.log('Order Success! ', response) 
 
+      } else {
+        throw 'Server Error: ' + response.status + ' ' + response.detail
+      }
+      
     },
 
 

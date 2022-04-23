@@ -39,6 +39,13 @@ const routes = [
     component: () => import(/* webpackChunkName: "Thanks" */ '@/views/Step_Thanks.vue'),
     meta: { title: 'Thanks for booking with FlyZermatt!' }
     
+  },
+  {
+    path: '/thanks/partner',
+    name: 'ThanksPartner',
+    component: () => import(/* webpackChunkName: "ThanksPartner" */ '@/views/Step_Thanks_Partner.vue'),
+    meta: { title: 'Thanks for booking with FlyZermatt!' }
+    
   }
 ]
 
