@@ -20,11 +20,6 @@
       dark
     >
 
-      <!-- Test i18n message. -->
-      <!-- <div>{{ $t('step-start.message') }}</div> -->
-      <!-- <LangMenu
-        style="visibility:hidden;"
-      />  -->
       <div 
         id="leftSpacer"
         style="width:40px; height:40px;"

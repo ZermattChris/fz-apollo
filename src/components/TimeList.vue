@@ -10,7 +10,6 @@
     >
       <h3 :class="getHeaderCSSClassName">
         {{titleDate.abbreviation}}
-        <!-- {{$t('date-time.day-short.' + titleDate.abbreviation)}} -->
       </h3>
       <div
         :class="getHeaderCSSClassName"

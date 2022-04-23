@@ -12,7 +12,9 @@
     "breadcrumb-date": "Datum & Flug",
     "breadcrumb-time": "Zeit & Passagiere",
     "breadcrumb-info": "Passagierinfo",
-    "breadcrumb-pay": "Bezahlen"
+    "breadcrumb-pay": "Bezahlen",
+    "close": "Schliessen",
+    "done": "Fertig"
   },
   "form": {
     "required": "Erforderlich",
