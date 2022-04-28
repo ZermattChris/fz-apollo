@@ -12,7 +12,9 @@
     "breadcrumb-date": "Date & Vol",
     "breadcrumb-time": "Heure & Passagers",
     "breadcrumb-info": "Infos sur les Passagers",
-    "breadcrumb-pay": "Payer"
+    "breadcrumb-pay": "Payer",
+    "close": "Fermer",
+    "done": "Terminé"
   },
   "form": {
     "required": "Obligatoire",
@@ -25,7 +27,7 @@
     "title": "Dates et vols",
     "description" : "Nous avons besoin des informations suivantes pour nous aider à vous offrir la meilleure expérience de vol possible avec le plus haut niveau de sécurité.",
     "flightdate" : "Date de vol préférée",
-    "arrivingDate" : "Arriver à Zermatt ?",
+    "arrivingDate" : "Arrivée à Zermatt ?",
     "departingDate" : "Départ de Zermatt ?",
     "arrivingDatePopupTitle": "Quel jour arrivez-vous?",
     "departingDatePopupTitle": "Quel jour partez-vous?",
@@ -36,22 +38,22 @@
 
     "kleinPopup" : {
       "paragraphOne" : "Le vol Elite est le plus haut décollage en tandem dans les Alpes - cela donne un vol incroyable, mais signifie également que les conditions météorologiques et de neige doivent être parfaites. Les vents sont souvent forts à cette altitude et nos zones de décollage sont sur le glacier/la neige - pour cette raison, nous essayons de faire ce vol tôt le matin lorsque les conditions sont les meilleures.",
-      "paragrapheTwo" : "Nous faisons voler l'Elite toute l'année, lorsque les conditions de vent et de neige le permettent.",
+      "paragraphTwo" : "Nous faisons voler l'Elite toute l'année, lorsque les conditions de vent et de neige le permettent.",
       "paragraphThree" : "Si vous réservez l'Elite, nous vous demandons d'accepter de faire le vol d'altitude classique comme solution de secours, au cas où les conditions ne nous permettraient pas de voler depuis le Klein Matterhorn",
       "paragraphFour" : "Le vol Elite exige également que les passagers soient assez en forme, confiants et pas trop lourds."
     },
 
     "classicPopup" : {
       "paragraphOne" : "Le meilleur moment pour effectuer l'altitude classique est le matin. Il est souvent aussi possible d'effectuer ce vol l'après-midi, mais cela dépend des conditions du jour.",
-      "paragraphTwo" : "Nous volons le Classic High toute l'année, en été depuis le Rothorn et au printemps/automne, depuis le Gornergrat et/ou le Rotenboden.",
-      "paragrapheThree" : "Si vous réservez le vol tôt le matin (08:00), nous vous demandons d'être en assez bonne forme physique, d'avoir confiance en vous et de ne pas être trop lourd."
+      "paragraphTwo" : "Nous volons le Classic High toute l'année, en été depuis le Rothorn et au printemps/automne, depuis le Gornergrat et/ou Rotenboden.",
+      "paragraphThree" : "Si vous réservez le vol tôt le matin (08:00), nous vous demandons d'être en assez bonne forme physique, d'avoir confiance en vous et de ne pas être trop lourd."
     },
 
     "scenicPopup" : {
       "paragraphOne" : "Nous faisons voler le Scenic depuis Blauherd et Riffelberg. Nous essayons de choisir l'endroit qui, selon nous, offre les meilleures conditions pour votre réservation spécifique.",
       "paragraphTwo" : "Nous faisons voler le Scenic au printemps, en été et en automne, depuis Riffelberg/Blauherd (il y a trop de neige en hiver pour ces zones de décollage plus basses).",
-      "paragrapheThree" : "Si vous réservez le vol tôt le matin (08h00), nous vous demandons d'être en assez bonne forme physique, d'avoir confiance en vous et de ne pas être trop lourd.",
-      "paragrapheFour" : "Il est également possible de vous rencontrer sur la montagne, si vous souhaitez combiner votre vol avec une journée de randonnée ou d'excursion. IMPORTANT : Veuillez ajouter un 'Message de réservation' sur la page de paiement pour nous faire savoir où vous souhaitez vous rencontrer. ",
+      "paragraphThree" : "Si vous réservez le vol tôt le matin (08h00), nous vous demandons d'être en assez bonne forme physique, d'avoir confiance en vous et de ne pas être trop lourd.",
+      "paragraphFour" : "Il est également possible de vous rencontrer sur la montagne, si vous souhaitez combiner votre vol avec une journée de randonnée ou d'excursion. IMPORTANT : Veuillez ajouter un 'Message de réservation' sur la page de paiement pour nous faire savoir où vous souhaitez vous rencontrer. ",
       "paragraphFive" : "<strong>Veuillez noter</strong> : Tous les horaires indiqués sur votre réservation sont des <strong>horaires de rendez-vous au bureau</strong> ! Si vous souhaitez vous rencontrer sur la montagne, nous vous contacterons, après avoir complété votre réservation en ligne, avec les horaires et les détails définitifs."
     },
 
@@ -59,7 +61,7 @@
 
     "photosvideos" : "Photos + Vidéos (facultatif)",
     "flightInfo" : "Infos sur le vol",
-    "photosvideos-description" : "Filmé avec des GoPros sur des bâtons spécialement construits pour de grands souvenirs ! (optionnel {prix}.00 CHF par personne)",
+    "photosvideos-description" : "Filmé avec des GoPros sur des bâtons spécialement construits pour de grands souvenirs ! (optionnel {price}.00 CHF par personne)",
     "clickForDetails" : "cliquez pour les détails...",
     "photosVideosPopup" : {
       "title" : "Infos photos + vidéos",
@@ -75,8 +77,8 @@
     "total-passagers" : "Passagers au total | Passagers au total",
     "jump-original-date" : "Aller à la date d'origine",
     "selected-date" : "Date sélectionnée",
-    "places-free" : "{n} Lieu libre | {n} Places gratuites",
-    "Passagers" : "Passager | Passagers",
+    "places-free" : "{n} Place libre | {n} Places libre",
+    "passengers" : "Passager | Passagers",
     "flightNotAvail" : "Vol non disponible",
     "swipeRightLeft" : "(Glissez à gauche/droite pour changer la date du vol)",
     "confirmDateChangeDialog": "Oups ! Votre date de vol ne correspond plus à vos dates d'arrivée et de départ. Veuillez retourner à l'étape 1 et ajuster.",
@@ -86,7 +88,7 @@
   "step-info": {
     "title": "Vos détails | Les détails de votre groupe",
     "description" : "Nous ne demandons que les informations sur les passagers dont nous avons besoin pour vous aider à rendre votre vol amusant, facile et agréable. Nous ne partageons jamais ces informations avec des tiers.",
-    "contact-passager" : "Contacter Passager",
+    "contact-passenger" : "Contact Passager",
     "passenger-nr" : "Passager-nr",
 
     "phone": "Téléphone",
@@ -103,7 +105,7 @@
     "speed": "Confiance et aptitude à la course",
     "speed-0": "Assistance requise*",
     "speed-2": "Confiance minimale - Vitesse lente",
-    "speed-4": "A bit nerverous - Speed Slow-ish",
+    "speed-4": "Un peu nerveux - Vitesse lente",
     "speed-6": "Confiance OK - Vitesse OK",
     "speed-8": "Très confiant - Vitesse rapide",
     "speed-10": "Totalement confiant ! - Vitesse rapide",
@@ -118,12 +120,12 @@
       "description" : "Veuillez vérifier que vos informations de réservation sont correctes, notamment votre numéro de téléphone et votre e-mail (sinon nous ne pourrons pas vous contacter si nous devons ajuster votre réservation en raison de la météo, etc.)",
       "people-flying" : "Personnes volant",
       "flight-date" : "Date du vol",
-      "meeting": "Rencontrer",
+      "meeting": "Rencontre",
       "flight": "Vol",
       "photos-videos": "Photos + Vidéos",
       "wants-photos-videos": "Oui, je veux des photos",
       "doesnt-want-photos-videos" : "Pas de photos",
-      "name": "Name",
+      "name": "Nom",
       "m-f": "M/F",
       "age": "Age",
 
@@ -155,8 +157,8 @@
   },
 
   "step-pay": {
-    "title": "Passer commande",
-    "description" : "Passez votre commande et appuyez sur le bouton BOOK FLIGHT pour compléter votre paiement.",
+    "title": "Passer la commande",
+    "description" : "Passez votre commande et appuyez sur le bouton PAYEZ MAINTENANT pour compléter votre paiement.",
     "meetingTime" : "@ Toutes les heures de réunion sont à notre bureau, situé à l'intérieur du Viktoria Center en face de la gare principale de Zermatt (juste au bout du couloir du supermarché COOP).",
     "people" : "personne | people",
     "qty" : "Qty",
