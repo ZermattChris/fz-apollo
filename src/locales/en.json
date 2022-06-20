@@ -36,6 +36,12 @@
     "pleaseChooseFlightFirst": "Please choose a Flight Date first...",
     "noAvailableFlights": "No Schedule available for this date. Please call us.",
 
+    "heliClassicPopup": {
+      "paragraphOne": "An incredible combination: fly to the Classic High take off on Rothorn in an Air Zermatt helicopter, then float back to Zermatt on a paraglider, with FlyZermatt! This is an adventure you'll remember for a lifetime.",
+      "paragraphTwo": "Conditions: A minimum of 2 passengers. Booking is dependent on available space with Air Zermatt (helicopter company). Best booked more than one day in advance. We will contact you after you book with a final confirmation.",
+      "paragraphThree": "For this flight we ask that you be be fairly fit, confident and not too heavy."
+    },
+
     "kleinPopup": {
       "paragraphOne": "The Elite flight is the highest tandem take off in the Alps - this makes for an amazing flight, but also means that both weather and snow conditions have to be just right. Winds are often strong at this altitude and our take off areas are on glacier/snow - because of this we try and do this flight early in the morning when conditions are the best..",
       "paragraphTwo": "We fly the Elite over the entire year, when ever wind and snow conditions allow.",

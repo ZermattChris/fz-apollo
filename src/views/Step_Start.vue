@@ -7,69 +7,42 @@
 
 
     <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12 pt-sm-2" style="max-width:500px;">
-      
 
-         <!-- ***************** Flight Date ******************** -->
+
+      <!-- ***************** Flight Date ******************** -->
       <h3 id="chooseFlightDate" class="disable-select">
-        <v-icon :color="flightDate ? 'successBright' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}</v-icon>
+        <v-icon :color="flightDate ? 'successBright' : 'primary'">{{ flightDate ? stepIconCompleted : stepIcon }}
+        </v-icon>
         {{$t('step-start.flightdate')}}
       </h3>
-      
+
       <div class="controls mb-0 mb-sm-2 mb-md-4">
 
-          <!-- Preferred Flight Date Calendar  -->
-          <v-date-picker
-            v-model="flightDate"
-            first-day-of-week="0"
-            show-current
-            :landscape="this.$vuetify.breakpoint.name === 'xs' ? false : true"
-            :locale="$i18n.locale" 
-            :min="flightMinDate"
-            :max="flightMaxDate"
-            elevation="4"
-            width="290"
-            :color="flightDate === '' ? 'primary' : 'success'"
-            :events="calendarTripLength"
-            class="disable-select"
-          ></v-date-picker>
+        <!-- Preferred Flight Date Calendar  -->
+        <v-date-picker v-model="flightDate" first-day-of-week="0" show-current
+          :landscape="this.$vuetify.breakpoint.name === 'xs' ? false : true" :locale="$i18n.locale" :min="flightMinDate"
+          :max="flightMaxDate" elevation="4" width="290" :color="flightDate === '' ? 'primary' : 'success'"
+          :events="calendarTripLength" class="disable-select"></v-date-picker>
 
 
 
 
         <!-- Arriving in Zermatt pop up Calendar  -->
-        <v-dialog
-          v-model="arriveMenu"
-          :nudge-right="0"
-          transition="scale-transition"
-          offset-y
-          min-width="auto"
-          max-width="300"
-        >
+        <v-dialog v-model="arriveMenu" :nudge-right="0" transition="scale-transition" offset-y min-width="auto"
+          max-width="300">
           <template v-slot:activator="{ on, attrs }">
-            <v-text-field
-              id="arriveInput"
-              :value="formatArriveDate"
-              :label="$t('step-start.arrivingDate')"
-              class="ml-10 mt-3"
-              readonly
-              :color="arriveDate === '' ? 'primary' : 'successBright'"
-              v-bind="attrs"
-              v-on="on"
-              v-show="hasValidFlightDate"
-              ref="arriveDateInput"
-            >
-            
+            <v-text-field id="arriveInput" :value="formatArriveDate" :label="$t('step-start.arrivingDate')"
+              class="ml-10 mt-3" readonly :color="arriveDate === '' ? 'primary' : 'successBright'" v-bind="attrs"
+              v-on="on" v-show="hasValidFlightDate" ref="arriveDateInput">
+
               <template v-slot:append>
-                <v-hover v-slot="{}" >
-                  <v-icon
-                    :color="arriveDate === '' ? 'primary' : 'successBright'"
-                    @click="arriveMenu = true"
-                  >
+                <v-hover v-slot="{}">
+                  <v-icon :color="arriveDate === '' ? 'primary' : 'successBright'" @click="arriveMenu = true">
                     mdi-calendar
-                  </v-icon> 
+                  </v-icon>
                 </v-hover>
               </template>
-            
+
             </v-text-field>
           </template>
 
@@ -77,19 +50,9 @@
             <v-card-text>
               <h2 class="font-weight-black purple--text pt-4">{{$t('step-start.arrivingDatePopupTitle')}}</h2>
             </v-card-text>
-            <v-date-picker
-              v-model="arriveDate"
-              first-day-of-week="0"
-              :locale="$i18n.locale" 
-              :min="todaysDate"
-              :max="flightDate"
-              persistent
-              color="blue-grey darken-4"
-              width="100%"
-              style="padding:0 20px;"
-              :events="showFlightDateColour"
-              @input="arriveMenu = false"
-            ></v-date-picker>
+            <v-date-picker v-model="arriveDate" first-day-of-week="0" :locale="$i18n.locale" :min="todaysDate"
+              :max="flightDate" persistent color="blue-grey darken-4" width="100%" style="padding:0 20px;"
+              :events="showFlightDateColour" @input="arriveMenu = false"></v-date-picker>
             <v-card-text>
               <div class="pt-4 caption">{{$t('step-start.arrivingDatePopupMsg')}}</div>
             </v-card-text>
@@ -103,40 +66,22 @@
 
 
         <!-- Departing Zermatt Calendar  -->
-        <v-dialog
-          v-model="departMenu"
-          :nudge-right="0"
-          :nudge-bottom="0"
-          transition="scale-transition"
-          offset-y
-          min-width="auto"
-          max-width="300"
-        >
+        <v-dialog v-model="departMenu" :nudge-right="0" :nudge-bottom="0" transition="scale-transition" offset-y
+          min-width="auto" max-width="300">
           <template v-slot:activator="{ on, attrs }">
-            <v-text-field
-              id="departInput"
-              v-model="formatDepartDate"
-              :label="$t('step-start.departingDate')"
-              append-icon="mdi-calendar"
-              class="ml-10 mt-n3 mb-2"
-              readonly
-              :color="departDate === '' ? 'primary' : 'successBright'"
-              v-bind="attrs"
-              v-on="on"
-              v-show="hasValidFlightDate"
-            >
-            
+            <v-text-field id="departInput" v-model="formatDepartDate" :label="$t('step-start.departingDate')"
+              append-icon="mdi-calendar" class="ml-10 mt-n3 mb-2" readonly
+              :color="departDate === '' ? 'primary' : 'successBright'" v-bind="attrs" v-on="on"
+              v-show="hasValidFlightDate">
+
               <template v-slot:append>
-                <v-hover v-slot="{}" >
-                  <v-icon
-                    :color="departDate === '' ? 'primary' : 'successBright'"
-                    @click="departMenu = true"
-                  >
+                <v-hover v-slot="{}">
+                  <v-icon :color="departDate === '' ? 'primary' : 'successBright'" @click="departMenu = true">
                     mdi-calendar
-                  </v-icon> 
+                  </v-icon>
                 </v-hover>
               </template>
-            
+
             </v-text-field>
           </template>
 
@@ -144,19 +89,9 @@
             <v-card-text>
               <h2 class="font-weight-black purple--text pt-4">{{$t('step-start.departingDatePopupTitle')}}</h2>
             </v-card-text>
-            <v-date-picker
-              v-model="departDate"
-              first-day-of-week="0"
-              :locale="$i18n.locale" 
-              :min="flightDate"
-              :max="flightMaxDate"
-              persistent
-              color="blue-grey darken-4"
-              width="100%"
-              style="padding:0 20px;"
-              :events="showFlightDateColour"
-              @input="departMenu = false"
-            ></v-date-picker>
+            <v-date-picker v-model="departDate" first-day-of-week="0" :locale="$i18n.locale" :min="flightDate"
+              :max="flightMaxDate" persistent color="blue-grey darken-4" width="100%" style="padding:0 20px;"
+              :events="showFlightDateColour" @input="departMenu = false"></v-date-picker>
             <v-card-text>
               <div class="pt-4 caption">{{$t('step-start.arrivingDatePopupMsg')}}</div>
             </v-card-text>
@@ -168,42 +103,32 @@
 
 
       <!-- ***************** Which Flight? Flight List ******************** -->
-      <h3 id="whichFlight" class="disable-select mt-6" >
-        <v-icon  
-          :color="flightChosen ? 'successBright' : 'primary'">{{ flightOptionsDropMenuList ? stepIconCompleted : stepIcon }}
+      <h3 id="whichFlight" class="disable-select mt-6">
+        <v-icon :color="flightChosen ? 'successBright' : 'primary'">{{ flightOptionsDropMenuList ? stepIconCompleted :
+          stepIcon }}
         </v-icon>
         {{$t('step-start.whichflight')}}
       </h3>
       <div class="controls mb-0 mb-sm-6 mb-md-10">
-        <v-select
-          class="disable-select"
-          style="max-width:330px;"
-          v-model="flightChosen"
-          :items="flightOptionsDropMenuList"
-          item-text="name"
-          item-value="id"
-          :loading="flightOptionsLoaded"
-          solo
-          outlined
-          :disabled="!isValidFlightDate"
-          :hint="isValidFlightDate ? '' : $t('step-start.pleaseChooseFlightFirst')"
-          persistent-hint
-          @change="onFlightChanged"
-        >
+        <v-select class="disable-select" style="max-width:330px;" v-model="flightChosen"
+          :items="flightOptionsDropMenuList" item-text="name" item-value="id" :loading="flightOptionsLoaded" solo
+          outlined :disabled="!isValidFlightDate"
+          :hint="isValidFlightDate ? '' : $t('step-start.pleaseChooseFlightFirst')" persistent-hint
+          @change="onFlightChanged">
         </v-select>
       </div>
 
       <!-- This is an Info dialog that's shown to the user if they choose the Elite flight.  -->
-      <v-dialog
-        v-model="eliteDialog"
-        width="500"
-      >
+      <v-dialog v-model="eliteDialog" width="500">
         <template v-slot:activator="{}">
         </template>
 
         <v-card>
           <v-card-title class="text-h5 grey lighten-2">
-            {{$t('step-start.flightInfo')}} - 
+            {{$t('step-start.flightInfo')}} -
+            <span v-if="isHeliClassic" class="pl-1">
+              Classic + Heli Fly
+            </span>
             <span v-if="isKlein" class="pl-1">
               Elite
             </span>
@@ -215,9 +140,34 @@
             </span>
           </v-card-title>
 
-          <v-card-text
-            class="pt-4"
-          >
+          <v-card-text class="pt-4">
+
+            <div v-if="isHeliClassic">
+              <p>
+                <span v-html="$t('step-start.heliClassicPopup.paragraphOne')" />
+              </p>
+
+              <v-img 
+                class="mb-4"
+                max-width="450"
+                src="/air-zermatt-heli-matterhorn.jpg">
+              </v-img>
+
+              <p>
+                <v-icon color="error" class="">
+                  mdi-shield-alert
+                </v-icon>
+                <span v-html="$t('step-start.heliClassicPopup.paragraphTwo')" />
+              </p>
+              <p>
+                <v-icon color="warning" class="">
+                  mdi-star
+                </v-icon>
+                <span v-html="$t('step-start.heliClassicPopup.paragraphThree')" />
+              </p>
+            </div>
+
+
 
             <div v-if="isKlein">
               <p>
@@ -295,13 +245,7 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn
-              color="fzPink" 
-              class="mb-2 white--text"
-              elevation="2"
-              outlined
-              @click="closeFlightDialog"
-            >
+            <v-btn color="fzPink" class="mb-2 white--text" elevation="2" outlined @click="closeFlightDialog">
               {{$t('nav.ok')}}
             </v-btn>
           </v-card-actions>
@@ -316,25 +260,16 @@
       </h3>
       <div class="controls mb-0 mb-sm-6">
         <!-- Photos and Videos included? -->
-        <v-switch 
-          id="photosSwitch"
-          v-model="switchPhotos" 
-          class="ml-2"
-          color="success"
-          inset 
-          :label="$t('step-start.photosvideos-description', { 'price': photosPrice })"
-        ></v-switch>
+        <v-switch id="photosSwitch" v-model="switchPhotos" class="ml-2" color="success" inset
+          :label="$t('step-start.photosvideos-description', { 'price': photosPrice })"></v-switch>
 
-        <p
-          class="caption pl-8 ml-8 mt-n4 disable-select"
-          style="position:relative; z-index:2;"
-        >
+        <p class="caption pl-8 ml-8 mt-n4 disable-select" style="position:relative; z-index:2;">
           <span id="photosVidDetails" @click="photosVideoDialog = true" style="cursor:pointer;">
             (
-              <v-icon tabindex="-1" @click="photosVideoDialog = true">
-                {{infoIcon}} 
-              </v-icon> 
-                {{$t('step-start.clickForDetails')}}
+            <v-icon tabindex="-1" @click="photosVideoDialog = true">
+              {{infoIcon}}
+            </v-icon>
+            {{$t('step-start.clickForDetails')}}
             )
           </span>
         </p>
@@ -343,10 +278,7 @@
 
 
       <!-- This is an Info dialog that's shown to the user if they choose the Elite flight. -->
-      <v-dialog
-        v-model="photosVideoDialog"
-        width="500"
-      >
+      <v-dialog v-model="photosVideoDialog" width="500">
         <template v-slot:activator="{}">
         </template>
 
@@ -355,45 +287,22 @@
             {{$t('step-start.photosVideosPopup.title')}}
           </v-card-title>
 
-          <v-card-text
-            class="pt-4"
-          >
+          <v-card-text class="pt-4">
             <div>
 
               <!-- Test Photos  -->
-              <v-carousel
-                :cycle="hoverPhotoVidsCarousel"
-                height="240"
-                hide-delimiters
-                show-arrows-on-hover
-                interval="4500"
-              >
+              <v-carousel :cycle="hoverPhotoVidsCarousel" height="240" hide-delimiters show-arrows-on-hover
+                interval="4500">
 
-                <v-carousel-item
-                  v-for="(slide, i) in slides"
-                  :key="i"
-                  @mouseover="onCarouselMouseOver"
-                  @mouseout="onCarouselMouseOut"
-                >
-                  <v-sheet
-                    height="100%"
-                  >
-                    <v-row
-                      class="fill-height"
-                      align="center"
-                      justify="center"
-                    >
+                <v-carousel-item v-for="(slide, i) in slides" :key="i" @mouseover="onCarouselMouseOver"
+                  @mouseout="onCarouselMouseOut">
+                  <v-sheet height="100%">
+                    <v-row class="fill-height" align="center" justify="center">
 
                       <!-- Slide content goes here. show-if for each slide.  -->
-                      <div 
-                        class="text-h2"
-                      >
+                      <div class="text-h2">
                         <!-- slides/{{ slide }} -->
-                        <v-img
-                          height="240"
-                          width="452"
-                          :src="'/slides/' + slide"
-                        ></v-img>
+                        <v-img height="240" width="452" :src="'/slides/' + slide"></v-img>
                       </div>
 
                       <!-- <iframe
@@ -419,13 +328,8 @@
               <p>
                 {{$t('step-start.photosVideosPopup.paragraphOne', { price: photosPrice })}}
               </p>
-              <v-img
-                class="ml-2 mr-2 float-left"
-                contain
-                max-height="100"
-                max-width="110"
-                src="@/assets/MicroSD-and-adaptor.jpg"
-              ></v-img>
+              <v-img class="ml-2 mr-2 float-left" contain max-height="100" max-width="110"
+                src="@/assets/MicroSD-and-adaptor.jpg"></v-img>
               <p>
                 {{$t('step-start.photosVideosPopup.paragraphTwo')}}
               </p>
@@ -439,22 +343,16 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn
-              color="fzPink" 
-              class="mb-2 white--text"
-              elevation="2"
-              outlined
-              @click="photosVideoDialog = false"
-            >
+            <v-btn color="fzPink" class="mb-2 white--text" elevation="2" outlined @click="photosVideoDialog = false">
               {{$t('nav.ok')}}
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
 
-    </div>    <!-- end step controls -->
+    </div> <!-- end step controls -->
 
-    
+
   </div>
 </template>
 
@@ -509,6 +407,7 @@ export default {
       // flightMenu: false,
       departMenu: false,
 
+      isHeliClassic: false,
       isKlein: false,
       isClassic: false,
       isScenic: false,
@@ -650,7 +549,7 @@ export default {
         return parseInt(this.$store.state.selectedFlight)
       },
       set(flightStr) {
-        //console.log('Set chosen flight', flightStr)
+        console.log('Set chosen flight', flightStr)
         return this.$store.dispatch('setFlight', flightStr)
       }
     },
@@ -794,20 +693,32 @@ export default {
       // check if user selected the Elite flight and if yes, show info dialog.
       this.eliteDialog = true
 
+
+      // Classic + Heli
+      if (this.$store.state.selectedFlight === 41) {
+        this.isHeliClassic = true,
+        this.isKlein = false,
+        this.isClassic = false,
+        this.isScenic = false
+      }
+
       // Klein
       if (this.$store.state.selectedFlight === 40) {
+        this.isHeliClassic = false,
         this.isKlein = true,
         this.isClassic = false,
         this.isScenic = false
       }
       // Classic
       if (this.$store.state.selectedFlight === 38) {
+        this.isHeliClassic = false,
         this.isKlein = false,
         this.isClassic = true,
         this.isScenic = false
       }
       // Scenic
       if (this.$store.state.selectedFlight === 39) {
+        this.isHeliClassic = false,
         this.isKlein = false,
         this.isClassic = false,
         this.isScenic = true
@@ -862,12 +773,15 @@ export default {
      * a json object with flight ids, names and prices.
      */
     buildFlightList: function () {
-      const obj = this.$store.state._flightsList
-      //console.log('build flight list for drop menu', obj)
+      let obj = this.$store.state._flightsList
+      console.log('build flight list for drop menu', obj)
 
       if (this.isObjEmpty(obj)) return [{id:-1, name: i18n.t('step-start.noAvailableFlights')}]
 
       let newFlightsList = []
+
+      // Custom Sort order, so we have Classic at top, etc.
+      obj = this.customFlightSort(obj)
 
       // eslint-disable-next-line no-unused-vars
       for (const [key, value] of Object.entries(obj)) {
@@ -880,6 +794,58 @@ export default {
       return newFlightsList
 
     },
+
+
+    customFlightSort (flightsObj) {
+      //console.log(flightsObj)
+
+      // As our flight id's are not in any particular order, need to do a
+      // switch and manually sort them as desired.
+      // 1) Classic 38
+      // 2) Scenic 39
+      // 3) HeliFly 41
+      // 4) Elite 40
+
+      let sortedArray = []
+
+      for (const key of Object.keys(flightsObj)) {
+        //console.log(flightsObj[key].id, flightsObj[key].name, flightsObj[key].price)
+
+        switch (flightsObj[key].id) {
+          case 38:        // "Classic"
+            sortedArray[0] = {
+              id: flightsObj[key].id,
+              name: flightsObj[key].name,
+              price: flightsObj[key].price
+            }
+            break
+          case 39:        // "Scenic"
+            sortedArray[1] = {
+              id: flightsObj[key].id,
+              name: flightsObj[key].name,
+              price: flightsObj[key].price
+            }
+            break
+          case 41:        // "HeliFly"
+            sortedArray[2] = {
+              id: flightsObj[key].id,
+              name: flightsObj[key].name,
+              price: flightsObj[key].price
+            }
+            break
+          case 40:        // "Elite"
+            sortedArray[3] = {
+              id: flightsObj[key].id,
+              name: flightsObj[key].name,
+              price: flightsObj[key].price
+            }
+            break
+        }
+
+      }
+
+      return sortedArray
+    }
 
   },
 
