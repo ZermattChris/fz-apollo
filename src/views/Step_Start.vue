@@ -157,7 +157,8 @@
                 <v-icon color="error" class="">
                   mdi-shield-alert
                 </v-icon>
-                <span v-html="$t('step-start.heliClassicPopup.paragraphTwo')" />
+                <span v-html="$t('step-start.heliClassicPopup.paragraphTwo')" /> &nbsp;
+                <a target="_blank" href="https://www.flyzermatt.com/terms-and-conditions">*Classic + Heli Fly Terms &amp; Conditions</a>
               </p>
               <p>
                 <v-icon color="warning" class="">
