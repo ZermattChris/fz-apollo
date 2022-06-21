@@ -36,6 +36,12 @@
     "pleaseChooseFlightFirst": "먼저 비행 날짜를 선택하십시오",
     "noAvailableFlights": "이 날짜에 이용할 수 있는 일정이 없습니다. 전화주세요.",
 
+    "heliClassicPopup": {
+      "paragraphOne": "An incredible combination: fly to the Classic High take off on Rothorn in an Air Zermatt helicopter, then float back to Zermatt on a paraglider, with FlyZermatt! This is an adventure you'll remember for a lifetime.",
+      "paragraphTwo": "Conditions: <b>A minimum of 2 passengers</b> (for a single person, add +80.- CHF). Booking is dependent on available space with Air Zermatt (helicopter company). Best booked more than one day in advance. We will contact you after you book with a final confirmation.",
+      "paragraphThree": "엘리트 항공편은 승객이 충분히 건강하고 자신감 있고 너무 무겁지 않아야 합니다."
+    },
+
     "kleinPopup": {
       "paragraphOne": "엘리트(Elite) 비행은 알프스에서 가장 높은 탠덤 이륙입니다. 놀라운 비행을 선사하지만 날씨와 눈 조건이 모두 맞아야 합니다. 이 고도에서 바람은 종종 강하고 우리의 테이크 오프 지역은 빙하/눈 위입니다. 이 때문에 우리는 조건이 가장 좋은 이른 아침에 이 비행을 시도합니다.",
       "paragraphTwo": "바람과 눈 조건이 허락하는 한 일년 내내 엘리트를 비행합니다.",

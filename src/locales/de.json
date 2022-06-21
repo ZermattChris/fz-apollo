@@ -8,7 +8,7 @@
   "nav": {
     "continue": "Weiter",
     "back": "Zurück",
-    "ok": "Okay",
+    "ok": "OK",
     "breadcrumb-date": "Datum & Flug",
     "breadcrumb-time": "Zeit & Passagiere",
     "breadcrumb-info": "Passagierinfo",
@@ -35,6 +35,12 @@
     "whichflight": "Welcher Flug?",
     "pleaseChooseFlightFirst": "Bitte wählen Sie zuerst ein Flugdatum aus...",
     "noAvailableFlights": "Für dieses Datum ist kein Flugplan verfügbar. Bitte rufen Sie uns an.",
+    
+    "heliClassicPopup": {
+      "paragraphOne": "Eine unglaubliche Kombination: Mit dem Helikopter der Air Zermatt zum Startplatz Rothorn. Dann ein fantastischer Flug zurück nach Zermatt mit dem Gleitschirm. Dies ist ein Abenteuer, an das Sie sich ein Leben lang erinnern werden.",
+      "paragraphTwo": "Bedingungen: <b>Mindestens 2 Passagiere</b> (bei Einzelperson +80.- CHF). Die Buchung ist abhängig von den verfügbaren Plätzen bei der Air Zermatt (Helikopterunternehmen). Buchen Sie am besten mehr als einen Tag im Voraus. Wir werden Sie nach der Buchung mit einer endgültigen Bestätigung kontaktieren.",
+      "paragraphThree": "Auch für den Elite-Flug müssen die Passagiere einigermassen fit, selbstbewusst und nicht zu schwer sein."
+    },
 
     "kleinPopup": {
       "paragraphOne": "Der Elite-Flug ist der höchstgelegene Tandemstart in den Alpen - das macht den Flug zu einem besonderen Erlebnis, bedeutet aber auch, dass sowohl das Wetter als auch die Schneebedingungen stimmen müssen. Die Winde sind in dieser Höhe oft stark und unsere Startplätze befinden sich auf dem Gletscher/Schnee - aus diesem Grund versuchen wir, diesen Flug früh am Morgen durchzuführen, wenn die Bedingungen am besten sind...",

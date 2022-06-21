@@ -36,6 +36,12 @@
     "pleaseChooseFlightFirst" : "Veuillez d'abord choisir une date de vol...",
     "noAvailableFlights" : "Aucun programme disponible pour cette date. Veuillez nous appeler.",
 
+    "heliClassicPopup": {
+      "paragraphOne": "Une combinaison incroyable : envolez-vous vers le Classic High décollez du Rothorn dans un hélicoptère d'Air Zermatt, puis repartez vers Zermatt en parapente, avec FlyZermatt! C'est une aventure dont vous vous souviendrez toute votre vie.",
+      "paragraphTwo": "Conditions : <b>Un minimum de 2 passagers</b> (pour une personne seule, ajouter +80.- CHF). La réservation dépend de l'espace disponible auprès d'Air Zermatt (compagnie d'hélicoptères). Mieux vaut réserver plus d'un jour à l'avance. Nous vous contacterons après votre réservation avec une confirmation finale.",
+      "paragraphThree": "Le vol Elite exige également que les passagers soient assez en forme, confiants et pas trop lourds."
+    },
+
     "kleinPopup" : {
       "paragraphOne" : "Le vol Elite est le plus haut décollage en tandem dans les Alpes - cela donne un vol incroyable, mais signifie également que les conditions météorologiques et de neige doivent être parfaites. Les vents sont souvent forts à cette altitude et nos zones de décollage sont sur le glacier/la neige - pour cette raison, nous essayons de faire ce vol tôt le matin lorsque les conditions sont les meilleures.",
       "paragraphTwo" : "Nous faisons voler l'Elite toute l'année, lorsque les conditions de vent et de neige le permettent.",
