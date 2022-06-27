@@ -339,10 +339,18 @@
         this.$store.dispatch('setOrderMessage', this.message)
       },
 
+      // Call Tommy's backend and make sure this flight can still be booked.
+      // This might be a tricky one. Needs some proper planning on how to handle.
+      checkTimeSlotStillAvailable() {
+        console.log('TODO: checkTimeSlotStillAvailable() - Need an API call from Tommy for this.')
+      },
+
       onOrderBtn() {
 
         // Disable screen until the Order Now call has completed (with animation)
         this.orderOverlay = true
+
+        this.checkTimeSlotStillAvailable()
 
         let me = this
 
