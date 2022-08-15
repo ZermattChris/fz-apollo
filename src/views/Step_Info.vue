@@ -8,6 +8,10 @@
       {{$t('step-info.description')}}
     </PageHeader>
 
+<!-- 
+<InternationalTelInput>
+
+</InternationalTelInput> -->
     
 
     <!-- START Passenger Forms -->
@@ -72,8 +76,9 @@
                 cols="12"
                 sm="6"
                 class="pt-2 pb-0 phoneInput"
-              >
-              <!-- Start of Phone input field -->
+                >
+
+                <!-- Start of Phone input field -->
                 <v-text-field 
                   :label="$t('step-info.phone')"
                   ref="Phone"
@@ -126,8 +131,7 @@
                   <span>{{userPhoneCountriesStrings}}</span>
                 </v-tooltip>
                 
-              <!-- END of Phone input field -->
-              </v-col>
+              </v-col>   <!-- END of Phone input field -->
 
               <v-col
                 cols="12"
@@ -490,6 +494,8 @@
   
   import countrycodes from '@/store/countrycodes.js'
 
+  // import InternationalTelInput from '@/components/InternationalTelInput.vue'
+
   import { format, parseISO } from 'date-fns'
   import { enGB, de, ko } from 'date-fns/locale'
 
@@ -500,7 +506,8 @@
   
     components: {
       PageHeader,
-      Passenger
+      Passenger,
+      // InternationalTelInput
     },
 
     data () {

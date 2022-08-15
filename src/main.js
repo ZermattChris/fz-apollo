@@ -35,6 +35,9 @@ Vue.mixin({
     },
     scrollToId: function (elIdToTarget = '') {
       setTimeout(() => { this.$scrollTo(elIdToTarget, 500) }, 100)
+    },
+    sleep: function (ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
   }
 })

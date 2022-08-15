@@ -164,7 +164,7 @@
 
   "step-pay": {
     "title": "Place Order",
-    "description": "Review your order and press the BOOK FLIGHT button to to complete your payment.",
+    "description": "Review your order and press the BOOK FLIGHT button to to complete your flight booking.",
     "meetingTime": "@ All meeting times are at our office, located inside the Viktoria Center across from Zermatt's main train station (just down the hall from the COOP Supermarket).",
     "people": "person | people",
     "qty": "Qty",
@@ -187,7 +187,7 @@
 
   "step-thanks": {
     "title": "Thank you!",
-    "description": "Your payment succeeded & your order is complete.",
+    "description": "Your Booking succeeded and is complete. Your card will be charged when your flight is flown or is cancelled as per our Terms and Conditions.",
     "transactionNr": "Transaction Nr:",
     "orderSentTo": "Your order confirmation has been sent to:",
     "checkSpamStart": "Please make sure to check your email",

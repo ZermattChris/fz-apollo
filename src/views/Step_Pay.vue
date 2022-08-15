@@ -1,10 +1,21 @@
 <template>
   <div class="stepPay">
+
     
     <PageHeader :title="'4. ' + $t('step-pay.title')">
-      {{$t('step-pay.description')}}
+      {{$t('step-pay.description')}} 
     </PageHeader>
 
+    <!-- <v-btn 
+      @click="checkIfTimeSlotStillAvailable"
+      class="mx-auto mt-2 mb-10 white--text"
+      rounded 
+      x-large
+      color="fzPink" 
+      elevation="4"
+    >
+      Test flights avail before Book
+    </v-btn> -->
 
     <div style="max-width:600px; margin:0 auto;">
 
@@ -126,90 +137,134 @@
 
 
 
-      <!-- Terms and Conditions Checkbox  -->
-      <v-container
-        class="px-0 pt-0"
-        fluid
-        style="max-width:400px; margin:0 auto; text-align:center;"
-      >
-        <v-checkbox
-          v-model="termsCheckboxModel"
-          color="orange darken-3"
-        >
-          <template v-slot:label>
-            <div id="TCs-Box">
-              {{$t('step-pay.tc-text-start')}}
-              <v-tooltip top>
-                <template v-slot:activator="{ on }">
-                  <a
-                    target="_blank"
-                    href="https://www.flyzermatt.com/terms-and-conditions#onlinepayments"
-                    @click.stop
-                    v-on="on"
-                  >{{$t('step-pay.tc-text-link')}}</a>
-                </template>
-                {{$t('step-pay.openInNewPage')}}
-              </v-tooltip> 
-              {{$t('step-pay.tc-text-end')}}
-            </div>
-          </template>
-        </v-checkbox>
-      </v-container>
+      <!-- Stripe Payment Element for Future Payments  -->
+      <!-- Only show if in Debug at moment -->
+      <div id="stripe-payment-box" class="">
 
-      <!-- Stripe controlled PAY NOW button  -->
-      <div id="payment-button-box" class="" style="text-align:center;">
-        <v-btn id="payment-button" ref="paymentButton" type="submit"
-          color="orange darken-3"
-          class="mt-0"
-          @click="onOrderBtn"
-          :disabled="!termsCheckboxModel"
+        <v-skeleton-loader
+          v-if="stripePaymentFormLoading"
+          type="article, actions"
+          style="min-height:360px;"
+        ></v-skeleton-loader>
+
+        <v-divider></v-divider>
+
+        <form 
+          id="stripe-payment-form" 
+          v-show="!stripePaymentFormLoading"
+          @submit.prevent="onOrderBtn"
         >
-          {{$t('step-pay.payNow')}}
-        </v-btn>
+
+
+          <div id="stripe-payment-element" class="pt-4" style="min-height:210px;">
+            <!-- Elements will create form elements here -->
+          </div>
+          <!-- <button id="stripe-submit">Submit</button> -->
+
+
+          <!-- Terms and Conditions Checkbox  -->
+          <v-container
+            class="px-0 pt-0"
+            fluid
+            style="max-width:400px; margin:0 auto; text-align:center;"
+          >
+            <v-checkbox
+              v-model="termsCheckboxModel"
+              color="orange darken-3"
+            >
+              <template v-slot:label>
+                <div id="TCs-Box">
+                  {{$t('step-pay.tc-text-start')}}
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                      <a
+                        target="_blank"
+                        href="https://www.flyzermatt.com/terms-and-conditions#onlinepayments"
+                        @click.stop
+                        v-on="on"
+                      >{{$t('step-pay.tc-text-link')}}</a>
+                    </template>
+                    {{$t('step-pay.openInNewPage')}}
+                  </v-tooltip> 
+                  {{$t('step-pay.tc-text-end')}}
+                </div>
+              </template>
+            </v-checkbox>
+          </v-container>
+
+
+          <!-- Stripe controlled PAY NOW button  -->
+          <div id="payment-button-box" class="" style="text-align:center;">
+            <v-btn id="payment-button" ref="paymentButton" type="submit"
+              color="orange darken-3"
+              class="mt-0"
+              :disabled="!payBtnValid"
+            >
+              {{$t('step-pay.bookFlight')}}
+            </v-btn>
+          </div>
+          
+          <div id="stripe-error-message" class="" style="color:maroon;">
+            <!-- Display error message to your customers here -->
+            <!-- {{isDev ? 'TRUE' : 'FALSE'}} -->
+            {{StripeErrorMessage}}
+          </div>
+        </form>
+
       </div>
 
-      <a 
-        href="https://stripe.com"
-        target="_blank"
-        class="mx-auto mt-10"
-        style="display:block; width:100px; height:30px;"
-      >
-        <v-img
-          contain
-          width="100"
-          height="30"
-          src="Powered by Stripe - blurple.svg"
-        ></v-img>
-      </a>
 
       <div v-if="$store.state._DEV == true">
-
           <br/><br/>
-
           <ul>
-            <!-- <li>NOTE: A TEST Credit Card number has been copied to the Clipboard. Just "paste" it into the CC field in the Stripe form. <br/></li> -->
-            <li>Normal with success: 4000007560000009</li>
-            <li>3D Secure with success: 4000002500003155</li>
-            <li>Fail, insuffecient funds: 4000000000009995</li>
-            <li>Fail, card has expired: 4000000000000069</li>
+            <li>The card setup succeeds and doesn’t require authentication: 4242424242424242</li>
+            <li>The card requires authentication for the initial setup, then succeeds for subsequent payments: 4000002500003155</li>
+            <li>The card requires authentication for the initial setup and also requires authentication for subsequent payments: 4000002760003184</li>
+            <li>The card is declined during setup: 4000000000009995</li>
           </ul>
-          <!-- <input style="color:white;" id="cc_success" name="cc_success" type="text" value="4000007560000009"> -->
       </div>
-
 
     </div>
 
-    <!-- Order Overlay  -->
-    <v-overlay :value="orderOverlay">
-      <v-progress-circular
-        indeterminate
-        size="64"
-      ></v-progress-circular>
-    </v-overlay>
+    <!-- Failed Pilots available check before final booking  -->
+    <v-dialog 
+      v-model="pilotAvailDialog" 
+      persistent
+      width="500"
+    >
+      <template v-slot:activator="{}">
+      </template>
 
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          <v-icon color="fzPink" class="pr-1">
+            {{alertIcon}}
+          </v-icon>
+          Ooops! Please change Time or Date...
+        </v-card-title>
 
+        <v-card-text class="pt-4">
+          We are very sorry, but the Time Slot(s) you have chosen is no longer 
+          available. Please return to Step 2 and change to an available Time Slot or different
+          date.
+        </v-card-text>
 
+        <v-divider></v-divider>
 
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="fzPink" class="mb-2 white--text" elevation="2" outlined @click="returnToDateTimeStep">
+            <v-icon color="fzPink" class="pr-1">
+              {{returnIcon}}
+            </v-icon>
+            <span class="pt-1">
+              Change Time or Date...
+            </span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+
+    </v-dialog>
 
   </div>
 </template>
@@ -223,6 +278,9 @@
 
   import {loadStripe} from '@stripe/stripe-js'
 
+  import { mdiBackspace, mdiAlert } from '@mdi/js'
+
+
 
   export default {
     name: "Step_Pay",
@@ -233,13 +291,17 @@
 
     data () {
       return {
+
+        returnIcon: mdiBackspace,
+        alertIcon: mdiAlert,
+
         stripe: null,
         hasCardErrors: false,
-        payEnabled: false,
         payLoading: false,
         message: this.$store.state.orderMessage,
 
         elements: undefined,
+        paymentElement: undefined,
         card: undefined,
 
         flightDetails: this.$store.getters.getFlightFromID(this.$store.state.selectedFlight),
@@ -253,24 +315,62 @@
 
         myLocal: enGB,    // default date-fns locale
 
+        tempClientSecret: '',
 
+        stripePayFormValid: false,
+        stripePaymentFormLoading: true,
+
+        cardholderName: this.$store.getters.getNameById(0),
+        cardholderEmail: this.$store.state.contactEmail,
+
+        pilotAvailDialog: false,
+
+        flightsAvailableJSON: {}
+        
       }
     },
 
+
     async mounted() {
 
-      // VUE_APP_STRIPE_PUBLIC_KEY_TEST
-      // VUE_APP_STRIPE_PUBLIC_KEY_LIVE
+        if (this.$store.state._DEV === true) {
+          // DEV
+          console.log('Development Mode - Test Stripe Order.')
+          this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
+        } else {
+          // Live.
+          this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_LIVE)
+        }
 
-      if (this.$store.state._DEV === true) {
-        console.log('Development Mode, will create a TEST order via Stripe')
-        this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
-        return
-      }
+        const options = {
+          clientSecret: sessionStorage.getItem('custClientSecret'),
+          locale: this.$i18n.locale,
+          // Fully customizable with appearance API.
+          //appearance: {}
+        };
 
-      // Live Stripe call.
-      this.stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_LIVE)
+        // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in step 2
+        this.elements = this.stripe.elements(options)
 
+
+        // Create and mount the Payment Element
+        this.paymentElement = this.elements.create('payment')
+
+        // remove the skeleton loader
+        const me = this
+        this.paymentElement.on('ready', function() {
+          me.stripePaymentFormLoading = false
+        })
+        // Enable the PAY button
+        this.paymentElement.on('change', function(event) {
+          if (event.complete) {
+            me.stripePayFormValid = true
+          }
+        })
+
+        this.paymentElement.mount('#stripe-payment-element')
+
+      
     },
 
     
@@ -282,6 +382,32 @@
     },
 
     computed: {
+
+      // contactName: function () {
+      //   return this.$store.getters.getNameById(0)
+      // },
+      // contactEmail: function () {
+      //   return this.$store.state.contactEmail
+      // },
+
+      StripeErrorMessage: {
+        get() {
+          return this.$store.state.stripeErrorMessage
+        },
+        set(errMsg) {
+          return this.$store.dispatch('setStripeErrorMsg', errMsg)
+        }
+          
+      }, 
+
+      payBtnValid: function () {
+          if (this.stripePayFormValid === true && this.termsCheckboxModel === true) return true
+          return false
+      },
+
+      isDev: function () {
+          return this.$store.state._DEV
+      },
 
       findOfficeDialog: {
         get() {
@@ -325,6 +451,217 @@
 
     methods: {
 
+      returnToDateTimeStep() {
+
+        // Update to latest dates/slots available.
+        //await this.$store.dispatch('timeListDates')   // causing errors. Uhg.
+        //console.log(this.flightsAvailableJSON)
+        this.$store.dispatch('setTimesListDates', this.flightsAvailableJSON) 
+
+        // Need to reset the Passenger objects and totals.
+        this.$store.dispatch('resetSlotsPassengers')
+
+        // return to step 2 to reselect date & time that is available.
+        this.$router
+          .push({ path: '/Time' })
+          .then(() => { this.$router.go() })
+
+      },
+
+
+
+      async checkIfTimeSlotStillAvailable() {
+        // just a quick test call to see if we can use existing API to discover
+        // if user's flight+slot(s) is still available...
+
+        const flDate = this.$store.state.flightDate
+        const flightId = this.$store.state.selectedFlight
+
+
+
+        // Setup dev/live API call to Tommy.
+        let apiPath = "https://bookings.simpleitsolutions.ch/api/flightsavailable/" + flightId + "/" + flDate
+        if (this.$store.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/flightsavailable/" + flightId + "/" + flDate
+
+        
+        const response = await fetch(
+          apiPath, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        )
+        if (response.status !== 200) {
+          console.error('Fatal Error => Not able to connect to ' + apiPath + ': ', response.status, response.statusText)
+          return
+        }
+
+        this.flightsAvailableJSON = await response.json();
+        //console.log(flightsAvailableJSON)
+
+        // {
+        //   "2022-07-16":{
+        //      "07:40":-1,
+        //      "09:30":2,
+        //      "11:20":1,
+        //      "13:10":0,
+        //      "14:30":3,
+        //      "16:10":0,
+        //      "18:00":-1
+        //   },
+        //   "2022-07-17":{
+        //      "07:40":-1,
+        //      "09:30":0,
+        //      "11:20":1,
+        //      "13:10":1,
+        //      "14:30":0,
+        //      "16:10":3,
+        //      "18:00":-1
+        //   },
+
+        let foundSlotObj = null
+
+        // 1) Loop through the returned objects and check for selected Date.
+        for (var key of Object.keys(this.flightsAvailableJSON)) {
+            //console.log(key + " -> " + flightsAvailableJSON[key])
+
+            // Grab the matching Slot object for User's selected flight date.
+            if ( key === flDate ) {
+              //console.log("Found! Date: " + key)
+              foundSlotObj = this.flightsAvailableJSON[key]
+              break
+            }
+        }
+
+        //console.log("Slots: " + foundSlotObj)
+
+        // 2) Loop through the User's TimeSlots and check if enough pilots available still.
+        const usersSlotList = this.$store.state.slotPassengersObj.slotsList
+        //console.log("User TimeSlots: " + usersSlotList)
+        //for (var userSlotKey of Object.keys(usersSlotList)) {
+        for (let index = 0; index < usersSlotList.length; index++) {
+          if (usersSlotList[index] === null || usersSlotList[index] === undefined) continue
+          //console.log("User userSlotKey: " + usersSlotList[index].timeString + " " + usersSlotList[index].passengers)
+          let userSlotKeyTime = usersSlotList[index].timeString
+          let userSlotKeyTimePassengers = usersSlotList[index].passengers
+
+          // 2b) Loop through the returned objects and check for selected Date.
+          for (var slotKeyTime of Object.keys(foundSlotObj)) {
+              //console.log(slotKeyTime + " -> " + foundSlotObj[slotKeyTime])
+
+              // We need to search each one of the User's slots and check if there's enough Pilots still available.
+              // As soon as one fails, show a dialog box, swap out the _timeListDates for the above returned list
+              // and send user back to the Date/TimeSlot step.
+
+              // Found the matching slot time. Now need to check if there's enough pilots still available.
+              if (slotKeyTime == userSlotKeyTime) {
+                if (userSlotKeyTimePassengers > foundSlotObj[slotKeyTime]) {
+                  console.log('Returned FALSE. TimeSlot already full! Choose new date/slot. [userPassengers], [availPilots]', userSlotKeyTimePassengers, foundSlotObj[slotKeyTime])
+                  return false      // Not enough pilots available!
+                }
+              }
+
+          }
+        }
+
+        console.log('Returned TRUE.')
+        return true // still have enough pilots.
+
+      },
+
+
+      async onOrderBtn() {
+
+        // Block page with spinner while processing...
+        this.$store.dispatch('pageBlocker', true)
+
+
+
+        // 1) Make sure Pilots avail for this slot still...
+        // This is an async call, so needs await.
+        if (await this.checkIfTimeSlotStillAvailable() === false) {
+          //alert("TODO: Add UI. Someone else has already booked this space. Please try again.")
+          this.pilotAvailDialog = true
+          // unblock page with spinner while processing...
+          this.$store.dispatch('pageBlocker', false)
+          return
+        }
+        
+
+        // 2) Need to update the Customer details before completing Card Capture.
+        //    - Contact Name, Phone and Email to Customer.
+        const postData = { 
+          "custId": this.$store.state.custClientId,
+          "name": this.cardholderName,
+          "email": this.cardholderEmail,
+          "description": this.cardholderName + " has successfully pushed the 'BOOK FLIGHT' button.",
+        }
+        console.log('postData', postData)
+
+        const response = await fetch(
+          'https://gateway.flyzermatt.com/update-customer', {
+            method: 'POST',
+            body: JSON.stringify(postData),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        )
+        if (response.status !== 200) {
+          console.log('Fatal Error => Not able to connect to Stripe: ', response.status, response.statusText)
+          this.StripeErrorMessage = 'Fatal Error => Not able to connect to Stripe: ' + response.status + ' ' + response.statusText
+          return
+        }
+
+        // const data = await response.json()
+        // console.log('Update customer data returned: ', data)
+
+
+        const elements = this.elements
+
+        // Need to grab the current site's host to pass in (allows localhost, staging.flyzermatt.com, etc)
+        const myHost = document.location.host
+        const myHostProto = document.location.protocol
+
+
+        // 3 Complete Card Capture with Stripe.
+        const {error} = await this.stripe.confirmSetup({
+          //`Elements` instance that was used to create the Payment Element
+          elements,
+          confirmParams: {
+            return_url: myHostProto + '//' + myHost + '/thanks'
+          }
+        })
+
+        if (error) {
+          // This point will only be reached if there is an immediate error when
+          // confirming the payment. Show error to your customer (for example, payment
+          // details incomplete)
+          // const messageContainer = document.querySelector('#error-message');
+          // messageContainer.textContent = error.message;
+          console.log("Stripe ConfirmSetup error: ", error)
+          this.StripeErrorMessage = error.message
+
+          // unblock page with spinner while processing...
+          this.$store.dispatch('pageBlocker', false)
+
+        } else {
+          // Your customer will be redirected to your `return_url`. For some payment
+          // methods like iDEAL, your customer will be redirected to an intermediate
+          // site first to authorize the payment, then redirected to the `return_url`.
+
+          // NOTE: This code is never called as the Promise returned by stripe.confirmSetup() is
+          //       resolved before this runs.
+
+        }
+
+
+      },
+
+
+
+
       focusBookingMessage() {
         this.scrollToId("#scrollTarget")
         const me = this
@@ -339,76 +676,19 @@
         this.$store.dispatch('setOrderMessage', this.message)
       },
 
-      onOrderBtn() {
-
-        // Disable screen until the Order Now call has completed (with animation)
-        this.orderOverlay = true
-
-        this.checkTimeSlotStillAvailable()
-
-        let me = this
-
-        let id = this.$store.state.orderID
-        if (id === '' || id === undefined)  id = null
-
-        let usrLang = this.$i18n.locale
-        //console.log("Current user language: ", lang)
-
-        const data = { 
-          "orderId": id,
-          "isTest": this.$store.state._DEV,
-          "email": this.$store.state.contactEmail,
-          "phone": this.$store.state.contactPhone,
-          "totalPassengers": this.$store.state.totalPassengers,
-          "flightDate": this.$store.state.flightDate,
-          "dateRange": {"start": this.$store.state.arriveDate, "end": this.$store.state.departDate},
-          "flightId": this.$store.state.selectedFlight,
-          "photos": this.$store.state.wantsPhotos,
-          "passengerJSON": this.$store.state.passengerObjList,
-          "slotJSON": this.$store.state.slotPassengersObj,
-          "orderMessage": this.$store.state.orderMessage,
-          "usersLanguage": usrLang
-        }
-
-        //console.log("Order data sent to Tommy.", data)
-
-
-        fetch("https://bookings.simpleitsolutions.ch/api/createcheckout", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-              data
-            }),
-        })
-          .then(function (response) {
-            return response.json();
-          })
-          .then(function (session) {
-            // Save Tommy's OrderId
-            if (session.orderId > 0) {
-              me.$store.dispatch('setOrderId', session.orderId)
-            }
-            return me.stripe.redirectToCheckout({ sessionId: session.stripeSessionId })
-          })
-          .then(function (result) {
-            // If redirectToCheckout fails due to a browser or network
-            // error, you should display the localized error message to your
-            // customer using error.message.
-            if (result.error) {
-              console.error(result.error.message);
-            }
-          })
-          .catch(function (error) {
-            console.log("Getting an error back in the 'catch'")
-            console.error("Error:", error)
-          })
-
-      },
-
     },
 
+
+    watch: {
+
+      '$store.state.locale': function(newLocale) {
+        // Listen for changes in the Language menu and update the Stripe component's locale.
+        // console.log("oldLocale:", oldLocale)
+        // console.log("newLocale:", newLocale)
+        this.elements.update({locale: newLocale})
+      },
+
+    }
 
   }
 
@@ -417,6 +697,37 @@
 </script>
 
 <style scoped>
+
+.Input {
+  display: block;
+  min-width: 22em;
+	padding: 12px;
+  font-size: 16px;
+  line-height: 19px;
+  margin-bottom: 12px;
+	background-color: white;
+	border-radius: 5px;
+	transition: background 0.15s ease, border 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+	border: 1px solid rgb(230, 230, 230);
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+  .Input:focus, .p-Input--focused {
+    outline: 3px solid hsla(210, 96%, 45%, 20%);
+    border-color: hsla(210, 96%, 45%, 50%);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02), hsla(210, 96%, 45%, 50%);
+  }
+  .Label {
+    margin-bottom: 0.25rem;
+    font-size: 0.93rem;
+    font-weight: var(--fontWeightNormal);
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
 
 .steps-controls {
   position: absolute;

@@ -3,7 +3,7 @@
     
     <PageHeader :title="$t('step-thanks.title')">
       {{$t('step-thanks.description')}}
-      Partner Thanks page goes here. TODO.
+      NOT USED... Partner Thanks page goes here. TODO.
     </PageHeader>
 
     <div style="max-width:600px; margin:0 auto;">
@@ -154,7 +154,15 @@
         
         const orderID = this.$store.state.orderID
 
-        axios.get("https://bookings.simpleitsolutions.ch/api/resendCustomerConfirmation/" + orderID + "/" + this.resendEmail)
+
+
+
+        // Setup dev/live API call to Tommy.
+        let apiPath = "https://bookings.simpleitsolutions.ch/api/resendCustomerConfirmation/" + orderID + "/" + this.resendEmail
+        if (this.$store.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/resendCustomerConfirmation/" + orderID + "/" + this.resendEmail
+
+
+        axios.get(apiPath)
         .then(response => {
           // let data = response.data;
           // console.log(data)

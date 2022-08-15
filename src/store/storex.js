@@ -64,9 +64,14 @@ export default new Vuex.Store({
 
   state: {
 
+    // STRIPE
     // Save Stripe error messages that we can display on the Pay page.
     // Needed in vuex as we're navigating from Thanks back to Pay to show
     stripeErrorMessage: '',
+    // Stripe customer id and secret stored in localstorage.
+    custClientId:     localStorage.custClientId || "",
+    custClientSecret: sessionStorage.getItem('custClientSecret') || "",   // don't store to localstorage!
+    setupIntentId: localStorage.setupIntentId || "",   
 
     // Now that we've released production code, need to dynamically set this,
     // so that "https://secure.flyzermatt.com/blabla" automatically runs the 
@@ -74,6 +79,8 @@ export default new Vuex.Store({
     // Everything else (localhost, etc) should set this flag to true.
     // Calling a simple helper function at end of storex.js
     _DEV: _isDev(),
+
+    pageBlocker: false,
 
     locale: '',
 
@@ -157,6 +164,10 @@ export default new Vuex.Store({
 
   mutations: {
 
+    PAGE_BLOCKER(state, flag) {
+      state.pageBlocker = flag
+    },
+
     // PARTNER_ORDER(state, orderBool) {
     //   state.partnerOrder = orderBool
     // },
@@ -169,7 +180,20 @@ export default new Vuex.Store({
     STRIPE_ERROR_MSG(state, errMsg) {
       state.stripeErrorMessage = errMsg
     },
+    STRIPE_CUSTOMER_ID(state, id) {
+      state.custClientId = id
+      localStorage.custClientId = id
+    },
+    STRIPE_CUSTOMER_SECRET(state, secret) {
+      state.custClientSecret = secret
+      sessionStorage.setItem('custClientSecret', secret)
+    },
+    STRIPE_CUSTOMER_SETUPINTENT_ID(state, id) {
+      state.setupIntentId = id
+      localStorage.setupIntentId = id
+    },
 
+    
 
     LOCALE(state, localeStr) {
       state.locale = localeStr
@@ -261,7 +285,7 @@ export default new Vuex.Store({
     // Local Storage Cached
     ORDER_ID(state, id) {
       state.orderID = id
-      console.log("Set orderID", state.orderID);
+      //console.log("Set orderID", state.orderID);
       localStorage.orderID = JSON.stringify(state.orderID)
     },
 
@@ -368,12 +392,17 @@ export default new Vuex.Store({
 
     },
 
-    RESET_PASSENGERS(state) {
+    CLEAR_PASSENGERS(state) {
       state.totalPassengers = 0
       state.slotPassengersObj = rawSlotPassengers
       localStorage.removeItem('slotPassengersObj')
     },
 
+    RESET_PASSENGERS(state) {
+      state.totalPassengers = 0
+      state.slotPassengersObj = rawSlotPassengers
+      localStorage.slotPassengersObj = JSON.stringify(state.slotPassengersObj)
+    },
 
 
   },  // END MUTATIONS
@@ -408,8 +437,14 @@ export default new Vuex.Store({
       const flDate = context.state.flightDate;
       if (flDate === '') return
       context.commit("FLIGHTSLIST_LOADING", true);
+
+
+      // Setup dev/live API call to Tommy.
+      let apiPath = "https://bookings.simpleitsolutions.ch/api/flightoptions/" + flDate
+      if (context.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/flightoptions/" + flDate
+
       //console.log("Loading Flight Options for drop menu Step 1 ->", flDate);
-      return axios.get("https://bookings.simpleitsolutions.ch/api/flightoptions/" + flDate)
+      return axios.get(apiPath)
         .then(response => {
           let data = response.data
           context.commit("FLIGHTS_LIST", data)
@@ -436,7 +471,14 @@ export default new Vuex.Store({
       const flightId = context.state.selectedFlight
       if (flightId === "") return         // No flight has yet been chosen, don't call API,
       //console.log(flDate)
-      return axios.get("https://bookings.simpleitsolutions.ch/api/flightsavailable/" + flightId + "/" + flDate)
+
+
+      // Setup dev/live API call to Tommy.
+      let apiPath = "https://bookings.simpleitsolutions.ch/api/flightsavailable/" + flightId + "/" + flDate
+      if (context.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/flightsavailable/" + flightId + "/" + flDate
+
+
+      return axios.get(apiPath)
         .then(response => {
           let data = response.data;
           context.commit("TIMELIST_DATES", data)
@@ -460,7 +502,13 @@ export default new Vuex.Store({
 
     // ******************** API: init App ********************
     async init(context) {
-      return axios.get("https://bookings.simpleitsolutions.ch/api/init")
+
+      // Setup dev/live API call to Tommy.
+      let apiPath = "https://bookings.simpleitsolutions.ch/api/init"
+      if (context.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/init"
+
+
+      return axios.get(apiPath)
         .then(response => {
           let data = response.data;
           // Note to future self:
@@ -482,6 +530,17 @@ export default new Vuex.Store({
           context.commit("APP_LOADING", false)
           //initFlightDate(context)           // This will delete any invalid (old) flight date stored in localstorage
         }) // Loading UI OFF (starts off ON)
+    },
+
+    // This is used in the pilot availibility checker before Booking.
+    // Pass in a newly downloaded _timeListDates object, with updated pilots/slots
+    setTimesListDates(context, tldObj) {
+      context.commit("TIMELIST_DATES", tldObj)
+    },
+
+    
+    pageBlocker(context, flag) {
+      context.commit("PAGE_BLOCKER", flag)
     },
 
     clearTimeListDates(context) {
@@ -506,10 +565,22 @@ export default new Vuex.Store({
       context.commit("SHOW_FIND_OFFICE_DIALOG", showBool)
     },
     
-    // Database connector id.
+    // ------ STRIPE ------
+    // Stripe's returned order id.
     setOrderId(context, id) {
       context.commit("ORDER_ID", id)
     },
+    setStripeCustId(context, id) {
+      context.commit("STRIPE_CUSTOMER_ID", id)
+    },
+    setStripeCustSecret(context, secret) {
+      context.commit("STRIPE_CUSTOMER_SECRET", secret)
+    },
+    setStripeSetupIntentId(context, id) {
+      context.commit("STRIPE_CUSTOMER_SETUPINTENT_ID", id)
+    },
+
+    // ------ END: STRIPE ------
 
 
     // Database connector id.
@@ -628,13 +699,44 @@ export default new Vuex.Store({
       savePassengerObjListToLocalStorage(context)
     },
 
+    // ---- Complete Order -----
+    // Reset all of our stored data after completing order.
+    // orderCompletedReset() {      
+    //   console.log("orderCompletedReset() called", this)
+      // this.setCurrentStep(context, 'Start')
+
+      // context.commit("ORDER_ID", '')
+      
+      // context.commit("STRIPE_CUSTOMER_ID", '')
+      // context.commit("STRIPE_CUSTOMER_SECRET", '')
+      // context.commit("STRIPE_CUSTOMER_SETUPINTENT_ID", '')
+      
+      // this.clearNavList(context)
+      // this.setArriveDate(context, '')
+      // this.setDepartDate(context, '')
+      // this.setFlightDate(context, '')
+
+      // this.clearNavList(context, '')
+      // this.setFlightsList(context, '')
+      // this.clearTimeListDates(context, '')
+
+      // this.setWantsPhotos(context, '')
+      // this.setVideoPrice(context, '')
+
+      // this.setFlight(context, '')
+      // this.setOrderMessage(context, '')
+
+      // this.clearSlotsPassengers(context, '')
+
+    // },
+    // ---------
 
     // ---- TimeSlot Sets -----
 
     // Need this to 'reset' localStorage for testing.
     clearSlotsPassengers(context) {
       //console.log('slotIndex: ' + payload.index + ' TimeStr: ' + payload.timeString + ' Passengers: ' + payload.passengers)
-      context.commit("RESET_PASSENGERS")
+      context.commit("CLEAR_PASSENGERS")
       localStorage.removeItem('slotPassengersObj')
     },
     setSlotPassengers(context, payload) {
@@ -646,7 +748,13 @@ export default new Vuex.Store({
       localStorage.slotPassengersObj = JSON.stringify(context.state.slotPassengersObj)
     },
 
-
+    // Calling this after failing a Pilot availability check before Booking a Flight
+    // Need to reset this, so the Time step updates to show latest avail.
+    resetSlotsPassengers(context) {
+      //console.log('slotIndex: ' + payload.index + ' TimeStr: ' + payload.timeString + ' Passengers: ' + payload.passengers)
+      context.commit("RESET_PASSENGERS")
+      localStorage.removeItem('slotPassengersObj')
+    },
 
 
   },  // END ACTIONS
