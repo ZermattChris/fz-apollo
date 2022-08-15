@@ -339,12 +339,6 @@
         this.$store.dispatch('setOrderMessage', this.message)
       },
 
-      // Call Tommy's backend and make sure this flight can still be booked.
-      // This might be a tricky one. Needs some proper planning on how to handle.
-      checkTimeSlotStillAvailable() {
-        console.log('TODO: checkTimeSlotStillAvailable() - Need an API call from Tommy for this.')
-      },
-
       onOrderBtn() {
 
         // Disable screen until the Order Now call has completed (with animation)
@@ -415,24 +409,6 @@
 
     },
 
-
-    // watch: {
-
-    //   '$store.state.partnerOrder': function() {
-    //     const triggerPartnerOrder = this.$store.state.partnerOrder
-    //     console.log("Partner Order triggered")
-    //     if (triggerPartnerOrder === false) {
-    //       console.log("Not a Partner Order, cancel.")
-    //       return
-    //     }
-
-    //     // Is a Partner order, call the onOrderButton()
-    //     console.log("IS a Partner Order.")
-    //     this.onOrderBtn(true)
-
-    //   },
-
-    // }
 
   }
 
