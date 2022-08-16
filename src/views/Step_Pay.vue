@@ -596,6 +596,7 @@
           "name": this.cardholderName,
           "email": this.cardholderEmail,
           "description": this.cardholderName + " has successfully pushed the 'BOOK FLIGHT' button.",
+          "isDev": this.$store.state._DEV,
         }
         console.log('postData', postData)
 

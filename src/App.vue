@@ -426,6 +426,7 @@ export default {
       "custId": this.$store.state.custClientId,
       "custClientSecret": this.$store.state.custClientSecret,
       "setupIntentId": this.$store.state.setupIntentId,
+      "isDev": this.$store.state._DEV,
     }
 
     const response = await fetch(
