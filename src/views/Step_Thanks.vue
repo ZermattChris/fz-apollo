@@ -110,7 +110,7 @@
     data () {
       return {
 
-        orderId: this.$store.state.orderID,
+        // orderId: this.$store.state.orderID,
         
         stripeMessage: '',
         stripeSuccess: false,
@@ -118,7 +118,7 @@
         originalOrderId: '',
         originalEmail: '',
         resendEmail: '',
-        // resendEmailHint: this.$t('step-thanks.resendToStr')
+        resendEmailHint: this.$t('step-thanks.resendToStr'),
 
         url_setup_intent: '',
         url_setup_intent_client_secret: '',
@@ -219,13 +219,23 @@
 
     computed: {
       
+      orderId: function () {
+        return this.$store.state.orderID
+      },
+
       orderEmail: function () {
         return this.originalEmail
       },
 
-      resendEmailHint: function () {
-        return this.$t('step-thanks.resendToStr')
-      },
+
+      // resendEmailHint: {
+      //   get() {
+      //     return this.$t('step-thanks.resendToStr')
+      //   },
+      //   set(val) {
+      //     return val
+      //   }
+      // },
       
     },
 
@@ -298,13 +308,13 @@
       onResendEmailBtn() {
 
         
-        const orderID = this.originalOrderId
+        //const orderID = this.originalOrderId
 
 
 
         // Setup dev/live API call to Tommy.
-        let apiPath = "https://bookings.simpleitsolutions.ch/api/resendCustomerConfirmation/" + orderID + "/" + this.resendEmail
-        if (this.$store.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/resendCustomerConfirmation/" + orderID + "/" + this.resendEmail
+        let apiPath = "https://bookings.simpleitsolutions.ch/api/resendCustomerConfirmation/" + this.originalOrderId + "/" + this.resendEmail
+        if (this.$store.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/resendCustomerConfirmation/" + this.originalOrderId + "/" + this.resendEmail
 
         axios.get(apiPath)
         .then(response => {
@@ -326,7 +336,7 @@
         console.log('resetLocalStorage()!')
 
         // Save Cust email to display here on this page.
-        this.originalOrderId = this.$store.state.orderID
+        this.originalOrderId = this.orderID
         this.originalEmail = this.$store.state.contactEmail
 
         this.$store.dispatch('setStripeCustId', '')    
