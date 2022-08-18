@@ -6,17 +6,6 @@
       {{$t('step-pay.description')}} 
     </PageHeader>
 
-    <!-- <v-btn 
-      @click="checkIfTimeSlotStillAvailable"
-      class="mx-auto mt-2 mb-10 white--text"
-      rounded 
-      x-large
-      color="fzPink" 
-      elevation="4"
-    >
-      Test flights avail before Book
-    </v-btn> -->
-
     <div style="max-width:600px; margin:0 auto;">
 
       <p class="ml-3">
@@ -159,7 +148,6 @@
           <div id="stripe-payment-element" class="pt-4" style="min-height:210px;">
             <!-- Elements will create form elements here -->
           </div>
-          <!-- <button id="stripe-submit">Submit</button> -->
 
 
           <!-- Terms and Conditions Checkbox  -->
@@ -206,7 +194,6 @@
           
           <div id="stripe-error-message" class="" style="color:maroon;">
             <!-- Display error message to your customers here -->
-            <!-- {{isDev ? 'TRUE' : 'FALSE'}} -->
             {{StripeErrorMessage}}
           </div>
         </form>
@@ -454,7 +441,6 @@
       returnToDateTimeStep() {
 
         // Update to latest dates/slots available.
-        //await this.$store.dispatch('timeListDates')   // causing errors. Uhg.
         //console.log(this.flightsAvailableJSON)
         this.$store.dispatch('setTimesListDates', this.flightsAvailableJSON) 
 
@@ -581,7 +567,7 @@
         // 1) Make sure Pilots avail for this slot still...
         // This is an async call, so needs await.
         if (await this.checkIfTimeSlotStillAvailable() === false) {
-          //alert("TODO: Add UI. Someone else has already booked this space. Please try again.")
+          //alert("Someone else has already booked this space. Please try again.")
           this.pilotAvailDialog = true
           // unblock page with spinner while processing...
           this.$store.dispatch('pageBlocker', false)
