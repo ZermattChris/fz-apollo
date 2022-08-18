@@ -8,61 +8,11 @@
         {{$t('step-thanks.description')}}
       </PageHeader>
 
-      <!-- Just some temp testing stuff to complete this order on Stripe. -->
-      <!-- <div v-if="$store.state._DEV == true" class="text-center">
-        <p>
-          <v-icon
-            large
-            color="orange darken-2"
-            class="pr-2"
-          >
-            mdi-alert-outline
-          </v-icon>
-          NOTE: This button is just for testing -- customers don't see this (all handled on Tommy's backend soon)</p>
-
-        <v-btn 
-          @click="onCompleteOrder"
-          class="mx-auto mt-2 mb-10 white--text"
-          :disabled="stripeCompleteOrderBtnDisabled"
-          rounded 
-          x-large
-          color="fzPink" 
-          elevation="4"
-        >
-          Complete Order on Stripe
-        </v-btn>
-
-        <br/>
-
-        <v-chip
-          v-if="tmpStripeSuccessChip"
-          class="ma-2"
-          close
-          color="green"
-          outlined
-        >
-          Success
-        </v-chip>
-
-        <v-chip
-          v-if="tmpStripeFailChip"
-          class="ma-2"
-          close
-          color="error"
-          outlined
-        >
-          Failed
-        </v-chip>
-
-        <v-divider></v-divider>
-
-      </div> -->
-
       <div style="max-width:600px; margin:0 auto;">
 
-        <!-- <p>
+        <p>
           {{$t('step-thanks.transactionNr')}} <strong class="primary--text">{{orderId}}</strong> 
-        </p> -->
+        </p>
         <p>
           {{$t('step-thanks.orderSentTo')}} <strong class="primary--text">{{orderEmail}}</strong>
         </p>
@@ -160,7 +110,7 @@
     data () {
       return {
 
-        // orderId: this.$store.state.orderID,
+        orderId: this.$store.state.orderID,
         
         stripeMessage: '',
         stripeSuccess: false,

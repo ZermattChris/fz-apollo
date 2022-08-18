@@ -192,7 +192,7 @@
     "step-thanks": {
       "title": "감사합니다!",
       "description": "결제가 성공하고 주문이 완료되었습니다.",
-      "transactionNr": "거래 번호:",
+      "transactionNr": "주문 번호:",
       "orderSentTo": "주문 확인 메일이 다음 주소로 발송되었습니다.",
       "checkSpamStart": "이메일을 확인하십시오",
       "checkSpamJunk": "Spam/Junk",

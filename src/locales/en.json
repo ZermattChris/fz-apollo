@@ -188,7 +188,7 @@
   "step-thanks": {
     "title": "Thank you!",
     "description": "Your Booking succeeded and is complete. Your card will be charged when your flight is flown or is cancelled as per our Terms and Conditions.",
-    "transactionNr": "Transaction Nr:",
+    "transactionNr": "Order Nr:",
     "orderSentTo": "Your order confirmation has been sent to:",
     "checkSpamStart": "Please make sure to check your email",
     "checkSpamJunk": "Spam/Junk",

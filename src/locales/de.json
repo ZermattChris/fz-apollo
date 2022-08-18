@@ -187,7 +187,7 @@
   "step-thanks": {
     "title": "Danke!",
     "description": "Ihre Zahlung war erfolgreich und Ihre Bestellung ist abgeschlossen.",
-    "transactionNr": "Transaktionsnummer:",
+    "transactionNr": "Bestellnummer:",
     "orderSentTo": "Ihre Bestellbestätigung wurde gesendet an:",
     "checkSpamStart": "Bitte stellen Sie sicher, dass Sie Ihre E-Mail ",
     "checkSpamJunk": "Spam/Junk",
