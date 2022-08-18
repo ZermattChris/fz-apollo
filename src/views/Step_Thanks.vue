@@ -140,7 +140,6 @@
 
     async mounted() {
 
-
       let stripe = null
 
       if (this.$store.state._DEV === true) {
@@ -292,6 +291,7 @@
             // Save Tommy's OrderId
             if (session.orderId > 0) {
               me.$store.dispatch('setOrderId', session.orderId)
+              me.originalOrderId = session.orderId
             }
           })
           .catch(function (error) {
@@ -336,7 +336,7 @@
         console.log('resetLocalStorage()!')
 
         // Save Cust email to display here on this page.
-        this.originalOrderId = this.orderID
+        // this.originalOrderId = this.$store.state.orderID
         this.originalEmail = this.$store.state.contactEmail
 
         this.$store.dispatch('setStripeCustId', '')    
