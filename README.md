@@ -55,4 +55,4 @@ Use the Mozilla Laboratory Firefox plugin to help generate. Video on how to use 
 
 [Mozilla Observatory test](https://observatory.mozilla.org/)
 
-Oh, life is fun...
+It's the little things with git
