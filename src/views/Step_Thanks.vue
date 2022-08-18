@@ -336,7 +336,7 @@
         console.log('resetLocalStorage()!')
 
         // Save Cust email to display here on this page.
-        this.originalOrderId = this.orderID
+        this.originalOrderId = this.$store.state.orderID
         this.originalEmail = this.$store.state.contactEmail
 
         this.$store.dispatch('setStripeCustId', '')    
