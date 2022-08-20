@@ -517,9 +517,9 @@ export default {
   // Methods
   methods: {
 
-    onBlocker: function (flag) {
-      console.log("Blocker: ", flag)
-    },
+    // onBlocker: function (flag) {
+    //   console.log("Blocker: ", flag)
+    // },
 
     onPartnerLogin: async function () {
 
@@ -654,7 +654,7 @@ export default {
         return
       }
 
-      console.log("Start/Date Step is Valid")
+      //console.log("Start/Date Step is Valid")
 
       // Time Step checks
       if (this.isInvalid_TimeStep()) {
@@ -663,7 +663,7 @@ export default {
         return
       }
 
-      console.log("Time Step is Valid")
+      //console.log("Time Step is Valid")
 
       // Info Step checks
       if (this.isInvalid_InfoStep()) {
@@ -673,7 +673,7 @@ export default {
         return
       }
 
-      console.log("Info Step is Valid")
+      //console.log("Info Step is Valid")
 
       // Pay Step checks - none. // Pay has no data that must pass validity checks.
 
@@ -714,7 +714,7 @@ export default {
 
       // Check that the Contact Passenger is valid.
       if ( this.$store.state.passengerObjList[0].valid === false ) {
-        console.log('INVALID DATA: passengerObjList not valid yet. Return to "Info" page.')
+        //console.log('INVALID DATA: passengerObjList not valid yet. Return to "Info" page.')
         return true
       }
       return false
@@ -727,7 +727,7 @@ export default {
 
       // Slots, Times and Nr Passengers
       if ( this.$store.state.slotPassengersObj.slotsList.length === 0 || this.isObjEmpty(this.$store.state.slotPassengersObj) ) {
-        console.log('INVALID DATA: slotPassengersObj is empty (Slots, Times and Nr Passengers). Return to "Time" page.')
+        //console.log('INVALID DATA: slotPassengersObj is empty (Slots, Times and Nr Passengers). Return to "Time" page.')
         return true
       }
       return false
@@ -749,19 +749,19 @@ export default {
         isAfter( parseISO(this.userFlightDate), parseISO(this.departDate)) ||
         isBefore( parseISO(this.userFlightDate), parseISO(this.arriveDate))
       ) {
-        console.log('INVALID DATA: flightDate is empty. Return to "Start" page.')
+        //console.log('INVALID DATA: flightDate is empty. Return to "Start" page.')
         return true
       }
 
       // selectedFlight
       if (this.$store.state.selectedFlight === '' ) {
-        console.log('INVALID DATA: selectedFlight is empty. Return to "Start" page.')
+        //console.log('INVALID DATA: selectedFlight is empty. Return to "Start" page.')
         return true
       }
 
       // Flights List (returned from API when a flightDate is selected.)
       if (this.$store.state._flightsList === '' || this.isObjEmpty(this.$store.state._flightsList) ) {
-        console.log('INVALID DATA: _flightsList is empty. Return to "Start" page.')
+        //console.log('INVALID DATA: _flightsList is empty. Return to "Start" page.')
         return true
       }
       return false
@@ -780,7 +780,7 @@ export default {
         let transformedToMidnight = set(earliestPossFlightDateISO, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 })
         //console.log(transformedToMidnight)
         if (  isAfter(transformedToMidnight, flightDateISO) ) {
-          console.log('STALE DATA: flightDate is before allowed date.')
+          //console.log('STALE DATA: flightDate is before allowed date.')
           this.$store.dispatch('setFlightDate', '')
           this.$store.dispatch('setArriveDate', '')
           this.$store.dispatch('setDepartDate', '')

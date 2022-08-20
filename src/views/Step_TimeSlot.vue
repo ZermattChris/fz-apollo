@@ -307,8 +307,8 @@
         let payload = {'Time': false}
         if (totalP > 0) {
           payload = {'Time': true}
-        } else if (totalP < 0) {
-          console.error("passengerTotal is less than 0. " + totalP)
+        // } else if (totalP < 0) {
+        //   console.error("passengerTotal is less than 0. " + totalP)
         }
         this.$store.dispatch('setNavListItem', payload)
         return totalP
