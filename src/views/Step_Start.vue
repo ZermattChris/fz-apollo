@@ -671,29 +671,29 @@ export default {
 
   methods: {
 
-    async onSMSTestBtn () {
-      console.log('SMS Gateway test. Calling eCall.ch')
+    // async onSMSTestBtn () {
+    //   console.log('SMS Gateway test. Calling eCall.ch')
 
-      const postData = { 
-        "Nothing": 'bla',
-      }
-      //console.log('postData', postData)
+    //   const postData = { 
+    //     "Nothing": 'bla',
+    //   }
+    //   //console.log('postData', postData)
 
-      const response = await fetch(
-        'https://gateway.flyzermatt.com/send-sms', {
-          method: 'POST',
-          body: JSON.stringify(postData),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      )
-      if (response.status !== 200) {
-        console.log('Fatal Error => Not able to connect to SMS Gateway: ', response.status, response.statusText)
-        return
-      }
+    //   const response = await fetch(
+    //     'https://gateway.flyzermatt.com/send-sms', {
+    //       method: 'POST',
+    //       body: JSON.stringify(postData),
+    //       headers: {
+    //         'Content-Type': 'application/json'
+    //       }
+    //     }
+    //   )
+    //   if (response.status !== 200) {
+    //     console.log('Fatal Error => Not able to connect to SMS Gateway: ', response.status, response.statusText)
+    //     return
+    //   }
 
-    },
+    // },
 
     onCarouselMouseOut () {
       this.hoverPhotoVidsCarousel = true
