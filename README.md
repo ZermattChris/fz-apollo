@@ -55,4 +55,11 @@ Use the Mozilla Laboratory Firefox plugin to help generate. Video on how to use 
 
 [Mozilla Observatory test](https://observatory.mozilla.org/)
 
-It's the little things with git
+
+## SMS Gateway. eCall.ch
+curl -H "Content-type: application/x-www-form-urlencoded"
+     -d "Username=foo"
+     -d "Password=bar"
+     -d "Address=0041XXXXXXX"
+     -d "Message=Hello eCall World"
+     https://url.ecall.ch/api/SMS

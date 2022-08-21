@@ -178,6 +178,9 @@
             // Integrate into Tommy's system.
             this.bookWithTommy()
 
+            // Send SMS to the Beast
+            this.onSendSMSToGateway()
+
             this.resetLocalStorage()
             break;
           }
@@ -240,6 +243,38 @@
 
     methods: {
 
+
+      async onSendSMSToGateway () {
+        console.log('Calling SMS Gateway')
+
+        let passengers = this.$store.getters.getPassengersList
+        const contactName = passengers[0].name
+
+        let testMsg = ''
+
+        if (this.$store.state._DEV === true) testMsg = 'TEST. '
+
+        const postData = { 
+          "isTest": this.$store.state._DEV,
+          "Message": testMsg + 'New Online Order. Passengers: ' + this.$store.state.totalPassengers + ' Date: ' + this.$store.state.flightDate + ' Name: ' + contactName + ', Phone: ' + this.$store.state.contactPhone + ' Email: ' + this.$store.state.contactEmail,
+        }
+        console.log('SMS Message', postData)
+
+        const response = await fetch(
+          'https://gateway.flyzermatt.com/send-sms', {
+            method: 'POST',
+            body: JSON.stringify(postData),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        )
+        if (response.status !== 200) {
+          console.log('Fatal Error => Not able to connect to SMS Gateway: ', response.status, response.statusText)
+          return
+        }
+
+      },
 
       // Place a booking with Tommy's backend -- use existing API call to send data...
       async bookWithTommy() {

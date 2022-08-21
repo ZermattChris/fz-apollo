@@ -5,6 +5,14 @@
       {{$t('step-start.description')}}
     </PageHeader>
 
+    <!-- <v-btn
+      elevation="2"
+      @click="onSMSTestBtn"
+      class="float-left mt-2"
+    >
+      SMS TEST
+    </v-btn> -->
+
 
     <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12 pt-sm-2" style="max-width:500px;">
 
@@ -663,8 +671,28 @@ export default {
 
   methods: {
 
-    // onPlayingVideo () {
-    //   console.log('Playing Video')
+    // async onSMSTestBtn () {
+    //   console.log('SMS Gateway test. Calling eCall.ch')
+
+    //   const postData = { 
+    //     "Nothing": 'bla',
+    //   }
+    //   //console.log('postData', postData)
+
+    //   const response = await fetch(
+    //     'https://gateway.flyzermatt.com/send-sms', {
+    //       method: 'POST',
+    //       body: JSON.stringify(postData),
+    //       headers: {
+    //         'Content-Type': 'application/json'
+    //       }
+    //     }
+    //   )
+    //   if (response.status !== 200) {
+    //     console.log('Fatal Error => Not able to connect to SMS Gateway: ', response.status, response.statusText)
+    //     return
+    //   }
+
     // },
 
     onCarouselMouseOut () {
