@@ -144,7 +144,7 @@
 
       if (this.$store.state._DEV === true) {
         // DEV
-        console.log('Development Mode - Complete Test Stripe Order.')
+        //console.log('Development Mode - Complete Test Stripe Order.')
         stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLIC_KEY_TEST)
       } else {
         // Live.

@@ -550,7 +550,7 @@ export default {
         return parseInt(this.$store.state.selectedFlight)
       },
       set(flightStr) {
-        console.log('Set chosen flight', flightStr)
+        //console.log('Set chosen flight', flightStr)
         return this.$store.dispatch('setFlight', flightStr)
       }
     },
@@ -775,7 +775,7 @@ export default {
      */
     buildFlightList: function () {
       let obj = this.$store.state._flightsList
-      console.log('build flight list for drop menu', obj)
+      //console.log('build flight list for drop menu', obj)
 
       if (this.isObjEmpty(obj)) return [{id:-1, name: i18n.t('step-start.noAvailableFlights')}]
 
