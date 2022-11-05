@@ -875,6 +875,7 @@
 
       onCountryCodeBlur: function () {
         this.checkIfValidCountry()
+        let self = this
         setTimeout(() => {
           self.countriesListingDialog = false
         }, 100)
