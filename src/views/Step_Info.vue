@@ -125,7 +125,7 @@
                       outlined
                       dense
                       prefix="+"
-                      label="Country Code"
+                      label="Country"
                       :hint="countryName"
                       persistent-hint
 
@@ -135,13 +135,14 @@
                       }"
 
                       @keyup="updateCountryCode"
-                      @focus="checkIfValidCountry"
-                      @blur="checkIfValidCountry"
+                      @focus="onCountryCodeFocus"
+                      @blur="onCountryCodeBlur"
 
-                      :rules="[rules.required, rules.countryCode]" 
+                      :rules="[rules.required, rules.countryCodeCheck]" 
                     >
                     </v-text-field>
                     <div
+                      id="flagIconHolder"
                       style="position:absolute; right:18px; top:6px; font-size:1.3em;"
                     >
                       {{countryMap}}
@@ -529,11 +530,7 @@
             const pattern = /^(?:[0-9-] ?){6,14}[0-9]$/
             return pattern.test(value) || this.$t('form.phone-hint')
           },
-          countryCode: value => {
-            // really should be looking up in the list of countrycodes.js
-            //console.log( "Found country? ", this.updateCountryCode() )
-
-
+          countryCodeCheck: value => {
             const pattern = /[0-9]{1,3}/
             return pattern.test(value) || ''
           },
@@ -865,8 +862,9 @@
        * Trigger filtering of the list of Country Codes pop up.
        */
       updateCountryCode: function () {
-        this.countryCode = this.countryCode.replace(/[^0-9]/g, '')
         //console.log(this.countryCode)
+        this.countryCode = (this.countryCode + '').replace(/[^0-9]/g, '')
+        
 
         this.filteredCountryCodes = countrycodes.filter( country => (country.phoneCode + '').startsWith(this.countryCode + '') )
         //console.log('List of found countries: ', this.filteredCountryCodes)
@@ -875,9 +873,21 @@
         // return true         // no country found.
       },
 
+      onCountryCodeBlur: function () {
+        this.checkIfValidCountry()
+        this.$nextTick(function () {
+          this.countriesListingDialog = false
+        })
+      },
+
+      onCountryCodeFocus: function () {
+        this.checkIfValidCountry()
+        this.countriesListingDialog = true
+      },
+
 
       onCountryListingClick: function (code, mapChar, countryName) {
-        //console.log(code, mapChar)
+        console.log(code, mapChar, countryName)
         this.countryCode = code
         this.countryMap = mapChar
         this.countryName = countryName
@@ -888,10 +898,14 @@
         // country in the countrycodes.js file, then delete entirely so it
         // will show an invalid code when leaving this input.
         const foundCodes = countrycodes.filter( country => (country.phoneCode + '') === this.countryCode + '' )
-        if ( foundCodes.length === 0 ) this.countryCode = ''
+        if ( foundCodes.length === 0 ) {    // No match found
+          this.countryCode = ''
+          this.countryMap = ''
+        } else if ( foundCodes.length >= 1 ) {   // 1x match found
+          this.countryCode = foundCodes[0].phoneCode
+          this.countryMap = foundCodes[0].map
+        }
 
-
-        this.countriesListingDialog = true
       },
 
       onClickOutside: function () {
