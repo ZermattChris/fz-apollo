@@ -288,7 +288,7 @@
           "orderId": id,
           "isTest": this.$store.state._DEV,
           "email": this.$store.state.contactEmail,
-          "phone": this.$store.state.contactPhone,
+          "phone": this.$store.state.contactCountryCode + ' ' + this.$store.state.contactPhone + ' (' + this.$store.state.contactCountryName + ')',
           "totalPassengers": this.$store.state.totalPassengers,
           "flightDate": this.$store.state.flightDate,
           "dateRange": {"start": this.$store.state.arriveDate, "end": this.$store.state.departDate},

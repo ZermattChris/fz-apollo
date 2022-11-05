@@ -91,15 +91,23 @@
                         height="55vh"
                       >
                         <template v-slot:default>
-                          <tbody>
+                          <tbody @click="onCountryListingClickNew">
                             <tr
                               v-for="countryObj in filteredCountryCodes"
                               :key="countryObj.code"
                               @click="onCountryListingClick(countryObj.phoneCode, countryObj.map, countryObj.value)"
                             >
-                              <td>+{{ countryObj.phoneCode }}</td>
-                              <td>{{ countryObj.map }}</td>
-                              <td>{{ countryObj.value }}</td>
+
+                              <td :style="countryObj.code != '' ? '' : 'height:5px; background-color:rgb(240,240,240);'">
+                                <span v-show="countryObj.code != ''">+</span>
+                                {{ countryObj.phoneCode }}
+                              </td>
+                              <td :style="countryObj.code != '' ? '' : 'height:5px; background-color:rgb(240,240,240);'">
+                                {{ countryObj.map }}
+                              </td>
+                              <td :style="countryObj.code != '' ? '' : 'height:5px; background-color:rgb(240,240,240);'">
+                                {{ countryObj.value }}
+                              </td>
                             </tr>
                             
                           </tbody>
@@ -510,7 +518,6 @@
         cc: countrycodes,
         filteredCountryCodes: countrycodes,
         countryMap: '',
-        countryName: '',
         userPhoneCountryObjList: [],
         userPhoneCountriesDisplay: '',
         userPhoneCountriesStrings: '',
@@ -647,6 +654,16 @@
         this.$store.dispatch('setNavListItem', payload)
         return valid
         // return this.$store.getters.step_infoValid
+      },
+
+      countryName: {
+        get() {
+          let rawStr = this.$store.state.contactCountryName
+          return rawStr
+        },
+        set(name) {
+          return this.$store.dispatch('setContactCountryName', name.trim())
+        }
       },
 
       countryCode: {
@@ -886,6 +903,14 @@
         this.countriesListingDialog = true
       },
 
+      onCountryListingClickNew: function (ev) {
+        const childrenList = ev.target.parentNode.childNodes
+        const cCode = childrenList[0].innerText.replace(/\D|^\++/g, "")   // strip out leading +
+        const cFlag = childrenList[1].innerText
+        const cCountry = childrenList[2].innerText
+        //console.log(cCode, cFlag, cCountry)
+        this.onCountryListingClick(cCode, cFlag, cCountry)
+      },
 
       onCountryListingClick: function (code, mapChar, countryName) {
         //console.log(code, mapChar, countryName)

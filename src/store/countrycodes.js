@@ -26,6 +26,11 @@ const countrycodes = [
 
 
     {
+      code: '', map: '', phoneCode: '', value: '',
+    },
+
+
+    {
       code: 'AF', map: '🇦🇫', phoneCode: 93, value: 'Afghanistan',
     },
     {
