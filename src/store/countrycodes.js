@@ -1,5 +1,31 @@
 const countrycodes = [
     {
+      code: 'US', map: '🇺🇸', phoneCode: 1, value: 'United States',
+    },
+    {
+      code: 'GB', map: '🇬🇧', phoneCode: 44, value: 'United Kingdom',
+    },
+    {
+      code: 'AU', map: '🇦🇺', phoneCode: 61, value: 'Australia',
+    },
+    {
+      code: 'FR', map: '🇫🇷', phoneCode: 33, value: 'France',
+    },
+    {
+      code: 'DE', map: '🇩🇪', phoneCode: 49, value: 'Germany',
+    },
+    {
+      code: 'ES', map: '🇪🇸', phoneCode: 34, value: 'Spain',
+    },
+    {
+      code: 'CH', map: '🇨🇭', phoneCode: 41, value: 'Switzerland',
+    },
+    {
+      code: 'KR', map: '🇰🇷', phoneCode: 82, value: 'South Korea',
+    },
+
+
+    {
       code: 'AF', map: '🇦🇫', phoneCode: 93, value: 'Afghanistan',
     },
     {
@@ -21,9 +47,6 @@ const countrycodes = [
       code: 'AI', map: '🇦🇮', phoneCode: 1264, value: 'Anguilla',
     },
     {
-      code: 'AQ', map: '🇦🇶', phoneCode: 0, value: 'Antarctica',
-    },
-    {
       code: 'AR', map: '🇦🇷', phoneCode: 54, value: 'Argentina',
     },
     {
@@ -31,9 +54,6 @@ const countrycodes = [
     },
     {
       code: 'AW', map: '🇦🇼', phoneCode: 297, value: 'Aruba',
-    },
-    {
-      code: 'AU', map: '🇦🇺', phoneCode: 61, value: 'Australia',
     },
     {
       code: 'AT', map: '🇦🇹', phoneCode: 43, value: 'Austria',
@@ -73,9 +93,6 @@ const countrycodes = [
     },
     {
       code: 'BW', map: '🇧🇼', phoneCode: 267, value: 'Botswana',
-    },
-    {
-      code: 'BV', map: '🇧🇻', phoneCode: 0, value: 'Bouvet Island',
     },
     {
       code: 'BR', map: '🇧🇷', phoneCode: 55, value: 'Brazil',
@@ -189,16 +206,10 @@ const countrycodes = [
       code: 'FI', map: '🇫🇮', phoneCode: 358, value: 'Finland',
     },
     {
-      code: 'FR', map: '🇫🇷', phoneCode: 33, value: 'France',
-    },
-    {
       code: 'GF', map: '🇬🇫', phoneCode: 594, value: 'French Guiana',
     },
     {
       code: 'PF', map: '🇵🇫', phoneCode: 689, value: 'French Polynesia',
-    },
-    {
-      code: 'TF', map: '🇹🇫', phoneCode: 0, value: 'French Southern Territories',
     },
     {
       code: 'GA', map: '🇬🇦', phoneCode: 241, value: 'Gabon',
@@ -206,9 +217,8 @@ const countrycodes = [
     {
       code: 'GE', map: '🇬🇪', phoneCode: 995, value: 'Georgia',
     },
-    {
-      code: 'DE', map: '🇩🇪', phoneCode: 49, value: 'Germany',
-    },
+
+    
     {
       code: 'GH', map: '🇬🇭', phoneCode: 233, value: 'Ghana',
     },
@@ -506,9 +516,9 @@ const countrycodes = [
     {
       code: 'SS', map: '🇸🇸', phoneCode: 211, value: 'South Sudan',
     },
-    {
-      code: 'ES', map: '🇪🇸', phoneCode: 34, value: 'Spain',
-    },
+
+
+
     {
       code: 'LK', map: '🇱🇰', phoneCode: 94, value: 'Sri Lanka',
     },
@@ -523,9 +533,6 @@ const countrycodes = [
     },
     {
       code: 'SE', map: '🇸🇪', phoneCode: 46, value: 'Sweden',
-    },
-    {
-      code: 'CH', map: '🇨🇭', phoneCode: 41, value: 'Switzerland',
     },
     {
       code: 'SY', map: '🇸🇾', phoneCode: 963, value: 'Syria',
@@ -571,12 +578,6 @@ const countrycodes = [
     },
     {
       code: 'AE', map: '🇦🇪', phoneCode: 971, value: 'United Arab Emirates',
-    },
-    {
-      code: 'GB', map: '🇬🇧', phoneCode: 44, value: 'United Kingdom',
-    },
-    {
-      code: 'US', map: '🇺🇸', phoneCode: 1, value: 'United States',
     },
     {
       code: 'UY', map: '🇺🇾', phoneCode: 598, value: 'Uruguay',

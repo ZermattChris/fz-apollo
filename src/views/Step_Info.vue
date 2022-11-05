@@ -88,19 +88,20 @@
                       <!-- Start of table listing -->
                       <v-simple-table
                         scrollable
-                        height="55vh"
+                        height="80vh"
                       >
                         <template v-slot:default>
                           <tbody>
                             <tr
-                              v-for="countryObj in cc"
+                              v-for="countryObj in filteredCountryCodes"
                               :key="countryObj.code"
-                              @click="alert(countryObj.phoneCode)"
+                              @click="onCountryListingClick(countryObj.phoneCode, countryObj.map, countryObj.value)"
                             >
                               <td>+{{ countryObj.phoneCode }}</td>
                               <td>{{ countryObj.map }}</td>
                               <td>{{ countryObj.value }}</td>
                             </tr>
+                            
                           </tbody>
                         </template>
                       </v-simple-table>
@@ -111,28 +112,35 @@
 
 
                   <!-- Start of Country Code input field -->
-                  <v-text-field 
-                    ref="CountryCode"
-                    id="CountryCode"
-                    name="CountryCode"
-                    v-model="countryCode"
-                    class="pr-1 "
-                    style="width:100px; min-width:80px; flex-grow:0;"
-                    background-color="white"
-                    hide-details="auto"
-                    outlined
-                    dense
-                    prefix="+"
-                    label="Country"
+                  <div id="flagWrapper" style="position:relative;">
+                    <v-text-field 
+                      ref="CountryCode"
+                      id="CountryCode"
+                      name="CountryCode"
+                      v-model="countryCode"
+                      class="pr-1 "
+                      style="width:110px; min-width:80px; flex-grow:0; text-align:center;"
+                      background-color="white"
+                      hide-details="auto"
+                      outlined
+                      dense
+                      prefix="+"
+                      label="Country Code"
+                      :hint="countryName"
+                      persistent-hint
 
-                    @keyup="updateCountryCode"
-                    @click="countriesListingDialog = true"
-                    @blur="countriesListingDialog = false"
+                      @keyup="updateCountryCode"
+                      @click="countriesListingDialog = true"
 
-                    :rules="[rules.required, rules.countryCode]" 
-                  >
-                  </v-text-field>
-
+                      :rules="[rules.required, rules.countryCode]" 
+                    >
+                    </v-text-field>
+                    <div
+                      style="position:absolute; right:18px; top:6px; font-size:1.3em;"
+                    >
+                      {{countryMap}}
+                    </div>
+                  </div>
 
 
 
@@ -150,8 +158,6 @@
                     dense
                     type="tel"
                     name="tel"
-                    :placeholder="$t('step-info.countryCode-phoneNr')"
-                    :hint="$t('step-info.phone-example')"
                     persistent-hint
                     @keyup="updatePhoneCountryData"
                     @blur="stripPhoneJunkOnBlur"
@@ -495,6 +501,9 @@
         passengersName: '',
 
         cc: countrycodes,
+        filteredCountryCodes: countrycodes,
+        countryMap: '',
+        countryName: '',
         userPhoneCountryObjList: [],
         userPhoneCountriesDisplay: '',
         userPhoneCountriesStrings: '',
@@ -511,11 +520,15 @@
             return pattern.test(value) || this.$t('form.invalid-email')
           },
           phone: value => {
-            const pattern = /^(?:[0-9-] ?){6,14}[0-9]$/;
+            const pattern = /^(?:[0-9-] ?){6,14}[0-9]$/
             return pattern.test(value) || this.$t('form.phone-hint')
           },
           countryCode: value => {
-            const pattern = /[0-9]{1,3}/;
+            // really should be looking up in the list of countrycodes.js
+
+
+
+            const pattern = /[0-9]{1,3}/
             return pattern.test(value) || ''
           },
 
@@ -848,6 +861,19 @@
       updateCountryCode: function () {
         this.countryCode = this.countryCode.replace(/[^0-9]/g, '')
         console.log(this.countryCode)
+
+
+        this.filteredCountryCodes = countrycodes.filter( country => (country.phoneCode + '').startsWith(this.countryCode + '') )
+        console.log('List of found countries: ', this.filteredCountryCodes)
+      },
+
+
+      onCountryListingClick: function (code, mapChar, countryName) {
+        console.log(code, mapChar)
+        this.countryCode = code
+        this.countryMap = mapChar
+        this.countryName = countryName
+        this.countriesListingDialog = false
       },
 
 
