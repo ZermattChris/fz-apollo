@@ -82,13 +82,13 @@
 
                   <!-- START of Country Code Listings pup-up -->
                   <v-card
-                      class="countryPopUp"
+                      class="excluded countryPopUp"
                       v-show="countriesListingDialog"
                     >
                       <!-- Start of table listing -->
                       <v-simple-table
                         scrollable
-                        height="80vh"
+                        height="55vh"
                       >
                         <template v-slot:default>
                           <tbody>
@@ -118,7 +118,7 @@
                       id="CountryCode"
                       name="CountryCode"
                       v-model="countryCode"
-                      class="pr-1 "
+                      class="pr-1"
                       style="width:110px; min-width:80px; flex-grow:0; text-align:center;"
                       background-color="white"
                       hide-details="auto"
@@ -129,8 +129,14 @@
                       :hint="countryName"
                       persistent-hint
 
+                      v-click-outside="{
+                        handler: onClickOutside,
+                        include: include,
+                      }"
+
                       @keyup="updateCountryCode"
-                      @click="countriesListingDialog = true"
+                      @focus="checkIfValidCountry"
+                      @blur="checkIfValidCountry"
 
                       :rules="[rules.required, rules.countryCode]" 
                     >
@@ -525,7 +531,7 @@
           },
           countryCode: value => {
             // really should be looking up in the list of countrycodes.js
-
+            //console.log( "Found country? ", this.updateCountryCode() )
 
 
             const pattern = /[0-9]{1,3}/
@@ -823,7 +829,7 @@
       // Select the Country Code Prefix when a user clicks on a row in the 
       // Popup table's list
       handleCountryTableClick: function (clickedCodePrefix) {
-        console.log("clicked! " + clickedCodePrefix)
+        //console.log("clicked! " + clickedCodePrefix)
         this.contactCountryCode = clickedCodePrefix
         //}
       },
@@ -860,20 +866,41 @@
        */
       updateCountryCode: function () {
         this.countryCode = this.countryCode.replace(/[^0-9]/g, '')
-        console.log(this.countryCode)
-
+        //console.log(this.countryCode)
 
         this.filteredCountryCodes = countrycodes.filter( country => (country.phoneCode + '').startsWith(this.countryCode + '') )
-        console.log('List of found countries: ', this.filteredCountryCodes)
+        //console.log('List of found countries: ', this.filteredCountryCodes)
+
+        // if ( this.filteredCountryCodes.length === 0 ) return false  // found matching country 
+        // return true         // no country found.
       },
 
 
       onCountryListingClick: function (code, mapChar, countryName) {
-        console.log(code, mapChar)
+        //console.log(code, mapChar)
         this.countryCode = code
         this.countryMap = mapChar
         this.countryName = countryName
         this.countriesListingDialog = false
+      },
+      checkIfValidCountry: function () {
+        // If the current value of the country code input doesn't match a
+        // country in the countrycodes.js file, then delete entirely so it
+        // will show an invalid code when leaving this input.
+        const foundCodes = countrycodes.filter( country => (country.phoneCode + '') === this.countryCode + '' )
+        if ( foundCodes.length === 0 ) this.countryCode = ''
+
+
+        this.countriesListingDialog = true
+      },
+
+      onClickOutside: function () {
+        //console.log("Clicked outside")
+        this.countriesListingDialog = false
+      },
+      include: function () {
+        //console.log("calling excluded")
+        return [document.querySelector('.excluded')]
       },
 
 
