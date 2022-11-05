@@ -20,7 +20,7 @@
     "required": "필수",
     "max-20-chars": "최대 20자",
     "invalid-email": "잘못된 이메일입니다",
-    "phone-hint": "힌트: 국가 코드 + 숫자(첫자리 0 제외)"
+    "phone-hint": "유효하지 않은 전화 번호..."
   },
 
   "step-start": {
