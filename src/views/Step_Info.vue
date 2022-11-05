@@ -875,9 +875,9 @@
 
       onCountryCodeBlur: function () {
         this.checkIfValidCountry()
-        this.$nextTick(function () {
-          this.countriesListingDialog = false
-        })
+        setTimeout(() => {
+          self.countriesListingDialog = false
+        }, 100)
       },
 
       onCountryCodeFocus: function () {
@@ -887,11 +887,14 @@
 
 
       onCountryListingClick: function (code, mapChar, countryName) {
-        console.log(code, mapChar, countryName)
+        //console.log(code, mapChar, countryName)
         this.countryCode = code
         this.countryMap = mapChar
         this.countryName = countryName
         this.countriesListingDialog = false
+        this.$nextTick(() => this.$refs.Phone[0].focus() ) 
+
+        
       },
       checkIfValidCountry: function () {
         // If the current value of the country code input doesn't match a
