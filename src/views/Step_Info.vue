@@ -558,6 +558,9 @@
         this.countryMap = foundCodes[0].map
       }
 
+      // Filter values in Country Code drop menu, to match what's in the displayed input.
+      this.updateCountryCode()
+
       // Open all the accordians
       for (let step = 0; step < this.usersGroupSize; step++) {
         // Runs 5 times, with values of step 0 through 4.
