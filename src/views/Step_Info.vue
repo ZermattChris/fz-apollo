@@ -78,59 +78,110 @@
                 class="pt-2 pb-0 phoneInput"
                 >
 
-                <!-- Start of Phone input field -->
-                <v-text-field 
-                  :label="$t('step-info.phone')"
-                  ref="Phone"
-                  id="Phone"
-                  v-model="contactPhone"
-                  background-color="white"
-                  :rules="[rules.required, rules.phone]" 
-                  hide-details="auto"
-                  outlined
-                  dense
-                  type="tel"
-                  name="tel"
-                  :placeholder="$t('step-info.countryCode-phoneNr')"
-                  :hint="$t('step-info.phone-example')"
-                  persistent-hint
-                  prefix="+"
-                  @keyup="updatePhoneCountryData"
-                  @blur="stripPhoneJunkOnBlur"
-                  @focus="scrollToId('#expand-panels')"
-                >
-                  <template v-slot:append-outer>
-                    <v-tooltip
-                      bottom
+                <div id="telWrapper" class="d-flex" style="" >
+
+                  <!-- START of Country Code Listings pup-up -->
+                  <v-card
+                      class="excluded countryPopUp"
+                      v-show="countriesListingDialog"
                     >
-                      <template v-slot:activator="{ on }">
-                        <v-icon 
-                          v-on="on"
-                          @click="listCountries"
-                          tabindex="-1"
-                        >
-                          {{iconInfo}}
-                        </v-icon>
-                      </template>
-                      {{$t('step-info.country-codes.click-for-prefixes')}}
-                    </v-tooltip>
-                  </template>
-                </v-text-field>
-                
-                <!-- FLAG Icon + Tooltip showing the matching Country Name(s) as a String -->
-                <v-tooltip top >
-                  <template v-slot:activator="{ on, attrs }">
+                      <!-- Start of table listing -->
+                      <v-simple-table
+                        scrollable
+                        height="55vh"
+                      >
+                        <template v-slot:default>
+                          <tbody @click="onCountryListingClickNew">
+                            <tr
+                              v-for="countryObj in filteredCountryCodes"
+                              :key="countryObj.code"
+                              @click="onCountryListingClick(countryObj.phoneCode, countryObj.map, countryObj.value)"
+                            >
+
+                              <td :style="countryObj.code != '' ? '' : 'height:5px; background-color:rgb(240,240,240);'">
+                                <span v-show="countryObj.code != ''">+</span>
+                                {{ countryObj.phoneCode }}
+                              </td>
+                              <td :style="countryObj.code != '' ? '' : 'height:5px; background-color:rgb(240,240,240);'">
+                                {{ countryObj.map }}
+                              </td>
+                              <td :style="countryObj.code != '' ? '' : 'height:5px; background-color:rgb(240,240,240);'">
+                                {{ countryObj.value }}
+                              </td>
+                            </tr>
+                            
+                          </tbody>
+                        </template>
+                      </v-simple-table>
+                      <!-- End of table listing -->
+                    </v-card>
+                  <!-- END of Country Code Listings -->
+
+
+
+                  <!-- Start of Country Code input field -->
+                  <div id="flagWrapper" style="position:relative;">
+                    <v-text-field 
+                      ref="CountryCode"
+                      id="CountryCode"
+                      name="CountryCode"
+                      v-model="countryCode"
+                      class="pr-1"
+                      style="width:110px; min-width:80px; flex-grow:0; text-align:center;"
+                      background-color="white"
+                      hide-details="auto"
+                      outlined
+                      dense
+                      prefix="+"
+                      label="Country"
+                      :hint="countryName"
+                      persistent-hint
+
+                      v-click-outside="{
+                        handler: onClickOutside,
+                        include: include,
+                      }"
+
+                      @keyup="updateCountryCode"
+                      @focus="onCountryCodeFocus"
+                      @blur="onCountryCodeBlur"
+
+                      :rules="[rules.required, rules.countryCodeCheck]" 
+                    >
+                    </v-text-field>
                     <div
-                      v-bind="attrs"
-                      v-on="on"
-                      class="countryFlags"
+                      id="flagIconHolder"
+                      style="position:absolute; right:18px; top:6px; font-size:1.3em;"
+                      @click="onCountryCodeFlagClick"
                     >
-                      {{userPhoneCountriesDisplay}}
+                      {{countryMap}}
                     </div>
-                  </template>
-                  <span>{{userPhoneCountriesStrings}}</span>
-                </v-tooltip>
-                
+                  </div>
+
+
+
+
+                  <!-- Start of Phone input field -->
+                  <v-text-field 
+                    :label="$t('step-info.phone')"
+                    ref="Phone"
+                    id="Phone"
+                    v-model="contactPhone"
+                    background-color="white"
+                    :rules="[rules.required, rules.phone]" 
+                    hide-details="auto"
+                    outlined
+                    dense
+                    type="tel"
+                    name="tel"
+                    persistent-hint
+                    @keyup="updatePhoneCountryData"
+                    @blur="stripPhoneJunkOnBlur"
+                    @focus="scrollToId('#expand-panels')"
+                  >
+                  </v-text-field>
+                </div>
+
               </v-col>   <!-- END of Phone input field -->
 
               <v-col
@@ -173,73 +224,7 @@
     </v-expansion-panels>
     <!-- END Passenger Forms -->
 
-    <!-- START of Country Code Listings dialog -->
-    <v-dialog
-      v-model="countriesListingDialog"
-      max-width="400"
-      class="noOverflow"
-    >
-      <v-card>
-        <v-card-title>
-          {{$t('step-info.country-codes.title')}}
-        </v-card-title>
 
-        <v-card-text>
-          {{$t('step-info.country-codes.details')}}
-        </v-card-text>
-
-        
-        <!-- Start of table listing -->
-        <v-simple-table
-          scrollable
-          height="55vh"
-        >
-          <template v-slot:default>
-            <thead>
-              <tr>
-                <th class="text-left">
-                  {{$t('step-info.country-codes.flag')}}
-                </th>
-                <th class="text-left">
-                  {{$t('step-info.country-codes.country')}}
-                </th>
-                <th class="text-left">
-                  {{$t('step-info.country-codes.prefix')}}  
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="countryObj in cc"
-                :key="countryObj.code"
-                @dblclick="handleCountryTableClick(countryObj.phoneCode)"
-              >
-                <td>{{ countryObj.map }}</td>
-                <td>{{ countryObj.value }}</td>
-                <td>+{{ countryObj.phoneCode }}</td>
-              </tr>
-            </tbody>
-          </template>
-        </v-simple-table>
-        <!-- End of table listing -->
-
-        <v-card-actions class="dialogFooter">
-          <v-spacer></v-spacer>
-
-          <v-btn
-            class="white--text"
-            color="fzPink"
-            elevation="2"
-            rounded
-            @click="countriesListingDialog = false"
-          >
-            {{$t('step-info.country-codes.close')}}
-          </v-btn>
-
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <!-- END of Country Code Listings dialog -->
 
 
 
@@ -333,7 +318,7 @@
               <v-icon left>
                 mdi-phone
               </v-icon>
-              +{{contactPhone}}
+              +{{countryCode + ' ' + contactPhone}}
             </v-chip>
 
             <!-- Email -->
@@ -345,7 +330,7 @@
               <v-icon left>
                 mdi-email
               </v-icon>
-              {{contactEmail}}
+              {{contactEmail}} 
             </v-chip>
 
 
@@ -532,6 +517,8 @@
         passengersName: '',
 
         cc: countrycodes,
+        filteredCountryCodes: countrycodes,
+        countryMap: '',
         userPhoneCountryObjList: [],
         userPhoneCountriesDisplay: '',
         userPhoneCountriesStrings: '',
@@ -548,16 +535,31 @@
             return pattern.test(value) || this.$t('form.invalid-email')
           },
           phone: value => {
-            const pattern = /^(?:[0-9-] ?){6,14}[0-9]$/;
+            const pattern = /^(?:[0-9-] ?){6,14}[0-9]$/
             return pattern.test(value) || this.$t('form.phone-hint')
           },
+          countryCodeCheck: value => {
+            const pattern = /[0-9]{1,3}/
+            return pattern.test(value) || ''
+          },
+
+          
         }
       }
     },
 
     created() {
-      // Show Phone country flags and Tooltip if matching.
-      this.updatePhoneCountryData()
+
+      // Find Country Flag that matches the CountryCode value.
+      const foundCodes = countrycodes.filter( country => (country.value) === this.countryName )
+      // console.log(this.countryName)
+      // console.log(foundCodes)
+      if ( foundCodes.length > 0 ) {    // Single match found. Update flag
+        this.countryMap = foundCodes[0].map
+      }
+
+      // Filter values in Country Code drop menu, to match what's in the displayed input.
+      this.updateCountryCode()
 
       // Open all the accordians
       for (let step = 0; step < this.usersGroupSize; step++) {
@@ -568,10 +570,8 @@
 
     },
     mounted() {
-      // set focus to Phone Input if field is empty.
-      if (this.contactPhone === '') {
-        //this.$refs.Phone[0].focus()
-      }
+      
+
     },
 
 
@@ -597,7 +597,7 @@
         //console.log(slotList)
 
         slotList.forEach((element, index) => {
-          console.log(index)
+          //console.log(index)
           // Need to guard against null, as an empty timeSlot is added to list with a null.
           if (!this.isObjEmpty(element)) {
             //console.log(element.timeString)
@@ -664,6 +664,25 @@
         // return this.$store.getters.step_infoValid
       },
 
+      countryName: {
+        get() {
+          let rawStr = this.$store.state.contactCountryName
+          return rawStr
+        },
+        set(name) {
+          return this.$store.dispatch('setContactCountryName', name.trim())
+        }
+      },
+
+      countryCode: {
+        get() {
+          let rawStr = this.$store.state.contactCountryCode
+          return rawStr
+        },
+        set(code) {
+          return this.$store.dispatch('setContactCountryCode', code)
+        }
+      },
 
       contactPhone: {
         get() {
@@ -832,11 +851,8 @@
       // Select the Country Code Prefix when a user clicks on a row in the 
       // Popup table's list
       handleCountryTableClick: function (clickedCodePrefix) {
-        //alert("clicked! " + clickedCodePrefix)
-        this.countryPrefixCodeBuffer = clickedCodePrefix
-        //if (this.contactPhone === '' || this.contactPhone === '+') {
-        this.contactPhone = this.countryPrefixCodeBuffer
-        this.countriesListingDialog = false // close dialog box
+        //console.log("clicked! " + clickedCodePrefix)
+        this.contactCountryCode = clickedCodePrefix
         //}
       },
 
@@ -865,6 +881,89 @@
       // Trying to handle leading Zeros in string (after the '+' symbol). 
       // Have removed all the Country Codes that start with Zero (Antacrtica, etc)
       //
+
+      /**\
+       * Only allow for 1-3 numeric inputs (Phone Country Code)
+       * Trigger filtering of the list of Country Codes pop up.
+       */
+      updateCountryCode: function () {
+        //console.log(this.countryCode)
+        this.countryCode = (this.countryCode + '').replace(/[^0-9]/g, '')
+        
+
+        this.filteredCountryCodes = countrycodes.filter( country => (country.phoneCode + '').startsWith(this.countryCode + '') )
+        //console.log('List of found countries: ', this.filteredCountryCodes)
+
+        // if ( this.filteredCountryCodes.length === 0 ) return false  // found matching country 
+        // return true         // no country found.
+      },
+
+      onCountryCodeBlur: function () {
+        this.checkIfValidCountry()
+        let self = this
+        setTimeout(() => {
+          self.countriesListingDialog = false
+        }, 100)
+      },
+
+      onCountryCodeFlagClick: function () {
+        //console.log(this.$refs.CountryCode[0].$el.childNodes[0].childNodes[0].childNodes[1].childNodes[2])
+        //this.$refs.CountryCode[0].$el.click()
+        //this.$nextTick(() => this.$refs.CountryCode[0].focus() ) 
+        setTimeout(() => {
+          this.$refs.CountryCode[0].$el.childNodes[0].childNodes[0].childNodes[1].childNodes[2].click()
+          self.countriesListingDialog = true
+        }, 130)
+      },
+
+      onCountryCodeFocus: function () {
+        this.checkIfValidCountry()
+        this.countriesListingDialog = true
+      },
+
+      onCountryListingClickNew: function (ev) {
+        const childrenList = ev.target.parentNode.childNodes
+        const cCode = childrenList[0].innerText.replace(/\D|^\++/g, "")   // strip out leading +
+        const cFlag = childrenList[1].innerText
+        const cCountry = childrenList[2].innerText
+        //console.log(cCode, cFlag, cCountry)
+        this.onCountryListingClick(cCode, cFlag, cCountry)
+      },
+
+      onCountryListingClick: function (code, mapChar, countryName) {
+        //console.log(code, mapChar, countryName)
+        this.countryCode = code
+        this.countryMap = mapChar
+        this.countryName = countryName
+        this.countriesListingDialog = false
+        this.$nextTick(() => this.$refs.Phone[0].focus() ) 
+      },
+
+      checkIfValidCountry: function () {
+        // If the current value of the country code input doesn't match a
+        // country in the countrycodes.js file, then delete entirely so it
+        // will show an invalid code when leaving this input.
+        const foundCodes = countrycodes.filter( country => (country.phoneCode + '') === this.countryCode + '' )
+        if ( foundCodes.length === 0 ) {    // No match found
+          this.countryCode = ''
+          this.countryMap = ''
+        } else if ( foundCodes.length >= 1 ) {   // 1x match found
+          this.countryCode = foundCodes[0].phoneCode
+          this.countryMap = foundCodes[0].map
+        }
+
+      },
+
+      onClickOutside: function () {
+        //console.log("Clicked outside")
+        this.countriesListingDialog = false
+      },
+      include: function () {
+        //console.log("calling excluded")
+        return [document.querySelector('.excluded')]
+      },
+
+
       updatePhoneCountryData: function () {
         let userInputStr = this.contactPhone + ''   // convert to String
         // split into 2x strings, the first is the '+' and the rest of the number as a String
@@ -947,6 +1046,12 @@
 </style>
 
 <style scoped>
+
+.countryPopUp {
+  position: absolute;
+  z-index: 1000;
+  top: 50px;
+}
 
 .stepInfo {
   max-width: 1100px;

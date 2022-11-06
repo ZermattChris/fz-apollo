@@ -103,6 +103,8 @@ export default new Vuex.Store({
     // timeSlot:      +localStorage.selectedTimeslot || -1,
     timeSlotLabel:  localStorage.selectedTimeslotLabel || "",
 
+    contactCountryCode:   localStorage.contactCountryCode || "",
+    contactCountryName:   localStorage.contactCountryName || "",
     contactPhone:   localStorage.contactPhone || "",
     contactEmail:   localStorage.contactEmail || "",
     orderMessage:   localStorage.orderMessage || "",
@@ -260,6 +262,14 @@ export default new Vuex.Store({
     //   state.timeSlot = slotInt;
     //   state.timeSlotLabel = slotLabel
     // },
+
+    CONTACT_COUNTRYNAME(state, name) {
+      state.contactCountryName = name
+    },
+
+    CONTACT_COUNTRYCODE(state, code) {
+      state.contactCountryCode = code
+    },
 
     CONTACT_PHONE(state, phoneNr) {
       state.contactPhone = phoneNr
@@ -650,6 +660,14 @@ export default new Vuex.Store({
 
     },
 
+    setContactCountryName(context, name) {
+      context.commit("CONTACT_COUNTRYNAME", name)
+      localStorage.contactCountryName = name
+    },
+    setContactCountryCode(context, code) {
+      context.commit("CONTACT_COUNTRYCODE", code)
+      localStorage.contactCountryCode = code
+    },
     setContactPhone(context, phoneNr) {
       context.commit("CONTACT_PHONE", phoneNr)
       localStorage.contactPhone = phoneNr

@@ -20,7 +20,7 @@
     "required": "Required",
     "max-20-chars": "Max 20 characters",
     "invalid-email": "Invalid Email...",
-    "phone-hint": "hint: CountryCode + Number (no leading Zeros)"
+    "phone-hint": "Invalid phone number..."
   },
 
   "step-start": {

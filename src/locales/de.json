@@ -20,7 +20,7 @@
     "required": "Erforderlich",
     "max-20-chars": "Max 20 Zeichen",
     "invalid-email": "Ungültige Email...",
-    "phone-hint": "hint: Ländervorwahl + Nummer (keine führenden Nullen)"
+    "phone-hint": "Ungültige Telefonnummer..."
   },
 
   "step-start": {
