@@ -549,12 +549,11 @@
     },
 
     created() {
-      // Show Phone country flags and Tooltip if matching.
-      // this.updatePhoneCountryData()
 
       // Find Country Flag that matches the CountryCode value.
-      const foundCodes = countrycodes.filter( country => (country.phoneCode + '') === this.countryCode + '' )
-      //console.log(foundCodes)
+      const foundCodes = countrycodes.filter( country => (country.value) === this.countryName )
+      // console.log(this.countryName)
+      // console.log(foundCodes)
       if ( foundCodes.length > 0 ) {    // Single match found. Update flag
         this.countryMap = foundCodes[0].map
       }
@@ -568,10 +567,8 @@
 
     },
     mounted() {
-      // set focus to Phone Input if field is empty.
-      if (this.contactPhone === '') {
-        //this.$refs.Phone[0].focus()
-      }
+      
+
     },
 
 
