@@ -332,6 +332,10 @@
           .catch(function (error) {
             console.log("Getting an error back in the bookWithTommy() 'catch'")
             console.error("Error:", error)
+            // TODO show the user that an error occured when completing the booking
+            // and that they should contact us.
+            // Could use a timeout, ca 3 seconds, and try again 3-4 times, before
+            // failing. A final fail should send us an FAILURE email to bookings@flyzermatt.com
           })
 
       },
