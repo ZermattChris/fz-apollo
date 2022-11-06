@@ -317,7 +317,7 @@
               <v-icon left>
                 mdi-phone
               </v-icon>
-              +{{contactPhone}}
+              +{{countryCode + ' ' + contactPhone}}
             </v-chip>
 
             <!-- Email -->
@@ -329,7 +329,7 @@
               <v-icon left>
                 mdi-email
               </v-icon>
-              {{contactEmail}}
+              {{contactEmail}} 
             </v-chip>
 
 
