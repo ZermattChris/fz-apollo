@@ -152,6 +152,7 @@
                     <div
                       id="flagIconHolder"
                       style="position:absolute; right:18px; top:6px; font-size:1.3em;"
+                      @click="onCountryCodeFlagClick"
                     >
                       {{countryMap}}
                     </div>
@@ -898,6 +899,16 @@
         }, 100)
       },
 
+      onCountryCodeFlagClick: function () {
+        //console.log(this.$refs.CountryCode[0].$el.childNodes[0].childNodes[0].childNodes[1].childNodes[2])
+        //this.$refs.CountryCode[0].$el.click()
+        //this.$nextTick(() => this.$refs.CountryCode[0].focus() ) 
+        setTimeout(() => {
+          this.$refs.CountryCode[0].$el.childNodes[0].childNodes[0].childNodes[1].childNodes[2].click()
+          self.countriesListingDialog = true
+        }, 130)
+      },
+
       onCountryCodeFocus: function () {
         this.checkIfValidCountry()
         this.countriesListingDialog = true
@@ -919,9 +930,8 @@
         this.countryName = countryName
         this.countriesListingDialog = false
         this.$nextTick(() => this.$refs.Phone[0].focus() ) 
-
-        
       },
+
       checkIfValidCountry: function () {
         // If the current value of the country code input doesn't match a
         // country in the countrycodes.js file, then delete entirely so it
