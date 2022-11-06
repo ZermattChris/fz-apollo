@@ -550,7 +550,14 @@
 
     created() {
       // Show Phone country flags and Tooltip if matching.
-      this.updatePhoneCountryData()
+      // this.updatePhoneCountryData()
+
+      // Find Country Flag that matches the CountryCode value.
+      const foundCodes = countrycodes.filter( country => (country.phoneCode + '') === this.countryCode + '' )
+      //console.log(foundCodes)
+      if ( foundCodes.length > 0 ) {    // Single match found. Update flag
+        this.countryMap = foundCodes[0].map
+      }
 
       // Open all the accordians
       for (let step = 0; step < this.usersGroupSize; step++) {
@@ -590,7 +597,7 @@
         //console.log(slotList)
 
         slotList.forEach((element, index) => {
-          console.log(index)
+          //console.log(index)
           // Need to guard against null, as an empty timeSlot is added to list with a null.
           if (!this.isObjEmpty(element)) {
             //console.log(element.timeString)
