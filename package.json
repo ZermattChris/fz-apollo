@@ -20,7 +20,7 @@
     "es6-promise": "^4.2.8",
     "intersection-observer": "^0.12.0",
     "mobile-device-detect": "^0.3.3",
-    "npm": "^6.14.16",
+    "npm": "^9.4.1",
     "stripe": "^8.219.0",
     "swiper": "^6.8.4",
     "vue": "^2.6.11",
