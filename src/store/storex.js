@@ -93,10 +93,11 @@ export default new Vuex.Store({
 
     totalPassengers: initPassengersInTimeSlot(),     // This is to replace nrPeople below, as using multiple inputs over slots
 
-    //nrPeople:      +localStorage.nrPeople || 0,   // deprecated. Use: totalPassengers
-    arriveDate:     localStorage.arriveDate || "",
-    flightDate:     localStorage.flightDate || "",    //'', // init to empty. The init API then sets a valid date when run below.
-    departDate:     localStorage.departDate || "",
+    // Changed to Session Storage to try and remove stale date bug.
+    arriveDate:     sessionStorage.arriveDate || "",
+    flightDate:     sessionStorage.flightDate || "",    //'', // init to empty. The init API then sets a valid date when run below.
+    departDate:     sessionStorage.departDate || "",
+
     selectedFlight: +localStorage.selectedFlight || "",    // Flight ID from Tommy.
     wantsPhotos:    localStorage.wantsPhotos ? JSON.parse(localStorage.wantsPhotos) : false,  // convert to bool if not undefined.
     
@@ -606,15 +607,15 @@ export default new Vuex.Store({
 
     setArriveDate(context, dateStr) {
       context.commit("ARRIVE_DATE", dateStr)
-      localStorage.arriveDate = dateStr
+      sessionStorage.arriveDate = dateStr
     },
     setDepartDate(context, dateStr) {
       context.commit("DEPART_DATE", dateStr)
-      localStorage.departDate = dateStr
+      sessionStorage.departDate = dateStr
     },
     setFlightDate(context, dateStr) {
       context.commit("CHOSEN_DATE", dateStr)
-      localStorage.flightDate = dateStr
+      sessionStorage.flightDate = dateStr
       // Also need to set the selectedDate to match, so this is always correct and
       // doesn't fall out of sync (or just remove it from the Passengers slot object altogether...)
       // const rawSlotPassengers = {
