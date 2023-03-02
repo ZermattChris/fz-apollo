@@ -71,7 +71,7 @@ export default new Vuex.Store({
     // Stripe customer id and secret stored in localstorage.
     custClientId:     localStorage.custClientId || "",
     custClientSecret: sessionStorage.getItem('custClientSecret') || "",   // don't store to localstorage!
-    setupIntentId: localStorage.setupIntentId || "",   
+    setupIntentId: sessionStorage.setupIntentId || "",   
 
     // Now that we've released production code, need to dynamically set this,
     // so that "https://secure.flyzermatt.com/blabla" automatically runs the 
@@ -193,7 +193,7 @@ export default new Vuex.Store({
     },
     STRIPE_CUSTOMER_SETUPINTENT_ID(state, id) {
       state.setupIntentId = id
-      localStorage.setupIntentId = id
+      sessionStorage.setupIntentId = id
     },
 
     
