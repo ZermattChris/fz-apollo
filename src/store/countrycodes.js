@@ -420,6 +420,9 @@ const countrycodes = [
       code: 'NZ', map: '🇳🇿', phoneCode: 64, value: 'New Zealand',
     },
     {
+      code: 'NL', map: '🇳🇱', phoneCode: 31, value: 'Netherlands',
+    },
+    {
       code: 'NI', map: '🇳🇮', phoneCode: 505, value: 'Nicaragua',
     },
     {
