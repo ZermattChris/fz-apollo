@@ -39,7 +39,7 @@
     "@mdi/js": "^5.6.55",
     "@testing-library/vue": "^5.8.2",
     "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-plugin-e2e-cypress": "~4.4.0",
+    "@vue/cli-plugin-e2e-cypress": "~5.0.8",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-plugin-router": "~4.4.0",
     "@vue/cli-plugin-unit-jest": "~4.4.0",
