@@ -135,6 +135,14 @@ const countrycodes = [
     {
       code: 'CF', map: '🇨🇫', phoneCode: 236, value: 'Central African Republic',
     },
+
+
+
+    {
+      code: 'CZ', map: '🇨🇿', phoneCode: 420, value: 'Czech Republic',
+    },
+
+
     {
       code: 'TD', map: '🇹🇩', phoneCode: 235, value: 'Chad',
     },
