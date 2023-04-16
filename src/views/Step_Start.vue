@@ -5,14 +5,10 @@
       {{$t('step-start.description')}}
     </PageHeader>
 
-    <!-- <v-btn
-      elevation="2"
-      @click="onSMSTestBtn"
-      class="float-left mt-2"
-    >
-      SMS TEST
-    </v-btn> -->
 
+
+
+    
 
     <div id="steps-controls" class="ml-n2 ml-sm-2 ml-md-8 ml-lg-12 pt-sm-2" style="max-width:500px;">
 
@@ -25,7 +21,6 @@
       </h3>
 
       <div class="controls mb-0 mb-sm-2 mb-md-4">
-
         <!-- Preferred Flight Date Calendar  -->
         <v-date-picker v-model="flightDate" first-day-of-week="0" show-current
           :landscape="this.$vuetify.breakpoint.name === 'xs' ? false : true" :locale="$i18n.locale" :min="flightMinDate"

@@ -29,8 +29,11 @@
       <div 
         id="logo"
         class="pl-4"
+        style="postion:relative; outline:1px yellow solid;"
       >
-        <v-img
+
+    <ResetButton/>
+        <!-- <v-img
           alt="FlyZermatt Logo"
           class="shrink"
           contain
@@ -40,7 +43,7 @@
           max-height="130"
           ref="fzlogo"
           
-        />
+        /> -->
       </div>
 
       <!-- LIVE: Language Switch Menu -->
@@ -339,6 +342,7 @@
 <script>
 import NavButton from '@/components/NavButton.vue'
 import LangMenu from '@/components/LangMenu.vue'
+import ResetButton from '@/components/ResetDataButton.vue'
 
 import { format } from 'date-fns'
 import { mdiDeleteForever, mdiChevronLeft, mdiArrowRightCircle, mdiLock } from '@mdi/js'
@@ -351,6 +355,7 @@ export default {
   components: {
     NavButton,
     LangMenu,
+    ResetButton
   },
 
   // Reactive data
