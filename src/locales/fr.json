@@ -14,7 +14,8 @@
     "breadcrumb-info": "Infos sur les Passagers",
     "breadcrumb-pay": "Payer",
     "close": "Fermer",
-    "done": "Terminé"
+    "done": "Terminé",
+    "reset-data": "Réinitialisez vos dates de vol et vos informations?"
   },
   "form": {
     "required": "Obligatoire",

@@ -14,7 +14,8 @@
     "breadcrumb-info": "Passenger Info",
     "breadcrumb-pay": "Pay",
     "close": "Close",
-    "done": "Done"
+    "done": "Done",
+    "reset-data": "Reset your flight Dates and Info?"
   },
   "form": {
     "required": "Required",

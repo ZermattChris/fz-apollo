@@ -14,7 +14,8 @@
     "breadcrumb-info": "승객 정보",
     "breadcrumb-pay": "지불",
     "close": "닫다",
-    "done": "완료"
+    "done": "완료",
+    "reset-data": "항공편 날짜 및 정보를 재설정하시겠습니까?"
   },
   "form": {
     "required": "필수",

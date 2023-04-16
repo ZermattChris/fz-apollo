@@ -14,7 +14,8 @@
     "breadcrumb-info": "Passagierinfo",
     "breadcrumb-pay": "Bezahlen",
     "close": "Schliessen",
-    "done": "Fertig"
+    "done": "Fertig",
+    "reset-data": "Ihre Flugdaten und Informationen zurücksetzen?"
   },
   "form": {
     "required": "Erforderlich",
