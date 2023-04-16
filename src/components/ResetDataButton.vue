@@ -44,6 +44,18 @@ export default {
 
     onClickedBtn: function () {
       console.log("clicked reset button")
+
+      this.$store.dispatch('setFlightDate', '')
+      this.$store.dispatch('setArriveDate', '')
+      this.$store.dispatch('setDepartDate', '')
+      this.$store.dispatch('setFlight', '')
+      this.$store.dispatch('setWantsPhotos', false)
+
+      this.$store.dispatch('clearSlotsPassengers')
+
+      //return to the Start page and reload. Fingers crossed.
+      if (this.$router.history._startLocation !== '/') this.$router.push('/')
+
     },
 
     
@@ -58,7 +70,6 @@ export default {
 <style scoped>
 
   #reset {
-    outline: 1px maroon solid;
     width: 100%;
     height: 100%;
     position: absolute;

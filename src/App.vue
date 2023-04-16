@@ -29,21 +29,8 @@
       <div 
         id="logo"
         class="pl-4"
-        style="postion:relative; outline:1px yellow solid;"
       >
-
-    <ResetButton/>
-        <!-- <v-img
-          alt="FlyZermatt Logo"
-          class="shrink"
-          contain
-          src="@/assets/FlyZermatt-logo-light.svg"
-          transition="scale-transition"
-          max-width="200"
-          max-height="130"
-          ref="fzlogo"
-          
-        /> -->
+        <ResetButton/>
       </div>
 
       <!-- LIVE: Language Switch Menu -->
