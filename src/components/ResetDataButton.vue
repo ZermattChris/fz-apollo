@@ -45,6 +45,10 @@ export default {
     onClickedBtn: function () {
       console.log("clicked reset button")
 
+      if (!window.confirm('Reset your flight Dates and Info?')) {
+        return
+      }
+
       this.$store.dispatch('setFlightDate', '')
       this.$store.dispatch('setArriveDate', '')
       this.$store.dispatch('setDepartDate', '')
@@ -54,7 +58,7 @@ export default {
       this.$store.dispatch('clearSlotsPassengers')
 
       //return to the Start page and reload. Fingers crossed.
-      if (this.$router.history._startLocation !== '/') this.$router.push('/')
+      this.$router.push('/')
 
     },
 
