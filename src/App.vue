@@ -837,8 +837,8 @@ export default {
 
       if (confirm("DEBUG: Clear all stored data?") !== true) return
 
-      localStorage.clear()
-      sessionStorage.clear()    // this should reset all of the Stripe data as well.
+      window.localStorage.clear()
+      window.sessionStorage.clear()    // this should reset all of the Stripe data as well.
 
       if (this.$route.name !== 'Start') {
         this.$router.push('/') // return to step 1

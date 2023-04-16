@@ -57,6 +57,10 @@ export default {
 
       this.$store.dispatch('clearSlotsPassengers')
 
+
+      window.localStorage.clear()
+      window.sessionStorage.clear()    // this should reset all of the Stripe data as well.
+
       //return to the Start page and reload. Fingers crossed.
       if (this.$route.name !== 'Start') {
         this.$router.push('/') // return to step 1
