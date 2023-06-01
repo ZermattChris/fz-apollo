@@ -153,7 +153,7 @@ const countrycodes = [
       code: 'CN', map: '🇨🇳', phoneCode: 86, value: 'China',
     },
     {
-      code: 'HK', map: '🇭🇰', phoneCode: 86, value: 'Hong Kong',
+      code: 'HK', map: '🇭🇰', phoneCode: 852, value: 'Hong Kong',
     },
     {
       code: 'CX', map: '🇨🇽', phoneCode: 61, value: 'Christmas Island',
