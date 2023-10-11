@@ -469,15 +469,15 @@ export default {
       const obj = this.$store.getters.getFlightRawBodyObj()
       //console.log('flightBodyStr before null check: ' + obj)
       if (obj == null || obj == undefined) return ''
-      console.log('------ flightBodyStr: ')
-      console.log(obj[this.currLang])
+      // console.log('------ flightBodyStr: ')
+      // console.log(obj[this.currLang])
       return obj[this.currLang]
     },
 
 
     currLang: function () {
       var lang = this.$store.state.locale
-      console.log("Grabbing curr lang: " + lang)
+      //console.log("Grabbing curr lang: " + lang)
       if (lang == '' || lang == undefined) lang = 'en'   // set default, as empty throws errors later on.
       return lang
     },

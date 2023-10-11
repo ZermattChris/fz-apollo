@@ -1021,8 +1021,8 @@ export default new Vuex.Store({
       for (const flghtObj of state._flightsList) {
         //console.log(flghtObj)
         if (flghtObj.id === state.selectedFlight ) {
-          console.log("Found Flight obj:")
-          console.log(flghtObj)
+          // console.log("Found Flight obj:")
+          // console.log(flghtObj)
           return flghtObj.body
         }
       }
