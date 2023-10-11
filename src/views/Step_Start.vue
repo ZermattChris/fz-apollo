@@ -737,6 +737,14 @@ export default {
         return
       }
 
+
+      // Need to make a switch, as Git has pushed this to master origin 
+      if (this.$store.state._DEV === false) {
+        console.warn("TODO: Remove dialog blocker once git problems with master fixed.")
+        return
+      }
+
+      
       // check if user selected the Elite flight and if yes, show info dialog.
       this.flightInfoDialog = true
 
