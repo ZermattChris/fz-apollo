@@ -122,30 +122,28 @@
       </div>
 
       <!-- This is an Info dialog that's shown to the user if they choose the Elite flight.  -->
-      <v-dialog v-model="eliteDialog" width="500">
+      <v-dialog v-model="flightInfoDialog" width="500">
         <template v-slot:activator="{}">
         </template>
 
         <v-card>
           <v-card-title class="text-h5 grey lighten-2">
             {{$t('step-start.flightInfo')}} -
-            <span v-if="isHeliClassic" class="pl-1">
-              Classic + Heli Fly
-            </span>
-            <span v-if="isKlein" class="pl-1">
-              Elite
-            </span>
-            <span v-if="isClassic" class="pl-1">
-              Classic High
-            </span>
-            <span v-if="isScenic" class="pl-1">
-              Scenic
+            <!-- Need to get the Flight Name of selected Flight. -->
+            <span class="pl-1">
+              {{ flightName }}
             </span>
           </v-card-title>
 
           <v-card-text class="pt-4">
 
-            <div v-if="isHeliClassic">
+            <!-- Adding the update that lets the front end manage online flight types. -->
+            <!-- NOTE: We're passing in the current ISO lang string to select the correct lang from this object.  -->
+            <FlightDialogBody :body="flightBodyStr" :lang="currLang">
+              
+            </FlightDialogBody>
+
+            <!-- <div v-if="isHeliClassic">
               <p>
                 <span v-html="$t('step-start.heliClassicPopup.paragraphOne')" />
               </p>
@@ -169,11 +167,11 @@
                 </v-icon>
                 <span v-html="$t('step-start.heliClassicPopup.paragraphThree')" />
               </p>
-            </div>
+            </div> -->
 
 
 
-            <div v-if="isKlein">
+            <!-- <div>
               <p>
                 <span v-html="$t('step-start.kleinPopup.paragraphOne')" />
               </p>
@@ -192,9 +190,9 @@
                 </v-icon>
                 <span v-html="$t('step-start.kleinPopup.paragraphFour')" />
               </p>
-            </div>
+            </div> -->
 
-            <div v-if="isClassic">
+            <!-- <div v-if="isClassic">
               <p>
                 <span v-html="$t('step-start.classicPopup.paragraphOne')" />
               </p>
@@ -241,7 +239,7 @@
                 </v-icon>
                 <span v-html="$t('step-start.scenicPopup.paragraphFive')" />
               </p>
-            </div>
+            </div> -->
 
           </v-card-text>
 
@@ -281,7 +279,7 @@
 
 
 
-      <!-- This is an Info dialog that's shown to the user if they choose the Elite flight. -->
+      <!--  -->
       <v-dialog v-model="photosVideoDialog" width="500">
         <template v-slot:activator="{}">
         </template>
@@ -371,12 +369,15 @@ import { mdiInformation, mdiArrowRightBoldCircleOutline, mdiCheckCircleOutline, 
 import i18n from '@/i18n'
 
 import PageHeader from '@/components/PageHeader.vue'
+import FlightDialogBody from '@/components/FlightDialogBody.vue'
+
 //const VueScrollTo = require('vue-scrollto');
 
 export default {
   name: 'Start',
   components: {
-    PageHeader
+    PageHeader,
+    FlightDialogBody
   },
 
   props: {}, 
@@ -400,7 +401,7 @@ export default {
       nrPeopleEnabled: false,
 
       bigGroupDialog: false,
-      eliteDialog: false,
+      flightInfoDialog: false,
       photosVideoDialog: false,
       hoverPhotoVidsCarousel: true,
 
@@ -411,10 +412,10 @@ export default {
       // flightMenu: false,
       departMenu: false,
 
-      isHeliClassic: false,
-      isKlein: false,
-      isClassic: false,
-      isScenic: false,
+      // isHeliClassic: false,
+      // isKlein: false,
+      // isClassic: false,
+      // isScenic: false,
 
       myLocal: enGB,    // default date-fns locale
 
@@ -455,12 +456,34 @@ export default {
     if (this.$i18n.locale === 'en') this.myLocal = enGB 
     if (this.$i18n.locale === 'de') this.myLocal = de 
     if (this.$i18n.locale === 'ko') this.myLocal = ko 
+    //console.log(this.myLocal)
   },
 
 
 
 
   computed: {
+
+
+    flightBodyStr: function () {
+      const obj = this.$store.getters.getFlightRawBodyObj()
+      //console.log('flightBodyStr before null check: ' + obj)
+      if (obj == null || obj == undefined) return ''
+      console.log('------ flightBodyStr: ')
+      console.log(obj[this.currLang])
+      return obj[this.currLang]
+    },
+
+
+    currLang: function () {
+      var lang = this.$store.state.locale
+      console.log("Grabbing curr lang: " + lang)
+      if (lang == '' || lang == undefined) lang = 'en'   // set default, as empty throws errors later on.
+      return lang
+    },
+    flightName: function () {
+      return this.$store.getters.getFlightName()
+    },
 
     hasValidFlightDate: function () {
       if ( isAfter( sub(parseISO(this.flightDate), {days: -1}), Date.now() ) ) {
@@ -702,7 +725,7 @@ export default {
 
     closeFlightDialog () {
 
-      this.eliteDialog = false
+      this.flightInfoDialog = false
       this.scrollToId('#arriveInput')
 
     },
@@ -715,38 +738,38 @@ export default {
       }
 
       // check if user selected the Elite flight and if yes, show info dialog.
-      this.eliteDialog = true
+      this.flightInfoDialog = true
 
 
-      // Classic + Heli
-      if (this.$store.state.selectedFlight === 41) {
-        this.isHeliClassic = true,
-        this.isKlein = false,
-        this.isClassic = false,
-        this.isScenic = false
-      }
+      // // Classic + Heli
+      // if (this.$store.state.selectedFlight === 41) {
+      //   this.isHeliClassic = true,
+      //   this.isKlein = false,
+      //   this.isClassic = false,
+      //   this.isScenic = false
+      // }
 
-      // Klein
-      if (this.$store.state.selectedFlight === 40) {
-        this.isHeliClassic = false,
-        this.isKlein = true,
-        this.isClassic = false,
-        this.isScenic = false
-      }
-      // Classic
-      if (this.$store.state.selectedFlight === 38) {
-        this.isHeliClassic = false,
-        this.isKlein = false,
-        this.isClassic = true,
-        this.isScenic = false
-      }
-      // Scenic
-      if (this.$store.state.selectedFlight === 39) {
-        this.isHeliClassic = false,
-        this.isKlein = false,
-        this.isClassic = false,
-        this.isScenic = true
-      }
+      // // Klein
+      // if (this.$store.state.selectedFlight === 40) {
+      //   this.isHeliClassic = false,
+      //   this.isKlein = true,
+      //   this.isClassic = false,
+      //   this.isScenic = false
+      // }
+      // // Classic
+      // if (this.$store.state.selectedFlight === 38) {
+      //   this.isHeliClassic = false,
+      //   this.isKlein = false,
+      //   this.isClassic = true,
+      //   this.isScenic = false
+      // }
+      // // Scenic
+      // if (this.$store.state.selectedFlight === 39) {
+      //   this.isHeliClassic = false,
+      //   this.isKlein = false,
+      //   this.isClassic = false,
+      //   this.isScenic = true
+      // }
 
     },
 

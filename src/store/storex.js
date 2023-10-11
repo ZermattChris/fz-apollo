@@ -12,6 +12,9 @@ import navigation from './modules/nav'
 // -----------------
 
 
+import testFlightData from "./test.json";
+
+
 //import { format, add, sub, parseISO, isAfter, isBefore, isEqual } from 'date-fns'
 // import { format, add, isBefore, parseISO } from 'date-fns'
 
@@ -444,6 +447,10 @@ export default new Vuex.Store({
     // ******************** API: Flight Options ********************
     // This needs to return a json object listing each flight's id, name and price in CHF.
     async flightOptions(context) {
+
+      // console.log("testFlightData on load - before: " + testFlightData)
+      // console.log("flightDate on load - before: " + context.state.flightDate)
+
       // Return if the date is not set/valid.
       const flDate = context.state.flightDate;
       if (flDate === '') return
@@ -452,7 +459,18 @@ export default new Vuex.Store({
 
       // Setup dev/live API call to Tommy.
       let apiPath = "https://bookings.simpleitsolutions.ch/api/flightoptions/" + flDate
-      if (context.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/flightoptions/" + flDate
+      //if (context.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/flightoptions/" + flDate
+
+
+      // local test data until Tom delivers.
+      if (context.state._DEV === true) {
+        //console.log("testFlightData on load: " + testFlightData)
+        context.commit("FLIGHTS_LIST", testFlightData)
+        context.commit("FLIGHTSLIST_LOADING", false)
+        return
+      }
+
+
 
       //console.log("Loading Flight Options for drop menu Step 1 ->", flDate);
       return axios.get(apiPath)
@@ -971,9 +989,50 @@ export default new Vuex.Store({
 
     // Return the matching flight object, otherwise 'undefined'
     getFlightObjById: (state) => () => {
+      if (state._flightsList === undefined || state._flightsList === null) return
       let flightObj = state._flightsList.find(_flightsList => _flightsList.id === state.selectedFlight)
+      if (flightObj === undefined || flightObj === null) return
       return flightObj
     },
+
+    getFlightName: (state) => () => {
+      if (state._flightsList === undefined || state._flightsList === null || Object.keys(state._flightsList).length === 0) return
+      let flightObj = state._flightsList.find(_flightsList => _flightsList.id === state.selectedFlight)
+      if (flightObj === undefined || flightObj === null) return
+      return flightObj.name
+    },
+
+
+
+/* eslint-disable */
+    getFlightRawBodyObj: (state) => () => {
+      // //if (state._flightsList === undefined || state._flightsList === null || Object.keys(state._flightsList).length === 0) return -1
+      // let flightObj = state._flightsList.find(_flightsList => _flightsList.id === state.selectedFlight)
+      // if (flightObj === undefined || flightObj === null) return 
+      // //console.log(flightObj)
+      // return flightObj.body
+
+
+      //console.log("state.flightslist ***********")
+      //console.log(state.selectedFlight)
+      //console.log(state._flightsList)
+
+      // if we have a valid Array then loop through looking for the matching Flight Object's body. 
+      for (const flghtObj of state._flightsList) {
+        //console.log(flghtObj)
+        if (flghtObj.id === state.selectedFlight ) {
+          console.log("Found Flight obj:")
+          console.log(flghtObj)
+          return flghtObj.body
+        }
+      }
+
+
+      return null
+    },
+
+
+
 
   }  // END GETTERS
   
