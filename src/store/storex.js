@@ -12,7 +12,7 @@ import navigation from './modules/nav'
 // -----------------
 
 
-import testFlightData from "./test.json";
+//import testFlightData from "./test.json";
 
 
 //import { format, add, sub, parseISO, isAfter, isBefore, isEqual } from 'date-fns'
@@ -459,15 +459,15 @@ export default new Vuex.Store({
 
       // Setup dev/live API call to Tommy.
       let apiPath = "https://bookings.simpleitsolutions.ch/api/flightoptions/" + flDate
-      //if (context.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/flightoptions/" + flDate
+      if (context.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/flightoptions/" + flDate
 
 
       // local test data until Tom delivers.
       if (context.state._DEV === true) {
-        //console.log("testFlightData on load: " + testFlightData)
-        context.commit("FLIGHTS_LIST", testFlightData)
-        context.commit("FLIGHTSLIST_LOADING", false)
-        return
+        //console.log("testFlightData: ", testFlightData)
+        // context.commit("FLIGHTS_LIST", testFlightData)
+        // context.commit("FLIGHTSLIST_LOADING", false)
+        // return
       }
 
 
@@ -510,6 +510,7 @@ export default new Vuex.Store({
       return axios.get(apiPath)
         .then(response => {
           let data = response.data;
+          console.log("-- Tommy data --", data)
           context.commit("TIMELIST_DATES", data)
         })
         .catch(error => {

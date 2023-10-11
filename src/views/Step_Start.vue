@@ -836,7 +836,7 @@ export default {
       let newFlightsList = []
 
       // Custom Sort order, so we have Classic at top, etc.
-      obj = this.customFlightSort(obj)
+      //obj = this.customFlightSort(obj)
 
       // eslint-disable-next-line no-unused-vars
       for (const [key, value] of Object.entries(obj)) {
@@ -852,7 +852,8 @@ export default {
 
 
     customFlightSort (flightsObj) {
-      //console.log(flightsObj)
+      console.log("Tommy flight obj")
+      console.log(flightsObj)
 
       // As our flight id's are not in any particular order, need to do a
       // switch and manually sort them as desired.
@@ -863,39 +864,41 @@ export default {
 
       let sortedArray = []
 
+      /* eslint-disable */ 
       for (const key of Object.keys(flightsObj)) {
         //console.log(flightsObj[key].id, flightsObj[key].name, flightsObj[key].price)
 
-        switch (flightsObj[key].id) {
-          case 38:        // "Classic"
-            sortedArray[0] = {
-              id: flightsObj[key].id,
-              name: flightsObj[key].name,
-              price: flightsObj[key].price
-            }
-            break
-          case 39:        // "Scenic"
-            sortedArray[1] = {
-              id: flightsObj[key].id,
-              name: flightsObj[key].name,
-              price: flightsObj[key].price
-            }
-            break
-          case 41:        // "HeliFly"
-            sortedArray[2] = {
-              id: flightsObj[key].id,
-              name: flightsObj[key].name,
-              price: flightsObj[key].price
-            }
-            break
-          case 40:        // "Elite"
-            sortedArray[3] = {
-              id: flightsObj[key].id,
-              name: flightsObj[key].name,
-              price: flightsObj[key].price
-            }
-            break
-        }
+        // OLD sorting code when all was hard coded.
+        // switch (flightsObj[key].id) {
+        //   case 38:        // "Classic"
+        //     sortedArray[0] = {
+        //       id: flightsObj[key].id,
+        //       name: flightsObj[key].name,
+        //       price: flightsObj[key].price
+        //     }
+        //     break
+        //   case 39:        // "Scenic"
+        //     sortedArray[1] = {
+        //       id: flightsObj[key].id,
+        //       name: flightsObj[key].name,
+        //       price: flightsObj[key].price
+        //     }
+        //     break
+        //   case 41:        // "HeliFly"
+        //     sortedArray[2] = {
+        //       id: flightsObj[key].id,
+        //       name: flightsObj[key].name,
+        //       price: flightsObj[key].price
+        //     }
+        //     break
+        //   case 40:        // "Elite"
+        //     sortedArray[3] = {
+        //       id: flightsObj[key].id,
+        //       name: flightsObj[key].name,
+        //       price: flightsObj[key].price
+        //     }
+        //     break
+        // }
 
       }
 
