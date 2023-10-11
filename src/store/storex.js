@@ -1018,7 +1018,7 @@ export default new Vuex.Store({
       //console.log(state._flightsList)
 
       // if we have a valid Array then loop through looking for the matching Flight Object's body. 
-      if (obj == null) return null
+      if (state._flightsList == null) return null
 
       for (const flghtObj of state._flightsList) {
         //console.log(flghtObj)
