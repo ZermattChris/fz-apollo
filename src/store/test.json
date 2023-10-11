@@ -1,35 +1,44 @@
 [
     {
-       "id":39,
+       "id":45,
        "name":"Scenic",
        "price":"190.00",
        "body": {
-            "en": "[location] We fly the Scenic from both Blauherd and Riffelberg. We try and choose the location that we feel will have the best conditions for your specific booking time. [p][p][star] We fly the Scenic in the Spring, Summer and Autumn, from Riffelberg/Blauherd (there is too much snow in winter forthese lower take off areas). [p][info]If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy.[p]And some empty para text to test",
-            "de": "[location] DE...",
-            "fr": "[location] FR...",
-            "ko": "[location] KO..."
+            "en": "[location] We fly the Scenic from both Blauherd and Riffelberg. We try and choose the location that we feel will have the best conditions for your specific booking time. [p][p][star] We fly the Scenic in the Spring, Summer and Autumn, from Riffelberg/Blauherd (there is too much snow in winter forthese lower take off areas). [p][info]If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy. [p]It is also possible to meet you on the mountain, if you would like to combine your flight with a day of hiking or sight seeing. IMPORTANT: Please add a 'Booking Message', on the payment page to let us know where you would like to meet.",
+
+            "de": "[location] Wir fliegen die Scenic sowohl von Blauherd als auch von Riffelberg. Wir versuchen, den Standort zu wählen, der unserer Meinung nach die besten Bedingungen für Ihre spezifische Buchungszeit bietet. [p][star] Wir fliegen den Scenic im Frühling, Sommer und Herbst von Riffelberg/Blauherd aus (im Winter liegt zu viel Schnee auf den niedrigeren Startplätzen). [p][info]Wenn Sie den Flug am frühen Morgen (08:00 Uhr) buchen, bitten wir Sie, einigermaßen fit, selbstbewusst und nicht zu schwer zu sein. [p]Es ist auch möglich, Sie auf dem Berg zu treffen, wenn Sie Ihren Flug mit einem Wandertag oder einer Besichtigungstour verbinden möchten. WICHTIG: Bitte fügen Sie auf der Zahlungsseite eine 'Booking Message' hinzu, um uns mitzuteilen, wo Sie sich treffen möchten. ",
+
+            "fr": "[location] Nous faisons voler le Scenic depuis Blauherd et Riffelberg. Nous essayons de choisir l'endroit qui, selon nous, offre les meilleures conditions pour votre réservation spécifique. [p][star] Nous faisons voler le Scenic au printemps, en été et en automne, depuis Riffelberg/Blauherd (il y a trop de neige en hiver pour ces zones de décollage plus basses). [p][info]Si vous réservez le vol tôt le matin (08h00), nous vous demandons d'être en assez bonne forme physique, d'avoir confiance en vous et de ne pas être trop lourd. [p]Il est également possible de vous rencontrer sur la montagne, si vous souhaitez combiner votre vol avec une journée de randonnée ou d'excursion. IMPORTANT : Veuillez ajouter un 'Message de réservation' sur la page de paiement pour nous faire savoir où vous souhaitez vous rencontrer. ",
+
+            "ko": "[location] NBlauherd와 Riffelberg 모두에서 경치 좋은 비행을 합니다. 우리는 귀하의 특정 예약 시간에 가장 적합한 위치를 선택하려고 노력합니다. [p][star] 우리는 봄, 여름, 가을에 Riffelberg/Blauherd에서 경치 좋은 비행을 합니다(겨울에는 이 낮은 이륙 지역에 눈이 너무 많이 내립니다). [p][info]이른 아침(08:00) 비행편을 예약하는 경우 상당히 건강하고 자신감 있고 너무 무겁지 않아야 합니다. [p] 비행편을 ​​하이킹 또는 관광과 결합하려는 경우 산에서 만날 수도 있습니다. 중요: 결제 페이지에서 '예약 메시지'를 추가하여 저희에게 알려주세요. 여러분이 만나고 싶은 곳을 알 수 있도록요."
        }
     },
     {
-       "id":38,
+       "id":99,
        "name":"Classic High",
        "price":"240.00",
        "body": {
-            "en": "The best time for the Classic High is in the mornings. It is often also possible to do this flight in the afternoon, but it depends on the day's conditions. \r\n\r\nWe fly the Classic High the entire year, in the summer from Rothorn and in the spring/autumn, from Gornergrat and/or Rotenboden. \r\n\r\nIf you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy.",
-            "de": "[location] DE...",
-            "fr": "[location] FR...",
-            "ko": "[location] KO..."
+            "en": "The best time for the Classic High is in the mornings. It is often also possible to do this flight in the afternoon, but it depends on the day's conditions. [p]We fly the Classic High the entire year, in the summer from Rothorn and in the spring/autumn, from Gornergrat and/or Rotenboden. [p]If you book the early morning (08:00) flight, we ask that you be be fairly fit, confident and not too heavy.",
+
+            "de": "Die beste Zeit für den Classic High ist morgens. Oft ist es auch möglich, diesen Flug am Nachmittag durchzuführen, aber das hängt von den Tagesbedingungen ab. [p] Wir fliegen den Classic High das ganze Jahr über, im Sommer vom Rothorn und im Frühling/Herbst vom Gornergrat und/oder Rotenboden. [p] Wenn Sie den Flug am frühen Morgen (08:00 Uhr) buchen, bitten wir Sie, einigermassen fit, sicher und nicht zu schwer zu sein.",
+
+            "fr": "Le meilleur moment pour effectuer l'altitude classique est le matin. Il est souvent aussi possible d'effectuer ce vol l'après-midi, mais cela dépend des conditions du jour. [p] Nous volons le Classic High toute l'année, en été depuis le Rothorn et au printemps/automne, depuis le Gornergrat et/ou Rotenboden. [p] Si vous réservez le vol tôt le matin (08:00), nous vous demandons d'être en assez bonne forme physique, d'avoir confiance en vous et de ne pas être trop lourd.",
+
+            "ko": "클래식 하이(Classic High)의 가장 좋은 시간은 아침입니다. 이 비행은 종종 오후에도 가능하지만 당일 조건에 따라 다릅니다. [p] 여름에는 로트호른에서, 봄/가을에는 고르너그라트 및/또는 로텐보덴에서 일 년 내내 클래식 하이를 비행합니다. [p] 이른 아침(08:00) 비행편을 예약하는 경우 꽤 건강하고 자신감 있고 너무 무겁지 않아야 합니다."
        }
     },
     {
-       "id":40,
+       "id":200,
        "name":"Elite",
        "price":"420.00",
        "body": {
-            "en": "The Elite flight is the highest tandem take off in the Alps - this makes for an amazing flight, but also means that both weather and snow conditions have to be just right. Winds are often strong at this altitude and our take off areas are on glacier/snow - because of this we try and do this flight early in the morning when conditions are the best. \r\n\r\n[location] We fly the Elite over the entire year, when ever wind and snow conditions allow. \r\n\r\nIf you book the Elite, we ask that you are happy to do the Classic High flight as a back-up - in case the conditions don't allow us to fly from Klein Matterhorn. \r\n\r\n[star]The Elite flight also requires passengers to be fairly fit, confident and not too heavy.",
-            "de": "[location] DE...",
-            "fr": "[location] FR...",
-            "ko": "[location] KO..."
+            "en": "The Elite flight is the highest tandem take off in the Alps - this makes for an amazing flight, but also means that both weather and snow conditions have to be just right. Winds are often strong at this altitude and our take off areas are on glacier/snow - because of this we try and do this flight early in the morning when conditions are the best.  [p] [location] We fly the Elite over the entire year, when ever wind and snow conditions allow.   [p] If you book the Elite, we ask that you are happy to do the Classic High flight as a back-up - in case the conditions don't allow us to fly from Klein Matterhorn.   [p][star] The Elite flight also requires passengers to be fairly fit, confident and not too heavy.",
+
+            "de": "Der Elite-Flug ist der höchstgelegene Tandemstart in den Alpen - das macht den Flug zu einem besonderen Erlebnis, bedeutet aber auch, dass sowohl das Wetter als auch die Schneebedingungen stimmen müssen. Die Winde sind in dieser Höhe oft stark und unsere Startplätze befinden sich auf dem Gletscher/Schnee - aus diesem Grund versuchen wir, diesen Flug früh am Morgen durchzuführen, wenn die Bedingungen am besten sind...  [p] [location] Wir fliegen die Elite das ganze Jahr über, wenn es die Wind- und Schneebedingungen erlauben.  [p] Wenn Sie den Elite-Flug buchen, bitten wir Sie, den Classic-High-Flug als Backup zu buchen - für den Fall, dass die Bedingungen es uns nicht erlauben, vom Klein Matterhorn aus zu fliegen.  [p][star] Auch für den Elite-Flug müssen die Passagiere einigermassen fit, selbstbewusst und nicht zu schwer sein.",
+
+            "fr": "Le vol Elite est le plus haut décollage en tandem dans les Alpes - cela donne un vol incroyable, mais signifie également que les conditions météorologiques et de neige doivent être parfaites. Les vents sont souvent forts à cette altitude et nos zones de décollage sont sur le glacier/la neige - pour cette raison, nous essayons de faire ce vol tôt le matin lorsque les conditions sont les meilleures.  [p] [location] Nous faisons voler l'Elite toute l'année, lorsque les conditions de vent et de neige le permettent.   [p] Si vous réservez l'Elite, nous vous demandons d'accepter de faire le vol d'altitude classique comme solution de secours, au cas où les conditions ne nous permettraient pas de voler depuis le Klein Matterhorn.   [p][star] Le vol Elite exige également que les passagers soient assez en forme, confiants et pas trop lourds.",
+
+            "ko": "엘리트(Elite) 비행은 알프스에서 가장 높은 탠덤 이륙입니다. 놀라운 비행을 선사하지만 날씨와 눈 조건이 모두 맞아야 합니다. 이 고도에서 바람은 종종 강하고 우리의 테이크 오프 지역은 빙하/눈 위입니다. 이 때문에 우리는 조건이 가장 좋은 이른 아침에 이 비행을 시도합니다.  [p] [location] 바람과 눈 조건이 허락하는 한 일년 내내 엘리트를 비행합니다.  [p] 엘리트를 예약하는 경우 클라인 마터호른에서 출발할 수 없는 상황에 대비하여 예비로 클래식 하이(Classic High) 비행편을 이용하시기 바랍니다.  [p][star] 엘리트 항공편은 승객이 충분히 건강하고 자신감 있고 너무 무겁지 않아야 합니다."
        }
     }
  ]

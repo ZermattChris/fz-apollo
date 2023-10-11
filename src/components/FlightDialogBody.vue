@@ -1,14 +1,26 @@
 <template>
   <div class="flight-body">
 
-    <p v-for="(para, key) in paragraphsList" :key="key">
+    <div>
 
-      <v-icon small color="warning" class="mr-1">
-        {{ infoIcon }}
+      <p v-for="(para, key) in paragraphsList" :key="key">
+
+        <v-icon small color="warning" class="mr-1">
+          {{ infoIcon }}
+        </v-icon>
+        {{ key }}
+        {{ para }}
+      </p>
+
+    </div>
+
+    <!-- <p>
+      TODO: This needs to switch between the langs...
+      <v-icon color="warning" class="">
+        mdi-star
       </v-icon>
-      {{ key }}
-      {{ para }}
-    </p>
+      <span v-html="$t('step-start.kleinPopup.paragraphFour')" />
+    </p> -->
 
   </div>
 </template>

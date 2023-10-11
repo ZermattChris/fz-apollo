@@ -12,7 +12,7 @@ import navigation from './modules/nav'
 // -----------------
 
 
-//import testFlightData from "./test.json";
+import testFlightData from "./test.json";
 
 
 //import { format, add, sub, parseISO, isAfter, isBefore, isEqual } from 'date-fns'
@@ -465,9 +465,9 @@ export default new Vuex.Store({
       // local test data until Tom delivers.
       if (context.state._DEV === true) {
         //console.log("testFlightData: ", testFlightData)
-        // context.commit("FLIGHTS_LIST", testFlightData)
-        // context.commit("FLIGHTSLIST_LOADING", false)
-        // return
+        context.commit("FLIGHTS_LIST", testFlightData)
+        context.commit("FLIGHTSLIST_LOADING", false)
+        return
       }
 
 

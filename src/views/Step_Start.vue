@@ -139,9 +139,10 @@
 
             <!-- Adding the update that lets the front end manage online flight types. -->
             <!-- NOTE: We're passing in the current ISO lang string to select the correct lang from this object.  -->
-            <FlightDialogBody :body="flightBodyStr" :lang="currLang">
-              
-            </FlightDialogBody>
+            <FlightDialogBody 
+              :body="flightBodyStr" 
+              :lang="currLang"
+            ></FlightDialogBody>
 
             <!-- <div v-if="isHeliClassic">
               <p>
