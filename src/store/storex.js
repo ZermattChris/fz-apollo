@@ -1018,7 +1018,7 @@ export default new Vuex.Store({
       //console.log(state._flightsList)
 
       // if we have a valid Array then loop through looking for the matching Flight Object's body. 
-      if (state._flightsList == null) return null
+      if (isIterable(state.selectedFlight) === false) return null
 
       for (const flghtObj of state._flightsList) {
         //console.log(flghtObj)
@@ -1040,6 +1040,19 @@ export default new Vuex.Store({
 
 });
 
+
+/**
+ * Determine whether the given `input` is iterable.
+ *
+ * @returns {Boolean}
+ */
+function isIterable(input) {  
+  if (input === null || input === undefined) {
+    return false
+  }
+
+  return typeof input[Symbol.iterator] === 'function'
+}
 
 
 /*****************************************************
