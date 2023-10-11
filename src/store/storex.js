@@ -1018,6 +1018,8 @@ export default new Vuex.Store({
       //console.log(state._flightsList)
 
       // if we have a valid Array then loop through looking for the matching Flight Object's body. 
+      if (obj == null) return null
+
       for (const flghtObj of state._flightsList) {
         //console.log(flghtObj)
         if (flghtObj.id === state.selectedFlight ) {
@@ -1026,7 +1028,6 @@ export default new Vuex.Store({
           return flghtObj.body
         }
       }
-
 
       return null
     },
