@@ -5,11 +5,33 @@
 
       <p v-for="(para, key) in paragraphsList" :key="key">
 
-        <v-icon small color="warning" class="mr-1">
-          {{ infoIcon }}
+        
+        <v-icon 
+          v-if="para.icon == 'location'"
+          small 
+          color="warning" 
+          class="mr-1"
+        >
+          {{mapIcon}}
         </v-icon>
-        {{ key }}
-        {{ para }}
+        <v-icon 
+          v-if="para.icon == 'info'"
+          small 
+          color="warning" 
+          class="mr-1"
+        >
+          {{infoIcon}}
+        </v-icon>
+        <v-icon 
+          v-if="para.icon == 'star'"
+          small 
+          color="warning" 
+          class="mr-1"
+        >
+          {{starIcon}}
+        </v-icon>
+       
+        {{ para.text }}
       </p>
 
     </div>
@@ -27,7 +49,7 @@
 
 <script>
 
-  import { mdiInformation } from '@mdi/js'
+  import { mdiInformationOutline, mdiStar, mdiMapMarker } from '@mdi/js'
 
   export default {
     name: "FlightDialogBody",
@@ -45,7 +67,9 @@
     data () {
       return {
 
-        infoIcon:  mdiInformation,
+        infoIcon:  mdiInformationOutline,
+        starIcon:  mdiStar,
+        mapIcon:  mdiMapMarker,
         
         paragraphsList: {}
       }
@@ -55,8 +79,8 @@
 
     beforeMount() {
       
-      console.log("beforeMount()")
-        this.parseParas()
+      //console.log("beforeMount()")
+      this.parseParas()
 
     },
 
@@ -65,7 +89,7 @@
 
       body () {
 
-        console.log("Watching 'body'")
+        //console.log("Watching 'body'")
         this.parseParas()
 
       },
@@ -78,7 +102,7 @@
       // Modify this method to add/remove icons for the flight info dialog. 
       parseParas () {
         
-        console.log("*** Parsing Paragraphs ***")
+        //console.log("*** Parsing Paragraphs ***")
 
         const parasList = []
 

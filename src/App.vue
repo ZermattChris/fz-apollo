@@ -436,7 +436,7 @@ export default {
     }
 
     const data = await response.json()
-    console.log('data returned: ', data)
+    //console.log('data returned: ', data)
 
     // Here we need to update the Customer id & secret with Vuex
     this.$store.dispatch('setStripeCustId', data.customerId)

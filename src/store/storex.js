@@ -1021,12 +1021,12 @@ export default new Vuex.Store({
       // if we have a valid Array then loop through looking for the matching Flight Object's body. 
 
 
-      console.log("-> Checking iterable. state._flightsList")
-      console.log(typeof state._flightsList)
-      console.log(state._flightsList)
+      // console.log("-> Checking iterable. state._flightsList")
+      // console.log(typeof state._flightsList)
+      // console.log(state._flightsList)
 
       if (!isIterable(state._flightsList)) {
-        console.log("-> Not iterable. state._flightsList")
+        // console.log("-> Not iterable. state._flightsList")
         return null
       }
 
