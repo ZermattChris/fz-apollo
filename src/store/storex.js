@@ -187,11 +187,11 @@ export default new Vuex.Store({
       state.stripeErrorMessage = errMsg
     },
     STRIPE_CUSTOMER_ID(state, id) {
-      // console.log('1.1setStripeCustId set value: "'+id+'" current value:'+this.$store.state.custClientId)
+      console.log('1.1setStripeCustId set value: "'+id+'" current value:'+ state.custClientId)
       state.custClientId = id
-      // console.log('1.2setStripeCustId set value: "'+id+'" current value:'+this.$store.state.custClientId)
+      console.log('1.2setStripeCustId set value: "'+id+'" current value:'+ state.custClientId)
       localStorage.custClientId = id
-      // console.log('1.3setStripeCustId set value: "'+id+'" current value:'+this.$store.state.custClientId)
+      console.log('1.3setStripeCustId set value: "'+id+'" current value:'+ state.custClientId)
     },
     STRIPE_CUSTOMER_SECRET(state, secret) {
       state.custClientSecret = secret
@@ -604,11 +604,11 @@ export default new Vuex.Store({
       context.commit("ORDER_ID", id)
     },
     setStripeCustId(context, id) {
-      // console.log('1setStripeCustId set value: "'+id+'" current value:'+this.$store.state.custClientId)
+      console.log('1setStripeCustId set value: "'+id+'" current value:'+ state.custClientId)
       context.commit("STRIPE_CUSTOMER_ID", id)
-      // console.log('2setStripeCustId set value: "'+id+'" current value:'+this.$store.state.custClientId)
+      console.log('2setStripeCustId set value: "'+id+'" current value:'+ state.custClientId)
       localStorage.custClientId = id
-      // console.log('3setStripeCustId set value: "'+id+'" current value:'+this.$store.state.custClientId)
+      console.log('3setStripeCustId set value: "'+id+'" current value:'+ state.custClientId)
     },
     setStripeCustSecret(context, secret) {
       context.commit("STRIPE_CUSTOMER_SECRET", secret)
