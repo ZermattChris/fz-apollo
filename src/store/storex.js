@@ -188,7 +188,7 @@ export default new Vuex.Store({
     },
     STRIPE_CUSTOMER_ID(state, id) {
       state.custClientId = id
-      localStorage.custClientId = id
+      // localStorage.custClientId = id
     },
     STRIPE_CUSTOMER_SECRET(state, secret) {
       state.custClientSecret = secret
@@ -602,6 +602,7 @@ export default new Vuex.Store({
     },
     setStripeCustId(context, id) {
       context.commit("STRIPE_CUSTOMER_ID", id)
+      localStorage.custClientId = id
     },
     setStripeCustSecret(context, secret) {
       context.commit("STRIPE_CUSTOMER_SECRET", secret)
