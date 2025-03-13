@@ -413,38 +413,40 @@ export default {
     // Grab existing customer from Stripe, or create a new one if not yet created.
     //console.log('NEW App mounted -> grab Stripe customer.')
 
-    // Grab customer 'client id' from Vuex.
-    const postData = { 
-      "custId": this.$store.state.custClientId,
-      "custClientSecret": this.$store.state.custClientSecret,
-      "setupIntentId": this.$store.state.setupIntentId,
-      "isDev": this.$store.state._DEV,
-    }
+    if(this.$store.state._currentStep == 'Start' && this.$store.state.custClientId == '' ) {
 
-    const response = await fetch(
-      'https://gateway.flyzermatt.com/create-customer', {
-        method: 'POST',
-        body: JSON.stringify(postData),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+      // Grab customer 'client id' from Vuex.
+      const postData = {
+        "custId": this.$store.state.custClientId,
+        "custClientSecret": this.$store.state.custClientSecret,
+        "setupIntentId": this.$store.state.setupIntentId,
+        "isDev": this.$store.state._DEV,
       }
-    )
-    if (response.status !== 200) {
-      console.log('Fatal Error => Not able to connect to Stripe: ', response.status, response.statusText)
-      return
+
+      const response = await fetch(
+        'https://gateway.flyzermatt.com/create-customer', {
+          method: 'POST',
+          body: JSON.stringify(postData),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      )
+      if (response.status !== 200) {
+        console.log('Fatal Error => Not able to connect to Stripe: ', response.status, response.statusText)
+        return
+      }
+
+      const data = await response.json()
+      //console.log('data returned: ', data)
+
+      // Here we need to update the Customer id & secret with Vuex
+      console.log('Initialise Stripe Data')
+      this.$store.dispatch('setStripeCustId', data.customerId)
+      this.$store.dispatch('setStripeCustSecret', data.clientSecret) // don't store this anywhere but memory.
+      this.$store.dispatch('setStripeSetupIntentId', data.setupIntentId) // don't store this anywhere but memory.
+
     }
-
-    const data = await response.json()
-    //console.log('data returned: ', data)
-
-    // Here we need to update the Customer id & secret with Vuex
-    this.$store.dispatch('setStripeCustId', data.customerId)
-    this.$store.dispatch('setStripeCustSecret', data.clientSecret) // don't store this anywhere but memory.
-    this.$store.dispatch('setStripeSetupIntentId', data.setupIntentId) // don't store this anywhere but memory.
-
-    
-
     // END: STRIPE INIT.
 
 
