@@ -466,7 +466,7 @@
 
 
         // Setup dev/live API call to Tommy.
-        let apiPath = "https://bookings.simpleitsolutions.ch/api/flightsavailable/" + flightId + "/" + flDate
+        let apiPath = "https://bookings.flyzermatt.com/api/flightsavailable/" + flightId + "/" + flDate
         if (this.$store.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/flightsavailable/" + flightId + "/" + flDate
 
         
@@ -707,7 +707,7 @@
   .Label {
     margin-bottom: 0.25rem;
     font-size: 0.93rem;
-    font-weight: var(--fontWeightNormal);
+    /*font-weight: var(--fontWeightNormal);*/
     transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     user-select: none;

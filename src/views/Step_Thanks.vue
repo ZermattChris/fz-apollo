@@ -182,6 +182,11 @@
             this.onSendSMSToGateway()
 
             this.resetLocalStorage()
+
+            //START Added TOM 13.01.24 :: Remove the Stripe Information so this Stripe Customer cannot be referred to again.
+            this.resetSessionStorage()
+            //END Added TOM 13.01.24
+
             break;
           }
 
@@ -303,10 +308,10 @@
         }
 
         // Setup dev/live API call to Tommy.
-        // let apiPath = "https://bookings.simpleitsolutions.ch/api/createcheckout"
+        // let apiPath = "https://bookings.flyzermatt.com/api/createcheckout"
         // if (this.$store.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/createcheckout"
 
-        let apiPath = "https://bookings.simpleitsolutions.ch/api/createCustomerOrder"
+        let apiPath = "https://bookings.flyzermatt.com/api/createCustomerOrder"
         if (this.$store.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/createCustomerOrder"
         //alert("Calling Make Booking with Tommy: ", apiPath)
 
@@ -352,7 +357,7 @@
 
 
         // Setup dev/live API call to Tommy.
-        let apiPath = "https://bookings.simpleitsolutions.ch/api/resendCustomerConfirmation/" + this.originalOrderId + "/" + this.resendEmail
+        let apiPath = "https://bookings.flyzermatt.com/api/resendCustomerConfirmation/" + this.originalOrderId + "/" + this.resendEmail
         if (this.$store.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/resendCustomerConfirmation/" + this.originalOrderId + "/" + this.resendEmail
 
         axios.get(apiPath)
@@ -406,6 +411,13 @@
         this.$store.dispatch('clearSlotsPassengers', '')
       },
 
+      //START Added TOM 13.01.24
+      resetSessionStorage() {
+        console.log('resetSessionStorage()!')
+        // window.localStorage.clear()
+        window.sessionStorage.clear()    // this should reset all of the Stripe data as well.
+      }
+      //END Added TOM 13.01.24
 
     },
 

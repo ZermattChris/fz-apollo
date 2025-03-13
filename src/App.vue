@@ -573,7 +573,7 @@ export default {
 
 
       // Setup dev/live API call to Tommy.
-      let apiPath = "https://bookings.simpleitsolutions.ch/api/createPartnerOrder"
+      let apiPath = "https://bookings.flyzermatt.com/api/createPartnerOrder"
       if (this.$store.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/createPartnerOrder"
 
       let call = await fetch(apiPath, {
@@ -921,7 +921,7 @@ export default {
 /* My custom CSS variable */
 :root {
   --fzselected-color: 255, 187, 0;
-  --fz-link-hilite-color: var(--v-primary-base);
+  /*--fz-link-hilite-color: var(--v-primary-base);*/
 }
 
 

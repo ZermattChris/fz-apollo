@@ -149,7 +149,7 @@
         // Check for valid email format.
 
         // Call Tommy API
-        // https://bookings.simpleitsolutions.ch/api/resendCustomerConfirmation/[orderID]/[email]
+        // https://bookings.flyzermatt.com/api/resendCustomerConfirmation/[orderID]/[email]
 
         
         const orderID = this.$store.state.orderID
@@ -158,7 +158,7 @@
 
 
         // Setup dev/live API call to Tommy.
-        let apiPath = "https://bookings.simpleitsolutions.ch/api/resendCustomerConfirmation/" + orderID + "/" + this.resendEmail
+        let apiPath = "https://bookings.flyzermatt.com/api/resendCustomerConfirmation/" + orderID + "/" + this.resendEmail
         if (this.$store.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/resendCustomerConfirmation/" + orderID + "/" + this.resendEmail
 
 

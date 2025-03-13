@@ -458,7 +458,7 @@ export default new Vuex.Store({
 
 
       // Setup dev/live API call to Tommy.
-      let apiPath = "https://bookings.simpleitsolutions.ch/api/flightoptions/" + flDate
+      let apiPath = "https://bookings.flyzermatt.com/api/flightoptions/" + flDate
       if (context.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/flightoptions/" + flDate
 
 
@@ -503,7 +503,7 @@ export default new Vuex.Store({
 
 
       // Setup dev/live API call to Tommy.
-      let apiPath = "https://bookings.simpleitsolutions.ch/api/flightsavailable/" + flightId + "/" + flDate
+      let apiPath = "https://bookings.flyzermatt.com/api/flightsavailable/" + flightId + "/" + flDate
       if (context.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/flightsavailable/" + flightId + "/" + flDate
 
 
@@ -534,7 +534,7 @@ export default new Vuex.Store({
     async init(context) {
 
       // Setup dev/live API call to Tommy.
-      let apiPath = "https://bookings.simpleitsolutions.ch/api/init"
+      let apiPath = "https://bookings.flyzermatt.com/api/init"
       if (context.state._DEV === true) apiPath = "https://bookings-dev.simpleitsolutions.ch/api/init"
 
 
