@@ -383,8 +383,11 @@
         // this.originalOrderId = this.$store.state.orderID
         this.originalEmail = this.$store.state.contactEmail
 
-        this.$store.dispatch('setStripeCustId', '')    
+        console.log('0.1setStripeCustId current value:'+this.$store.state.custClientId)
+        this.$store.dispatch('setStripeCustId', '')
+        console.log('0.2setStripeCustId current value:'+this.$store.state.custClientId)
         localStorage.custClientId = ''
+        console.log('0.3setStripeCustId current value:'+this.$store.state.custClientId)
         this.$store.dispatch('setStripeCustSecret', '')
         this.$store.dispatch('setStripeSetupIntentId', '')   
         localStorage.setupIntentId = ''
