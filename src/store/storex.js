@@ -604,11 +604,11 @@ export default new Vuex.Store({
       context.commit("ORDER_ID", id)
     },
     setStripeCustId(context, id) {
-      console.log('1setStripeCustId set value: "'+id+'" current value:'+ state.custClientId)
+      console.log('1setStripeCustId set value: "'+id)
       context.commit("STRIPE_CUSTOMER_ID", id)
-      console.log('2setStripeCustId set value: "'+id+'" current value:'+ state.custClientId)
+      console.log('2setStripeCustId set value: "'+id)
       localStorage.custClientId = id
-      console.log('3setStripeCustId set value: "'+id+'" current value:'+ state.custClientId)
+      console.log('3setStripeCustId set value: "'+id)
     },
     setStripeCustSecret(context, secret) {
       context.commit("STRIPE_CUSTOMER_SECRET", secret)
