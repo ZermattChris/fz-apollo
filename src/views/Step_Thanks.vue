@@ -385,7 +385,8 @@
 
         this.$store.dispatch('setStripeCustId', '')    
         localStorage.custClientId = ''
-        this.$store.dispatch('setStripeCustSecret', '')    
+        this.$store.dispatch('custClientId', '')
+        this.$store.dispatch('setStripeCustSecret', '')
         this.$store.dispatch('setStripeSetupIntentId', '')   
         localStorage.setupIntentId = ''
 
