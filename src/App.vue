@@ -418,9 +418,12 @@ export default {
 
       // Grab customer 'client id' from Vuex.
       const postData = {
-        "custId": this.$store.state.custClientId,
-        "custClientSecret": this.$store.state.custClientSecret,
-        "setupIntentId": this.$store.state.setupIntentId,
+        "custId": '',
+        "custClientSecret": '',
+        "setupIntentId": '',
+        // "custId": this.$store.state.custClientId,
+        // "custClientSecret": this.$store.state.custClientSecret,
+        // "setupIntentId": this.$store.state.setupIntentId,
         "isDev": this.$store.state._DEV,
       }
 
