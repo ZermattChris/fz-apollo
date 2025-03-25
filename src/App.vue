@@ -413,7 +413,8 @@ export default {
     // Grab existing customer from Stripe, or create a new one if not yet created.
     //console.log('NEW App mounted -> grab Stripe customer.')
 
-    if(this.$store.state._currentStep == 'Start' && this.$store.state.custClientId == '' ) {
+    // if(this.$store.state._currentStep == 'Start' && this.$store.state.custClientId == '' ) {
+    if(this.$store.state._currentStep == 'Start') {
 
       // Grab customer 'client id' from Vuex.
       const postData = {
