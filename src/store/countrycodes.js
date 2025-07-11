@@ -353,6 +353,9 @@ const countrycodes = [
       code: 'LU', map: '🇱🇺', phoneCode: 352, value: 'Luxembourg',
     },
     {
+      code: 'MO', map: '🇲🇴', phoneCode: 853, value: 'Macau',
+    },
+    {
       code: 'MK', map: '🇲🇰', phoneCode: 389, value: 'Macedonia',
     },
     {
