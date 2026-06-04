@@ -178,8 +178,8 @@
             // Integrate into Tommy's system.
             this.bookWithTommy()
 
-            // Send SMS to the Beast
-            this.onSendSMSToGateway()
+            // Send SMS to the Beast ## 2026-06-04: MOVED SMS CALL TO BOOKING SYSTEM BACKEND
+            // this.onSendSMSToGateway()
 
             this.resetLocalStorage()
 
